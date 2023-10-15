@@ -4,97 +4,129 @@ const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
-let currentPage = '';
+//let currentPage = '';
+let dataType = '';
 let raceData = '';
+let classData = '';
+
+let globalData = {
+    currentPage: '',
+    dataType: '',
+    raceData: '',
+    classData: ''
+}
 
 function goHome() {
     // Clear previous page
     clearPrevPage();
 
     // Set page header to HOME
-    currentPage = 'Home';
-    SetHeader(currentPage);
+    currentPage = 'Homepage';
+    globalData.currentPage = 'Homepage';
+    SetHeader(globalData.currentPage);
 
     // Add HOME info to <main>
-    const homePageTxt = document.createTextNode('Welcome to homepage');
+    const homeArticle1 = document.createElement('article');
+    const homePageTxt = document.createTextNode('Welcome to the homepage');
+    const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos!');
+    const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life! Please check in regurlarly for new updates. THX!!');
     homePage.appendChild(homePageTxt);
+    homeArticle1.appendChild(article1Txt1);
+    homeArticle1.appendChild(article1Txt2);
     mainElement.appendChild(homePage);
+    mainElement.appendChild(homeArticle1);
 }
 
-goHome()
+goHome();
 
 async function getRaces() {
 
- /*    let raceIndex = ""
+    currentPage = 'races';
+    globalData.currentPage = 'races';
+    
+    if (verifyLoadNeed(raceData) == false) {
 
-    if (verifyLoadNeed(raceData) == true) {
-        console.log('true');
+        console.log('Load NOT needed!');
+
+        addCards(raceData);
+
     } else {
-        console.log('false');
+        console.log('LOAD NEEDED! LOAD NEEDED!');
         const raceIndexPromise = await fetch('https://www.dnd5eapi.co/api/races');
         raceIndex = await raceIndexPromise.json();
-        raceData = raceIndex.results;
-    }
- */
-    const raceIndexPromise = await fetch('https://www.dnd5eapi.co/api/races');
-    raceIndex = await raceIndexPromise.json();
-    raceData = raceIndex.results;
 
-    // Set data to variable to prevent loading from API on next run:
-    currentPage = 'Races';
+        // Set data to variable to prevent loading from API on next run:
+        raceData = raceIndex.results;
+
+        addCards(raceData);
+    }
+};
+
+async function getClasses() {
+
+    currentPage = 'classes';
+    globalData.currentPage = 'classes';
+    
+    if (verifyLoadNeed(classData) == false) {
+
+        console.log('Load NOT needed!');
+
+        addCards(classData);
+
+    } else {
+        console.log('LOAD NEEDED! LOAD NEEDED!');
+        const classIndexPromise = await fetch('https://www.dnd5eapi.co/api/classes');
+        classIndex = await classIndexPromise.json();
+
+        // Set data to variable to prevent loading from API on next run:
+        classData = classIndex.results;
+
+        addCards(classData);
+    }
+};
+
+function addCards(data) {
 
     // Clear previous page and set new one:
     clearPrevPage();
-    SetHeader(currentPage);
+    SetHeader(globalData.currentPage);
 
-    // Add cards
-    addCards(raceIndex.results);
-
-
-
-
-/*     raceIndex.results.forEach(eachRace => {
-    createCard(eachRace);
-    }); */
-}
-
+    // Add cards to the page:
+    data.forEach(eachItem => {
+    createCard(eachItem);
+    });
+};
 
 function createCard(data) {
-    // Clear previous page
-
-
     const card = document.createElement('article');
 
-    const raceName = document.createElement('h3');
-    const raceNameTxt = document.createTextNode(data.name);
-    raceName.appendChild(raceNameTxt);
+    const cardName = document.createElement('h3');
+    const cardNameTxt = document.createTextNode(data.name);
+    cardName.appendChild(cardNameTxt);
 
-    const racePic = document.createElement('img');
-    racePic.id = data.index
+    const cardPic = document.createElement('img');
+    cardPic.id = data.index
 
     const buttonContainer = document.createElement('div');
     const selectButton = document.createElement('button');
     const selectButtonTxt = document.createTextNode("Click for more info");
     selectButton.appendChild(selectButtonTxt);
 
-    card.appendChild(raceName);
-    card.appendChild(racePic);
+    card.appendChild(cardName);
+    card.appendChild(cardPic);
     card.appendChild(buttonContainer);   
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(card);
 
-    const raceImg = document.querySelector(`#${data.index}`)
+    const cardImg = document.querySelector(`#${data.index}`)
 
-    raceImg.src = `./images/races/${data.index}.jpg`;
-/*     const racePicIndex = data.index.toString()
-    const racePicSrc = `./images/races/${racePicIndex}`
- */
+    cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
 }
 
 function SetHeader (title) {
     const curPageHeader = document.createElement('h2');
     const pageHeader = document.getElementById('currentPageHeader');
-    const pageHeaderTxt = document.createTextNode(title);
+    const pageHeaderTxt = document.createTextNode(title.toUpperCase());
 
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
@@ -109,20 +141,19 @@ miscNav = document.getElementById('#misc');
 
 allNav = document.querySelectorAll('nav ul li a');
 
-// console.log(allNav);
-
-
 function setNavListen() {
     allNav.forEach( eachItem => {
-        eachItem.addEventListener('click', function(){
-            if (eachItem.id == 'Races') {
+        eachItem.addEventListener('click', function(e){
+            e.preventDefault();
+            if (eachItem.id == 'races') {
                 getRaces();
+            } else if (eachItem.id == 'classes') {
+                getClasses();
             } else {
                 goHome();
             }
-        })
-        console.log(eachItem.id);
         });
+    });
 }
 setNavListen();
 
@@ -149,10 +180,4 @@ function verifyLoadNeed(asset) {
     } else {
         return true;
     }
-}
-
-function addCards(array) {
-    array.forEach(eachItem => {
-    createCard(eachItem);
-    });
 }

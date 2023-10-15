@@ -26,15 +26,16 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Dragon_Hunter', cursive;
+    font-family: 'Dragon_Lord', cursive;
     font-weight: 400;
 }
 
 h1 {
-    background-image: url(./images/DnD-5th_Banner_2.jpg);
-    background-size: cover;
+
     position: flex;
     align-content: center;
+    background-image: url(./images/DnD-5th_Banner_2.jpg);
+    background-size: cover;
     font-size: 50px;
     margin-bottom: .1em;
     min-height: 3vw;
@@ -42,6 +43,7 @@ h1 {
 }
 
 h2 {
+    font-family: 'Dragon_Hunter', cursive;
     font-size: 2.5em;
     color:#0c3967;
     margin-top: 1em;
