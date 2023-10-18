@@ -4,17 +4,24 @@ const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
-//let currentPage = '';
+let currentPage = '';
 let dataType = '';
 let raceData = '';
 let classData = '';
+let spellData = '';
 
+let raceCount = '';
+let classCount = '';
+let spellCount = '';
+
+/*
 let globalData = {
     currentPage: '',
     dataType: '',
     raceData: '',
     classData: ''
 }
+*/
 
 function goHome() {
     // Clear previous page
@@ -22,8 +29,12 @@ function goHome() {
 
     // Set page header to HOME
     currentPage = 'Homepage';
+    SetHeader(currentPage);
+
+    /* Use only if I decide to keep the global vars in an object
     globalData.currentPage = 'Homepage';
     SetHeader(globalData.currentPage);
+    */
 
     // Add HOME info to <main>
     const homeArticle1 = document.createElement('article');
@@ -42,21 +53,22 @@ goHome();
 async function getRaces() {
 
     currentPage = 'races';
-    globalData.currentPage = 'races';
+    // globalData.currentPage = 'races';
     
     if (verifyLoadNeed(raceData) == false) {
 
-        console.log('Load NOT needed!');
+        console.log('Races: Load NOT needed!');
 
         addCards(raceData);
 
     } else {
-        console.log('LOAD NEEDED! LOAD NEEDED!');
+        console.log('Races: LOAD NEEDED! LOAD NEEDED!');
         const raceIndexPromise = await fetch('https://www.dnd5eapi.co/api/races');
         raceIndex = await raceIndexPromise.json();
 
         // Set data to variable to prevent loading from API on next run:
         raceData = raceIndex.results;
+        raceCount = raceIndex.count;
 
         addCards(raceData);
     }
@@ -65,35 +77,98 @@ async function getRaces() {
 async function getClasses() {
 
     currentPage = 'classes';
-    globalData.currentPage = 'classes';
+    //globalData.currentPage = 'classes';
     
     if (verifyLoadNeed(classData) == false) {
 
-        console.log('Load NOT needed!');
+        console.log('Classes: Load NOT needed!');
 
         addCards(classData);
 
     } else {
-        console.log('LOAD NEEDED! LOAD NEEDED!');
+        console.log('Classes: LOAD NEEDED! LOAD NEEDED!');
         const classIndexPromise = await fetch('https://www.dnd5eapi.co/api/classes');
         classIndex = await classIndexPromise.json();
 
         // Set data to variable to prevent loading from API on next run:
         classData = classIndex.results;
+        classCount = classIndex.count;
 
         addCards(classData);
     }
 };
 
+async function getSpells() {
+
+    currentPage = 'spells';
+    //globalData.currentPage = 'spells';
+    
+    if (verifyLoadNeed(spellData) == false) {
+
+        console.log('Spells: Load NOT needed!');
+
+        addList(spellData);
+
+    } else {
+        console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
+        const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
+        spellIndex = await spellIndexPromise.json();
+
+        // Set data to variable to prevent loading from API on next run:
+        spellData = spellIndex.results;
+        spellCount = spellIndex.count;
+
+        addList(spellData);
+    }
+};
+/*
+async function getMonsters() {
+
+    currentPage = 'spells';
+    //globalData.currentPage = 'spells';
+    
+    if (verifyLoadNeed(spellData) == false) {
+
+        console.log('Spells: Load NOT needed!');
+
+        addList(spellData);
+
+    } else {
+        console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
+        const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
+        spellIndex = await spellIndexPromise.json();
+
+        // Set data to variable to prevent loading from API on next run:
+        spellData = spellIndex.results;
+        spellCount = spellIndex.count;
+
+        addList(spellData);
+    }
+};
+*/
 function addCards(data) {
 
-    // Clear previous page and set new one:
+    // Clear previous page and set new title:
     clearPrevPage();
-    SetHeader(globalData.currentPage);
+    SetHeader(currentPage);
+    //SetHeader(globalData.currentPage);
 
     // Add cards to the page:
     data.forEach(eachItem => {
     createCard(eachItem);
+    });
+};
+
+function addList(data) {
+
+    // Clear previous page and set new title:
+    clearPrevPage();
+    SetHeader(currentPage);
+    //SetHeader(globalData.currentPage);
+
+    // Add list to the page:
+    data.forEach(eachItem => {
+    createList(eachItem);
     });
 };
 
@@ -120,13 +195,52 @@ function createCard(data) {
 
     const cardImg = document.querySelector(`#${data.index}`)
 
-    cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
+    cardImg.src = `./images/${currentPage}/${data.index}.jpg`;
+    // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
+}
+
+function createList(data) {
+    const listItem = document.createElement('article');
+
+    const listItemName = document.createElement('h3');
+    const listItemTxt = document.createTextNode(data.name);
+    listItemName.appendChild(listItemTxt);
+
+    // const listItemPic = document.createElement('img');
+    // listItemPic.id = data.results.index
+
+    const buttonContainer = document.createElement('div');
+    const selectButton = document.createElement('button');
+    const selectButtonTxt = document.createTextNode("Click for more info");
+    selectButton.appendChild(selectButtonTxt);
+
+    listItem.appendChild(listItemName);
+    // card.appendChild(cardPic);
+    listItem.appendChild(buttonContainer);   
+    buttonContainer.appendChild(selectButton);
+    mainElement.appendChild(listItem);
+
+    // const cardImg = document.querySelector(`#${data.index}`)
+
+    // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
 }
 
 function SetHeader (title) {
     const curPageHeader = document.createElement('h2');
     const pageHeader = document.getElementById('currentPageHeader');
-    const pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    let pageHeaderTxt = '';
+
+    if (title == 'Homepage') {
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title == 'races') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${raceCount})`);
+    } else if (title == 'classes') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${classCount})`);
+    } else if (title == 'spells') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${spellCount})`);
+    } else {
+        pageHeaderTxt = document.createTextNode('ERROR');
+    }
 
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
@@ -149,6 +263,8 @@ function setNavListen() {
                 getRaces();
             } else if (eachItem.id == 'classes') {
                 getClasses();
+            } else if (eachItem.id == 'spells') {
+                getSpells();
             } else {
                 goHome();
             }
@@ -167,7 +283,7 @@ function removeAllChildNodes(parent) {
     }
 }
 
-// Use reremoveAllChildNodes() function to clear the page.
+// Use removeAllChildNodes() function to clear the page.
 function clearPrevPage() {
     removeAllChildNodes(homePage);
     removeAllChildNodes(pageHeaderDiv);
