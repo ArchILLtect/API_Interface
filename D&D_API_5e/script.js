@@ -37,15 +37,24 @@ function goHome() {
     */
 
     // Add HOME info to <main>
-    const homeArticle1 = document.createElement('article');
+    const homeArticle = document.createElement('article');
+    const homeArticleItem1 = document.createElement('p');
+    const homeArticleItem2 = document.createElement('p');
+    const homeArticleItem3 = document.createElement('p');
     const homePageTxt = document.createTextNode('Welcome to the homepage');
-    const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos!');
-    const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life! Please check in regurlarly for new updates. THX!!');
+    const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos! ');
+    const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life!');
+    const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
     homePage.appendChild(homePageTxt);
-    homeArticle1.appendChild(article1Txt1);
-    homeArticle1.appendChild(article1Txt2);
+    homeArticleItem1.appendChild(article1Txt1);
+    homeArticleItem2.appendChild(article1Txt2);
+    homeArticleItem3.appendChild(article1Txt3);
+    homeArticle.appendChild(homeArticleItem1);
+    homeArticle.appendChild(homeArticleItem2);
+    homeArticle.appendChild(homeArticleItem3);
     mainElement.appendChild(homePage);
-    mainElement.appendChild(homeArticle1);
+    mainElement.appendChild(homeArticle);
+    homeArticle.id = "homeArticle"
 }
 
 goHome();
@@ -206,23 +215,26 @@ function createList(data) {
     const listItemTxt = document.createTextNode(data.name);
     listItemName.appendChild(listItemTxt);
 
-    // const listItemPic = document.createElement('img');
-    // listItemPic.id = data.results.index
-
+    const listItemPic = document.createElement('img');
+    const itemNameRaw = data.index
+    const itemName = itemNameRaw.replace(/ /g, "-");
+    listItemPic.id = itemName
+    
     const buttonContainer = document.createElement('div');
     const selectButton = document.createElement('button');
     const selectButtonTxt = document.createTextNode("Click for more info");
     selectButton.appendChild(selectButtonTxt);
 
     listItem.appendChild(listItemName);
-    // card.appendChild(cardPic);
+    listItem.appendChild(listItemPic);
     listItem.appendChild(buttonContainer);   
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(listItem);
 
-    // const cardImg = document.querySelector(`#${data.index}`)
+    const listItemImg = document.querySelector(`#${itemName}`)
 
-    // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
+    listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
+    //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
 }
 
 function SetHeader (title) {

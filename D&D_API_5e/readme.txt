@@ -12,3 +12,8 @@ Integrate Monsters, equipment, etc. that needs to be imported.<br>
 <br>
 <br>
 <br>
+<br>
+<br>
+Traffic Cone Image courtesy of Tribaliumivanka @ depositphotos.com/vector/traffic-cone-icon-34326829.html<br>
+<br>
+<br>

@@ -1,5 +1,8 @@
 /* Created on 9/09/23 by ArchILLtect */
 
+
+
+
 @font-face {
     font-family: Dragon_Hunter;
     src: url(./fonts/DragonHunter-9Ynxj.otf);
@@ -48,6 +51,8 @@ h2 {
     color:#0c3967;
     margin-top: 1em;
     margin-bottom: 1em;
+    padding: 0.5rem 30vw 0.5rem 30vw;
+    padding-top: 0.5rem;
     padding-left: 30vw;
     padding-right: 30vw;
     text-align: center;
@@ -55,9 +60,9 @@ h2 {
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 3em;
     color:#0c3967;
-    margin: 1em 0 1em 0;
+    margin: 0.1rem 0 0.1rem 0;
 }
 
 p {
@@ -67,7 +72,7 @@ p {
 }
 
 header {
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: center;
 }
 
@@ -82,6 +87,7 @@ nav {
 
 main {
     padding: 20px;
+    height: 65vh;
 }
 
 article img {
@@ -103,6 +109,10 @@ strong {
     font-weight: 500;
 }
 
+button {
+    margin-top: 1rem;
+}
+
 #currentPageHeader {
     display: flex;
     justify-content: center;
@@ -110,6 +120,15 @@ strong {
 
 #mainnav ul {
     border-top: 2px solid #b21f1f;
+}
+
+#mainnav ul :nth-child(2),
+#mainnav ul :nth-child(5),
+#mainnav ul :nth-child(7),
+#mainnav ul :nth-child(8) {
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    text-decoration-color: black;
 }
 
 #mainnav ul li a {
@@ -127,11 +146,43 @@ strong {
     opacity: 0.5;
 }
 
+#searchInputContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#searchInputContainer p {
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+}
+
+#searchInput {
+    border: 2px solid black;
+}
+
+#homeArticle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    height: fit-content;
+    width: 80vw;
+    background-image: url(./images/construction-cone.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 @media only screen and (min-width: 600px) {
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 20px;
+        height: fit-content;
     }
 
     article {
@@ -157,6 +208,11 @@ strong {
     #mainnav ul li:last-of-type a {
         border-right: none;
     }
+
+    #homeArticle {
+        width: 60vw;
+    }
+
 }
 
 @media only screen and (min-width: 900px) {
@@ -164,6 +220,7 @@ strong {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
+        height: fit-content;
     }
 
     h1 {
@@ -171,4 +228,9 @@ strong {
         padding-top: 150px;
         padding-bottom: 150px;
     }
+
+    #homeArticle {
+        width: 60vw;
+    }
+
 }
