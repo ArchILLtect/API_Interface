@@ -3,12 +3,12 @@
 <br>
 <br>
 10/11/23 - Created the interface.<br>
+10/17/23 - Added Spells page and functionality. Also added count to the page header.
 <br>
 <br>
 TTD<br>
 <br>
-Add a 'mode' variable and a mode switch functionality to deal with huge difference in data points between "topics".<br>
-Integrate spells, equipment, etc. that need to be imported.<br>
+Integrate Monsters, equipment, etc. that needs to be imported.<br>
 <br>
 <br>
 <br>
