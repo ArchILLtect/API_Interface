@@ -88,9 +88,10 @@ async function fetchInfo(page) {
 
     } else {
 
+        CUR_COUNT = GetCount(page)
         console.log('API Load NOT needed!');
-        setCount(apiCount, page)
-        addContent(dataCache[page], apiCount);
+        //setCount(apiCount, page)
+        addContent(dataCache[page], CUR_COUNT);
 
     }
 };
@@ -121,9 +122,10 @@ async function fetchDetails(page) {
 
     } else {
 
+        CUR_COUNT = GetCount(page)
         console.log('API Load NOT needed!');
 
-        addContent(dataCache[page], apiCount);
+        addContent(dataCache[page], CUR_COUNT);
 
     }
 };
@@ -277,7 +279,8 @@ function createDetailsWindow(data) {
 
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
-    detailModal.classList.add('modalWindow')
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
 
     //Name
     const detailsHeader = document.createElement('div');
@@ -654,7 +657,8 @@ function createDetailsWindowNEW(data) {
 
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
-    detailModal.classList.add('modalWindow')
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
 
     //Name
     const detailsHeader = document.createElement('div');
@@ -666,7 +670,9 @@ function createDetailsWindowNEW(data) {
 
     //Image
     const detailImage = document.createElement('img');
-    //detailImage.src = `./images/${currentPage}/${data.index}.gif`;
+    detailImage.className = 'detailImage'
+    detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
+    console.log(detailImage.src)
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
 
 
@@ -724,15 +730,20 @@ function createDetailsWindowNEW(data) {
     closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
-    document.addEventListener('click', (event) => {
-        if (event.target === detailModal) {
-            detailModal.close();
-            detailModal.remove();
+
+    // Close and remove modal windows
+    document.addEventListener('keydown', function keydownListener(e) {
+        if (e.key === 'Escape') {
+            cleanUpModal();
         }
     });
-    closeButton.addEventListener('click', () => {
-        detailModal.close();
-        detailModal.remove();
+    document.addEventListener('click', function clickListener(event) {
+        if (e.target === detailModal) {
+            cleanUpModal();
+        }
+    });
+    closeButton.addEventListener('click', function clickListener() {
+        cleanUpModal();
     });
 
     detailModal.showModal();
@@ -817,6 +828,16 @@ function verifyLoadNeed(asset, prop) {
         return true;
     }
 };
+
+function cleanUpModal() {
+    const modal = document.getElementById('detailModal');
+    modal.remove();
+    
+    // Remove event listeners
+    document.removeEventListener('click', clickListener);
+    document.removeEventListener('keydown', keydownListener);
+    closeButton.removeEventListener('click', clickListener);
+}
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
@@ -940,6 +961,18 @@ function setCount(count, page) {
         spellCount = count;
     } else if (page === 'races') {
         raceCount = count;
+    };
+};
+
+function GetCount(page) {
+    if (page === 'races') {
+        return raceCount;
+    } else if (page === 'classes') {
+        return classCount;
+    } else if (page === 'spells') {
+        return spellCount;
+    } else if (page === 'races') {
+        return raceCount;
     };
 };
 

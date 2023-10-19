@@ -177,6 +177,11 @@ button {
     background-position: center;
 }
 
+.detailImage {
+    height: auto;
+    width: 30vw;
+}
+
 @media only screen and (min-width: 600px) {
     main {
         display: grid;
@@ -267,10 +272,7 @@ button {
         margin-bottom: 45px;
     }
 
-    .mainDetailContent img {
-        display: block;
-
-    }
+ 
 
     .mainDetailContent {
 

@@ -19,6 +19,7 @@ Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Move SetHeader function declaration to top of 'Main Functions'<br>
 Add spell item DC to details.<br>
 Add if conditional for input of None on modal window items.<br>
+Fix the modal window footer styles<br>
 <br>
 <br>
 <br>
