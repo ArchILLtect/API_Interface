@@ -229,6 +229,79 @@ button {
         padding-bottom: 150px;
     }
 
+    .modalWindow {
+        padding: 0px 20px 20px 20px;
+        max-height: 75%;
+        max-width: 75%;
+    }
+
+    #nameContainer {
+        position: fixed;
+        width: 75%;
+        /* border: 1px solid black; */
+        padding-top: 20px;
+        background-color: white;
+    }
+
+    .modalWindow h3 {
+        /*position: fixed;
+        top: 120px;
+        right: 50%;
+        border: 1px solid black;
+        background-color: azure;*/
+    }
+
+    .mainDetailContent {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 85px;
+    }
+
+    .mainDetailContent img {
+        display: block;
+
+    }
+
+    .mainDetailContent {
+
+    }
+
+    .detailItemsDiv {
+        margin-left: 20px;
+    }
+
+    .detailItemsDiv > div {
+        margin-bottom: 40px;
+        border-bottom: 1px solid black;
+    }
+
+    /* TEMP SPECIAL */
+    #damageItemsDiv {
+        font-size: 0.8rem;
+        margin: 20px;
+    }
+
+    /* TEMP SPECIAL */
+    #damageItemsDiv > p {
+        line-height: 2rem;
+        margin-bottom: 40px;
+        border-bottom: 1px solid black;
+    }
+
+    /* TEMP SPECIAL */
+    #damageTypeTitle {
+        color: green;
+    }
+
+    /* TEMP SPECIAL */
+    #damageTypeItem {
+        color: grey;
+    }
+
+    .detailTitle {
+
+    }
+
     #homeArticle {
         width: 60vw;
     }
