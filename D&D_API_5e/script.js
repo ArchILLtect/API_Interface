@@ -1,26 +1,25 @@
 /* Created on 10/11/23 by ArchILLtect */
 
 const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
-//const API_MAIN_URL = "./localCache/";
 
 const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
-let currentPage = '';
+
 let dataType = '';
 let raceData = '';
 let classData = '';
 let spellData = '';
-
+let currentPage = '';
 let itemCounter = 1;
 let apiCount = 0;
 
 let apiData;
 
-/* let raceCount = '';
+let raceCount = '';
 let classCount = '';
-let spellCount = ''; */
+let spellCount = '';
 
 const dataCache = {};
 
@@ -63,7 +62,10 @@ goHome('homepage');
 
 async function fetchInfo(page) {
 
-    const API_LOC_CUR = API_MAIN_URL + page;
+    // This URL is changed to use local files for fetching during dev.
+    //const API_LOC_CUR = API_MAIN_URL + page;
+    const API_LOC_CUR = `./localCache/${page}/localCache.json`;
+    
 
     currentPage = page;
     
@@ -72,6 +74,7 @@ async function fetchInfo(page) {
 
         console.log('API LOAD NEEDED! LOAD NEEDED!');
 
+
         const apiPromise = await fetch(API_LOC_CUR);
         apiIndex = await apiPromise.json();
 
@@ -79,8 +82,41 @@ async function fetchInfo(page) {
         apiData = apiIndex.results;
         apiCount = apiIndex.count;
 
+        setCount(apiCount, page)
         dataCache[page] = apiData;
+        addContent(apiData, apiCount);
 
+    } else {
+
+        console.log('API Load NOT needed!');
+        setCount(apiCount, page)
+        addContent(dataCache[page], apiCount);
+
+    }
+};
+
+
+
+async function fetchDetails(page) {
+
+    // This URL is changed to use local files for fetching during dev.
+    //const API_LOC_CUR = API_MAIN_URL + page;
+    const API_LOC_CUR = `./localCache/${currentPage}/${page}/localCache.json`;
+    
+    if (verifyLoadNeed(dataCache, page)) {
+
+
+        console.log('API LOAD NEEDED! LOAD NEEDED!');
+
+
+        const apiPromise = await fetch(apiCurrentURL);
+        apiIndex = await apiPromise.json();
+
+        // Set data to variable to prevent loading from API on next run:
+        apiData = apiIndex.results;
+        apiCount = apiIndex.count;
+
+        dataCache[page] = apiData;
         addContent(apiData, apiCount);
 
     } else {
@@ -91,6 +127,25 @@ async function fetchInfo(page) {
 
     }
 };
+
+
+/*
+
+        if (type == 'details') {
+            cacheData(detailsIndex, currentPage)
+            createDetailsWindowNEW(apiData, apiCount);
+        } else {
+
+
+        }
+
+
+
+
+
+
+*/
+
 
 function addContent(data, count) {
     if (count < 20) {
@@ -135,7 +190,11 @@ function createCard(data) {
     cardName.appendChild(cardNameTxt);
 
     const cardPic = document.createElement('img');
-    cardPic.id = data.index
+    const cardNameRaw = data.index
+    //TODO NEEDS NEW REGEX TO COVER ANY FOWARD SLASHES = (/) IN INPUTS
+    const cardTitleName = cardNameRaw.replace(/ /g, "-");
+    cardPic.id = cardTitleName
+        
 
     const buttonContainer = document.createElement('div');
     const selectButton = document.createElement('button');
@@ -152,6 +211,7 @@ function createCard(data) {
 
     cardImg.src = `./images/${currentPage}/${data.index}.jpg`;
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
+    selectButton.addEventListener('click', () => { getDetails(cardNameRaw, cardImg) } );
 }
 
 function createList(data) {
@@ -182,50 +242,30 @@ function createList(data) {
     const listItemImg = document.querySelector(`#${itemName}`)
 
     // TODO Uncomment line under to display photos
-    //listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
+    listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { getDetails(itemNameRaw, listItemImg) } );
 }
 
 async function getDetails(itemType) {
     const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
-    console.log(currentFetch)
+    //console.log(currentFetch);
 
 
 
     const detailsIndexPromise = await fetch(currentFetch);
     detailsIndex = await detailsIndexPromise.json();
 
-    console.log(detailsIndex)
+    //console.log(detailsIndex);
 
     // Cache the data:
-    cacheData(detailsIndex, currentPage)
+    cacheData(detailsIndex, currentPage);
 
-    createDetailsWindow(detailsIndex)
-
-
-
-/*
-    if (verifyLoadNeed(dataCache.spells.details) == false) {
-
-        console.log('Spells: Load NOT needed!');
-
-        addList(spellData);
-
-    } else {
-        console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
-        //const
-        const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
-        // const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
-        spellIndex = await spellIndexPromise.json();
-
-        // Set data to variable to prevent loading from API on next run:
-        spellData = spellIndex.results;
-        spellCount = spellIndex.count;
-
-        addList(spellData);
-    } */
+    //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
+    //createDetailsWindow(detailsIndex);
+    createDetailsWindowNEW(detailsIndex);
 }
+
 
 function createDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
@@ -616,7 +656,7 @@ function createDetailsWindowNEW(data) {
     detailName.textContent = data.name;
 
     //Image
-    //const detailImage = document.createElement('img');
+    const detailImage = document.createElement('img');
     //detailImage.src = `./images/${currentPage}/${data.index}.gif`;
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
 
@@ -628,6 +668,8 @@ function createDetailsWindowNEW(data) {
         // For objects:
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
+                console.log(data)
+                console.log(key)
                 const eachItem = data[key];
                 const currentItem = `detailItem${itemCounter}`;
                 const detailItemDiv = document.createElement('div');
@@ -635,9 +677,31 @@ function createDetailsWindowNEW(data) {
                 const detailItem = document.createElement('p');
                 const detailItemName = document.createElement('p');
                 itemCounter++;
+                detailItemDiv.appendChild(detailItemName);
+                detailItemDiv.appendChild(detailItem);
+                detailItemName.textContent = key.toUpperCase();
+                detailItem.textContent = eachItem;
+                detailItemName.classList.add('detailTitle');
+                detailItem.id = currentPage + 'Desc';
+                detailItem.classList.add('detailItem');
+                detailItemsDiv.appendChild(detailItemDiv);
+                for (const secondkey in data[key]) {
+                    let newData = data[key];
+                    //console.log(secondkey);
+                    //console.log(data[key]);
+                    if (Array.isArray(newData)) {
+                        //console.log(data[key]);
+                        //console.log(secondkey);
+                        for (const lastkey in newData[key]) {
+                            let lastData = newData[key];
+                            console.log(lastkey);
+                            console.log(lastData)
 
-
-    }
+                        }
+                    }
+                };//typeof newKey === 'object'
+            }//Array.isArray(key)
+        };//newKey.hasOwnProperty(key)
 
     const mainDetailsDiv = document.createElement('div');
     const detailsFooter = document.createElement('div');
@@ -653,7 +717,7 @@ function createDetailsWindowNEW(data) {
     closeButton.appendChild(closeButtonTxt);
     closeButton.addEventListener('click', () => {
         detailModal.close();
-        detailModal.remove();
+        //detailModal.remove();
     });
 
     detailModal.showModal();
@@ -662,7 +726,7 @@ function createDetailsWindowNEW(data) {
     //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
 
-} };
+};
 
 //TODO MOVE THIS FUNCTION DECLARTAION TO IT'S CORRECT PLACE = TOP OF FUNCTION LIST
 function SetHeader (title, count) {
@@ -741,7 +805,7 @@ function verifyLoadNeed(asset, prop) {
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
-    console.log(numberOfItems)
+    //console.log(numberOfItems)
 
     if (numberOfItems > 1) {
         if (
@@ -802,6 +866,111 @@ function cacheData(data, itemType) {
     }
 } */
 
+
+function countItems(obj) {
+    let count = 0;
+
+    function countRecursively(item) {
+        if (typeof item === 'object' && !Array.isArray(item)) {
+            for (const key in item) {
+                countRecursively(item[key]);
+                count++;
+            }
+        } else {
+            count++;
+        }
+    }
+
+    countRecursively(obj);
+    console.log(`Total number of items: ${count}`);
+}
+
+function findItems(objItem) {
+    const itemKeys = Object.keys(objItem);
+    let totalItems = 0;
+
+    for (const key of itemKeys) {
+        if (Array.isArray(objItem[key])) {
+            console.log(`${key}:`);
+            for (let i = 0; i < objItem[key].length; i++) {
+                console.log(objItem[key][i].name)
+                //console.log(`  [${i}] ${JSON.stringify(objItem[key][i])}`);
+                totalItems++;
+            }
+        } else if (typeof objItem[key] === 'object') {
+            console.log(`${key}:`);
+            totalItems += findItems(objItem[key]);
+        } else {
+            console.log(`${key}: ${objItem[key]}`);
+            totalItems++;
+        }
+    }
+
+    return totalItems;
+}
+
 function checkCache() {
     console.log(dataCache)
 }
+
+
+// TODO TEMP function for count
+
+function setCount(count, page) {
+    if (page === 'races') {
+        raceCount = count;
+    } else if (page === 'classes') {
+        classCount = count;
+    } else if (page === 'spells') {
+        spellCount = count;
+    } else if (page === 'races') {
+        raceCount = count;
+    };
+};
+
+
+/* 
+function processItem(key, item, parentDiv) {
+    if (Array.isArray(item)) {
+        const arrayDiv = document.createElement('div');
+        arrayDiv.id = 'detailItemsDiv' + key;
+        parentDiv.appendChild(arrayDiv);
+
+        const arrayName = document.createElement('p');
+        arrayName.textContent = key.toUpperCase();
+        arrayName.classList.add('detailTitle');
+        arrayDiv.appendChild(arrayName);
+
+        for (let i = 0; i < item.length; i++) {
+            const arrayItem = item[i];
+            const arrayItemDiv = document.createElement('div');
+            arrayItemDiv.id = 'detailItemsDiv' + key + i;
+            arrayDiv.appendChild(arrayItemDiv);
+
+            const arrayItemName = document.createElement('p');
+            arrayItemName.textContent = `Item ${i + 1}`;
+            arrayItemName.classList.add('detailTitle');
+            arrayItemDiv.appendChild(arrayItemName);
+
+            const arrayItemText = document.createElement('p');
+            arrayItemText.textContent = arrayItem;
+            arrayItemText.classList.add('detailItem');
+            arrayItemDiv.appendChild(arrayItemText);
+        }
+    } else if (typeof item === 'object') {
+        const objectDiv = document.createElement('div');
+        objectDiv.id = 'detailItemsDiv' + key;
+        parentDiv.appendChild(objectDiv);
+
+        const objectName = document.createElement('p');
+        objectName.textContent = key.toUpperCase();
+        objectName.classList.add('detailTitle');
+        objectDiv.appendChild(objectName);
+
+        for (const subKey in item) {
+            if (item.hasOwnProperty(subKey)) {
+                processItem(subKey, item[subKey], objectDiv);
+            }
+        }
+    }
+} */

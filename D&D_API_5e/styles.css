@@ -237,7 +237,7 @@ button {
 
     #detailsHeader {
         position: fixed;
-        width: 75%;
+        width: inherit;
         /* border: 1px solid black; */
         padding-top: 20px;
         background-color: white;
@@ -245,7 +245,7 @@ button {
 
     #detailsFooter {
         position: fixed;
-        width: 75%;
+        width: inherit;
         bottom: 108px;
         padding-bottom: 20px;
         background-color: white;
