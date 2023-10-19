@@ -9,6 +9,7 @@
 10/18/23 - Fixed modal window close button to be fixed inside window.<br>
 10/19/23 - Added footer to details view.<br>
 10/19/23 - Added DC data point to details.<br>
+10/19/23 - Updated the modal windows to remove itself once closed.<br>
 <br>
 <br>
 TTD<br>
@@ -22,4 +23,5 @@ Add if conditional for input of None on modal window items.<br>
 <br>
 Traffic Cone Image courtesy of Tribaliumivanka @ depositphotos.com/vector/traffic-cone-icon-34326829.html<br>
 <br>
+Functions needing work:<br>
 <br>

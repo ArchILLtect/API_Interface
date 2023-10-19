@@ -14,6 +14,7 @@ let classData = '';
 let spellData = '';
 
 let itemCounter = 1;
+let apiCount = 0;
 
 /* let raceCount = '';
 let classCount = '';
@@ -57,120 +58,52 @@ function goHome(page) {
 }
 goHome('homepage');
 
-async function getRaces(page) {
+
+async function fetchInfo(page) {
 
     const API_LOC_CUR = API_MAIN_URL + page;
 
     currentPage = page;
     
-    if (verifyLoadNeed(raceData) == false) {
+    if (verifyLoadNeed(dataCache, page)) {
 
-        //console.log('Races: Load NOT needed!');
 
-        addCards(raceData);
+        console.log('API LOAD NEEDED! LOAD NEEDED!');
+
+        const apiPromise = await fetch(API_LOC_CUR);
+        apiIndex = await apiPromise.json();
+
+        // Set data to variable to prevent loading from API on next run:
+        apiData = apiIndex.results;
+        apiCount = apiIndex.count;
+
+        dataCache[page] = apiData;
+
+        addContent(apiData, apiCount);
 
     } else {
 
-        //console.log('Races: LOAD NEEDED! LOAD NEEDED!');
+        console.log('API Load NOT needed!');
 
-        const raceIndexPromise = await fetch(API_LOC_CUR);
-        raceIndex = await raceIndexPromise.json();
+        addContent(dataCache[page], apiCount);
 
-        // Set data to variable to prevent loading from API on next run:
-        raceData = raceIndex.results;
-        raceCount = raceIndex.count;
-
-        addCards(raceData);
     }
 };
 
-async function getClasses(page) {
-
-    currentPage = page;
-    //globalData.currentPage = 'classes';
-    
-    if (verifyLoadNeed(classData) == false) {
-
-        //console.log('Classes: Load NOT needed!');
-
-        addCards(classData);
-
+function addContent(data, count) {
+    if (count < 20) {
+        addCards(data, count);
     } else {
-
-        //console.log('Classes: LOAD NEEDED! LOAD NEEDED!');
-
-        const classIndexPromise = await fetch('https://www.dnd5eapi.co/api/classes');
-        classIndex = await classIndexPromise.json();
-
-        // Set data to variable to prevent loading from API on next run:
-        classData = classIndex.results;
-        classCount = classIndex.count;
-
-        addCards(classData);
+        addList(data, count)
     }
-};
+}
 
-async function getSpells(page) {
-
-    currentPage = page
-    //currentPage = 'spells';
-    //globalData.currentPage = 'spells';
-    
-    if (verifyLoadNeed(spellData) == false) {
-
-        //console.log('Spells: Load NOT needed!');
-
-        addList(spellData);
-
-    } else {
-
-        //console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
-
-        //const
-        const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
-        // const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
-        spellIndex = await spellIndexPromise.json();
-
-        // Set data to variable to prevent loading from API on next run:
-        spellData = spellIndex.results;
-        spellCount = spellIndex.count;
-
-        addList(spellData);
-    }
-};
-/*TODO Add Monsters
-async function getMonsters(page) {
-
-    currentPage = 'spells';
-    //globalData.currentPage = 'spells';
-    
-    if (verifyLoadNeed(spellData) == false) {
-
-        console.log('Spells: Load NOT needed!');
-
-        addList(spellData);
-
-    } else {
-        console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
-        const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
-        spellIndex = await spellIndexPromise.json();
-
-        // Set data to variable to prevent loading from API on next run:
-        spellData = spellIndex.results;
-        spellCount = spellIndex.count;
-
-        addList(spellData);
-    }
-};
-*/
-
-
-
-function addCards(data) {
+function addCards(data, count) {
+    console.log(data)
 
     // Clear previous page and set new title:
     clearPrevPage();
-    SetHeader(currentPage);
+    SetHeader(currentPage, count);
     //SetHeader(globalData.currentPage);
 
     // Add cards to the page:
@@ -179,11 +112,11 @@ function addCards(data) {
     });
 };
 
-function addList(data) {
+function addList(data, count) {
 
     // Clear previous page and set new title:
     clearPrevPage();
-    SetHeader(currentPage);
+    SetHeader(currentPage, count);
     //SetHeader(globalData.currentPage);
 
     // Add list to the page:
@@ -254,12 +187,12 @@ function createList(data) {
 
 async function getDetails(itemType) {
     const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
-    //console.log(currentFetch)
+    console.log(currentFetch)
 
     const detailsIndexPromise = await fetch(currentFetch);
     detailsIndex = await detailsIndexPromise.json();
 
-    //console.log(detailsIndex)
+    console.log(detailsIndex)
 
     // Cache the data:
     cacheData(detailsIndex, currentPage)
@@ -665,6 +598,7 @@ function createDetailsWindow(data) {
     closeButton.appendChild(closeButtonTxt);
     closeButton.addEventListener('click', () => {
         detailModal.close();
+        detailModal.remove();
     });
 
     detailModal.showModal();
@@ -676,7 +610,7 @@ function createDetailsWindow(data) {
 }
 
 //TODO MOVE THIS FUNCTION DECLARTAION TO IT'S CORRECT PLACE = TOP OF FUNCTION LIST
-function SetHeader (title) {
+function SetHeader (title, count) {
     const curPageHeader = document.createElement('h2');
     const pageHeader = document.getElementById('currentPageHeader');
     let pageHeaderTxt = '';
@@ -684,11 +618,11 @@ function SetHeader (title) {
     if (title == 'homepage') {
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
     } else if (title == 'races') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${raceCount})`);
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title == 'classes') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${classCount})`);
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title == 'spells') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${spellCount})`);
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else {
         pageHeaderTxt = document.createTextNode('ERROR');
     }
@@ -706,20 +640,18 @@ miscNav = document.getElementById('#misc');
 
 allNav = document.querySelectorAll('nav ul li a');
 
+//NavBar Event Lissteners:
 function setNavListen() {
     allNav.forEach( eachItem => {
         eachItem.addEventListener('click', function(e){
             e.preventDefault();
-            if (eachItem.id == 'races') {
-                getRaces('races');
-            } else if (eachItem.id == 'classes') {
-                getClasses('classes');
-            } else if (eachItem.id == 'spells') {
-                getSpells('spells');
-            } else {
+            console.log(eachItem.id)
+            if (eachItem.id == 'home') {
                 goHome('homepage');
+            } else {
+                fetchInfo(eachItem.id);
             }
-        });
+        }); 
     });
 }
 setNavListen();
@@ -741,17 +673,20 @@ function clearPrevPage() {
     removeAllChildNodes(mainElement);
 }
 
-function verifyLoadNeed(asset) {
-    if (asset !== "") {
+function verifyLoadNeed(asset, prop) {
+    const checkAsset = asset.hasOwnProperty(prop)
+    if (checkAsset) {
+        //console.log('Returning No')
         return false;
     } else {
+        //console.log('Returning Yes')
         return true;
     }
 }
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
-    //console.log(numberOfItems)
+    console.log(numberOfItems)
 
     if (numberOfItems > 1) {
         if (
@@ -811,4 +746,3 @@ function cacheData(data, itemType) {
         // Handle the error or perform additional actions as needed.
     }
 } */
-
