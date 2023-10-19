@@ -429,6 +429,25 @@ function createDetailsWindow(data) {
                 detailItem.id = currentPage + 'Concentration';
                 detailItem.classList.add('detailItem');
                 detailItemsDiv.appendChild(detailItemDiv); 
+            } else if (key == 'dc') {
+                const NUM_OF_ITEMS = Object.keys(data.dc).length;
+                const CUR_KEY = key;
+                console.log('DC in the houuuuuse!')
+                let currentItems = [];
+                // This ITEM has .name removed from the array push.
+                for (const key in data[CUR_KEY]) {
+                    currentItems.push(` ${eachItem[key]}`)
+                }
+
+                detailItem.textContent = `Type: ${data.dc.dc_type.name} / Success: ${data.dc.dc_success}`;
+
+                detailItemDiv.appendChild(detailItemName);
+                detailItemDiv.appendChild(detailItem);
+                detailItemName.textContent = 'DC:';
+                detailItemName.classList.add('detailTitle');
+                detailItem.id = currentPage + 'dc';
+                detailItem.classList.add('detailItem');
+                detailItemsDiv.appendChild(detailItemDiv); 
             } else if (key == 'heal_at_slot_level') {
                 const NUM_OF_ITEMS = Object.keys(data.classes).length;
                 const CUR_KEY = key;
@@ -510,8 +529,6 @@ function createDetailsWindow(data) {
             } else if (key == 'attack_type') {
                 const NUM_OF_ITEMS = Object.keys(data.attack_type).length;
                 const CUR_KEY = key;
-                console.log(data.attack_type)
-                console.log(NUM_OF_ITEMS)
 
                 let currentItems = [];
 
