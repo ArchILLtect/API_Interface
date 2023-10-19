@@ -301,11 +301,11 @@ function createDetailsWindow(data) {
     detailModal.classList.add('modalWindow')
 
     //Name
-    const nameContainer = document.createElement('div');
+    const detailsHeader = document.createElement('div');
     const detailName = document.createElement('h3');
-    nameContainer.appendChild(detailName);
-    detailModal.appendChild(nameContainer)
-    nameContainer.id = 'nameContainer';
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader)
+    detailsHeader.id = 'detailsHeader';
     detailName.textContent = data.name;
 
     //Image
@@ -636,11 +636,14 @@ function createDetailsWindow(data) {
 */
 
     const mainDetailsDiv = document.createElement('div');
+    const detailsFooter = document.createElement('div');
+    const buttonContainer = document.createElement('div');
+    const closeButton = document.createElement('button');
     mainDetailsDiv.appendChild(detailImage);
     mainDetailsDiv.appendChild(detailItemsDiv);
     mainDetailsDiv.classList.add('mainDetailContent');
-    const buttonContainer = document.createElement('div');
-    const closeButton = document.createElement('button');
+    detailsFooter.appendChild(buttonContainer);
+    detailsFooter.id = 'detailsFooter';
     closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
@@ -650,7 +653,8 @@ function createDetailsWindow(data) {
 
     detailModal.showModal();
     detailModal.appendChild(mainDetailsDiv);
-    detailModal.appendChild(buttonContainer);
+    detailModal.appendChild(detailsFooter)
+    //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
 
 }

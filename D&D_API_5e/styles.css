@@ -235,13 +235,22 @@ button {
         max-width: 75%;
     }
 
-    #nameContainer {
+    #detailsHeader {
         position: fixed;
         width: 75%;
         /* border: 1px solid black; */
         padding-top: 20px;
         background-color: white;
     }
+
+    #detailsFooter {
+        position: fixed;
+        width: 75%;
+        bottom: 108px;
+        padding-bottom: 20px;
+        background-color: white;
+    }
+
 
     .modalWindow h3 {
         /*position: fixed;
@@ -255,6 +264,7 @@ button {
         display: flex;
         align-items: flex-start;
         margin-top: 85px;
+        margin-bottom: 45px;
     }
 
     .mainDetailContent img {
@@ -299,8 +309,8 @@ button {
     }
 
     #closeButton {
-        position: fixed;
-        bottom: 120px;
+/*         position: fixed;
+        bottom: 120px; */
     }
 
     .detailTitle {
