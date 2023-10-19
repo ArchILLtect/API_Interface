@@ -16,6 +16,8 @@ let spellData = '';
 let itemCounter = 1;
 let apiCount = 0;
 
+let apiData;
+
 /* let raceCount = '';
 let classCount = '';
 let spellCount = ''; */
@@ -188,6 +190,8 @@ function createList(data) {
 async function getDetails(itemType) {
     const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
     console.log(currentFetch)
+
+
 
     const detailsIndexPromise = await fetch(currentFetch);
     detailsIndex = await detailsIndexPromise.json();
@@ -570,19 +574,70 @@ function createDetailsWindow(data) {
         }
     }
 
-
-    // Arrays ONLY
-    /*
-    data.forEach(eachItem => {
-        itemCounter++
-        const currentItem = `detailItem${counter}`
-        const detailItem = document.createElement('p');
-        detailItemsDiv.appendChild('detailItem');
-        detailItem.id = currentItem;
-        detailItem.classList.add('detailItem');
-        detailItem.ATTRIBUTE_NODE.textContent = eachItem;
+    const mainDetailsDiv = document.createElement('div');
+    const detailsFooter = document.createElement('div');
+    const buttonContainer = document.createElement('div');
+    const closeButton = document.createElement('button');
+    mainDetailsDiv.appendChild(detailImage);
+    mainDetailsDiv.appendChild(detailItemsDiv);
+    mainDetailsDiv.classList.add('mainDetailContent');
+    detailsFooter.appendChild(buttonContainer);
+    detailsFooter.id = 'detailsFooter';
+    closeButton.id = 'closeButton';
+    const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.appendChild(closeButtonTxt);
+    closeButton.addEventListener('click', () => {
+        detailModal.close();
+        detailModal.remove();
     });
-*/
+
+    detailModal.showModal();
+    detailModal.appendChild(mainDetailsDiv);
+    detailModal.appendChild(detailsFooter)
+    //detailModal.appendChild(buttonContainer);
+    buttonContainer.appendChild(closeButton);
+}
+
+function createDetailsWindowNEW(data) {
+    const NUM_OF_ITEMS = Object.keys(data).length;
+    //console.log(data)
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+
+    const detailModal = document.createElement('dialog');
+    mainElement.appendChild(detailModal);
+    detailModal.classList.add('modalWindow')
+
+    //Name
+    const detailsHeader = document.createElement('div');
+    const detailName = document.createElement('h3');
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader)
+    detailsHeader.id = 'detailsHeader';
+    detailName.textContent = data.name;
+
+    //Image
+    //const detailImage = document.createElement('img');
+    //detailImage.src = `./images/${currentPage}/${data.index}.gif`;
+    //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
+
+
+    //Add Items
+    const detailItemsDiv = document.createElement('div');
+    detailItemsDiv.classList.add('detailItemsDiv');
+
+        // For objects:
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentItem = `detailItem${itemCounter}`;
+                const detailItemDiv = document.createElement('div');
+                detailItemDiv.id = 'detailItemsDiv' + key;
+                const detailItem = document.createElement('p');
+                const detailItemName = document.createElement('p');
+                itemCounter++;
+
+
+    }
 
     const mainDetailsDiv = document.createElement('div');
     const detailsFooter = document.createElement('div');
@@ -607,7 +662,7 @@ function createDetailsWindow(data) {
     //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
 
-}
+} };
 
 //TODO MOVE THIS FUNCTION DECLARTAION TO IT'S CORRECT PLACE = TOP OF FUNCTION LIST
 function SetHeader (title, count) {
@@ -629,7 +684,7 @@ function SetHeader (title, count) {
 
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
-}
+};
 
 
 homeNav = document.getElementById('#home');
@@ -653,7 +708,7 @@ function setNavListen() {
             }
         }); 
     });
-}
+};
 setNavListen();
 
 /*//////////////////////////
@@ -664,14 +719,14 @@ function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-}
+};
 
 // Use removeAllChildNodes() function to clear the page.
 function clearPrevPage() {
     removeAllChildNodes(homePage);
     removeAllChildNodes(pageHeaderDiv);
     removeAllChildNodes(mainElement);
-}
+};
 
 function verifyLoadNeed(asset, prop) {
     const checkAsset = asset.hasOwnProperty(prop)
@@ -682,7 +737,7 @@ function verifyLoadNeed(asset, prop) {
         //console.log('Returning Yes')
         return true;
     }
-}
+};
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
@@ -713,7 +768,7 @@ function cacheData(data, itemType) {
     } else {
         throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
-}
+};
 
 /*
 function cacheData(data, itemType) {
@@ -746,3 +801,7 @@ function cacheData(data, itemType) {
         // Handle the error or perform additional actions as needed.
     }
 } */
+
+function checkCache() {
+    console.log(dataCache)
+}

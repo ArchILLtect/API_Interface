@@ -10,6 +10,7 @@
 10/19/23 - Added footer to details view.<br>
 10/19/23 - Added DC data point to details.<br>
 10/19/23 - Updated the modal windows to remove itself once closed.<br>
+10/19/23 - Added json files to localStorage folders as TEMPORARY files to avoid fetching from API while in development.<br>
 <br>
 <br>
 TTD<br>
