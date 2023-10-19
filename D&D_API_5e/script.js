@@ -641,6 +641,7 @@ function createDetailsWindow(data) {
     mainDetailsDiv.classList.add('mainDetailContent');
     const buttonContainer = document.createElement('div');
     const closeButton = document.createElement('button');
+    closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
     closeButton.addEventListener('click', () => {

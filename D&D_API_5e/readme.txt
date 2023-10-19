@@ -6,6 +6,7 @@
 10/17/23 - Added Spells page and functionality. Also added count to the page header.br
 10/17/23 - Added image functionality for SPELLS and fixed responsiveness and media queries.br
 10/18/23 - Added first version of detail display functionality. Added modal windows and many more images.<br>
+10/18/23 - Fixed modal window close button to be fixed inside window.<br>
 <br>
 <br>
 TTD<br>
