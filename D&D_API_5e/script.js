@@ -1,7 +1,7 @@
 /* Created on 10/11/23 by ArchILLtect */
 
-
-const API_MAIN_URL = 'https://www.dnd5eapi.co';
+const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
+//const API_MAIN_URL = "./localCache/";
 
 const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
@@ -13,22 +13,13 @@ let raceData = '';
 let classData = '';
 let spellData = '';
 
-let raceCount = '';
-let classCount = '';
-let spellCount = '';
+let itemCounter = 1;
 
-let itemCounter = 0;
+/* let raceCount = '';
+let classCount = '';
+let spellCount = ''; */
 
 const dataCache = {};
-
-/* FIXME GlobalData Object? YES OR NO?
-let globalData = {
-    currentPage: '',
-    dataType: '',
-    raceData: '',
-    classData: ''
-}
-*/
 
 // Main Functions:
 function goHome(page) {
@@ -68,18 +59,21 @@ goHome('homepage');
 
 async function getRaces(page) {
 
+    const API_LOC_CUR = API_MAIN_URL + page;
+
     currentPage = page;
-    // globalData.currentPage = 'races';
     
     if (verifyLoadNeed(raceData) == false) {
 
-        console.log('Races: Load NOT needed!');
+        //console.log('Races: Load NOT needed!');
 
         addCards(raceData);
 
     } else {
-        console.log('Races: LOAD NEEDED! LOAD NEEDED!');
-        const raceIndexPromise = await fetch('https://www.dnd5eapi.co/api/races');
+
+        //console.log('Races: LOAD NEEDED! LOAD NEEDED!');
+
+        const raceIndexPromise = await fetch(API_LOC_CUR);
         raceIndex = await raceIndexPromise.json();
 
         // Set data to variable to prevent loading from API on next run:
@@ -97,12 +91,14 @@ async function getClasses(page) {
     
     if (verifyLoadNeed(classData) == false) {
 
-        console.log('Classes: Load NOT needed!');
+        //console.log('Classes: Load NOT needed!');
 
         addCards(classData);
 
     } else {
-        console.log('Classes: LOAD NEEDED! LOAD NEEDED!');
+
+        //console.log('Classes: LOAD NEEDED! LOAD NEEDED!');
+
         const classIndexPromise = await fetch('https://www.dnd5eapi.co/api/classes');
         classIndex = await classIndexPromise.json();
 
@@ -122,12 +118,14 @@ async function getSpells(page) {
     
     if (verifyLoadNeed(spellData) == false) {
 
-        console.log('Spells: Load NOT needed!');
+        //console.log('Spells: Load NOT needed!');
 
         addList(spellData);
 
     } else {
-        console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
+
+        //console.log('Spells: LOAD NEEDED! LOAD NEEDED!');
+
         //const
         const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
         // const spellIndexPromise = await fetch('https://www.dnd5eapi.co/api/spells');
@@ -248,13 +246,14 @@ function createList(data) {
 
     const listItemImg = document.querySelector(`#${itemName}`)
 
-    listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
+    // TODO Uncomment line under to display photos
+    //listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { getDetails(itemNameRaw, listItemImg) } );
 }
 
 async function getDetails(itemType) {
-    const currentFetch = API_MAIN_URL + "/api/" + currentPage + "/" + itemType;
+    const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
     //console.log(currentFetch)
 
     const detailsIndexPromise = await fetch(currentFetch);
@@ -293,8 +292,8 @@ async function getDetails(itemType) {
 
 function createDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
-    console.log(data)
-    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    //console.log(data)
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
@@ -432,7 +431,7 @@ function createDetailsWindow(data) {
             } else if (key == 'dc') {
                 const NUM_OF_ITEMS = Object.keys(data.dc).length;
                 const CUR_KEY = key;
-                console.log('DC in the houuuuuse!')
+
                 let currentItems = [];
                 // This ITEM has .name removed from the array push.
                 for (const key in data[CUR_KEY]) {
@@ -627,7 +626,7 @@ function createDetailsWindow(data) {
                 //damageItemsDiv.appendChild(damageTypeTitle);
 
             } else {
-                console.log(`Did not add: ${key}`);
+                //console.log(`Did not add: ${key}`);
                 /*
                 detailItemsDiv.appendChild(detailItem);
                 detailItem.id = currentItem;
@@ -681,7 +680,6 @@ function SetHeader (title) {
     const curPageHeader = document.createElement('h2');
     const pageHeader = document.getElementById('currentPageHeader');
     let pageHeaderTxt = '';
-    console.log(title)
 
     if (title == 'homepage') {
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
@@ -753,7 +751,7 @@ function verifyLoadNeed(asset) {
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
-    console.log(numberOfItems)
+    //console.log(numberOfItems)
 
     if (numberOfItems > 1) {
         if (
@@ -771,7 +769,7 @@ function cacheData(data, itemType) {
         dataCache[itemType].details = dataCache[itemType].details || {};
         dataCache[itemType].details[data.index] = data;
 
-        console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
+        //console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
         return;
     } else if (numberOfItems === 1) {
         console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
