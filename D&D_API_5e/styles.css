@@ -244,9 +244,9 @@ button {
     }
 
     #detailsFooter {
-        position: fixed;
+        position: relative;
         width: inherit;
-        bottom: 108px;
+        bottom: 109px;
         padding-bottom: 20px;
         background-color: white;
     }

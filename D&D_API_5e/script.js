@@ -262,8 +262,11 @@ async function getDetails(itemType) {
     cacheData(detailsIndex, currentPage);
 
     //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
-    //createDetailsWindow(detailsIndex);
-    createDetailsWindowNEW(detailsIndex);
+    if (currentPage == 'spells') {
+        createDetailsWindow(detailsIndex);
+    } else {
+        createDetailsWindowNEW(detailsIndex);
+    }
 }
 
 
@@ -626,6 +629,12 @@ function createDetailsWindow(data) {
     closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
+    document.addEventListener('click', (event) => {
+        if (event.target === detailModal) {
+            detailModal.close();
+            detailModal.remove();
+        }
+    });
     closeButton.addEventListener('click', () => {
         detailModal.close();
         detailModal.remove();
@@ -715,9 +724,15 @@ function createDetailsWindowNEW(data) {
     closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
+    document.addEventListener('click', (event) => {
+        if (event.target === detailModal) {
+            detailModal.close();
+            detailModal.remove();
+        }
+    });
     closeButton.addEventListener('click', () => {
         detailModal.close();
-        //detailModal.remove();
+        detailModal.remove();
     });
 
     detailModal.showModal();
