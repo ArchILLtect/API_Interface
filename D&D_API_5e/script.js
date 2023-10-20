@@ -768,6 +768,7 @@ function createDetailsWindowNEW(data) {
 
 };
 
+
 /*//////////////////////////
 // Event Listeners:      //
 //////////////////////////*/
@@ -797,26 +798,27 @@ function setNavListen() {
 setNavListen();
 
 function readyFilter() {
-// VARs - Filter
-const filterInput = document.getElementById('filterInput');
-const filterContainer = document.getElementById('filterInputContainer');
-const itemList = document.getElementById('mainContent');
-const items = Array.from(itemList.getElementsByTagName('article'));
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
 
-// Filter:
-filterContainer.style.display = 'flex';
-filterInput.addEventListener('input', function () {
-    const searchText = filterInput.value.toLowerCase();
-  
-    items.forEach(item => {
-      const text = item.textContent.toLowerCase();
-      if (text.includes(searchText)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  })};
+    // Filter:
+    filterContainer.style.display = 'flex';
+    filterInput.addEventListener('input', function () {
+        const searchText = filterInput.value.toLowerCase();
+    
+        items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchText)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+        });
+    })
+};
 
 
 /*//////////////////////////
