@@ -6,7 +6,6 @@ const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
-
 let dataType = '';
 let raceData = '';
 let classData = '';
@@ -56,9 +55,29 @@ function goHome(page) {
     mainElement.appendChild(homePage);
     mainElement.appendChild(homeArticle);
     homeArticle.id = "homeArticle"
-}
+};
 goHome('homepage');
 
+function SetHeader (title, count) {
+    const curPageHeader = document.createElement('h2');
+    const pageHeader = document.getElementById('currentPageHeader');
+    let pageHeaderTxt = '';
+
+    if (title == 'homepage') {
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title == 'races') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title == 'classes') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title == 'spells') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else {
+        pageHeaderTxt = document.createTextNode('ERROR');
+    }
+
+    curPageHeader.appendChild(pageHeaderTxt);
+    pageHeader.appendChild(curPageHeader);
+};
 
 async function fetchInfo(page) {
 
@@ -96,8 +115,6 @@ async function fetchInfo(page) {
 
     }
 };
-
-
 
 async function fetchDetails(page) {
     //console.log(`At fetchDetails() page = ${page}`);
@@ -149,7 +166,6 @@ async function fetchDetails(page) {
     }
 };
 
-
 function addContent(data, type) {
     //console.log(`At addContent() currentPage = ${currentPage}`);
     //console.log(`At addContent() type = ${type}`)
@@ -158,7 +174,7 @@ function addContent(data, type) {
     } else if (type === 'details'){
         addList(data, getCount(currentPage));
     } else { console.log( `Error - bad type in addContent function = line 146 to 151. current type = ${type}`) }
-}
+};
 
 function addCards(data, count) {
     //console.log(data)
@@ -172,6 +188,9 @@ function addCards(data, count) {
     data.forEach(eachItem => {
         createCard(eachItem);
     });
+
+    readyFilter()
+
 };
 
 function addList(data, count) {
@@ -185,6 +204,9 @@ function addList(data, count) {
     data.forEach(eachItem => {
     createList(eachItem);
     });
+
+    readyFilter()
+
 };
 
 function createCard(data) {
@@ -218,7 +240,7 @@ function createCard(data) {
     cardImg.src = `./images/${currentPage}/${data.index}.jpg`;
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { fetchDetails(cardNameRaw, cardImg) } );
-}
+};
 
 function createList(data) {
     const listItem = document.createElement('article');
@@ -253,7 +275,6 @@ function createList(data) {
     selectButton.addEventListener('click', () => { fetchDetails(itemNameRaw, listItemImg) } );
 };
 
-
 /* async function getDetails(itemType) {
     console.log(itemType);
     const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
@@ -276,7 +297,6 @@ function createList(data) {
         createDetailsWindowNEW(detailsIndex);
     }
 } */
-
 
 function createDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
@@ -654,7 +674,7 @@ function createDetailsWindow(data) {
     detailModal.appendChild(detailsFooter)
     //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
-}
+};
 
 function createDetailsWindowNEW(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
@@ -748,38 +768,19 @@ function createDetailsWindowNEW(data) {
 
 };
 
-//TODO MOVE THIS FUNCTION DECLARTAION TO IT'S CORRECT PLACE = TOP OF FUNCTION LIST
-function SetHeader (title, count) {
-    const curPageHeader = document.createElement('h2');
-    const pageHeader = document.getElementById('currentPageHeader');
-    let pageHeaderTxt = '';
+/*//////////////////////////
+// Event Listeners:      //
+//////////////////////////*/
 
-    if (title == 'homepage') {
-        pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title == 'races') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title == 'classes') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title == 'spells') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else {
-        pageHeaderTxt = document.createTextNode('ERROR');
-    }
-
-    curPageHeader.appendChild(pageHeaderTxt);
-    pageHeader.appendChild(curPageHeader);
-};
-
-
+// VARs - Main
 homeNav = document.getElementById('#home');
 characterNav = document.getElementById('#character');
 monsterNav = document.getElementById('#moster');
 itemNav = document.getElementById('#item');
 miscNav = document.getElementById('#misc');
-
 allNav = document.querySelectorAll('nav ul li a');
 
-//NavBar Event Listeners:
+// NavBar:
 function setNavListen() {
     allNav.forEach( eachItem => {
         eachItem.addEventListener('click', function(e){
@@ -794,6 +795,29 @@ function setNavListen() {
     });
 };
 setNavListen();
+
+function readyFilter() {
+// VARs - Filter
+const filterInput = document.getElementById('filterInput');
+const filterContainer = document.getElementById('filterInputContainer');
+const itemList = document.getElementById('mainContent');
+const items = Array.from(itemList.getElementsByTagName('article'));
+
+// Filter:
+filterContainer.style.display = 'flex';
+filterInput.addEventListener('input', function () {
+    const searchText = filterInput.value.toLowerCase();
+  
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(searchText)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  })};
+
 
 /*//////////////////////////
 // Helper Functions:      //
@@ -973,7 +997,7 @@ function countItems(obj) {
 
     countRecursively(obj);
     console.log(`Total number of items: ${count}`);
-}
+};
 
 // NOT USED
 function findItems(objItem) {
@@ -998,11 +1022,11 @@ function findItems(objItem) {
     }
 
     return totalItems;
-}
+};
 
 function checkCache() {
     console.log(dataCache)
-}
+};
 
 
 // TODO TEMP function for count

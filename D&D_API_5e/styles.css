@@ -146,20 +146,20 @@ button {
     opacity: 0.5;
 }
 
-#searchInputContainer {
-    display: flex;
+.filterContainer {
+    display: none;
     gap: 10px;
     justify-content: center;
     margin-bottom: 30px;
 }
 
-#searchInputContainer p {
+.filterContainer p {
     font-size: 1.3rem;
     margin: 0;
     padding: 0;
 }
 
-#searchInput {
+#filterInput {
     border: 2px solid black;
 }
 

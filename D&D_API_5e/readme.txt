@@ -11,6 +11,9 @@
 10/19/23 - Added DC data point to details.<br>
 10/19/23 - Updated the modal windows to remove itself once closed.<br>
 10/19/23 - Added json files to localStorage folders as TEMPORARY files to avoid fetching from API while in development.<br>
+10/20/23 - Did clean up and removed some functions that I incorporated into another function<br>
+10/20/23 - Starting work on filter functionality<br>
+
 <br>
 <br>
 TTD<br>
