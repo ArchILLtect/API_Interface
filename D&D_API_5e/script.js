@@ -66,10 +66,10 @@ async function fetchInfo(page) {
     //const API_LOC_CUR = API_MAIN_URL + page;
     const API_LOC_CUR = `./localCache/${page}/localCache.json`;
     
-
     currentPage = page;
+    //TODO Make a function to determine whether page is a 'main' or 'details' like in AddContent();
     
-    if (verifyLoadNeed(dataCache, page)) {
+    if (verifyLoadNeed(dataCache, page, 'main')) {
 
 
         console.log('API LOAD NEEDED! LOAD NEEDED!');
@@ -78,20 +78,21 @@ async function fetchInfo(page) {
         const apiPromise = await fetch(API_LOC_CUR);
         apiIndex = await apiPromise.json();
 
-        // Set data to variable to prevent loading from API on next run:
         apiData = apiIndex.results;
         apiCount = apiIndex.count;
 
+        // Set data to variable to prevent loading from API on next run:
         setCount(apiCount, page)
         dataCache[page] = apiData;
-        addContent(apiData, apiCount);
+        dataCache[page].details = [];
+        addContent(apiData, setContentType(apiCount));
 
     } else {
 
-        CUR_COUNT = GetCount(page)
+        //CUR_COUNT = getCount(page);
         console.log('API Load NOT needed!');
         //setCount(apiCount, page)
-        addContent(dataCache[page], CUR_COUNT);
+        addContent(dataCache[page], setContentType(getCount(page)));
 
     }
 };
@@ -99,66 +100,68 @@ async function fetchInfo(page) {
 
 
 async function fetchDetails(page) {
+    //console.log(`At fetchDetails() page = ${page}`);
 
     // This URL is changed to use local files for fetching during dev.
-    //const API_LOC_CUR = API_MAIN_URL + page;
-    const API_LOC_CUR = `./localCache/${currentPage}/${page}/localCache.json`;
+    const API_LOC_CUR = API_MAIN_URL + currentPage + "/" + page;
+    //const API_LOC_CUR = `./localCache/${currentPage}/${page}/localCache.json`;
+
+    //const currentFetch = API_MAIN_URL + currentPage + "/" + page;
     
-    if (verifyLoadNeed(dataCache, page)) {
+    pageType = 'details'
+    detailData = dataCache[currentPage].details;
+
+    if (verifyLoadNeed(detailData, page, pageType)) {
 
 
         console.log('API LOAD NEEDED! LOAD NEEDED!');
 
 
-        const apiPromise = await fetch(apiCurrentURL);
+        const apiPromise = await fetch(API_LOC_CUR);
         apiIndex = await apiPromise.json();
-
-        // Set data to variable to prevent loading from API on next run:
         apiData = apiIndex.results;
         apiCount = apiIndex.count;
 
-        dataCache[page] = apiData;
-        addContent(apiData, apiCount);
+        // Cache the data:
+        cacheData(apiIndex, currentPage);
+        //addContent(apiData, apiCount);
+
+        //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
+        if (currentPage == 'spells') {
+            createDetailsWindow(apiIndex);
+        } else {
+            createDetailsWindowNEW(apiIndex);
+        };
 
     } else {
 
-        CUR_COUNT = GetCount(page)
+        //CUR_COUNT = GetCount(page);
         console.log('API Load NOT needed!');
 
-        addContent(dataCache[page], CUR_COUNT);
+        //addContent(dataCache[page], setContentType(getCount(page)));
 
+        //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
+        if (currentPage == 'spells') {
+            createDetailsWindow(detailData[page]);
+        } else {
+            createDetailsWindowNEW(detailData[page]);
+        };
     }
 };
 
 
-/*
-
-        if (type == 'details') {
-            cacheData(detailsIndex, currentPage)
-            createDetailsWindowNEW(apiData, apiCount);
-        } else {
-
-
-        }
-
-
-
-
-
-
-*/
-
-
-function addContent(data, count) {
-    if (count < 20) {
-        addCards(data, count);
-    } else {
-        addList(data, count)
-    }
+function addContent(data, type) {
+    //console.log(`At addContent() currentPage = ${currentPage}`);
+    //console.log(`At addContent() type = ${type}`)
+    if (type === 'main') {
+        addCards(data, getCount(currentPage));
+    } else if (type === 'details'){
+        addList(data, getCount(currentPage));
+    } else { console.log( `Error - bad type in addContent function = line 146 to 151. current type = ${type}`) }
 }
 
 function addCards(data, count) {
-    console.log(data)
+    //console.log(data)
 
     // Clear previous page and set new title:
     clearPrevPage();
@@ -167,7 +170,7 @@ function addCards(data, count) {
 
     // Add cards to the page:
     data.forEach(eachItem => {
-    createCard(eachItem);
+        createCard(eachItem);
     });
 };
 
@@ -185,6 +188,7 @@ function addList(data, count) {
 };
 
 function createCard(data) {
+    //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
 
     const cardName = document.createElement('h3');
@@ -213,7 +217,7 @@ function createCard(data) {
 
     cardImg.src = `./images/${currentPage}/${data.index}.jpg`;
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
-    selectButton.addEventListener('click', () => { getDetails(cardNameRaw, cardImg) } );
+    selectButton.addEventListener('click', () => { fetchDetails(cardNameRaw, cardImg) } );
 }
 
 function createList(data) {
@@ -246,10 +250,12 @@ function createList(data) {
     // TODO Uncomment line under to display photos
     listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
-    selectButton.addEventListener('click', () => { getDetails(itemNameRaw, listItemImg) } );
-}
+    selectButton.addEventListener('click', () => { fetchDetails(itemNameRaw, listItemImg) } );
+};
 
-async function getDetails(itemType) {
+
+/* async function getDetails(itemType) {
+    console.log(itemType);
     const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
     //console.log(currentFetch);
 
@@ -258,7 +264,7 @@ async function getDetails(itemType) {
     const detailsIndexPromise = await fetch(currentFetch);
     detailsIndex = await detailsIndexPromise.json();
 
-    //console.log(detailsIndex);
+    console.log(detailsIndex);
 
     // Cache the data:
     cacheData(detailsIndex, currentPage);
@@ -269,7 +275,7 @@ async function getDetails(itemType) {
     } else {
         createDetailsWindowNEW(detailsIndex);
     }
-}
+} */
 
 
 function createDetailsWindow(data) {
@@ -672,7 +678,6 @@ function createDetailsWindowNEW(data) {
     const detailImage = document.createElement('img');
     detailImage.className = 'detailImage'
     detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
-    console.log(detailImage.src)
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
 
 
@@ -683,8 +688,8 @@ function createDetailsWindowNEW(data) {
         // For objects:
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
-                console.log(data)
-                console.log(key)
+                //console.log(data)
+                //console.log(key)
                 const eachItem = data[key];
                 const currentItem = `detailItem${itemCounter}`;
                 const detailItemDiv = document.createElement('div');
@@ -722,6 +727,7 @@ function createDetailsWindowNEW(data) {
     const detailsFooter = document.createElement('div');
     const buttonContainer = document.createElement('div');
     const closeButton = document.createElement('button');
+    closeButton.id = 'closeButton'
     mainDetailsDiv.appendChild(detailImage);
     mainDetailsDiv.appendChild(detailItemsDiv);
     mainDetailsDiv.classList.add('mainDetailContent');
@@ -731,26 +737,14 @@ function createDetailsWindowNEW(data) {
     const closeButtonTxt = document.createTextNode("Click to close");
     closeButton.appendChild(closeButtonTxt);
 
-    // Close and remove modal windows
-    document.addEventListener('keydown', function keydownListener(e) {
-        if (e.key === 'Escape') {
-            cleanUpModal();
-        }
-    });
-    document.addEventListener('click', function clickListener(event) {
-        if (e.target === detailModal) {
-            cleanUpModal();
-        }
-    });
-    closeButton.addEventListener('click', function clickListener() {
-        cleanUpModal();
-    });
+
 
     detailModal.showModal();
     detailModal.appendChild(mainDetailsDiv);
     detailModal.appendChild(detailsFooter)
     //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
+        modalListeners()
 
 };
 
@@ -785,12 +779,12 @@ miscNav = document.getElementById('#misc');
 
 allNav = document.querySelectorAll('nav ul li a');
 
-//NavBar Event Lissteners:
+//NavBar Event Listeners:
 function setNavListen() {
     allNav.forEach( eachItem => {
         eachItem.addEventListener('click', function(e){
             e.preventDefault();
-            console.log(eachItem.id)
+            //console.log(eachItem.id)
             if (eachItem.id == 'home') {
                 goHome('homepage');
             } else {
@@ -818,26 +812,85 @@ function clearPrevPage() {
     removeAllChildNodes(mainElement);
 };
 
-function verifyLoadNeed(asset, prop) {
-    const checkAsset = asset.hasOwnProperty(prop)
-    if (checkAsset) {
-        //console.log('Returning No')
-        return false;
-    } else {
-        //console.log('Returning Yes')
-        return true;
+function verifyLoadNeed(asset, prop, type) {
+    
+    if (type === 'main') {
+        const checkAsset = asset.hasOwnProperty(prop);
+        if (checkAsset) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    } else if(type === 'details') {
+        const checkAsset = asset.hasOwnProperty(prop);
+
+        if (checkAsset) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }};
+       
+};
+
+function modalListeners() {
+    const closeButton = document.getElementById('closeButton')
+
+   // Define named functions for event listeners
+   function keydownListener(e) {
+        if (e.key === 'Escape') {
+            cleanUpModal();
+        }};
+
+    function clickListener(e) {
+        if (e.target === detailModal) {
+            cleanUpModal();
+        }};
+
+    function closeButtonListener() {
+        cleanUpModal();
+    }
+
+    // Add event listeners
+    document.addEventListener('keydown', keydownListener);
+    document.addEventListener('click', clickListener);
+    closeButton.addEventListener('click', closeButtonListener);
+
+    /*     document.addEventListener('keydown', function keydownListener(e) {
+            if (e.key === 'Escape') {
+                cleanUpModal();
+            }
+        });
+        document.addEventListener('click', function clickListener(e) {
+            if (e.target === detailModal) {
+                cleanUpModal();
+            }
+        });
+        closeButton.addEventListener('click', function clickListener() {
+            cleanUpModal();
+        }); */
+
+    function cleanUpModal() {
+        const modal = document.getElementById('detailModal');
+        modal.remove();
+        
+        // Remove event listeners
+        document.removeEventListener('click', clickListener);
+        document.removeEventListener('keydown', keydownListener);
+        closeButton.removeEventListener('click', clickListener);
     }
 };
 
-function cleanUpModal() {
-    const modal = document.getElementById('detailModal');
-    modal.remove();
-    
-    // Remove event listeners
-    document.removeEventListener('click', clickListener);
-    document.removeEventListener('keydown', keydownListener);
-    closeButton.removeEventListener('click', clickListener);
-}
+function setContentType(count) {
+    if (count > 20) {
+        return 'details';
+    } else {
+        return 'main';
+    }
+};
 
 function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
@@ -902,7 +955,8 @@ function cacheData(data, itemType) {
     }
 } */
 
-
+// TEMP/EXPERIMENTAL FUNCTIONS:
+// NOT USED
 function countItems(obj) {
     let count = 0;
 
@@ -921,6 +975,7 @@ function countItems(obj) {
     console.log(`Total number of items: ${count}`);
 }
 
+// NOT USED
 function findItems(objItem) {
     const itemKeys = Object.keys(objItem);
     let totalItems = 0;
@@ -964,7 +1019,7 @@ function setCount(count, page) {
     };
 };
 
-function GetCount(page) {
+function getCount(page) {
     if (page === 'races') {
         return raceCount;
     } else if (page === 'classes') {
