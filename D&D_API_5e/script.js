@@ -41,17 +41,25 @@ function goHome(page) {
     const homeArticleItem1 = document.createElement('p');
     const homeArticleItem2 = document.createElement('p');
     const homeArticleItem3 = document.createElement('p');
+    const homeArticleItem4 = document.createElement('p');
+    const homeArticleItem5 = document.createElement('p');
     const homePageTxt = document.createTextNode('Welcome to the homepage');
     const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos! ');
     const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life!');
     const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
+    const article1Txt4 = document.createTextNode('10/20/23 - COMING SOON: Editable and printable character sheets!!');
+    const article1Txt5 = document.createTextNode('This site dedicated to Nick JR!!!');
     homePage.appendChild(homePageTxt);
     homeArticleItem1.appendChild(article1Txt1);
     homeArticleItem2.appendChild(article1Txt2);
     homeArticleItem3.appendChild(article1Txt3);
+    homeArticleItem4.appendChild(article1Txt4);
+    homeArticleItem5.appendChild(article1Txt5);
     homeArticle.appendChild(homeArticleItem1);
     homeArticle.appendChild(homeArticleItem2);
     homeArticle.appendChild(homeArticleItem3);
+    homeArticle.appendChild(homeArticleItem4);
+    homeArticle.appendChild(homeArticleItem5);
     mainElement.appendChild(homePage);
     mainElement.appendChild(homeArticle);
     homeArticle.id = "homeArticle"

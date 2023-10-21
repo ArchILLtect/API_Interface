@@ -4,7 +4,7 @@ import json
 import subprocess
 
 # Step 1: Fetch data from the main API endpoint
-main_api_url = 'https://www.dnd5eapi.co/api/classes/'
+main_api_url = 'https://www.dnd5eapi.co/api/spells/'
 response = requests.get(main_api_url)
 
 if response.status_code == 200:

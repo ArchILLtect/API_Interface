@@ -14,6 +14,7 @@
 10/20/23 - Did clean up and removed some functions that I incorporated into another function<br>
 10/20/23 - Starting work on filter functionality<br>
 10/20/23 - Made a Python function for making api info local and integrated some of them<br>
+10/20/23 - Ran Python function on spells and localized all spell details<br>
 <br>
 <br>
 TTD<br>
