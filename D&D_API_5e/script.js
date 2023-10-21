@@ -796,8 +796,10 @@ function setNavListen() {
             e.preventDefault();
             //console.log(eachItem.id)
             if (eachItem.id == 'home') {
+                hideFilters()
                 goHome('homepage');
             } else {
+                hideFilters()
                 fetchInfo(eachItem.id);
             }
         }); 
@@ -809,8 +811,16 @@ function readyFilter() {
     // VARs - Filter
     const filterInput = document.getElementById('filterInput');
     const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
     const itemList = document.getElementById('mainContent');
     const items = Array.from(itemList.getElementsByTagName('article'));
+
+    if (currentPage === 'spells') { 
+
+        for (const eachItem of spellFilter) {
+            eachItem.style.display = 'block';
+        }
+    }
 
     // Filter:
     filterContainer.style.display = 'flex';
@@ -828,6 +838,42 @@ function readyFilter() {
     })
 };
 
+function hideFilters() {
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const classFilter = document.getElementById('classFilter');
+    const schoolFilter = document.getElementById('schoolFilter');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+
+    //Clear the filter inputs:
+    filterInput.value = '';
+    classFilter.selectedIndex = -1;
+    schoolFilter.selectedIndex = -1;
+
+    //Hide the spells filters:
+    for (const eachItem of spellFilter) {
+        eachItem.style.display = 'none';
+    };
+
+    //Hide the name filter:
+    filterContainer.style.display = 'none';
+
+    //Remove the filter's event listener:
+    filterInput.removeEventListener('input', function () {
+        const searchText = filterInput.value.toLowerCase();
+    
+        items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchText)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+        });
+    })
+};
 
 /*//////////////////////////
 // Helper Functions:      //

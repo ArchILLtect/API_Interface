@@ -56,8 +56,42 @@
     <div id="currentPageHeader" ></div>
 
     <div id="filterInputContainer" class="filterContainer" >
-        <p>Filter by name: </p>
-        <input type="text" id="filterInput" placeholder="READY!!"/>
+        <div id="spellFilter" class="spellFilter">
+            <label for="classes" class="filterLabel">Filter by class: </label>
+
+            <select name="classes" id="classFilter">
+                <option value="bard">Bard</option>
+                <option value="cleric">Cleric</option>
+                <option value="druid">Druid</option>
+                <option value="paladin">Paladin</option>
+                <option value="ranger">Ranger</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="warlock">Warlock</option>
+                <option value="wizard">Wizard</option>
+            </select>
+
+            <span>Coming Soon!!</span>
+        </div>
+        <div id="spellFilter" class="spellFilter">
+            <label for="schools" class="filterLabel">Filter by school: </label>
+
+            <select name="schools" id="schoolFilter">
+                <option value="abjuration">Abjuration</option>
+                <option value="conjuration">Conjuration</option>
+                <option value="divination">Divination</option>
+                <option value="enchantment">Enchantment</option>
+                <option value="evocation">Evocation</option>
+                <option value="illusion">Illusion</option>
+                <option value="necromancy">Necromancy</option>
+                <option value="transmutation">Transmutation</option>
+            </select>
+
+            <span>Coming Soon!!</span>
+        </div>
+        <div>
+            <p>Filter by name: </p>
+            <input type="text" id="filterInput" placeholder="READY!!"/>
+        </div>
     </div>
 
     <main id="mainContent" ></main>
