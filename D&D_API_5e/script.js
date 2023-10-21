@@ -1,6 +1,7 @@
 /* Created on 10/11/23 by ArchILLtect */
 
 const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
+const ALL_IMG = "./images/monsters.json";
 
 const pageHeaderDiv = document.getElementById('currentPageHeader');
 const mainElement = document.querySelector('main');
@@ -23,13 +24,16 @@ let spellCount = '';
 const dataCache = {};
 
 // Main Functions:
-function goHome(page) {
+async function goHome(page) {
+
+    await fetchData(ALL_IMG, 'images');
+
     // Clear previous page
     clearPrevPage();
 
     // Set page header to HOME
     currentPage = page;
-    SetHeader(currentPage);
+    SetHeader(page);
 
     /* Use only if I decide to keep the global vars in an object
     globalData.currentPage = 'Homepage';
@@ -37,7 +41,13 @@ function goHome(page) {
     */
 
     // Add HOME info to <main>
+    const leftHomeArticle = document.createElement('article');
     const homeArticle = document.createElement('article');
+    const rightHomeArticle = document.createElement('article');
+    const homeImageSlot1 = document.createElement('img');
+    homeImageSlot1.src = imageRandomizer();
+    const homeImageSlot2 = document.createElement('img');
+    homeImageSlot2.src = imageRandomizer();
     const homeArticleItem1 = document.createElement('p');
     const homeArticleItem2 = document.createElement('p');
     const homeArticleItem3 = document.createElement('p');
@@ -49,7 +59,9 @@ function goHome(page) {
     const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
     const article1Txt4 = document.createTextNode('10/20/23 - COMING SOON: Editable and printable character sheets!!');
     const article1Txt5 = document.createTextNode('This site dedicated to Nick JR!!!');
+    leftHomeArticle.appendChild(homeImageSlot1);
     homePage.appendChild(homePageTxt);
+    homeArticle.appendChild(homePage);
     homeArticleItem1.appendChild(article1Txt1);
     homeArticleItem2.appendChild(article1Txt2);
     homeArticleItem3.appendChild(article1Txt3);
@@ -60,8 +72,10 @@ function goHome(page) {
     homeArticle.appendChild(homeArticleItem3);
     homeArticle.appendChild(homeArticleItem4);
     homeArticle.appendChild(homeArticleItem5);
-    mainElement.appendChild(homePage);
+    rightHomeArticle.appendChild(homeImageSlot2);
+    mainElement.appendChild(leftHomeArticle);
     mainElement.appendChild(homeArticle);
+    mainElement.appendChild(rightHomeArticle);
     homeArticle.id = "homeArticle"
 };
 goHome('homepage');
@@ -71,14 +85,30 @@ function SetHeader (title, count) {
     const pageHeader = document.getElementById('currentPageHeader');
     let pageHeaderTxt = '';
 
-    if (title == 'homepage') {
+    if (title === 'homepage') {
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title == 'races') {
+    } else if (title === 'characters') {
+        //TODO Once page is setup swap lines and delete unused line.
+        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title === 'races') {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title == 'classes') {
+    } else if (title === 'classes') {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title == 'spells') {
+    } else if (title === 'spells') {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title === 'monsters') {
+        //TODO Once page is setup swap lines and delete unused line.
+        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title === 'equipment') {
+        //TODO Once page is setup swap lines and delete unused line.
+        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title === 'misc') {
+        //TODO Once page is setup swap lines and delete unused line.
+        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+        pageHeaderTxt = document.createTextNode(title.toUpperCase());
     } else {
         pageHeaderTxt = document.createTextNode('ERROR');
     }
@@ -776,6 +806,10 @@ function createDetailsWindowNEW(data) {
 
 };
 
+function setUpSheets() {
+
+}
+
 
 /*//////////////////////////
 // Event Listeners:      //
@@ -795,9 +829,12 @@ function setNavListen() {
         eachItem.addEventListener('click', function(e){
             e.preventDefault();
             //console.log(eachItem.id)
-            if (eachItem.id == 'home') {
+            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'monsters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
                 hideFilters()
-                goHome('homepage');
+                goHome(eachItem.id);
+            } else if (eachItem.id === 'sheets') {
+                hideFilters()
+                setUpSheets();
             } else {
                 hideFilters()
                 fetchInfo(eachItem.id);
@@ -976,7 +1013,7 @@ function cacheData(data, itemType) {
     const numberOfItems = Object.keys(data).length;
     //console.log(numberOfItems)
 
-    if (numberOfItems > 1) {
+    if (numberOfItems > 1 && itemType) {
         if (
             dataCache[itemType] &&
             dataCache[itemType].details &&
@@ -995,12 +1032,40 @@ function cacheData(data, itemType) {
         //console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
         return;
     } else if (numberOfItems === 1) {
+        if (dataCache[itemType]) {
+            //console.log('Data already exists');
+            return;
+        } else {
+
+        dataCache[itemType] = data;
+
         console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
-        console.log('Check the data being used - why is it using a single object item??')
         return;
+        }
     } else {
         throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
+};
+
+async function fetchData(data, itemType) {
+
+    const apiPromise = await fetch(data);
+    apiIndex = await apiPromise.json();
+    console.log(apiIndex)
+    cacheData(apiIndex, itemType);
+};
+
+function imageRandomizer() {
+    console.log('at RNDMIZER');
+    console.log(dataCache);
+    const FILE_NAMES = dataCache.images.filenames;
+    //console.log(FILE_NAMES);
+    const FILE_NUM = FILE_NAMES.length;
+    const RAND_NUM = Math.floor(Math. random() * FILE_NUM);
+    const RAND_FILE = FILE_NAMES[RAND_NUM];
+    const RAND_IMG = 'images/monsters/' + RAND_FILE
+    console.log(RAND_IMG);
+    return RAND_IMG;
 };
 
 /*

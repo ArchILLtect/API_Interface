@@ -22,10 +22,13 @@ nav ul, nav ol {
 /********** End Bill's Reset ***********/
 
 body {
+    background-image: url(./images/page-elements/paper-backer-lite.jpg);
+    background-repeat: repeat;
+    background-size: 100%;
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 300;
-    color: #333;
-    background-color: #efefef;
+    /* color: #333;
+    background-color: #efefef; */
 }
 
 h1, h2, h3 {
@@ -57,6 +60,8 @@ h2 {
     padding-right: 30vw;
     text-align: center;
     box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.75);
+    background-image: url(./images/page-elements/paper-backer-top.png);
+
 }
 
 h3 {
@@ -98,7 +103,10 @@ article img {
 article {
     display: flexbox;
     text-align: center;
-    background-color: #fff;
+/*     background-color: #fff; */
+    background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
+    background-repeat: no-repeat, repeat;
+    background-size: 100%;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
@@ -205,9 +213,9 @@ button {
     height: fit-content;
     width: 80vw;
     background-image: url(./images/backgrounds/construction-cone.jpeg);
-    background-size: auto;
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top;
     gap: 30px;
 }
 
@@ -282,6 +290,9 @@ button {
     }
 
     .modalWindow {
+        background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
+        background-repeat: no-repeat, repeat;
+        background-size: 100%;
         padding: 0px 20px 20px 20px;
         max-height: 75%;
         max-width: 75%;
@@ -292,7 +303,7 @@ button {
         width: inherit;
         /* border: 1px solid black; */
         padding-top: 20px;
-        background-color: white;
+
     }
 
     #detailsFooter {
@@ -308,6 +319,11 @@ button {
         align-items: flex-start;
         margin-top: 85px;
         margin-bottom: 45px;
+    }
+
+    .mainDetailContent img {
+        border: 1px solid black;
+        border-radius:6%;
     }
 
     .detailItemsDiv {
