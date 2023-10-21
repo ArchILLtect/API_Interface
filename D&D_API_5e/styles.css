@@ -37,7 +37,7 @@ h1 {
 
     position: flex;
     align-content: center;
-    background-image: url(./images/DnD-5th_Banner_2.jpg);
+    background-image: url(./images/backgrounds/DnD-5th_Banner_2.jpg);
     background-size: cover;
     font-size: 50px;
     margin-bottom: .1em;
@@ -122,17 +122,15 @@ button {
     border-top: 2px solid #b21f1f;
 }
 
-#mainnav ul :nth-child(2),
+#mainnav ul :nth-child(3),
 #mainnav ul :nth-child(5),
-#mainnav ul :nth-child(7),
-#mainnav ul :nth-child(8) {
+#mainnav ul :nth-child(6) {
     text-decoration: line-through;
     text-decoration-thickness: 3px;
     text-decoration-color: black;
 }
 
 #mainnav ul li a {
-    display: block;
     text-decoration: none;
     background-color: darkred;
     color: white;
@@ -142,8 +140,40 @@ button {
     padding: 10px;
 }
 
+.mainNavItem,
+.dropBtn {
+    display: block;
+}
+
+.subNavItem {
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.caret-down {
+    width: auto;
+    height: 15px;
+}
+
 #mainnav ul li a:hover {
     opacity: 0.5;
+}
+
+.dropDownContent {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.dropDown:hover .subNavItem {
+    opacity: 1;
+}
+
+.dropDown:hover .dropDownContent {
+    box-shadow: 0px 8px 16px 0px black;
 }
 
 .filterContainer {
@@ -256,26 +286,11 @@ button {
         background-color: white;
     }
 
-
-    .modalWindow h3 {
-        /*position: fixed;
-        top: 120px;
-        right: 50%;
-        border: 1px solid black;
-        background-color: azure;*/
-    }
-
     .mainDetailContent {
         display: flex;
         align-items: flex-start;
         margin-top: 85px;
         margin-bottom: 45px;
-    }
-
- 
-
-    .mainDetailContent {
-
     }
 
     .detailItemsDiv {
@@ -311,16 +326,12 @@ button {
     }
 
     #closeButton {
-/*         position: fixed;
-        bottom: 120px; */
+        position: fixed;
+        bottom: 120px;
     }
 
-    .detailTitle {
-
-    }
 
     #homeArticle {
         width: 60vw;
     }
-
 }
