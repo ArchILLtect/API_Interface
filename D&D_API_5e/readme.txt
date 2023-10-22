@@ -15,6 +15,10 @@
 10/20/23 - Starting work on filter functionality<br>
 10/20/23 - Made a Python function for making api info local and integrated some of them<br>
 10/20/23 - Ran Python function on spells and localized all spell details<br>
+10/21/23 - Updated some CSS - Added random image displayers, made backgrounds prettier<br>
+10/21/23 - Cleaned up some functions and expanded dataCache<br>
+10/21/23 - Created Python function for making filename lists for random picture displaying<br>
+10/22/23 - Fixed buggy CSS<br>
 <br>
 <br>
 TTD<br>
@@ -45,11 +49,20 @@ Traffic Cone Image courtesy of Tribaliumivanka @ depositphotos.com/vector/traffi
 <br>
 NOTES:<br>
 <br>
+To use create_file_list.py:<br>
+---1 Make sure you have Python installed<br>
+---2 Place create_file_list.py in the folder one up from the folder that contains the files you want to include<br>
+---3 Edit create_file_list.py so the folder_path variable matches the desired folder<br>
+---3 Run with $ python3 create_file_list.py<br>
+---4 The created file will be in the folder you are in<br>
+<br>
+<br>
 To use localize_all_api_details:<br>
 ---1 Make sure you have Python installed<br>
 ---2 Place localize_all_api_details.py in the folder you desire to contain the files<br>
 ---3 Edit localize_all_api_details.py so the main_api_url variable holds the correct desired API endpoint<br>
----3 Run with $ python3 test_apiEndPointCopy.py<br>
+---4 Run with $ python3 test_apiEndPointCopy.py<br>
+---5 The folder you are in will contain all the newly created folders which contain the json files.
 <br>
 <br>
 <br>

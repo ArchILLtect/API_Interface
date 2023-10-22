@@ -3,7 +3,7 @@
 const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
 const ALL_IMG = "./images/monsters.json";
 
-const pageHeaderDiv = document.getElementById('currentPageHeader');
+const pageHeaderDiv = document.getElementById('pageHeader');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
@@ -26,19 +26,21 @@ const dataCache = {};
 // Main Functions:
 async function goHome(page) {
 
+    currentPage = page;
+
+    setMainClass();
+
     await fetchData(ALL_IMG, 'images');
 
     // Clear previous page
     clearPrevPage();
 
     // Set page header to HOME
-    currentPage = page;
+
     SetHeader(page);
 
-    /* Use only if I decide to keep the global vars in an object
-    globalData.currentPage = 'Homepage';
-    SetHeader(globalData.currentPage);
-    */
+    mainElement.classList.remove('sheets');
+    mainElement.classList.add('homeContent');
 
     // Add HOME info to <main>
     const leftHomeArticle = document.createElement('article');
@@ -76,26 +78,31 @@ async function goHome(page) {
     mainElement.appendChild(leftHomeArticle);
     mainElement.appendChild(homeArticle);
     mainElement.appendChild(rightHomeArticle);
-    homeArticle.id = "homeArticle"
+    leftHomeArticle.id = "leftHomeArticle";
+    homeArticle.id = "homeArticle";
+    rightHomeArticle.id = "rightHomeArticle";
 };
-goHome('homepage');
+goHome('home');
 
 function SetHeader (title, count) {
     const curPageHeader = document.createElement('h2');
-    const pageHeader = document.getElementById('currentPageHeader');
+    const pageHeader = document.getElementById('pageHeader');
     let pageHeaderTxt = '';
 
-    if (title === 'homepage') {
+    if (title === 'home' || title === 'sheets') {
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
     } else if (title === 'characters') {
         //TODO Once page is setup swap lines and delete unused line.
         //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
     } else if (title === 'races') {
+
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'classes') {
+
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'spells') {
+
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'monsters') {
         //TODO Once page is setup swap lines and delete unused line.
@@ -128,9 +135,7 @@ async function fetchInfo(page) {
     
     if (verifyLoadNeed(dataCache, page, 'main')) {
 
-
         console.log('API LOAD NEEDED! LOAD NEEDED!');
-
 
         const apiPromise = await fetch(API_LOC_CUR);
         apiIndex = await apiPromise.json();
@@ -215,8 +220,9 @@ function addContent(data, type) {
 };
 
 function addCards(data, count) {
-    //console.log(data)
 
+    //console.log(data)
+    setMainClass()
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
@@ -233,6 +239,8 @@ function addCards(data, count) {
 
 function addList(data, count) {
 
+    //console.log(data)
+    setMainClass()
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
@@ -808,8 +816,30 @@ function createDetailsWindowNEW(data) {
 
 function setUpSheets() {
 
-}
+    currentPage = 'sheets';
+    setMainClass();
 
+    mainElement.classList.remove('homeContent');
+    mainElement.classList.add('sheets');
+
+    clearPrevPage();
+    SetHeader(currentPage);
+
+
+    // Add HOME info to <main>
+    const mainArticle = document.createElement('article');
+    const characterSheet = document.createElement('iframe');
+    characterSheet.id = 'sheet';
+    characterSheet.src = "./src/templates/DnD_5E_CharacterSheet_-_Form_Fillable.pdf"
+    const mainPageTxt = document.createTextNode('Welcome to the Character Sheets Page');
+
+    homePage.appendChild(mainPageTxt);
+    mainArticle.appendChild(homePage);
+    mainArticle.appendChild(characterSheet);
+    mainElement.appendChild(mainArticle);
+    mainArticle.id = "mainArticle";
+
+};
 
 /*//////////////////////////
 // Event Listeners:      //
@@ -1039,7 +1069,7 @@ function cacheData(data, itemType) {
 
         dataCache[itemType] = data;
 
-        console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
+        //console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
         return;
         }
     } else {
@@ -1051,21 +1081,47 @@ async function fetchData(data, itemType) {
 
     const apiPromise = await fetch(data);
     apiIndex = await apiPromise.json();
-    console.log(apiIndex)
+    //console.log(apiIndex)
     cacheData(apiIndex, itemType);
 };
 
 function imageRandomizer() {
-    console.log('at RNDMIZER');
-    console.log(dataCache);
+    //console.log('at RNDMIZER');
+    //console.log(dataCache);
     const FILE_NAMES = dataCache.images.filenames;
     //console.log(FILE_NAMES);
     const FILE_NUM = FILE_NAMES.length;
     const RAND_NUM = Math.floor(Math. random() * FILE_NUM);
     const RAND_FILE = FILE_NAMES[RAND_NUM];
     const RAND_IMG = 'images/monsters/' + RAND_FILE
-    console.log(RAND_IMG);
+    //console.log(RAND_IMG);
     return RAND_IMG;
+};
+
+function setMainClass() {
+
+    if (currentPage === 'races' || currentPage === 'classes') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('cardContent');
+        return
+    } else if (currentPage === 'spells') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('listContent');
+        return
+    } else {
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('pageContent');
+        return
+    }
+
 };
 
 /*

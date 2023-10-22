@@ -31,33 +31,29 @@ body {
     background-color: #efefef; */
 }
 
-h1, h2, h3 {
+h1, h3 {
     font-family: 'Dragon_Lord', cursive;
     font-weight: 400;
 }
 
 h1 {
-
     position: flex;
     align-content: center;
     background-image: url(./images/backgrounds/DnD-5th_Banner_2.jpg);
     background-size: cover;
     font-size: 50px;
     margin-bottom: .1em;
-    min-height: 3vw;
+    height: 18vh;
     color: black;
 }
 
 h2 {
     font-family: 'Dragon_Hunter', cursive;
     font-size: 2.5em;
+    font-weight: 900;
     color:#0c3967;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 0.5rem 30vw 0.5rem 30vw;
+    width: 100%;
     padding-top: 0.5rem;
-    padding-left: 30vw;
-    padding-right: 30vw;
     text-align: center;
     box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.75);
     background-image: url(./images/page-elements/paper-backer-top.png);
@@ -77,6 +73,7 @@ p {
 }
 
 header {
+    min-height: 15vh;
     margin-top: 30px;
     text-align: center;
 }
@@ -121,9 +118,12 @@ button {
     margin-top: 1rem;
 }
 
-#currentPageHeader {
+#pageHeader {
     display: flex;
     justify-content: center;
+    padding: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 #mainnav ul {
@@ -154,7 +154,7 @@ button {
 }
 
 .subNavItem {
-    display: flex;
+    display: none;
     justify-content: center;
     opacity: 0;
     transition: opacity .5s ease;
@@ -170,6 +170,7 @@ button {
 }
 
 .dropDown:hover .subNavItem {
+    display: flex;
     opacity: 1;
 }
 
@@ -270,7 +271,17 @@ button {
     }
 
     #homeArticle {
-        width: 60vw;
+        width: 80vw;
+    }
+
+    .homeContent {
+        display:flex;
+        justify-content: center;
+    }
+
+    #leftHomeArticle,
+    #rightHomeArticle {
+        display: none;
     }
 
 }
@@ -367,4 +378,30 @@ button {
     #homeArticle {
         width: 60vw;
     }
+
+    #leftHomeArticle,
+    #rightHomeArticle {
+        display: flex;
+        width: 30vw;
+    }
+
+    #leftHomeArticle img,
+    #rightHomeArticle img{
+        width: 100%;
+        height: max-content;
+    }
+}
+
+
+ /* New: */
+
+ .sheets {
+    display: flex;
+    justify-content: center;
+    flex-direction: unset;
+}
+
+#sheet {
+    width: 80vw;
+    height: 90vh
 }

@@ -1,0 +1,433 @@
+/* Created on 9/09/23 by ArchILLtect */
+
+
+
+
+@font-face {
+    font-family: Dragon_Hunter;
+    src: url(./fonts/DragonHunter-9Ynxj.otf);
+    font-family: Dragon_Lord;
+    src: url(./fonts/DragonlordPersonalUseOnlyRegular-PKxzm.otf);
+}
+
+h1, h2, h3, p, ul, li {
+    margin:0;
+    padding:0;
+}
+
+nav ul, nav ol {
+    list-style-type: none;
+}
+
+/********** End Bill's Reset ***********/
+
+body {
+    background-image: url(./images/page-elements/paper-backer-lite.jpg);
+    background-repeat: repeat;
+    background-size: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    /* color: #333;
+    background-color: #efefef; */
+}
+
+h1, h2, h3 {
+    font-family: 'Dragon_Lord', cursive;
+    font-weight: 400;
+}
+
+h1 {
+
+    position: flex;
+    align-content: center;
+    background-image: url(./images/backgrounds/DnD-5th_Banner_2.jpg);
+    background-size: cover;
+    font-size: 50px;
+    margin-bottom: .1em;
+    min-height: 3vw;
+    color: black;
+}
+
+h2 {
+    font-family: 'Dragon_Hunter', cursive;
+    font-size: 2.5em;
+    color:#0c3967;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 0.5rem 30vw 0.5rem 30vw;
+    padding-top: 0.5rem;
+    padding-left: 30vw;
+    padding-right: 30vw;
+    text-align: center;
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.75);
+    background-image: url(./images/page-elements/paper-backer-top.png);
+
+}
+
+h3 {
+    font-size: 3em;
+    color:#0c3967;
+    margin: 0.1rem 0 0.1rem 0;
+}
+
+p {
+    font-weight: bold;
+    margin-bottom: 1em;
+    line-height: 1.4em;
+}
+
+header {
+    margin-top: 30px;
+    text-align: center;
+}
+
+header img {
+    max-width: 75%;
+}
+
+nav {
+    padding: 20px;
+    text-align: center;
+}
+
+/* main {
+    padding: 20px;
+    height: 65vh;
+} */
+
+.sheets {
+    display: flex;
+    justify-content: center;
+    flex-direction: unset;
+}
+
+/* article img {
+    max-width: 80%;
+    height: 300px;
+} */
+
+#leftHomeArticle img,
+#rightHomeArticle img{
+    width: 100%;
+    height: 100%;
+}
+
+article {
+    display: flexbox;
+    text-align: center;
+    background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
+    background-repeat: no-repeat, repeat;
+    background-size: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+strong {
+    font-weight: 500;
+}
+
+button {
+    margin-top: 1rem;
+}
+
+#currentPageHeader {
+    display: flex;
+    justify-content: center;
+}
+
+#mainnav ul {
+    border-top: 2px solid #b21f1f;
+}
+
+#mainnav ul :nth-child(3),
+#mainnav ul :nth-child(5),
+#mainnav ul :nth-child(6) {
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    text-decoration-color: black;
+}
+
+#mainnav ul li a {
+    text-decoration: none;
+    background-color: darkred;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 2px solid #b21f1f;
+    padding: 10px;
+}
+
+.mainNavItem,
+.dropBtn {
+    display: block;
+}
+
+.subNavItem {
+    display: none;
+    justify-content: center;
+/*     opacity: 0; */
+/*     transition: opacity .5s ease; */
+}
+
+#mainnav ul li a:hover {
+    opacity: 0.5;
+}
+
+.dropDownContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropDown:hover .subNavItem {
+    display: flex;
+    opacity: 1;
+}
+
+.dropDown:hover .dropDownContent {
+    box-shadow: 0px 8px 16px 0px black;
+    background-color: darkred;
+}
+
+.filterContainer {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.filterContainer p,
+.filterLabel {
+    font-family: 'DRAGON_HUNTER';
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+}
+
+.spellFilter {
+    display: none;
+}
+
+#filterInput {
+    border: 2px solid black;
+}
+
+#homeArticle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'DRAGON_HUNTER';
+    font-size: 1.5rem;
+    font-weight: 900;
+    width: auto;
+    height: fit-content;
+    background-image: url(./images/backgrounds/construction-cone.jpeg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+    gap: 30px;
+}
+
+#mainArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'DRAGON_HUNTER';
+    font-size: 1.2rem;
+    font-weight: 900;
+    width: 90vw;
+    background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
+    background-repeat: no-repeat, repeat;
+    background-size: 100%;
+    gap: 5px;
+}
+
+/* Make sure the sister selector is the same and has POSITION: RELATIVE 
+#homeArticle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);  Adjust opacity with the last value (0.5 in this example) 
+    z-index: 1;  Ensure it's on top of the background image 
+}
+*/
+
+.detailImage {
+    height: auto;
+    width: 30vw;
+}
+
+#sheet {
+    width: 80vw;
+    height: 90vh
+}
+
+@media only screen and (min-width: 600px) {
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        height: fit-content;
+    }
+
+    article {
+        margin-bottom: 0;
+    }
+
+    h1 {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    #mainnav ul {
+        display: flex;
+        border-top: none;
+    }
+    #mainnav ul li {
+        flex: 1
+    }
+    #mainnav ul li a {
+        border-bottom: none;
+        border-right: 2px solid #b21f1f;
+    }
+    #mainnav ul li:last-of-type a {
+        border-right: none;
+    }
+
+    #homeArticle {
+        width: 80vw;
+    }
+
+    .homeContent {
+        display:flex;
+        justify-content: center;
+    }
+
+    #leftHomeArticle,
+    #rightHomeArticle {
+        display: none;
+    }
+
+}
+
+@media only screen and (min-width: 900px) {
+    .homeContent {
+        display: grid;
+        width: 30vw;
+        margin-left: 5vw;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px;
+        height: fit-content;
+    }
+
+    h1 {
+        font-size: 100px;
+        padding-top: 150px;
+        padding-bottom: 150px;
+    }
+
+    .modalWindow {
+        background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
+        background-repeat: no-repeat, repeat;
+        background-size: 100%;
+        padding: 0px 20px 20px 20px;
+        max-height: 75%;
+        max-width: 75%;
+    }
+
+    #detailsHeader {
+        position: fixed;
+        width: inherit;
+        /* border: 1px solid black; */
+        padding-top: 20px;
+
+    }
+
+    #detailsFooter {
+        position: relative;
+        width: inherit;
+        bottom: 109px;
+        padding-bottom: 20px;
+        background-color: white;
+    }
+
+    .mainDetailContent {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 85px;
+        margin-bottom: 45px;
+    }
+
+    .mainDetailContent img {
+        border: 1px solid black;
+        border-radius:6%;
+    }
+
+    .detailItemsDiv {
+        margin-left: 20px;
+    }
+
+    .detailItemsDiv > div {
+        margin-bottom: 40px;
+        border-bottom: 1px solid black;
+    }
+
+    /* TEMP SPECIAL */
+    #damageItemsDiv {
+        font-size: 0.8rem;
+        margin: 20px;
+    }
+
+    /* TEMP SPECIAL */
+    #damageItemsDiv > p {
+        line-height: 2rem;
+        margin-bottom: 40px;
+        border-bottom: 1px solid black;
+    }
+
+    /* TEMP SPECIAL */
+    #damageTypeTitle {
+        color: green;
+    }
+
+    /* TEMP SPECIAL */
+    #damageTypeItem {
+        color: grey;
+    }
+
+    #closeButton {
+        position: fixed;
+        bottom: 120px;
+    }
+
+    #homeArticle {
+        width: 50vw;
+    }
+
+    #homeArticle {
+        width: 80vw;
+    }
+
+/*     .homeContent {
+        display:flex;
+        justify-content: center;
+    } */
+
+    #leftHomeArticle,
+    #rightHomeArticle {
+        display: flex;
+        width: 30vw;
+    }
+
+    #leftHomeArticle img,
+    #rightHomeArticle img{
+        width: 100%;
+        height: max-content;
+    }
+}
