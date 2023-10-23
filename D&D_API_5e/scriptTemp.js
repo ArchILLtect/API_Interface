@@ -177,3 +177,22 @@ function removeAllChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 };
+
+
+
+
+
+async function fetchData(data, itemType) {
+
+    try {
+      const apiPromise = await fetch(data);
+      if (apiIndex.ok) {
+        const apiIndex = await apiPromise.json();
+        cacheData(apiIndex, itemType);
+        return
+      } else {
+        console.log('Unable to fetch data!!!')
+      }
+    } catch (error) {
+    console.log('ERROR attempting to fetch images!!!')    }
+};

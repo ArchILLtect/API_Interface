@@ -1,7 +1,7 @@
 /* Created on 10/11/23 by ArchILLtect */
 
 const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
-const ALL_IMG = "./images/monsters.json";
+const MON_IMG_ALL = "./images/monsters.json";
 
 const pageHeaderDiv = document.getElementById('pageHeader');
 const mainElement = document.querySelector('main');
@@ -30,7 +30,7 @@ async function goHome(page) {
 
     setMainClass();
 
-    await fetchData(ALL_IMG, 'images');
+
 
     // Clear previous page
     clearPrevPage();
@@ -47,9 +47,9 @@ async function goHome(page) {
     const homeArticle = document.createElement('article');
     const rightHomeArticle = document.createElement('article');
     const homeImageSlot1 = document.createElement('img');
-    homeImageSlot1.src = imageRandomizer();
+    homeImageSlot1.src = "./images/page-elements/spinner-dnd.gif";
     const homeImageSlot2 = document.createElement('img');
-    homeImageSlot2.src = imageRandomizer();
+    homeImageSlot2.src = "./images/page-elements/spinner-dnd.gif";
     const homeArticleItem1 = document.createElement('p');
     const homeArticleItem2 = document.createElement('p');
     const homeArticleItem3 = document.createElement('p');
@@ -81,6 +81,11 @@ async function goHome(page) {
     leftHomeArticle.id = "leftHomeArticle";
     homeArticle.id = "homeArticle";
     rightHomeArticle.id = "rightHomeArticle";
+
+    await fetchData(MON_IMG_ALL, 'monsters', 'image');
+    homeImageSlot1.src = imageRandomizer('monsters');
+    homeImageSlot2.src = imageRandomizer('monsters');
+
 };
 goHome('home');
 
@@ -219,10 +224,10 @@ function addContent(data, type) {
     } else { console.log( `Error - bad type in addContent function = line 146 to 151. current type = ${type}`) }
 };
 
-function addCards(data, count) {
+async function addCards(data, count) {
 
     //console.log(data)
-    setMainClass()
+    setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
@@ -233,14 +238,21 @@ function addCards(data, count) {
         createCard(eachItem);
     });
 
-    readyFilter()
+    const ALL_IMG = document.querySelectorAll('#mainContent article');
+    const IMG_LIST_LOC = './images/' + currentPage + '.json';
+
+    readyFilter();
+
+    await fetchData(IMG_LIST_LOC, currentPage, 'image');
+
+    placeImages(ALL_IMG, 'card');
 
 };
 
-function addList(data, count) {
-
+async function addList(data, count) {
+    
     //console.log(data)
-    setMainClass()
+    setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
@@ -251,23 +263,32 @@ function addList(data, count) {
     createList(eachItem);
     });
 
-    readyFilter()
+    const ALL_IMG = document.querySelectorAll('#mainContent article');
+    const IMG_LIST_LOC = './images/' + currentPage + '.json';
+
+    readyFilter();
+
+    await fetchData(IMG_LIST_LOC, currentPage, 'image');
+
+    placeImages(ALL_IMG, 'list');
 
 };
 
 function createCard(data) {
+    const cardNameRaw = data.index
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
+    card.id = cardNameRaw;
 
     const cardName = document.createElement('h3');
     const cardNameTxt = document.createTextNode(data.name);
     cardName.appendChild(cardNameTxt);
 
     const cardPic = document.createElement('img');
-    const cardNameRaw = data.index
+
     //TODO NEEDS NEW REGEX TO COVER ANY FOWARD SLASHES = (/) IN INPUTS
     const cardTitleName = cardNameRaw.replace(/ /g, "-");
-    cardPic.id = cardTitleName
+    cardPic.id = cardTitleName + 'Img';
         
 
     const buttonContainer = document.createElement('div');
@@ -281,25 +302,28 @@ function createCard(data) {
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(card);
 
-    const cardImg = document.querySelector(`#${data.index}`)
+    const cardImg = document.querySelector(`#${data.index}`);
 
-    cardImg.src = `./images/${currentPage}/${data.index}.jpg`;
+    cardImg.src = "./images/page-elements/spinner-dnd.gif";
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { fetchDetails(cardNameRaw, cardImg) } );
 };
 
 function createList(data) {
+    const itemNameRaw = data.index
+    //console.log(`At createCard() currentPage = ${currentPage}`)
     const listItem = document.createElement('article');
-
+    listItem.id = itemNameRaw;
+    
     const listItemName = document.createElement('h3');
     const listItemTxt = document.createTextNode(data.name);
     listItemName.appendChild(listItemTxt);
 
     const listItemPic = document.createElement('img');
-    const itemNameRaw = data.index
+  
     //TODO NEEDS NEW REGEX TO COVER ANY FOWARD SLASHES = (/) IN INPUTS
     const itemName = itemNameRaw.replace(/ /g, "-");
-    listItemPic.id = itemName
+    listItemPic.id = itemName + 'Img';
     
     const buttonContainer = document.createElement('div');
     const selectButton = document.createElement('button');
@@ -313,10 +337,11 @@ function createList(data) {
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(listItem);
 
-    const listItemImg = document.querySelector(`#${itemName}`)
+    const listItemImg = document.querySelector(`#${itemNameRaw} img`);
+    //console.log(listItemImg);
 
     // TODO Uncomment line under to display photos
-    listItemImg.src = `./images/${currentPage}/${data.index}.gif`;
+    listItemImg.src = "./images/page-elements/spinner-dnd.gif";
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { fetchDetails(itemNameRaw, listItemImg) } );
 };
@@ -848,7 +873,7 @@ function setUpSheets() {
 // VARs - Main
 homeNav = document.getElementById('#home');
 characterNav = document.getElementById('#character');
-monsterNav = document.getElementById('#moster');
+monsterNav = document.getElementById('#monster');
 itemNav = document.getElementById('#item');
 miscNav = document.getElementById('#misc');
 allNav = document.querySelectorAll('nav ul li a');
@@ -1039,56 +1064,80 @@ function setContentType(count) {
     }
 };
 
-function cacheData(data, itemType) {
+function cacheData(data, itemName, itemType) {
     const numberOfItems = Object.keys(data).length;
-    //console.log(numberOfItems)
 
-    if (numberOfItems > 1 && itemType) {
+    if (numberOfItems > 1 && itemName) {
         if (
-            dataCache[itemType] &&
-            dataCache[itemType].details &&
-            dataCache[itemType].details[data.index] &&
-            dataCache[itemType].details[data.index] === data
+            dataCache[itemName] &&
+            dataCache[itemName].details &&
+            dataCache[itemName].details[data.index] &&
+            dataCache[itemName].details[data.index] === data
         ) {
             return;
         }
-        if (!dataCache[itemType]) {
-            dataCache[itemType] = {};
+        if (!dataCache[itemName]) {
+            dataCache[itemName] = {};
         }
 
-        dataCache[itemType].details = dataCache[itemType].details || {};
-        dataCache[itemType].details[data.index] = data;
+        dataCache[itemName].details = dataCache[itemName].details || {};
+        dataCache[itemName].details[data.index] = data;
 
-        //console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
+        console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
         return;
     } else if (numberOfItems === 1) {
-        if (dataCache[itemType]) {
-            //console.log('Data already exists');
+        if (itemType === 'image') {
+            if (dataCache.images && dataCache.images[itemName]) {
+                console.log('Data already exists');
+                return;
+            } else {
+
+                dataCache.images = dataCache.images || {};
+                dataCache.images[itemName] = data;
+
+            console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
             return;
+            }
         } else {
+            
+            if (dataCache[itemName]) {
+                console.log('Data already exists');
+                return;
+            } else {
 
-        dataCache[itemType] = data;
+            dataCache[itemName] = data;
 
-        //console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
-        return;
+            console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
+            return;
+            }
         }
     } else {
         throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
 };
 
-async function fetchData(data, itemType) {
-
-    const apiPromise = await fetch(data);
-    apiIndex = await apiPromise.json();
-    //console.log(apiIndex)
-    cacheData(apiIndex, itemType);
+async function fetchData(data, itemName, itemType) {
+    //console.log(data);
+    //console.log(itemName);
+    //console.log(itemType);
+    try {
+        const apiPromise = await fetch(data);
+        if (apiPromise.ok) {
+            const apiIndex = await apiPromise.json();
+            cacheData(apiIndex, itemName, itemType);
+            return
+      } else {
+            console.log('Unable to fetch data!!!');
+      }
+    } catch (error) {
+        console.log('ERROR attempting to fetch images!!!')};
+        console.log(error);
 };
 
-function imageRandomizer() {
+function imageRandomizer(itemType) {
     //console.log('at RNDMIZER');
     //console.log(dataCache);
-    const FILE_NAMES = dataCache.images.filenames;
+    const FILE_NAMES = dataCache.images[itemType].filenames;
     //console.log(FILE_NAMES);
     const FILE_NUM = FILE_NAMES.length;
     const RAND_NUM = Math.floor(Math. random() * FILE_NUM);
@@ -1096,6 +1145,61 @@ function imageRandomizer() {
     const RAND_IMG = 'images/monsters/' + RAND_FILE
     //console.log(RAND_IMG);
     return RAND_IMG;
+};
+
+function placeImages(articles, type) {
+/* 
+    if (type === 'card') {
+       */  
+        const CUR_FILES = dataCache.images[currentPage].filenames;
+        for (article of articles) {
+            const CUR_NAME = article.id
+            let currentFile;
+
+            if (type === 'card') {
+                currentFile = article.id + '.jpg';
+            } else {
+                currentFile = article.id + '.gif';
+            }
+
+            const CUR_IMG = document.getElementById(`${CUR_NAME}Img`);
+            let matchFound = false;
+            //console.log(CUR_NAME);
+            //console.log(CUR_IMG);
+            for (filename of CUR_FILES) {
+                //console.log(`${filename} === ${CUR_FILE}`);
+                if (filename === currentFile) {
+                    //console.log(filename)
+                    CUR_IMG.src = './images/' + currentPage + '/' + filename;
+                    matchFound = true;
+                    break;                 
+                }
+            };
+            if (!matchFound) {
+                // Set placeholder when no match is found
+                CUR_IMG.src = './images/page-elements/image_placeholder.gif';
+            }
+        }
+
+/*     } else {
+        const CUR_FILES = dataCache.images[currentPage].filenames;
+        for (article of articles) {
+            const CUR_NAME = article.id
+            const CUR_FILE = article.id + '.gif';
+            const CUR_IMG = document.getElementById(`${CUR_NAME}Img`);
+            //console.log(CUR_NAME);
+            //console.log(CUR_IMG);
+            for (filename of CUR_FILES) {
+                //console.log(`${filename} === ${CUR_FILE}`);
+                if (filename === CUR_FILE) {
+                    CUR_IMG.src = './images/' + currentPage + '/' + filename;
+                } else {
+                    
+                }
+            };
+        };
+    }; */
+
 };
 
 function setMainClass() {

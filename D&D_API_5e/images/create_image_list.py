@@ -1,13 +1,25 @@
+# Created on 10/22/23 by ArchILLtect
+# Version 1.2
+
 import os
 import json
+import sys
 
-# Define the folder containing the images
-folder_path = 'monsters'
+# Check if the correct number of command-line arguments is provided
+if len(sys.argv) != 2:
+    print("Usage: python3 create_file_list.py <target_folder>")
+    sys.exit(1)
+
+# Get the target folder from the command-line argument
+folder_path = sys.argv[1]
 
 # Check if the folder exists
 if os.path.exists(folder_path) and os.path.isdir(folder_path):
     # Get the list of files in the folder
     filenames = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    
+    # Calculate the file count
+    file_count = len(filenames)
     
     # Create a dictionary with the folder name and the list of filenames
     data = {"filenames": filenames}

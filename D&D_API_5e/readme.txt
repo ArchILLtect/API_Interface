@@ -19,20 +19,21 @@
 10/21/23 - Cleaned up some functions and expanded dataCache<br>
 10/21/23 - Created Python function for making filename lists for random picture displaying<br>
 10/22/23 - Fixed buggy CSS<br>
+10/22/23 - Made image loading asyncronous and added placeholders for missing images<br>
+
 <br>
 <br>
 TTD<br>
 <br>
 Fix Nav Bar<br>
 ---Need drop down menus<br>
-Add more filter options<br>
+*1*Add more filter options<br>
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Add if conditional for input of None on modal window items.<br>
 Fix the modal window footer and header styles<br>
 Figure out what to do about missing pictures<br>
 ---Make gifs using extra images<br>
----Use a blank image or default image for missing<br>
-Continue building localCache<br>
+*1*Continue building localCache<br>
 Fix details for races and classes<br>
 Think about how to create Python scripts that update local data<br>
 <br>
