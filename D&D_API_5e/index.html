@@ -65,7 +65,7 @@
 
     <div id="filterInputContainer" class="filterContainer" >
         <div id="spellFilter" class="spellFilter">
-            <label for="classes" class="filterLabel">Filter by class: </label>
+            <label for="classFilter" class="filterLabel">Filter by class: </label>
 
             <select name="classes" id="classFilter">
                 <option value="bard">Bard</option>
@@ -81,7 +81,7 @@
             <span>Coming Soon!!</span>
         </div>
         <div id="spellFilter" class="spellFilter">
-            <label for="schools" class="filterLabel">Filter by school: </label>
+            <label for="schoolFilter" class="filterLabel">Filter by school: </label>
 
             <select name="schools" id="schoolFilter">
                 <option value="abjuration">Abjuration</option>
@@ -96,9 +96,19 @@
 
             <span>Coming Soon!!</span>
         </div>
-        <div>
-            <p>Filter by name: </p>
-            <input type="text" id="filterInput" placeholder="READY!!"/>
+        <div id="filterContainer">
+            <div id="nameFilterContainer">
+                <label for="nameFilter" class="filterLabel">Filter by name: </label>
+
+                <select id="nameFilter" >
+                    <option id="defaultOption" value="default" selected>--Select One--</option>
+                    <option value="startsWith">Starts with</option>
+                    <option value="includes">Includes</option>
+                </select>
+                <input type="text" id="filterInput" placeholder="READY!!"/>
+            </div>
+            <p id="filterCount">This filter returns 0 entries.</p>
+            <button id="resetFilter">Reset Filter</button>
         </div>
     </div>
 

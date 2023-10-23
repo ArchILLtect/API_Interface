@@ -187,6 +187,36 @@ button {
     margin-bottom: 30px;
 }
 
+.filterContainer div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.filterContainer div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.nameFilterContainer {
+    display: inline;
+    flex-direction: row;
+    width: fit-content;
+}
+
+#nameFilterContainer {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#filterContainer p,
+#filterContainer button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .filterContainer p,
 .filterLabel {
     font-family: 'DRAGON_HUNTER';
@@ -200,8 +230,26 @@ button {
     display: none;
 }
 
+.filterLabel {
+    max-width: fit-content;
+    margin-right: 5px;
+}
+
+#nameFilter {
+    max-width: fit-content;
+}
+
 #filterInput {
     border: 2px solid black;
+    max-width: 20vw;
+}
+
+#filterCount {
+    text-align: center;
+}
+
+#resetFilter {
+    width: fit-content;
 }
 
 #homeArticle {

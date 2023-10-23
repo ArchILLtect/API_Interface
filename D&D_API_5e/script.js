@@ -241,6 +241,7 @@ async function addCards(data, count) {
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
 
+    resetFilter();
     readyFilter();
 
     await fetchData(IMG_LIST_LOC, currentPage, 'image');
@@ -266,6 +267,7 @@ async function addList(data, count) {
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
 
+    resetFilter();
     readyFilter();
 
     await fetchData(IMG_LIST_LOC, currentPage, 'image');
@@ -345,29 +347,6 @@ function createList(data) {
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { fetchDetails(itemNameRaw, listItemImg) } );
 };
-
-/* async function getDetails(itemType) {
-    console.log(itemType);
-    const currentFetch = API_MAIN_URL + currentPage + "/" + itemType;
-    //console.log(currentFetch);
-
-
-
-    const detailsIndexPromise = await fetch(currentFetch);
-    detailsIndex = await detailsIndexPromise.json();
-
-    console.log(detailsIndex);
-
-    // Cache the data:
-    cacheData(detailsIndex, currentPage);
-
-    //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
-    if (currentPage == 'spells') {
-        createDetailsWindow(detailsIndex);
-    } else {
-        createDetailsWindowNEW(detailsIndex);
-    }
-} */
 
 function createDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
@@ -906,6 +885,351 @@ function readyFilter() {
     const spellFilter = filterContainer.getElementsByClassName('spellFilter');
     const itemList = document.getElementById('mainContent');
     const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+    const filterTypeSelect = document.getElementById('nameFilter');
+    const resetButton = document.getElementById('resetFilter');
+
+    let resultCount = items.length;
+
+    if (currentPage === 'spells') { 
+        for (const eachItem of spellFilter) {
+            eachItem.style.display = 'block';
+        }
+    }
+
+    // Initial count message
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Filter container
+    filterContainer.style.display = 'flex';
+
+    // Add button to result filter results
+    resetButton.addEventListener('click', resetFilter);
+
+    // Helper function to remove existing event listeners
+    function removeInputListeners() {
+        filterInput.removeEventListener('input', startsWithFilter);
+        filterInput.removeEventListener('input', includesFilter);
+    }
+
+    // Function for "starts with" filtering
+    function startsWithFilter() {
+        const searchText = filterInput.value.trim().toLowerCase();
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.startsWith(searchText)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    }
+
+    // Function for "includes" filtering
+    function includesFilter() {
+        const searchText = filterInput.value.trim().toLowerCase();
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (searchText === '' || text.includes(searchText)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    }
+
+    // Handle filter type changes
+    filterTypeSelect.addEventListener('change', () => {
+        // Remove existing event listeners
+        removeInputListeners();
+        
+        const selectedOption = filterTypeSelect.value;
+
+        if (selectedOption === 'startsWith') {
+            nameFilter.options[0].disabled = true;
+            filterInput.placeholder = "starts with";
+            filterInput.value = '';
+
+            // Add "starts with" event listener
+            filterInput.addEventListener('input', startsWithFilter);
+        } else if (selectedOption === 'includes') {
+            nameFilter.options[0].disabled = true;
+            filterInput.placeholder = "include";
+            filterInput.value = '';
+
+            // Add "includes" event listener
+            filterInput.addEventListener('input', includesFilter);
+        }
+    });
+};
+
+function resetFilter() {
+    const filterInput = document.getElementById('filterInput');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+    const filterTypeSelect = document.getElementById('nameFilter');
+
+
+    // Reset the filter input
+    filterInput.value = '';
+
+    // Reset the display style of all items
+    items.forEach(item => {
+        item.style.display = 'block';
+    });
+
+    // Update the result count
+    resultCount = items.length;
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Reset the filter type select
+    filterTypeSelect.selectedIndex = 0;
+
+    // Enable the first option in the filter type select
+    nameFilter.options[0].disabled = false;
+};
+
+/* 
+function readyFilter() {
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+    const filterTypeSelect = document.getElementById('nameFilter');
+
+    let resultCount = items.length;
+
+    if (currentPage === 'spells') { 
+
+        for (const eachItem of spellFilter) {
+            eachItem.style.display = 'block';
+        }
+    }
+
+    // Initial count message
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Filter:
+    filterContainer.style.display = 'flex';
+
+    filterTypeSelect.addEventListener('change', () => {
+        const selectedOption = filterTypeSelect.value;
+
+        if (selectedOption === 'startsWith') {
+            filterInput.placeholder = "starts with"
+            filterInput.addEventListener('input', function () {
+                const searchText = filterInput.value.trim().toLowerCase();
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.startsWith(searchText)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Update the result count
+                const visibleItems = items.filter(item => item.style.display === 'block');
+                resultCount = visibleItems.length;
+                resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+            });
+
+        } else if (selectedOption === 'includes') {
+            filterInput.placeholder = "include"
+            filterInput.addEventListener('input', function () {
+                const searchText = filterInput.value.trim().toLowerCase();
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (searchText === '' || text.includes(searchText)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            
+                // Update the result count
+                const visibleItems = items.filter(item => item.style.display === 'block');
+                resultCount = visibleItems.length;
+                resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+            });
+        }
+    });
+}; */
+
+
+/* 
+function readyFilter() {
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+    const filterTypeSelect = document.getElementById('nameFilter');
+
+    let resultCount = items.length;
+
+    if (currentPage === 'spells') { 
+
+        for (const eachItem of spellFilter) {
+            eachItem.style.display = 'block';
+        }
+    }
+
+    // Initial count message
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Filter:
+    filterContainer.style.display = 'flex';
+
+    filterTypeSelect.addEventListener('change', () => {
+        const selectedOption = filterTypeSelect.value;
+
+        if (selectedOption === 'startsWith') {
+            filterInput.placeholder = "starts with"
+            filterInput.addEventListener('input', function () {
+                const searchText = filterInput.value.trim().toLowerCase();
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.startsWith(searchText)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Update the result count
+                const visibleItems = items.filter(item => item.style.display === 'block');
+                resultCount = visibleItems.length;
+                resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+            });
+
+        } else if (selectedOption === 'includes') {
+            filterInput.placeholder = "include"
+            filterInput.addEventListener('input', function () {
+                const searchText = filterInput.value.trim().toLowerCase();
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.startsWith(searchText)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            
+                // Update the result count
+                const visibleItems = items.filter(item => item.style.display === 'block');
+                resultCount = visibleItems.length;
+                resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+            });
+        }
+    });
+};
+ */
+
+
+/* 
+function readyFilter() {
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+
+    let resultCount = items.length;
+
+    // Initial count message
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Filter:
+    filterContainer.style.display = 'flex';
+    filterInput.addEventListener('input', function () {
+        const searchText = filterInput.value.trim().toLowerCase();
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.startsWith(searchText)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    });
+}; */
+
+/* Working function:
+function readyFilter() {
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+
+    let resultCount = items.length;
+
+    // Initial count message
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    // Filter:
+    filterContainer.style.display = 'flex';
+    filterInput.addEventListener('input', function () {
+        const searchText = filterInput.value.trim().toLowerCase();
+
+        resultCount = 0; // Reset result count
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (searchText === '' || text.includes(searchText)) {
+                item.style.display = 'block';
+                resultCount++; // Increment result count for matching items
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update the count message
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    });
+}; */
+
+/* OLD function:
+function readyFilter() {
+    // VARs - Filter
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
 
     if (currentPage === 'spells') { 
 
@@ -916,11 +1240,11 @@ function readyFilter() {
 
     // Filter:
     filterContainer.style.display = 'flex';
-    filterInput.addEventListener('input', function () {
-        const searchText = filterInput.value.toLowerCase();
+    filterInput.addEventListener('keyup', function () {
+        const searchText = filterInput.value.toLowerCase().trim();
     
         items.forEach(item => {
-        const text = item.textContent.toLowerCase();
+        const text = item.textContent.toLowerCase().trim();
         if (text.includes(searchText)) {
             item.style.display = 'block';
         } else {
@@ -928,7 +1252,7 @@ function readyFilter() {
         }
         });
     })
-};
+}; */
 
 function hideFilters() {
     const filterInput = document.getElementById('filterInput');
@@ -1065,54 +1389,60 @@ function setContentType(count) {
 };
 
 function cacheData(data, itemName, itemType) {
-    const numberOfItems = Object.keys(data).length;
 
-    if (numberOfItems > 1 && itemName) {
-        if (
-            dataCache[itemName] &&
-            dataCache[itemName].details &&
-            dataCache[itemName].details[data.index] &&
-            dataCache[itemName].details[data.index] === data
-        ) {
-            return;
-        }
-        if (!dataCache[itemName]) {
-            dataCache[itemName] = {};
-        }
+    try {
 
-        dataCache[itemName].details = dataCache[itemName].details || {};
-        dataCache[itemName].details[data.index] = data;
+        const numberOfItems = Object.keys(data).length;
 
-        console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-        return;
-    } else if (numberOfItems === 1) {
-        if (itemType === 'image') {
-            if (dataCache.images && dataCache.images[itemName]) {
-                console.log('Data already exists');
+        if (numberOfItems > 1 && itemName) {
+            if (
+                dataCache[itemName] &&
+                dataCache[itemName].details &&
+                dataCache[itemName].details[data.index] &&
+                dataCache[itemName].details[data.index] === data
+            ) {
                 return;
-            } else {
+            }
+            if (!dataCache[itemName]) {
+                dataCache[itemName] = {};
+            }
 
-                dataCache.images = dataCache.images || {};
-                dataCache.images[itemName] = data;
-
+            dataCache[itemName].details = dataCache[itemName].details || {};
+            dataCache[itemName].details[data.index] = data;
             console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
             return;
+
+        } else if (numberOfItems === 1) {
+            if (itemType === 'image') {
+                if (dataCache.images && dataCache.images[itemName]) {
+                    console.log('Data already exists');
+                    return;
+                } else {
+
+                    dataCache.images = dataCache.images || {};
+                    dataCache.images[itemName] = data;
+
+                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
+                return;
+                }
+            } else {
+                
+                if (dataCache[itemName]) {
+                    console.log('Data already exists');
+                    return;
+                } else {
+
+                dataCache[itemName] = data;
+
+                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
+                return;
+                }
             }
         } else {
-            
-            if (dataCache[itemName]) {
-                console.log('Data already exists');
-                return;
-            } else {
-
-            dataCache[itemName] = data;
-
-            console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-            return;
-            }
+            throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
         }
-    } else {
-        throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
+    } catch (error) {
+        console.error(error.message);
     }
 };
 
@@ -1227,38 +1557,6 @@ function setMainClass() {
     }
 
 };
-
-/*
-function cacheData(data, itemType) {
-    const numberOfItems = Object.keys(data).length;
-    console.log(numberOfItems)
-
-    try {
-        if (numberOfItems > 1) {
-            if (dataCache[itemType].details[data.index] === data) {
-                return;
-            }
-            if (!dataCache[itemType]) {
-                dataCache[itemType] = {};
-            }
-
-            dataCache[itemType].details = dataCache[itemType].details || {};
-            dataCache[itemType].details[data.index] = data;
-
-            console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
-            return;
-        } else if (numberOfItems === 1) {
-            console.log(`Caching data: ${itemType} object now has ${numberOfItems} items`);
-            console.log('Check the data being used - why is it using a single object item??')
-            return;
-        } else {
-            throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
-        }
-    } catch (error) {
-        //console.error(error.message);
-        // Handle the error or perform additional actions as needed.
-    }
-} */
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
