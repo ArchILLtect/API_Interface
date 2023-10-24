@@ -1136,7 +1136,7 @@ function setContentType(count) {
     }
 };
 
-function cacheData(data, itemName, itemType) {
+function cacheData(data, itemName, itemType, location) {
 
     try {
 
@@ -1162,6 +1162,18 @@ function cacheData(data, itemName, itemType) {
 
         } else if (numberOfItems === 1) {
             if (itemType === 'image') {
+                if (dataCache.images && dataCache.images[itemName]) {
+                    console.log('Data already exists');
+                    return;
+                } else {
+
+                    dataCache.images = dataCache.images || {};
+                    dataCache.images[itemName] = data;
+
+                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
+                return;
+                }
+            } else if (itemType === 'details') {
                 if (dataCache.images && dataCache.images[itemName]) {
                     console.log('Data already exists');
                     return;
@@ -1306,6 +1318,28 @@ function setMainClass() {
 
 };
 
+function extractPortion(string, portionIndex, separator="/") {
+    // Ex. console.log(extractPortion(url, 0));  // Returns "www.example.co"
+    // Ex. console.log(extractPortion(url, 4, "/"));  // Returns "with"
+    // Takes a string and returns a string that consists of the wanted portion only
+
+    string = string.trim().replace(/(^\/|\/$)/g, ''); // Remove leading/trailing separators ("/") and any trim
+    const portions = string.split(separator).filter(part => part !== ''); // Filter out empty strings
+
+    // Returns ERROR if portionIndex argument is invalid
+    if (portionIndex < 0 || portionIndex >= portions.length) {
+        return "ERROR: Invalid portion index";
+    }
+
+    // Remove https: if it exists so it doesn't ever return at all
+    if (portions[0] === 'https:') {
+        // Remove the "https:" portion
+        portions.shift();
+    }
+
+    return portions[portionIndex];
+}
+
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
 function countItems(obj) {
@@ -1381,3 +1415,5 @@ function getCount(page) {
         return raceCount;
     };
 };
+
+//For DEV ONLY:
