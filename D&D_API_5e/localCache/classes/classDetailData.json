@@ -1,5 +1,5 @@
-[
-  {
+{
+  "barbarian": {
     "index": "barbarian",
     "name": "Barbarian",
     "hit_die": 12,
@@ -241,7 +241,7 @@
     ],
     "url": "/api/classes/barbarian"
   },
-  {
+  "bard": {
     "index": "bard",
     "name": "Bard",
     "hit_die": 8,
@@ -1000,7 +1000,7 @@
     "spells": "/api/classes/bard/spells",
     "url": "/api/classes/bard"
   },
-  {
+  "cleric": {
     "index": "cleric",
     "name": "Cleric",
     "hit_die": 8,
@@ -1372,7 +1372,7 @@
     "spells": "/api/classes/cleric/spells",
     "url": "/api/classes/cleric"
   },
-  {
+  "druid": {
     "index": "druid",
     "name": "Druid",
     "hit_die": 8,
@@ -1734,7 +1734,7 @@
     "spells": "/api/classes/druid/spells",
     "url": "/api/classes/druid"
   },
-  {
+  "fighter": {
     "index": "fighter",
     "name": "Fighter",
     "hit_die": 10,
@@ -2104,7 +2104,7 @@
     ],
     "url": "/api/classes/fighter"
   },
-  {
+  "monk": {
     "index": "monk",
     "name": "Monk",
     "hit_die": 8,
@@ -2587,7 +2587,7 @@
     ],
     "url": "/api/classes/monk"
   },
-  {
+  "paladin": {
     "index": "paladin",
     "name": "Paladin",
     "hit_die": 10,
@@ -2930,7 +2930,7 @@
     "spells": "/api/classes/paladin/spells",
     "url": "/api/classes/paladin"
   },
-  {
+  "ranger": {
     "index": "ranger",
     "name": "Ranger",
     "hit_die": 10,
@@ -3336,7 +3336,7 @@
     "spells": "/api/classes/ranger/spells",
     "url": "/api/classes/ranger"
   },
-  {
+  "rogue": {
     "index": "rogue",
     "name": "Rogue",
     "hit_die": 8,
@@ -3767,7 +3767,7 @@
     ],
     "url": "/api/classes/rogue"
   },
-  {
+  "sorcerer": {
     "index": "sorcerer",
     "name": "Sorcerer",
     "hit_die": 6,
@@ -4073,7 +4073,7 @@
     "spells": "/api/classes/sorcerer/spells",
     "url": "/api/classes/sorcerer"
   },
-  {
+  "warlock": {
     "index": "warlock",
     "name": "Warlock",
     "hit_die": 8,
@@ -4405,7 +4405,7 @@
     "spells": "/api/classes/warlock/spells",
     "url": "/api/classes/warlock"
   },
-  {
+  "wizard": {
     "index": "wizard",
     "name": "Wizard",
     "hit_die": 6,
@@ -4696,4 +4696,4 @@
     "spells": "/api/classes/wizard/spells",
     "url": "/api/classes/wizard"
   }
-]
+}
