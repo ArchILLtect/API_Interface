@@ -20,7 +20,9 @@
 10/21/23 - Created Python function for making filename lists for random picture displaying<br>
 10/22/23 - Fixed buggy CSS<br>
 10/22/23 - Made image loading asyncronous and added placeholders for missing images<br>
-
+10/23/23 - Updated localCache files and file system for better performance<br>
+10/23/23 - Added helper function extractPortion<br>
+10/23/23 - Update(func) Migrating import functionality to use node.js require since I'm using localCache<br>
 <br>
 <br>
 TTD<br>

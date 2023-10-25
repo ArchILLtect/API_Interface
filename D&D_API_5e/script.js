@@ -1206,22 +1206,29 @@ function cacheData(data, itemName, itemType, location) {
     }
 };
 
-async function fetchData(data, itemName, itemType) {
-    //console.log(data);
-    //console.log(itemName);
-    //console.log(itemType);
+//TODO P1 - Make this function the new loader!!
+function getData(itemType, itemName) {
+    // itemType: use this parameter only for lists
+    // itemName: use both parameters for details
+
+    // FIXME P5 - It seems the var "location" is in scope at root - WHY? Try ti get rid of it and then use it here.
+    let curLocation;
+
+    if (itemName) {
+        location = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json"
+    } else {
+        location = "./localCache/" + itemType + "/localCache.json"
+    }
+
     try {
-        const apiPromise = await fetch(data);
-        if (apiPromise.ok) {
-            const apiIndex = await apiPromise.json();
-            cacheData(apiIndex, itemName, itemType);
-            return
-      } else {
-            console.log('Unable to fetch data!!!');
-      }
+        // FIXME P5 - Would like to use newData - where am I already using it? Do I need it there?
+        const curData = require(location);
+        cacheData(curData, itemName, itemType);
+        //console.log()
     } catch (error) {
-        console.log('ERROR attempting to fetch images!!!')};
-        console.log(error);
+        console.error('ERROR loading data', error)
+    }
+    throw new Error('ERROR attempting to import data via fetchData!');
 };
 
 function imageRandomizer(itemType) {
@@ -1390,7 +1397,7 @@ function checkCache() {
 };
 
 
-// TODO TEMP function for count
+// TODO TEMP?? function for count
 
 function setCount(count, page) {
     if (page === 'races') {
