@@ -1,5 +1,7 @@
 # BE SURE TO RUN THIS FILE INSIDE THE DIR/FOLDER YOU WANT THE DATA INSIDE OF!!
+# Run by using the syntax: $ Python3 <filename>.py <type of data> - Example: Python3 localize_all_api_details.py races
 
+# Import the necessary modules
 import os
 import requests
 import json
@@ -13,8 +15,14 @@ if len(sys.argv) != 2:
 # Step 1: User-defined last part of the API URL (from command-line argument)
 api_last_part = sys.argv[1]
 
-# Step 2: Fetch data from the main API endpoint
-main_api_url = 'https://www.dnd5eapi.co/api/' + api_last_part
+# Check if api_last_part ends with a forward slash, and add one if missing
+if not api_last_part.endswith("/"):
+    api_last_part += "/"
+
+# Construct the main API URL
+main_api_url = f'https://www.dnd5eapi.co/api/{api_last_part}'
+
+# Fetch data from the main API endpoint
 response = requests.get(main_api_url)
 
 if response.status_code == 200:
