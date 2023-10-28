@@ -23,6 +23,10 @@
 10/23/23 - Updated localCache files and file system for better performance<br>
 10/23/23 - Added helper function extractPortion<br>
 10/23/23 - Update(func) Migrating import functionality to use node.js require since I'm using localCache<br>
+10/27/23 - Finally finished upgrading localCache, cacheData and the fetching functionalities<br>
+10/27/23 - Created the filter_details_update script to create data for the filters<br>
+<br>
+<br>
 <br>
 <br>
 TTD<br>
@@ -30,6 +34,8 @@ TTD<br>
 Fix Nav Bar<br>
 ---Need drop down menus<br>
 *1*Add more filter options<br>
+---Using the file(s) created named filterInfo.json.<br>
+---Add 'data-<attributeType>' attributes to the cards/lists <article> elements created with addCards/addLists to match the filter <select> elements.<br>
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Add if conditional for input of None on modal window items.<br>
 Fix the modal window footer and header styles<br>
@@ -37,6 +43,7 @@ Figure out what to do about missing pictures<br>
 ---Make gifs using extra images<br>
 *1*Continue building localCache<br>
 Fix details for races and classes<br>
+*5* Fix the other Python scripts to be run in the updateScripts folder.<br>
 Think about how to create Python scripts that update local data<br>
 <br>
 <br>
@@ -51,6 +58,11 @@ Traffic Cone Image courtesy of Tribaliumivanka @ depositphotos.com/vector/traffi
 <br>
 <br>
 NOTES:<br>
+<br>
+To use filter_details_update.py:<br>
+---1 Make sure you have Python installed<br>
+---2 Run with $ python3 create_file_list.py <dataType><br>
+---3 The created file will be placed in, or more likey replace, the old file in the folder you specify as the argument when running the script<br>
 <br>
 To use create_file_list.py:<br>
 ---1 Make sure you have Python installed<br>
