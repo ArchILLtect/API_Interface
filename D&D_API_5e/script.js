@@ -30,8 +30,6 @@ async function goHome(page) {
 
     setMainClass();
 
-
-
     // Clear previous page
     clearPrevPage();
 
@@ -47,8 +45,8 @@ async function goHome(page) {
     const homeArticle = document.createElement('article');
     const rightHomeArticle = document.createElement('article');
     const homeImageSlot1 = document.createElement('img');
-    homeImageSlot1.src = "./images/page-elements/spinner-dnd.gif";
     const homeImageSlot2 = document.createElement('img');
+    homeImageSlot1.src = "./images/page-elements/spinner-dnd.gif";
     homeImageSlot2.src = "./images/page-elements/spinner-dnd.gif";
     const homeArticleItem1 = document.createElement('p');
     const homeArticleItem2 = document.createElement('p');
@@ -82,7 +80,8 @@ async function goHome(page) {
     homeArticle.id = "homeArticle";
     rightHomeArticle.id = "rightHomeArticle";
 
-    await fetchData(MON_IMG_ALL, 'monsters', 'image');
+    await prepLoad('monsters', 'images');
+  
     homeImageSlot1.src = imageRandomizer('monsters');
     homeImageSlot2.src = imageRandomizer('monsters');
 
@@ -128,7 +127,7 @@ function SetHeader (title, count) {
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
 };
-
+/*
 async function fetchInfo(page) {
 
     // This URL is changed to use local files for fetching during dev.
@@ -138,7 +137,7 @@ async function fetchInfo(page) {
     currentPage = page;
     //TODO Make a function to determine whether page is a 'main' or 'details' like in AddContent();
     
-    if (verifyLoadNeed(dataCache, page, 'main')) {
+    if (verifyLoadNeed(page, 'main')) {
 
         console.log('API LOAD NEEDED! LOAD NEEDED!');
 
@@ -149,7 +148,7 @@ async function fetchInfo(page) {
         apiCount = apiIndex.count;
 
         // Set data to variable to prevent loading from API on next run:
-        setCount(apiCount, page)
+ 
         dataCache[page] = apiData;
         dataCache[page].details = [];
         addContent(apiData, setContentType(apiCount));
@@ -162,63 +161,120 @@ async function fetchInfo(page) {
         addContent(dataCache[page], setContentType(getCount(page)));
 
     }
-};
+}; */
+ 
+function cacheData(data, itemType, itemName) {
+    //console.log('@ cacheData: current dataCache on next log line:');
+    //console.log(dataCache);
+    // data = data to be stored
+    // itemType = Used to identify the main list items
+    //TODO dataType = 'main' or 'images'
+    // itemName = Used only for detail items
 
-async function fetchDetails(page) {
-    //console.log(`At fetchDetails() page = ${page}`);
+    //console.log(data)
 
-    // This URL is changed to use local files for fetching during dev.
-    const API_LOC_CUR = API_MAIN_URL + currentPage + "/" + page;
-    //const API_LOC_CUR = `./localCache/${currentPage}/${page}/localCache.json`;
+    function deepEqual(obj1, obj2) {
+        if (obj1 === obj2) {
+            //console.log('first');
+          return true;
+        }
+      
+        if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+            //console.log('second');
+          return false;
+        }
+      
+        const keys1 = Object.keys(obj1);
+        const keys2 = Object.keys(obj2);
+      
+        if (keys1.length !== keys2.length) {
+            //console.log('third');
+          return false;
+        }
+      
+        for (const key of keys1) {
+          if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+            //console.log('fourth');
+            return false;
+          }
+        }
+        //console.log('fifth');
+        return true;
+      }
 
-    //const currentFetch = API_MAIN_URL + currentPage + "/" + page;
+    const numberOfItems = Object.keys(data).length;
+    //console.log(numberOfItems)
+
+    if (itemName) {
+        // This condiition caches single item details
     
-    pageType = 'details'
-    detailData = dataCache[currentPage].details;
+        if (dataCache[itemType][itemName]) {
+            if (deepEqual(dataCache[itemType][itemName], data)) {
+                console.log(`${itemName} is already cached`);
+                return;
+            } else {
+                console.log(`Data conflict for ${itemType} object. DataCache already contains items.`);
+            }
+        }
 
-    if (verifyLoadNeed(detailData, page, pageType)) {
+        dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
+        dataCache[itemType][itemName] = data;
+        console.log(`Caching data: ${itemType}/${itemName} object now has ${numberOfItems} items`);
+        return;
+    
+    
+    } else if (numberOfItems > 1 && data['count'] ) {
+        // This condition caches main lists
 
+        if (
+            dataCache[itemType] &&
+            dataCache[itemType] === data
+        ) {
+            console.log(`${itemType} is already cached`)
+            return;
+        }
+        const checkAsset = Object.keys(dataCache[itemType]).length
+        if (checkAsset > 0) {
+            console.log('ERROR: The data cache holds the wrong data or the wrong data is trying to be stored in the<br>' + 
+            `wrong place. ${data} is trying to go to dataCache[${itemType}]<br>` +
+            `which already contains ${dataCache[itemType]}`);
+            return;
+        }
 
-        console.log('API LOAD NEEDED! LOAD NEEDED!');
+        dataCache[itemType] = dataCache[itemType] || {};
+        data.results.forEach(item => {
+            dataCache[itemType][item.index] = item;
+        });
+        const count = Object.keys(dataCache[itemType]).length;
+        //console.log(`Caching data: ${itemType} object now has ${count} items`);
+        return;
 
+    } else if (data.filenames) {
+        // This condition caches image lists
+        if (
+            dataCache['images'] &&
+            dataCache['images'][itemType] === data
+            ) {
+            console.log('Data already exists');
+            return;
 
-        const apiPromise = await fetch(API_LOC_CUR);
-        apiIndex = await apiPromise.json();
-        apiData = apiIndex.results;
-        apiCount = apiIndex.count;
-
-        // Cache the data:
-        cacheData(apiIndex, currentPage);
-        //addContent(apiData, apiCount);
-
-        //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
-        if (currentPage == 'spells') {
-            createDetailsWindow(apiIndex);
         } else {
-            createDetailsWindowNEW(apiIndex);
-        };
-
+            dataCache['images'][itemType] = dataCache['images'][itemType] || {};
+            dataCache['images'][itemType] = data.filenames;
+            //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
+            return;
+        }
     } else {
-
-        //CUR_COUNT = GetCount(page);
-        console.log('API Load NOT needed!');
-
-        //addContent(dataCache[page], setContentType(getCount(page)));
-
-        //SWITCH for - TOP = SPELLS AND BOTTOM = ALL ELSE For now/
-        if (currentPage == 'spells') {
-            createDetailsWindow(detailData[page]);
-        } else {
-            createDetailsWindowNEW(detailData[page]);
-        };
+        console.log('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
 };
 
 function addContent(data, type) {
     //console.log(`At addContent() currentPage = ${currentPage}`);
-    //console.log(`At addContent() type = ${type}`)
     if (type === 'main') {
         addCards(data, getCount(currentPage));
+    } else if (type === 'list'){
+        addList(data, getCount(currentPage));
     } else if (type === 'details'){
         addList(data, getCount(currentPage));
     } else { console.log( `Error - bad type in addContent function = line 146 to 151. current type = ${type}`) }
@@ -226,7 +282,6 @@ function addContent(data, type) {
 
 async function addCards(data, count) {
 
-    //console.log(data)
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -234,9 +289,9 @@ async function addCards(data, count) {
     //SetHeader(globalData.currentPage);
 
     // Add cards to the page:
-    data.forEach(eachItem => {
-        createCard(eachItem);
-    });
+    for (const key in data) {
+        createCard(data[key]);
+    };
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
@@ -244,7 +299,8 @@ async function addCards(data, count) {
     resetFilter();
     readyFilter();
 
-    await fetchData(IMG_LIST_LOC, currentPage, 'image');
+    await prepLoad(currentPage, 'images')
+    //await fetchData(IMG_LIST_LOC, currentPage, 'image');
 
     placeImages(ALL_IMG, 'card');
 
@@ -252,7 +308,7 @@ async function addCards(data, count) {
 
 async function addList(data, count) {
     
-    //console.log(data)
+    console.log(data)
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -260,9 +316,9 @@ async function addList(data, count) {
     //SetHeader(globalData.currentPage);
 
     // Add list to the page:
-    data.forEach(eachItem => {
-    createList(eachItem);
-    });
+    for (const key in data) {
+        createList(data[key]);
+    };
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
@@ -270,7 +326,8 @@ async function addList(data, count) {
     resetFilter();
     readyFilter();
 
-    await fetchData(IMG_LIST_LOC, currentPage, 'image');
+    await prepLoad(currentPage, 'images')
+    //await fetchData(IMG_LIST_LOC, currentPage, 'image');
 
     placeImages(ALL_IMG, 'list');
 
@@ -278,6 +335,7 @@ async function addList(data, count) {
 
 function createCard(data) {
     const cardNameRaw = data.index
+    //console.log(data.index)
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
     card.id = cardNameRaw;
@@ -304,11 +362,11 @@ function createCard(data) {
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(card);
 
-    const cardImg = document.querySelector(`#${data.index}`);
+    const cardImg = document.querySelector(`#${cardNameRaw}`);
 
     cardImg.src = "./images/page-elements/spinner-dnd.gif";
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
-    selectButton.addEventListener('click', () => { fetchDetails(cardNameRaw, cardImg) } );
+    selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', cardNameRaw) } );
 };
 
 function createList(data) {
@@ -345,7 +403,7 @@ function createList(data) {
     // TODO Uncomment line under to display photos
     listItemImg.src = "./images/page-elements/spinner-dnd.gif";
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
-    selectButton.addEventListener('click', () => { fetchDetails(itemNameRaw, listItemImg) } );
+    selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
 };
 
 function createDetailsWindow(data) {
@@ -747,7 +805,12 @@ function createDetailsWindowNEW(data) {
     //Image
     const detailImage = document.createElement('img');
     detailImage.className = 'detailImage'
-    detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
+
+    if (currentPage === 'spells') {
+        detailImage.src = `./images/${currentPage}/${data.index}.gif`;
+    } else {
+        detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
+    }
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
 
 
@@ -864,14 +927,15 @@ function setNavListen() {
             e.preventDefault();
             //console.log(eachItem.id)
             if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'monsters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
-                hideFilters()
+                hideFilters();
                 goHome(eachItem.id);
             } else if (eachItem.id === 'sheets') {
-                hideFilters()
+                hideFilters();
                 setUpSheets();
             } else {
-                hideFilters()
-                fetchInfo(eachItem.id);
+                hideFilters();
+                currentPage = eachItem.id;
+                prepLoad(eachItem.id);
             }
         }); 
     });
@@ -1056,27 +1120,49 @@ function clearPrevPage() {
     removeAllChildNodes(mainElement);
 };
 
-function verifyLoadNeed(asset, prop, type) {
+function verifyLoadNeed(prop, dataType) {
+    //const asset = dataCache
     
-    if (type === 'main') {
-        const checkAsset = asset.hasOwnProperty(prop);
-        if (checkAsset) {
+    if (dataType === 'main') {
+        //const checkAsset = asset.hasOwnProperty(prop);
+        const checkAsset = Object.keys(dataCache[prop]).length
+        //console.log('Checking main...........');
+        if (checkAsset > 0) {
             //console.log('Returning No')
             return false;
         } else {
             //console.log('Returning Yes')
             return true;
         }
-    } else if(type === 'details') {
-        const checkAsset = asset.hasOwnProperty(prop);
-
-        if (checkAsset) {
+    } else if (dataType === 'details') {
+        //const checkAsset = asset[currentPage].hasOwnProperty(prop);
+        const asset = dataCache[currentPage][prop]
+        //console.log('Checking details...........');
+        if (
+            asset &&
+            Object.keys(asset).length > 3
+            ) {
             //console.log('Returning No')
             return false;
         } else {
             //console.log('Returning Yes')
             return true;
-        }};
+        }
+    } else if (dataType === 'images') {
+        //const checkAsset = asset['images'].hasOwnProperty(prop);
+        const asset = dataCache['images'][prop]
+        //console.log('Checking images...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    }
        
 };
 
@@ -1136,119 +1222,153 @@ function setContentType(count) {
     }
 };
 
-function cacheData(data, itemName, itemType, location) {
-
-    try {
-
-        const numberOfItems = Object.keys(data).length;
-
-        if (numberOfItems > 1 && itemName) {
-            if (
-                dataCache[itemName] &&
-                dataCache[itemName].details &&
-                dataCache[itemName].details[data.index] &&
-                dataCache[itemName].details[data.index] === data
-            ) {
-                return;
-            }
-            if (!dataCache[itemName]) {
-                dataCache[itemName] = {};
-            }
-
-            dataCache[itemName].details = dataCache[itemName].details || {};
-            dataCache[itemName].details[data.index] = data;
-            console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-            return;
-
-        } else if (numberOfItems === 1) {
-            if (itemType === 'image') {
-                if (dataCache.images && dataCache.images[itemName]) {
-                    console.log('Data already exists');
-                    return;
-                } else {
-
-                    dataCache.images = dataCache.images || {};
-                    dataCache.images[itemName] = data;
-
-                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-                return;
-                }
-            } else if (itemType === 'details') {
-                if (dataCache.images && dataCache.images[itemName]) {
-                    console.log('Data already exists');
-                    return;
-                } else {
-
-                    dataCache.images = dataCache.images || {};
-                    dataCache.images[itemName] = data;
-
-                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-                return;
-                }
-            } else {
-                
-                if (dataCache[itemName]) {
-                    console.log('Data already exists');
-                    return;
-                } else {
-
-                dataCache[itemName] = data;
-
-                console.log(`Caching data: ${itemName} object now has ${numberOfItems} items`);
-                return;
-                }
-            }
-        } else {
-            throw new Error('ERROR: Data did not cache. Data contains nothing or is corrupted.');
-        }
-    } catch (error) {
-        console.error(error.message);
-    }
-};
-
 //TODO P1 - Make this function the new loader!!
-function getData(itemType, itemName) {
-    // itemType: use this parameter only for lists
-    // itemName: use both parameters for details
+async function prepLoad(itemType, dataType='data', itemName) {
+    // itemType: use this parameter only for main list items.
+    // dataType: data or images. Leave blank for data lists.
+    // itemName: use all three parameters for detail items. MUST enter data or images in second parameter if getting details.
 
     // FIXME P5 - It seems the var "location" is in scope at root - WHY? Try ti get rid of it and then use it here.
     let curLocation;
 
-    if (itemName) {
-        location = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json"
-    } else {
-        location = "./localCache/" + itemType + "/localCache.json"
-    }
+        if (dataType === 'data') {
+            if (itemName) {
+                // Get details
+                //console.log('details!')
+                dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
 
-    try {
-        // FIXME P5 - Would like to use newData - where am I already using it? Do I need it there?
-        const curData = require(location);
-        cacheData(curData, itemName, itemType);
-        //console.log()
-    } catch (error) {
-        console.error('ERROR loading data', error)
-    }
-    throw new Error('ERROR attempting to import data via fetchData!');
+                const content = dataCache[itemType][itemName];
+                curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
+
+                //(verifyLoadNeed(itemName, 'details')) {
+                if (verifyLoadNeed(itemName, 'details')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+
+                    cacheData(apiData, itemType, itemName);
+                    createDetailsWindowNEW(apiData);
+                } else {
+                    console.log('API Load NOT needed!');
+                    createDetailsWindowNEW(content); 
+                }
+            } else if (itemType === 'spells') {
+                // Get spells main items list
+                //console.log('spells')
+                dataCache[itemType] = dataCache[itemType] || {};
+                //console.log(itemType)
+                const content = dataCache[itemType];
+                curLocation = "./localCache/" + itemType + "/localCache.json";
+
+                if (verifyLoadNeed(itemType, 'main')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //console.log(itemType)
+                    cacheData(apiData, itemType);
+                    addContent(dataCache[itemType], 'list');
+                } else {
+                    console.log('API Load NOT needed!');
+                    addContent(content, 'list'); 
+                }
+            } else {
+                // Get main items list
+                //console.log('main')
+                dataCache[itemType] = dataCache[itemType] || {};
+                //console.log(itemType)
+                const content = dataCache[itemType];
+                curLocation = "./localCache/" + itemType + "/localCache.json";
+
+                if (verifyLoadNeed(itemType, 'main')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //console.log(itemType)
+                    cacheData(apiData, itemType);
+                    addContent(dataCache[itemType], 'main');
+                } else {
+                    console.log('API Load NOT needed!');
+                    addContent(content, 'main'); 
+                }
+            }
+        } else if (dataType === 'images') {
+                // Get image list
+
+                dataCache['images'] = dataCache['images'] || {};
+                dataCache['images'][itemType] = dataCache['images'][itemType] || {};
+/* 
+                if (!dataCache['images']) {
+                    dataCache['images'] = {}; // Initialize 'images' if it doesn't exist
+                }
+
+                if (!dataCache['images'][itemType]) {
+                    dataCache['images'][itemType] = {}; // Initialize 'itemType' if it doesn't exist
+                }
+ */
+                //let content = dataCache['images'][itemType];
+                curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
+/* 
+                if (!content) {
+                    content = {}; // Initialize 'content' if it doesn't exist
+                } */
+
+                if (verifyLoadNeed(itemType, 'images')) {
+                    //console.log(`@ prepLoad: itemType: ${itemType}`);
+                    //console.log('@ prepLoad: apiIndex on next log line:');
+                    //console.log(apiIndex);
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchImage(curLocation);
+                    cacheData(apiIndex, itemType);
+                } else {
+                    console.log('API Load NOT needed!');
+                }
+        } else {
+            throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
+        }
 };
 
 function imageRandomizer(itemType) {
     //console.log('at RNDMIZER');
     //console.log(dataCache);
-    const FILE_NAMES = dataCache.images[itemType].filenames;
+    const FILE_NAMES = dataCache['images'][itemType];
     //console.log(FILE_NAMES);
     const FILE_NUM = FILE_NAMES.length;
-    const RAND_NUM = Math.floor(Math. random() * FILE_NUM);
+    const RAND_NUM = Math.floor(Math.random() * FILE_NUM);
     const RAND_FILE = FILE_NAMES[RAND_NUM];
     const RAND_IMG = 'images/monsters/' + RAND_FILE
     //console.log(RAND_IMG);
     return RAND_IMG;
 };
 
+async function fetchData(curLocation) {
+    //console.log(curLocation)
+
+        const apiPromise = await fetch(curLocation);
+        apiIndex = await apiPromise.json();
+        //console.log(apiIndex)
+        itemType = extractPortion(curLocation, 2)
+        //console.log(itemType)
+        apiData = apiIndex
+        apiCount = apiIndex.count;
+
+        setCount(apiCount, itemType);
+        //console.log()
+};
+
+async function fetchImage(curLocation) {
+    //console.log(curLocation)
+
+        const apiPromise = await fetch(curLocation);
+        apiIndex = await apiPromise.json();
+
+        apiCount = apiIndex.count;
+        //console.log(apiIndex)
+        //setCount(apiIndex, apiCount);
+        //console.log()
+}
+
 function placeImages(articles, type) {
-/* 
+
     if (type === 'card') {
-       */  
-        const CUR_FILES = dataCache.images[currentPage].filenames;
+        const CUR_FILES = dataCache['images'][currentPage];
+        //console.log(CUR_FILES)
         for (article of articles) {
             const CUR_NAME = article.id
             let currentFile;
@@ -1278,8 +1398,8 @@ function placeImages(articles, type) {
             }
         }
 
-/*     } else {
-        const CUR_FILES = dataCache.images[currentPage].filenames;
+    } else {
+        const CUR_FILES = dataCache['images'][currentPage]
         for (article of articles) {
             const CUR_NAME = article.id
             const CUR_FILE = article.id + '.gif';
@@ -1295,7 +1415,7 @@ function placeImages(articles, type) {
                 }
             };
         };
-    }; */
+    };
 
 };
 
@@ -1424,3 +1544,12 @@ function getCount(page) {
 };
 
 //For DEV ONLY:
+
+
+function checkSchools() {
+    const allSpellObjects = dataCache.spells;
+
+    for (const spell in allSpellObjects) {
+        console.log(dataCache.spells[spell].school);
+    }
+};
