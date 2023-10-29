@@ -30,27 +30,30 @@
 <br>
 <br>
 <br>
-TTD<br>
+TTD:<br>
 <br>
-Fix Nav Bar<br>
----Need drop down menus<br>
-*1*Add more filter options<br>
+Fix Nav Bar.<br>
+---Need drop down menus.<br>
+*1*Add more filter options.<br>
 ---Using the file(s) created named filterInfo.json.<br>
 ---Add 'data-<attributeType>' attributes to the cards/lists <article> elements created with addCards/addLists to match the filter <select> elements.<br>
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Add if conditional for input of None on modal window items.<br>
-Fix the modal window footer and header styles<br>
-Figure out what to do about missing pictures<br>
----Make gifs using extra images<br>
-*1*Continue building localCache<br>
-Fix details for races and classes<br>
-*5* Fix the other Python scripts to be run in the updateScripts folder.<br>
-Think about how to create Python scripts that update local data<br>
-<br>
-<br>
-<br>
+Fix the modal window footer and header styles.<br>
+*1*Fix image placeholder for missing images.<br>
+---Make gifs using extra images.<br>
+*1*Continue building localCache.<br>
+Fix details for races and classes.<br>
+*5*Fix the other Python scripts.<br>
+---Make them able to be run from the updateScripts folder.<br>
+---Fix filter_details_update.py to save better data into file - for example how it saves unknown data points.<br>
+Think about how to create Python scripts that update local data.<br>
+Heavy cleaning<br>
+---Remove obselete functions.<br>
+---Restructuring of functions - Get them in the correct place.<br>
+---Clean up unused/obselete code within the functions.<br>
 Functions needing work:<br>
-<br>
+---createDetailsWindow<br>
 <br>
 <br>
 <br>
