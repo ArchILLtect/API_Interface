@@ -64,8 +64,9 @@
     <div id="pageHeader" ></div>
 
     <div id="filterInputContainer" class="filterContainer" >
-        <div id="spellFilter" class="spellFilter">
+        <div class="spellFilter">
             <!-- TODO P5 - FILTER - Decide if filters should be able to select multiple options at once -->
+            <button id="classFilterBtn" class="filterToggleOff">OFF</button>
             <label for="classFilter" class="filterLabel">Filter by class: </label>
 
             <select name="classes" id="classFilter">
@@ -82,7 +83,8 @@
 
             <span>Coming Soon!!</span>
         </div>
-        <div id="spellFilter" class="spellFilter">
+        <div class="spellFilter">
+            <button id="schoolFilterBtn" class="filterToggleOff">OFF</button>
             <label for="schoolFilter" class="filterLabel">Filter by school: </label>
 
             <select name="schools" id="schoolFilter">
@@ -96,11 +98,10 @@
                 <option value="necromancy">Necromancy</option>
                 <option value="transmutation">Transmutation</option>
             </select>
-
-            <span>Coming Soon!!</span>
         </div>
-        <div id="spellFilter" class="spellFilter">
-            <label for="levelFilter" class="filterNumber">Filter by level: </label>
+        <div class="spellFilter">
+            <button id="levelFilterBtn" class="filterToggleOff">OFF</button>
+            <label for="levelFilter" class="filterLabel">Filter by level: </label>
 
             <select name="level" id="levelFilter">
                 <option value="all" selected>--ALL--</option>
@@ -115,11 +116,10 @@
                 <option value="8">8</option>
                 <option value="9">9</option>
             </select>
-
-            <span>Coming Soon!!</span>
         </div>
-        <div id="spellFilter" class="spellFilter">
-            <label for="damTypeFilter" class="filterNumber">Filter by damage type: </label>
+        <div class="spellFilter">
+            <button id="damTypeFilterBtn" class="filterToggleOff">OFF</button>
+            <label for="damTypeFilter" class="filterLabel">Filter by damage type: </label>
 
             <select name="damageType" id="damTypeFilter">
                 <option value="all" selected>--ALL--</option>
@@ -137,15 +137,14 @@
                 <option value="slashing">Slashing</option>
                 <option value="thunder">Thunder</option>
             </select>
-
-            <span>Coming Soon!!</span>
         </div>
-        <div id="spellFilter" class="spellFilter">
-            <label for="rangeFilter" class="filterNumber">Filter by range: </label>
+        <div class="spellFilter">
+            <button id="rangeFilterBtn" class="filterToggleOff">OFF</button>
+            <label for="rangeFilter" class="filterLabel">Filter by range: </label>
 
             <select name="range" id="rangeFilter">
                 <option value="all" selected>--ALL--</option>
-                <option value="personal">Personal</option>
+                <option value="Self">Self</option>
                 <option value="touch">Touch</option>
                 <option value="close">close</option>
                 <option value="med">Medium</option>
@@ -159,8 +158,9 @@
 
             <span>Coming Soon!!</span>
         </div>
-        <div id="spellFilter" class="spellFilter">
-            <label for="areaFilter" class="filterNumber">Filter by AoE: </label>
+        <div class="spellFilter">
+            <button id="areaFilterBtn" class="filterToggleOff">OFF</button>
+            <label for="areaFilter" class="filterLabel">Filter by AoE: </label>
 
             <select name="area" id="areaFilter">
                 <option value="all" selected>--ALL--</option>
@@ -178,7 +178,7 @@
                 <option value="singleTarget">Single Target</option>
             </select>
 
-            <span>Coming Soon!!</span>
+            <span>88 matches - More coming Soon!!</span>
         </div>
         <!-- Still needs: Casting Time, Concentration and Ritual -->
         <div id="filterContainer">
@@ -193,6 +193,7 @@
                 <input type="text" id="filterInput" placeholder="READY!!"/>
             </div>
             <p id="filterCount">This filter returns 0 entries.</p>
+            <button id="resultsBtn">Compile Results</button>
             <button id="resetFilter">Reset Filter</button>
         </div>
     </div>

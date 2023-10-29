@@ -25,6 +25,7 @@
 10/23/23 - Update(func) Migrating import functionality to use node.js require since I'm using localCache<br>
 10/27/23 - Finally finished upgrading localCache, cacheData and the fetching functionalities<br>
 10/27/23 - Created the filter_details_update script to create data for the filters<br>
+10/29/23 - Major updates to filter functionality<br>
 <br>
 <br>
 <br>
@@ -81,5 +82,3 @@ To use localize_all_api_details:<br>
 <br>
 <br>
 <br>
-
-

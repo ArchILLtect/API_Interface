@@ -405,15 +405,15 @@ function createListItem(data) {
     listItemPic.id = itemName + 'Img';
     
     const buttonContainer = document.createElement('div');
-    const selectButton = document.createElement('button');
+    const deatilsButton = document.createElement('button');
     const selectButtonTxt = document.createTextNode("Click for more info");
-    selectButton.appendChild(selectButtonTxt);
+    deatilsButton.appendChild(selectButtonTxt);
 
 
     listItem.appendChild(listItemName);
     listItem.appendChild(listItemPic);
     listItem.appendChild(buttonContainer);
-    buttonContainer.appendChild(selectButton);
+    buttonContainer.appendChild(deatilsButton);
     mainElement.appendChild(listItem);
 
     //Add filter data to each list item
@@ -433,7 +433,7 @@ function createListItem(data) {
     //console.log(listItemImg);
 
     listItemImg.src = "./images/page-elements/spinner-dnd.gif";
-    selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
+    deatilsButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
 };
 
 function createDetailsWindow(data) {
@@ -979,6 +979,7 @@ function setNavListen() {
 };
 setNavListen();
 
+/* ORIGINAL readyFilter
 function readyFilter() {
     // VARs - Filter
     const filterInput = document.getElementById('filterInput');
@@ -990,8 +991,9 @@ function readyFilter() {
     const filterTypeSelect = document.getElementById('nameFilter');
     const filterClassSelect = document.getElementById('classFilter');
     const filterSchoolSelect = document.getElementById('schoolFilter');
-    const filterLevelSelect = document.getElementById('schoolFilter');
-    const filterDamTypeSelect = document.getElementById('schoolFilter');
+    const filterLevelSelect = document.getElementById('levelFilter');
+    const filterDamTypeSelect = document.getElementById('damTypeFilter');
+    const filterToggleBtns = document.querySelectorAll(`.spellFilter button`)
     const resetButton = document.getElementById('resetFilter');
 
     let resultCount = items.length;
@@ -1002,54 +1004,77 @@ function readyFilter() {
         }
     }
 
+    startsWithFilter()
+    includesFilter()
+
     // Initial count message
     resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
 
     // Filter container
     filterContainer.style.display = 'flex';
-
-    // Add button to reset filter results
+ 
+    filterToggleBtns.forEach(item => {
+        item.addEventListener( 'click', buttonToggle ); ;
+    });
+ 
+    // Add listener for reset button to reset filter results
     resetButton.addEventListener('click', resetFilter);
 
-    // Helper function to remove existing event listeners
-    function removeInputListeners() {
-        filterInput.removeEventListener('input', startsWithFilter);
-        filterInput.removeEventListener('input', includesFilter);
+    function handleSelectChange() {
+        // Remove existing event listeners
+        //removeInputListeners();
+        const schoolFilterBtn = document.getElementById('schoolFilterBtn');
+    
+        const selectedSchool = filterSchoolSelect.value;
+        const selectedLevel = filterLevelSelect.value;
+        const selectedDamageType = filterDamTypeSelect.value;
+    
+        const selectedOption = filterTypeSelect.value;
+
+        startsWithFilter();
+        includesFilter();
+
+        if (schoolFilterBtn.className === 'filterToggleOn') {
+            schoolFilter(selectedSchool)
+        }
+
+        // Ensure to update the result count after all filters are applied
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
     }
 
-
-
+    // Helper Functions for filtering
+    // *************************************************
     //Function for school filtering
     function schoolFilter(school) {
-        if (school === 'all') {
-            items.forEach(item => {
-                item.style.display = 'block';
-            });
-        } else {
-            items.forEach(item => {
-                const itemSchool = item.dataset.school;
-                if (itemSchool === school) {
-                    item.style.display = 'block';
+        items.forEach(item => {
+            const itemSchool = item.dataset.school;
+            if (school === 'all' || itemSchool === school) {
+                if (item.style.display === 'none') {
+                    item.style.display = 'block'
                 } else {
-                    item.style.display = 'none';
+                    return
                 }
-            });
-        }
-        
+                //item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+            
         // Update the result count
         const visibleItems = items.filter(item => item.style.display === 'block');
         resultCount = visibleItems.length;
         resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
     }
 
-/*  
     //Function for class filtering
     function classFilter() {
-
+        // Code goes here
     }
 
     //Function for level filtering
-     function levelFilter(level) {
+    function levelFilter(level) {
         if (level === 'all') {
             items.forEach(item => {
                 item.style.display = 'block';
@@ -1072,7 +1097,7 @@ function readyFilter() {
     }
 
     //Function for damage_type filtering
-     function damageTypeFilter(damageType) {
+    function damageTypeFilter(damageType) {
         if (damageType === 'all') {
             items.forEach(item => {
                 item.style.display = 'block';
@@ -1096,14 +1121,14 @@ function readyFilter() {
 
     //Function for range filtering
     function rangeFilter() {
-        
+        // code goes here
     }
 
     //Function for AoE filtering
     function aoeFilter() {
-    
+        // code goes here
     }
- */
+
     // Function for "starts with" filtering
     function startsWithFilter() {
         const searchText = filterInput.value.trim().toLowerCase();
@@ -1142,66 +1167,34 @@ function readyFilter() {
         resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
     }
 
-    // Handle filter type changes
-    filterClassSelect.addEventListener('change', () => {
-        // Remove existing event listeners
-        removeInputListeners();
-        
-        const selectedOption = filterClassSelect.value;
-
-        if (selectedOption === 'startsWith') {
-            nameFilter.options[0].disabled = true;
-            filterInput.placeholder = "starts with";
-            filterInput.value = '';
-
-            // Add "starts with" event listener
-            filterInput.addEventListener('input', startsWithFilter);
-        } else if (selectedOption === 'includes') {
-            nameFilter.options[0].disabled = true;
-            filterInput.placeholder = "include";
-            filterInput.value = '';
-
-            // Add "includes" event listener
-            filterInput.addEventListener('input', includesFilter);
+    // Helper function for toggling filter options
+    function buttonToggle(event) {
+        const curButton = event.target
+        if (curButton.className === 'filterToggleOff') {
+            curButton.classList.remove('filterToggleOff');
+            curButton.classList.add('filterToggleOn');
+            curButton.textContent = "ON"
+        } else {
+            curButton.classList.remove('filterToggleOn');
+            curButton.classList.add('filterToggleOff');
+            curButton.textContent = "OFF"
         }
-    });
+    }
 
-    filterSchoolSelect.addEventListener('change', () => {
-        // Remove existing event listeners
-        removeInputListeners();
-        
-        const selectedOption = filterSchoolSelect.value;
+    // Helper function to remove existing event listeners
+    function removeInputListeners() {
+        filterInput.removeEventListener('input', startsWithFilter);
+        filterInput.removeEventListener('input', includesFilter);
+    }
 
-        schoolFilter(selectedOption);
-
-    });
-/*  
-    filterLevelSelect.addEventListener('change', () => {
-        // Remove existing event listeners
-        removeInputListeners();
-        
-        const selectedOption = filterLevelSelect.value;
-
-        levelFilter(selectedOption);
-
-    });
-
-    filterDamTypeSelect.addEventListener('change', () => {
-        // Remove existing event listeners
-        removeInputListeners();
-        
-        const selectedOption = filterDamTypeSelect.value;
-
-        damageTypeFilter(selectedOption);
-
-    });
-*/
-    //TODO P1-2 Add the rest of the filter select event listeners
-
+    // Add event listeners for filter changes
+    filterSchoolSelect.addEventListener('change', handleSelectChange);
+    filterLevelSelect.addEventListener('change', handleSelectChange);
+    filterDamTypeSelect.addEventListener('change', handleSelectChange);
     filterTypeSelect.addEventListener('change', () => {
         // Remove existing event listeners
         removeInputListeners();
-        
+
         const selectedOption = filterTypeSelect.value;
 
         if (selectedOption === 'startsWith') {
@@ -1215,11 +1208,145 @@ function readyFilter() {
             nameFilter.options[0].disabled = true;
             filterInput.placeholder = "include";
             filterInput.value = '';
-
+            
             // Add "includes" event listener
             filterInput.addEventListener('input', includesFilter);
         }
+
+
+
     });
+
+};
+ */
+
+function readyFilter() {
+    const filterInput = document.getElementById('filterInput');
+    const filterContainer = document.getElementById('filterInputContainer');
+    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
+    const itemList = document.getElementById('mainContent');
+    const items = Array.from(itemList.getElementsByTagName('article'));
+    const resultCountElement = document.getElementById('filterCount');
+    const filterTypeSelect = document.getElementById('nameFilter');
+    const filterSchoolSelect = document.getElementById('schoolFilter');
+    const filterLevelSelect = document.getElementById('levelFilter');
+    const filterDamTypeSelect = document.getElementById('damTypeFilter');
+    const filterRangeSelect = document.getElementById('rangeFilter');
+    const filterAreaSelect = document.getElementById('areaFilter');
+
+
+
+    const filterToggleBtns = document.querySelectorAll(`.spellFilter button`)
+    const resetButton = document.getElementById('resetFilter');
+
+    let resultCount = items.length;
+
+    if (currentPage === 'spells') { 
+        for (const eachItem of spellFilter) {
+            eachItem.style.display = 'block';
+        }
+    }
+
+    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+
+    filterContainer.style.display = 'flex';
+
+    // Add listener for reset button to reset filter results
+    resetButton.addEventListener('click', resetFilter);
+ 
+    filterToggleBtns.forEach(item => {
+        item.addEventListener( 'click', buttonToggle ); ;
+    });
+ 
+    // Helper function for toggling filter options
+    function buttonToggle(event) {
+        const curButton = event.target
+        if (curButton.className === 'filterToggleOff') {
+            curButton.classList.remove('filterToggleOff');
+            curButton.classList.add('filterToggleOn');
+            curButton.textContent = "ON"
+        } else {
+            curButton.classList.remove('filterToggleOn');
+            curButton.classList.add('filterToggleOff');
+            curButton.textContent = "OFF"
+        }
+    }
+
+    // Helper function to remove existing event listeners
+    function removeInputListeners() {
+        filterInput.removeEventListener('input', startsWithFilter);
+        filterInput.removeEventListener('input', includesFilter);
+    }
+
+    const compileBtn = document.getElementById('resultsBtn');
+    compileBtn.addEventListener('click', compileResults);
+
+    function compileResults() {
+        const selectedOption = filterTypeSelect.value;
+        const selectedSchool = filterSchoolSelect.value;
+        const selectedLevel = filterLevelSelect.value;
+        const selectedDamType = filterDamTypeSelect.value;
+        const selectedRange = filterRangeSelect.value;
+        const selectedArea = filterAreaSelect.value;
+
+        items.forEach(item => {
+            // Reset all items to the initial state
+            item.style.display = 'block';
+    
+            const text = item.textContent.toLowerCase();
+            const searchText = filterInput.value.trim().toLowerCase();
+            const itemClasses = item.dataset.classes;
+            const itemSchool = item.dataset.school;
+            const itemLevel = item.dataset.level;
+            const itemDamType = item.dataset.damage_type;
+            const itemRange = item.dataset.range;
+            const itemArea = item.dataset.aoe;
+
+            const classFilterBtn = document.getElementById('classFilterBtn');
+            const schoolFilterBtn = document.getElementById('schoolFilterBtn');
+            const levelFilterBtn = document.getElementById('levelFilterBtn');
+            const damTypeFilterBtn = document.getElementById('damTypeFilterBtn');
+            const rangeFilterBtn = document.getElementById('rangeFilterBtn');
+            const areaFilterBtn = document.getElementById('areaFilterBtn');
+
+            //console.log(itemLevel);
+            //console.log(selectedLevel);
+    
+            if (selectedOption === 'startsWith') {
+                if (!text.startsWith(searchText)) {
+                    item.style.display = 'none';
+                }
+            } else if (selectedOption === 'includes') {
+                if (searchText !== '' && !text.includes(searchText)) {
+                    item.style.display = 'none';
+                }
+            }
+    
+            if (schoolFilterBtn.className === 'filterToggleOn' && selectedSchool !== 'all' && selectedSchool !== itemSchool) {
+                item.style.display = 'none';
+            }
+
+            if (levelFilterBtn.className === 'filterToggleOn' && selectedLevel !== 'all' && selectedLevel !== itemLevel) {
+                item.style.display = 'none';
+            }
+
+            if (damTypeFilterBtn.className === 'filterToggleOn' && selectedDamType !== 'all' && selectedDamType !== itemDamType) {
+                item.style.display = 'none';
+            }
+
+            if (rangeFilterBtn.className === 'filterToggleOn' && selectedRange !== 'all' && selectedRange !== itemRange) {
+                item.style.display = 'none';
+            }
+
+            if (areaFilterBtn.className === 'filterToggleOn' && selectedArea !== 'all' && selectedArea !== itemArea) {
+                item.style.display = 'none';
+            }
+        });
+    
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    }
 };
 
 function resetFilter() {
@@ -1260,8 +1387,8 @@ function hideFilters() {
 
     //Clear the filter inputs:
     filterInput.value = '';
-    classFilter.selectedIndex = -1;
-    schoolFilter.selectedIndex = -1;
+    //classFilter.selectedIndex = -1;
+    //schoolFilter.selectedIndex = -1;
 
     //Hide the spells filters:
     for (const eachItem of spellFilter) {
@@ -1441,12 +1568,21 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 if (verifyLoadNeed(itemName, 'details')) {
                     console.log('API LOAD NEEDED! LOAD NEEDED!');
                     await fetchData(curLocation);
-
+                    //
+                    //TODO UPDATE - Move createDetailsWindowNEW to prepLoad like spells is done.
                     cacheData(apiData, itemType, itemName);
-                    createDetailsWindowNEW(apiData);
+                    if (itemType === 'spells') {
+                        createDetailsWindow(apiData);
+                    } else {
+                        createDetailsWindowNEW(apiData);
+                    }
                 } else {
                     console.log('API Load NOT needed!');
-                    createDetailsWindowNEW(content); 
+                    if (itemType === 'spells') {
+                        createDetailsWindow(content);
+                    } else {
+                        createDetailsWindowNEW(content);
+                    }
                 }
             } else if (itemType === 'spells') {
                 // Get spells main items list

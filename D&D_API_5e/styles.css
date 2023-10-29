@@ -226,6 +226,14 @@ button {
     font-weight: 900;
 }
 
+.filterToggleOff{
+    background-color: salmon;
+}
+
+.filterToggleOn{
+    background-color: lightgreen;
+}
+
 .spellFilter {
     display: none;
 }
