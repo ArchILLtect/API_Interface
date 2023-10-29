@@ -988,6 +988,10 @@ function readyFilter() {
     const items = Array.from(itemList.getElementsByTagName('article'));
     const resultCountElement = document.getElementById('filterCount');
     const filterTypeSelect = document.getElementById('nameFilter');
+    const filterClassSelect = document.getElementById('classFilter');
+    const filterSchoolSelect = document.getElementById('schoolFilter');
+    const filterLevelSelect = document.getElementById('schoolFilter');
+    const filterDamTypeSelect = document.getElementById('schoolFilter');
     const resetButton = document.getElementById('resetFilter');
 
     let resultCount = items.length;
@@ -1004,7 +1008,7 @@ function readyFilter() {
     // Filter container
     filterContainer.style.display = 'flex';
 
-    // Add button to result filter results
+    // Add button to reset filter results
     resetButton.addEventListener('click', resetFilter);
 
     // Helper function to remove existing event listeners
@@ -1013,33 +1017,90 @@ function readyFilter() {
         filterInput.removeEventListener('input', includesFilter);
     }
 
-/*     //Function for class filtering
-    function() {
 
-    }
 
     //Function for school filtering
-    function() {
+    function schoolFilter(school) {
+        if (school === 'all') {
+            items.forEach(item => {
+                item.style.display = 'block';
+            });
+        } else {
+            items.forEach(item => {
+                const itemSchool = item.dataset.school;
+                if (itemSchool === school) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
         
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
+    }
+
+/*  
+    //Function for class filtering
+    function classFilter() {
+
     }
 
     //Function for level filtering
-    function() {
+     function levelFilter(level) {
+        if (level === 'all') {
+            items.forEach(item => {
+                item.style.display = 'block';
+            });
+        } else {
+            items.forEach(item => {
+                const itemLevel = item.dataset.level;
+                if (itemLevel === level) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
         
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
     }
 
     //Function for damage_type filtering
-    function() {
+     function damageTypeFilter(damageType) {
+        if (damageType === 'all') {
+            items.forEach(item => {
+                item.style.display = 'block';
+            });
+        } else {
+            items.forEach(item => {
+                const itemDamType = item.dataset.damage_Type;
+                if (itemDamType === damageType) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
         
+        // Update the result count
+        const visibleItems = items.filter(item => item.style.display === 'block');
+        resultCount = visibleItems.length;
+        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
     }
 
     //Function for range filtering
-    function() {
+    function rangeFilter() {
         
     }
 
     //Function for AoE filtering
-    function() {
+    function aoeFilter() {
     
     }
  */
@@ -1082,6 +1143,61 @@ function readyFilter() {
     }
 
     // Handle filter type changes
+    filterClassSelect.addEventListener('change', () => {
+        // Remove existing event listeners
+        removeInputListeners();
+        
+        const selectedOption = filterClassSelect.value;
+
+        if (selectedOption === 'startsWith') {
+            nameFilter.options[0].disabled = true;
+            filterInput.placeholder = "starts with";
+            filterInput.value = '';
+
+            // Add "starts with" event listener
+            filterInput.addEventListener('input', startsWithFilter);
+        } else if (selectedOption === 'includes') {
+            nameFilter.options[0].disabled = true;
+            filterInput.placeholder = "include";
+            filterInput.value = '';
+
+            // Add "includes" event listener
+            filterInput.addEventListener('input', includesFilter);
+        }
+    });
+
+    filterSchoolSelect.addEventListener('change', () => {
+        // Remove existing event listeners
+        removeInputListeners();
+        
+        const selectedOption = filterSchoolSelect.value;
+
+        schoolFilter(selectedOption);
+
+    });
+/*  
+    filterLevelSelect.addEventListener('change', () => {
+        // Remove existing event listeners
+        removeInputListeners();
+        
+        const selectedOption = filterLevelSelect.value;
+
+        levelFilter(selectedOption);
+
+    });
+
+    filterDamTypeSelect.addEventListener('change', () => {
+        // Remove existing event listeners
+        removeInputListeners();
+        
+        const selectedOption = filterDamTypeSelect.value;
+
+        damageTypeFilter(selectedOption);
+
+    });
+*/
+    //TODO P1-2 Add the rest of the filter select event listeners
+
     filterTypeSelect.addEventListener('change', () => {
         // Remove existing event listeners
         removeInputListeners();

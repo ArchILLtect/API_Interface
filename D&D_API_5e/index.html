@@ -65,9 +65,10 @@
 
     <div id="filterInputContainer" class="filterContainer" >
         <div id="spellFilter" class="spellFilter">
+            <!-- TODO P5 - FILTER - Decide if filters should be able to select multiple options at once -->
             <label for="classFilter" class="filterLabel">Filter by class: </label>
 
-            <select name="classes" id="classFilter" multiple size="2">
+            <select name="classes" id="classFilter">
                 <option value="all" selected>--ALL--</option>
                 <option value="bard">Bard</option>
                 <option value="cleric">Cleric</option>
@@ -84,7 +85,7 @@
         <div id="spellFilter" class="spellFilter">
             <label for="schoolFilter" class="filterLabel">Filter by school: </label>
 
-            <select name="schools" id="schoolFilter" multiple size="2">
+            <select name="schools" id="schoolFilter">
                 <option value="all" selected>--ALL--</option>
                 <option value="abjuration">Abjuration</option>
                 <option value="conjuration">Conjuration</option>
@@ -102,6 +103,7 @@
             <label for="levelFilter" class="filterNumber">Filter by level: </label>
 
             <select name="level" id="levelFilter">
+                <option value="all" selected>--ALL--</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
