@@ -16,6 +16,7 @@ let itemCounter = 1;
 let apiCount = 0;
 
 let apiData;
+let jsonData;
 
 let raceCount = '';
 let classCount = '';
@@ -264,6 +265,21 @@ function cacheData(data, itemType, itemName) {
             //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
             return;
         }
+    } else if (data.filterData) {
+        // This condition caches filterData
+        if (
+            dataCache['filterData'] &&
+            dataCache['filterData'][itemType] === data
+            ) {
+            console.log('Data already exists');
+            return;
+
+        } else {
+            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
+            dataCache['filterData'][itemType] = data.filterData;
+            console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
+            return;
+        }
     } else {
         console.log('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
@@ -308,16 +324,19 @@ async function addCards(data, count) {
 
 async function addList(data, count) {
     
-    console.log(data)
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
     //SetHeader(globalData.currentPage);
 
+    //Load page's secondary data
+    await prepLoad(currentPage, 'images');
+    await prepLoad(currentPage, 'filterData');
+
     // Add list to the page:
     for (const key in data) {
-        createList(data[key]);
+        createListItem(data[key]);
     };
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
@@ -326,8 +345,7 @@ async function addList(data, count) {
     resetFilter();
     readyFilter();
 
-    await prepLoad(currentPage, 'images')
-    //await fetchData(IMG_LIST_LOC, currentPage, 'image');
+
 
     placeImages(ALL_IMG, 'list');
 
@@ -369,8 +387,9 @@ function createCard(data) {
     selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', cardNameRaw) } );
 };
 
-function createList(data) {
+function createListItem(data) {
     const itemNameRaw = data.index
+    //console.log(data)
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const listItem = document.createElement('article');
     listItem.id = itemNameRaw;
@@ -397,12 +416,23 @@ function createList(data) {
     buttonContainer.appendChild(selectButton);
     mainElement.appendChild(listItem);
 
+    //Add filter data to each list item
+    //TODO P1-1 - FILTER - figure out how to deal with "non attributes" with values of "unknown"
+    const curFilterData = dataCache.filterData[currentPage][data.index];
+    //TODO P1-1 - FILTER - figure how to add filter data for class due to being an array and potentially having more than one data point
+    listItem.setAttribute('data-class', curFilterData.class);
+    listItem.setAttribute('data-school', curFilterData.school);
+    listItem.setAttribute('data-level', curFilterData.level);
+    listItem.setAttribute('data-damage_type', curFilterData.damage);
+    listItem.setAttribute('data-range', curFilterData.range);
+    listItem.setAttribute('data-aoe', curFilterData.aoe);
+
+
+
     const listItemImg = document.querySelector(`#${itemNameRaw} img`);
     //console.log(listItemImg);
 
-    // TODO Uncomment line under to display photos
     listItemImg.src = "./images/page-elements/spinner-dnd.gif";
-    //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
 };
 
@@ -923,7 +953,7 @@ allNav = document.querySelectorAll('nav ul li a');
 // NavBar:
 function setNavListen() {
     allNav.forEach( eachItem => {
-        eachItem.addEventListener('click', function(e){
+        eachItem.addEventListener('click', async function(e){
             e.preventDefault();
             //console.log(eachItem.id)
             if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'monsters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
@@ -932,10 +962,17 @@ function setNavListen() {
             } else if (eachItem.id === 'sheets') {
                 hideFilters();
                 setUpSheets();
-            } else {
+            } else if (eachItem.id === 'races' || eachItem.id === 'classes') {
                 hideFilters();
                 currentPage = eachItem.id;
-                prepLoad(eachItem.id);
+                await prepLoad(eachItem.id);
+                addContent(dataCache[eachItem.id], 'main');
+            } else {
+                console.log('ELSE')
+                hideFilters();
+                currentPage = eachItem.id;
+                await prepLoad(eachItem.id);
+                addContent(dataCache[eachItem.id], 'list');
             }
         }); 
     });
@@ -976,6 +1013,36 @@ function readyFilter() {
         filterInput.removeEventListener('input', includesFilter);
     }
 
+/*     //Function for class filtering
+    function() {
+
+    }
+
+    //Function for school filtering
+    function() {
+        
+    }
+
+    //Function for level filtering
+    function() {
+        
+    }
+
+    //Function for damage_type filtering
+    function() {
+        
+    }
+
+    //Function for range filtering
+    function() {
+        
+    }
+
+    //Function for AoE filtering
+    function() {
+    
+    }
+ */
     // Function for "starts with" filtering
     function startsWithFilter() {
         const searchText = filterInput.value.trim().toLowerCase();
@@ -1162,6 +1229,20 @@ function verifyLoadNeed(prop, dataType) {
             //console.log('Returning Yes')
             return true;
         }
+    } else if (dataType === 'filterData') {
+        //const checkAsset = asset['images'].hasOwnProperty(prop);
+        const asset = dataCache['filterData'][prop]
+        //console.log('Checking images...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
     }
        
 };
@@ -1222,7 +1303,7 @@ function setContentType(count) {
     }
 };
 
-//TODO P1 - Make this function the new loader!!
+//TODO P1-2 - Make this function the new loader!! And delete all obselete fetching functions!!
 async function prepLoad(itemType, dataType='data', itemName) {
     // itemType: use this parameter only for main list items.
     // dataType: data or images. Leave blank for data lists.
@@ -1264,10 +1345,12 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     await fetchData(curLocation);
                     //console.log(itemType)
                     cacheData(apiData, itemType);
-                    addContent(dataCache[itemType], 'list');
+                    return;
+                    //addContent Removed
                 } else {
                     console.log('API Load NOT needed!');
-                    addContent(content, 'list'); 
+                    return;
+                    //addContent Removed(content, 'list'); 
                 }
             } else {
                 // Get main items list
@@ -1282,10 +1365,12 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     await fetchData(curLocation);
                     //console.log(itemType)
                     cacheData(apiData, itemType);
-                    addContent(dataCache[itemType], 'main');
+                    return;
+                    //addContent Removed
                 } else {
                     console.log('API Load NOT needed!');
-                    addContent(content, 'main'); 
+                    return;
+                    //addContent Removed
                 }
             }
         } else if (dataType === 'images') {
@@ -1314,12 +1399,29 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     //console.log('@ prepLoad: apiIndex on next log line:');
                     //console.log(apiIndex);
                     console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchImage(curLocation);
-                    cacheData(apiIndex, itemType);
+                    await fetchSecondaryData(curLocation, 'images');
+                    cacheData(jsonData, itemType);
                 } else {
                     console.log('API Load NOT needed!');
                 }
-        } else {
+        } else if (dataType === 'filterData') {
+
+            dataCache['filterData'] = dataCache['filterData'] || {};
+            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
+
+            curLocation = "./localCache/" + itemType + "/filterInfo.json";
+
+            if (verifyLoadNeed(itemType, 'filterData')) {
+                //console.log(`@ prepLoad: itemType: ${itemType}`);
+                //console.log('@ prepLoad: apiIndex on next log line:');
+                //console.log(apiIndex);
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchSecondaryData(curLocation, 'filterData');
+                cacheData(jsonData, itemType);
+            } else {
+                console.log('API Load NOT needed!');
+            }
+    } else {
             throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
         }
 };
@@ -1352,17 +1454,26 @@ async function fetchData(curLocation) {
         //console.log()
 };
 
-async function fetchImage(curLocation) {
+async function fetchSecondaryData(curLocation, dataType) {
     //console.log(curLocation)
+    if (dataType === 'images') {
+        const jsonPromise = await fetch(curLocation);
+        jsonIndex = await jsonPromise.json();
 
-        const apiPromise = await fetch(curLocation);
-        apiIndex = await apiPromise.json();
+        jsonData = jsonIndex;
+        jsonCount = jsonIndex.count;
 
-        apiCount = apiIndex.count;
-        //console.log(apiIndex)
-        //setCount(apiIndex, apiCount);
-        //console.log()
-}
+    } else if (dataType === 'filterData') {
+        const jsonPromise = await fetch(curLocation);
+        jsonIndex = await jsonPromise.json();
+
+        jsonData = jsonIndex;
+    } else {
+        console.log('fetchSecondaryData failed due to bad dataType.')
+    }
+        
+
+};
 
 function placeImages(articles, type) {
 
