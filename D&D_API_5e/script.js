@@ -22,6 +22,22 @@ let raceCount = '';
 let classCount = '';
 let spellCount = '';
 
+/* //Range Count Variable Declaration
+let listItemCount = 0;
+let valueSelf = 0;
+let valueTouch = 0;
+let valueSight = 0;
+let lessThanTwentyFive = 0;
+let twentyFiveToFifty = 0;
+let fiftyToOneHundred = 0;
+let oneHundredToTwoFifty = 0;
+let twoFiftyToFiveHundred = 0;
+let valueFeet = 0;
+let valueOneMile = 0;
+let valueSpecial = 0;
+let valueUnlimited = 0; */
+
+
 const dataCache = {};
 
 // Main Functions:
@@ -339,6 +355,8 @@ async function addList(data, count) {
         createListItem(data[key]);
     };
 
+    //checkRangeValues()
+
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
 
@@ -387,6 +405,7 @@ function createCard(data) {
     selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', cardNameRaw) } );
 };
 
+
 function createListItem(data) {
     const itemNameRaw = data.index
     //console.log(data)
@@ -419,16 +438,45 @@ function createListItem(data) {
     //Add filter data to each list item
     //TODO P1-1 - FILTER - figure out how to deal with "non attributes" with values of "unknown"
     const curFilterData = dataCache.filterData[currentPage][data.index];
-    //TODO P1-1 - FILTER - figure how to add filter data for class due to being an array and potentially having more than one data point
-/*     if (curFilterData.classes.length > 1) {
-        let acc = 1
-        curFilterData.classes.forEach( dataItem => {
-        listItem.setAttribute(`data-class${acc}`, dataItem);
-        acc += 1;
-        });
-    } else if (curFilterData.classes.length === 1) {
-        listItem.setAttribute('data-class', curFilterData.classes);
-    } */
+
+    const itemRange = curFilterData.range;
+    
+    /* // Range Count Counter
+     function RangeCount() {
+    listItemCount += 1;
+
+    if (itemRange === 'Self'){
+        valueSelf += 1;
+    } else if (itemRange === 'Touch') {
+        valueTouch += 1;
+    } else if (itemRange === 'Sight') {
+        valueSight += 1;
+    } else if (itemRange === '1 mile') {
+        valueOneMile += 1;
+    } else if (itemRange === 'Special') {
+        valueSpecial += 1;
+    } else if (itemRange === 'Unlimited') {
+        valueUnlimited += 1;
+    } else {
+        const splitRange = itemRange.split(" ");
+        const valueRange = splitRange[0];
+        const valueFoot = splitRange[1];
+
+        valueFeet += 1;
+
+        if (valueRange <= 25) {
+            lessThanTwentyFive += 1;
+        } else if (valueRange > 25 && valueRange <= 50 ) {
+            twentyFiveToFifty += 1;
+        } else if (valueRange > 50 && valueRange <= 100 ) {
+            fiftyToOneHundred += 1;
+        } else if (valueRange > 100 && valueRange <= 250 ) {
+            oneHundredToTwoFifty += 1;
+        } else if (valueRange > 250 && valueRange <= 500 ) {
+            twoFiftyToFiveHundred += 1;
+        }
+    }};
+    RangeCount(); */
 
     if (curFilterData.classes.length > 1) {
         curFilterData.classes.forEach( dataItem => {
@@ -1385,8 +1433,48 @@ function readyFilter() {
                 item.style.display = 'none';
             }
 
-            if (rangeFilterBtn.className === 'filterToggleOn' && selectedRange !== 'all' && selectedRange !== itemRange) {
-                item.style.display = 'none';
+            if (rangeFilterBtn.className === 'filterToggleOn' && selectedRange !== 'all') {
+                let matchFound = false;
+                //console.log(selectedRange)
+                if (itemRange === selectedRange){
+                    matchFound = true;
+                } else { 
+                    const splitRangeValue = itemRange.split(" ");
+                    const distanceQuantity = splitRangeValue[0];
+                    const distanceScale = splitRangeValue[1];
+                    
+                    if (splitRangeValue.length > 1) {
+
+                        if (distanceScale === 'mile') {
+                            if (selectedRange === '1 mile'){
+                                matchFound = true;
+                            }
+                        } else if (distanceQuantity <= 25) {
+                            if (selectedRange === 'lessThanTwentyFive'){
+                                matchFound = true;
+                            }
+                        } else if (distanceQuantity > 25 && distanceQuantity <= 50) {
+                            if (selectedRange === 'twentyFiveToFifty'){
+                                matchFound = true;
+                            }
+                        } else if (distanceQuantity > 50 && distanceQuantity <= 100) {
+                            if (selectedRange === 'fiftyToOneHundred'){
+                                matchFound = true;
+                            }
+                        } else if (distanceQuantity > 100 && distanceQuantity <= 250 ) {
+                            if (selectedRange === 'oneHundredToTwoFifty'){
+                                matchFound = true;
+                            }
+                        } else if (distanceQuantity > 250 && distanceQuantity <= 500) {
+                            if (selectedRange === 'twoFiftyToFiveHundred'){
+                                matchFound = true;
+                            }
+                        }
+                    }
+                }
+                if (!matchFound) {
+                    item.style.display = 'none';
+                }
             }
 
             if (areaFilterBtn.className === 'filterToggleOn' && selectedArea !== 'all' && selectedArea !== itemArea) {
@@ -1972,7 +2060,27 @@ function getCount(page) {
 };
 
 //For DEV ONLY:
+function checkRangeValues() {
+    let valueAccountedFor = valueSelf + valueTouch + valueSight + lessThanTwentyFive + twentyFiveToFifty + fiftyToOneHundred + oneHundredToTwoFifty + twoFiftyToFiveHundred + valueOneMile + valueSpecial + valueUnlimited;
+    let valueUnaccountedFor = listItemCount - valueAccountedFor;
 
+    console.log(`There are ${valueTouch} attribute values containing "Touch".`);
+    console.log(`There are ${valueSelf} attribute values containing "Self".`);
+    console.log(`There are ${valueSight} attribute values containing "Sight".`);
+    console.log(`There are ${lessThanTwentyFive} attribute values containing "Less than 25 feet".`);
+    console.log(`There are ${twentyFiveToFifty} attribute values containing "25 to 50 feet".`);
+    console.log(`There are ${fiftyToOneHundred} attribute values containing "50 to 100 feet".`);
+    console.log(`There are ${oneHundredToTwoFifty} attribute values containing "100 to 250 feet".`);
+    console.log(`There are ${twoFiftyToFiveHundred} attribute values containing "250 - 500 feet".`);
+    console.log(`There are ${valueFeet} attribute values containing "Feet".`);
+    console.log(`There are ${valueOneMile} attribute values containing "1 mile".`);
+    console.log(`There are ${valueSpecial} attribute values containing "Special".`);
+    console.log(`There are ${valueUnlimited} attribute values containing "Unlimited".`);
+
+    console.log(`Values accounted for: ${valueAccountedFor}`);
+    console.log(`Values NOT accounted for: ${valueUnaccountedFor}`);
+    console.log(`Total values: ${listItemCount}`);
+}
 
 function checkSchools() {
     const allSpellObjects = dataCache.spells;

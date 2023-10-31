@@ -424,7 +424,7 @@ button {
     main {
         display: grid;
         position: absolute;
-        top: 700px;
+        top: 726px;
         right: 1px;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
