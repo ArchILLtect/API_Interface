@@ -32,12 +32,14 @@
 10/31/23 - Filter by range is now fully functional<br>
 10/31/23 - Filter by AoE is now fully functional<br>
 10/31/23 - Filter by DC saving throw and healing spells are both now fully functional<br>
+10/31/23 - Fixed buggy CSS and updated it to accomodate changes<br>
 <br>
 <br>
 <br>
 <br>
 TTD:<br>
 <br>
+Add page setup functions to prepare pages CSS and other info before loading. Add JS/CSS rule mixture to accomodate<br>
 Fix Nav Bar.<br>
 ---Need drop down menus.<br>
 ---Using the file(s) created named filterInfo.json.<br>

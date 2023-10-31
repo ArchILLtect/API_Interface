@@ -132,8 +132,7 @@ button {
 }
 
 #mainnav ul :nth-child(3),
-#mainnav ul :nth-child(5),
-#mainnav ul :nth-child(6) {
+#mainnav ul :nth-child(5) {
     text-decoration: line-through;
     text-decoration-thickness: 3px;
     text-decoration-color: black;
@@ -157,6 +156,7 @@ button {
 .subNavItem {
     display: none;
     justify-content: center;
+    text-decoration: none !important;
     opacity: 0;
     transition: opacity .5s ease;
 }
@@ -375,11 +375,6 @@ button {
         width: 80vw;
     }
 
-    .homeContent {
-        display:flex;
-        justify-content: center;
-    }
-
     #leftHomeArticle,
     #rightHomeArticle {
         display: none;
@@ -514,19 +509,26 @@ button {
 
 
     #homeArticle {
-        width: 60vw;
+        width: 50vw;
     }
 
     #leftHomeArticle,
     #rightHomeArticle {
         display: flex;
-        width: 30vw;
+        width: auto;
     }
 
     #leftHomeArticle img,
     #rightHomeArticle img{
-        width: 100%;
+        width: auto;
         height: max-content;
+    }
+
+    .homeContent {
+        position: unset;
+        width: auto;
+        top: unset;
+        right: unset;
     }
 
     .filterContainer {
@@ -561,10 +563,14 @@ button {
 
  /* New: */
 
- .sheets {
+.sheets {
     display: flex;
     justify-content: center;
     flex-direction: unset;
+    position: unset;
+    width: auto;
+    top: unset;
+    right: unset;
 }
 
 #sheet {

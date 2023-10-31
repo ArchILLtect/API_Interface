@@ -22,7 +22,7 @@ let raceCount = '';
 let classCount = '';
 let spellCount = '';
 
-  //Filter Count Variable Declartions
+/*   //Filter Count Variable Declartions
     //Range Count Variable Declaration
 let listItemCount = 0;
 let valueSelf = 0;
@@ -44,8 +44,7 @@ let aoeCube = 0;
 let aoeCylinder = 0;
 let aoeLine = 0;
 let aoeSphere = 0;
-
-
+ */
 
 const dataCache = {};
 
@@ -79,12 +78,14 @@ async function goHome(page) {
     const homeArticleItem3 = document.createElement('p');
     const homeArticleItem4 = document.createElement('p');
     const homeArticleItem5 = document.createElement('p');
+    const homeArticleItem6 = document.createElement('p');
     const homePageTxt = document.createTextNode('Welcome to the homepage');
     const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos! ');
     const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life!');
     const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
-    const article1Txt4 = document.createTextNode('10/20/23 - COMING SOON: Editable and printable character sheets!!');
-    const article1Txt5 = document.createTextNode('This site dedicated to Nick JR!!!');
+    const article1Txt4 = document.createTextNode('10/31/23 - Finally finished all the filter options for spells!!');
+    const article1Txt5 = document.createTextNode('November 2023 -COMING SOON: Monsters is next up!');
+    const article1Txt6 = document.createTextNode('This site dedicated to Nick JR!!!');
     leftHomeArticle.appendChild(homeImageSlot1);
     homePage.appendChild(homePageTxt);
     homeArticle.appendChild(homePage);
@@ -93,6 +94,7 @@ async function goHome(page) {
     homeArticleItem3.appendChild(article1Txt3);
     homeArticleItem4.appendChild(article1Txt4);
     homeArticleItem5.appendChild(article1Txt5);
+    homeArticleItem6.appendChild(article1Txt6);
     homeArticle.appendChild(homeArticleItem1);
     homeArticle.appendChild(homeArticleItem2);
     homeArticle.appendChild(homeArticleItem3);
@@ -365,7 +367,7 @@ async function addList(data, count) {
     };
 
     //checkRangeValues()
-    checkAoeValues()
+    //checkAoeValues()
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
@@ -411,7 +413,6 @@ function createCard(data) {
     // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
     selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', cardNameRaw) } );
 };
-
 
 function createListItem(data) {
     const itemNameRaw = data.index
@@ -515,8 +516,6 @@ function createListItem(data) {
     } else if (curFilterData.classes.length === 1) {
         listItem.setAttribute('data-class', curFilterData.classes);
     }
-
-    console.log(curFilterData)
 
     listItem.setAttribute('data-school', curFilterData.school);
     listItem.setAttribute('data-level', curFilterData.level);
@@ -1077,247 +1076,6 @@ function setNavListen() {
     });
 };
 setNavListen();
-
-/* ORIGINAL readyFilter
-function readyFilter() {
-    // VARs - Filter
-    const filterInput = document.getElementById('filterInput');
-    const filterContainer = document.getElementById('filterInputContainer');
-    const spellFilter = filterContainer.getElementsByClassName('spellFilter');
-    const itemList = document.getElementById('mainContent');
-    const items = Array.from(itemList.getElementsByTagName('article'));
-    const resultCountElement = document.getElementById('filterCount');
-    const filterTypeSelect = document.getElementById('nameFilter');
-    const filterClassSelect = document.getElementById('classFilter');
-    const filterSchoolSelect = document.getElementById('schoolFilter');
-    const filterLevelSelect = document.getElementById('levelFilter');
-    const filterDamTypeSelect = document.getElementById('damTypeFilter');
-    const filterToggleBtns = document.querySelectorAll(`.spellFilter button`)
-    const resetButton = document.getElementById('resetFilter');
-
-    let resultCount = items.length;
-
-    if (currentPage === 'spells') { 
-        for (const eachItem of spellFilter) {
-            eachItem.style.display = 'block';
-        }
-    }
-
-    startsWithFilter()
-    includesFilter()
-
-    // Initial count message
-    resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-
-    // Filter container
-    filterContainer.style.display = 'flex';
- 
-    filterToggleBtns.forEach(item => {
-        item.addEventListener( 'click', buttonToggle ); ;
-    });
- 
-    // Add listener for reset button to reset filter results
-    resetButton.addEventListener('click', resetFilter);
-
-    function handleSelectChange() {
-        // Remove existing event listeners
-        //removeInputListeners();
-        const schoolFilterBtn = document.getElementById('schoolFilterBtn');
-    
-        const selectedSchool = filterSchoolSelect.value;
-        const selectedLevel = filterLevelSelect.value;
-        const selectedDamageType = filterDamTypeSelect.value;
-    
-        const selectedOption = filterTypeSelect.value;
-
-        startsWithFilter();
-        includesFilter();
-
-        if (schoolFilterBtn.className === 'filterToggleOn') {
-            schoolFilter(selectedSchool)
-        }
-
-        // Ensure to update the result count after all filters are applied
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    // Helper Functions for filtering
-    // *************************************************
-    //Function for school filtering
-    function schoolFilter(school) {
-        items.forEach(item => {
-            const itemSchool = item.dataset.school;
-            if (school === 'all' || itemSchool === school) {
-                if (item.style.display === 'none') {
-                    item.style.display = 'block'
-                } else {
-                    return
-                }
-                //item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-            
-        // Update the result count
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    //Function for class filtering
-    function classFilter() {
-        // Code goes here
-    }
-
-    //Function for level filtering
-    function levelFilter(level) {
-        if (level === 'all') {
-            items.forEach(item => {
-                item.style.display = 'block';
-            });
-        } else {
-            items.forEach(item => {
-                const itemLevel = item.dataset.level;
-                if (itemLevel === level) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-        
-        // Update the result count
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    //Function for damage_type filtering
-    function damageTypeFilter(damageType) {
-        if (damageType === 'all') {
-            items.forEach(item => {
-                item.style.display = 'block';
-            });
-        } else {
-            items.forEach(item => {
-                const itemDamType = item.dataset.damage_Type;
-                if (itemDamType === damageType) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-        
-        // Update the result count
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    //Function for range filtering
-    function rangeFilter() {
-        // code goes here
-    }
-
-    //Function for AoE filtering
-    function aoeFilter() {
-        // code goes here
-    }
-
-    // Function for "starts with" filtering
-    function startsWithFilter() {
-        const searchText = filterInput.value.trim().toLowerCase();
-
-        items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            if (text.startsWith(searchText)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        // Update the result count
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    // Function for "includes" filtering
-    function includesFilter() {
-        const searchText = filterInput.value.trim().toLowerCase();
-
-        items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            if (searchText === '' || text.includes(searchText)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        // Update the result count
-        const visibleItems = items.filter(item => item.style.display === 'block');
-        resultCount = visibleItems.length;
-        resultCountElement.textContent = `This filter returns ${resultCount} entries.`;
-    }
-
-    // Helper function for toggling filter options
-    function buttonToggle(event) {
-        const curButton = event.target
-        if (curButton.className === 'filterToggleOff') {
-            curButton.classList.remove('filterToggleOff');
-            curButton.classList.add('filterToggleOn');
-            curButton.textContent = "ON"
-        } else {
-            curButton.classList.remove('filterToggleOn');
-            curButton.classList.add('filterToggleOff');
-            curButton.textContent = "OFF"
-        }
-    }
-
-    // Helper function to remove existing event listeners
-    function removeInputListeners() {
-        filterInput.removeEventListener('input', startsWithFilter);
-        filterInput.removeEventListener('input', includesFilter);
-    }
-
-    // Add event listeners for filter changes
-    filterSchoolSelect.addEventListener('change', handleSelectChange);
-    filterLevelSelect.addEventListener('change', handleSelectChange);
-    filterDamTypeSelect.addEventListener('change', handleSelectChange);
-    filterTypeSelect.addEventListener('change', () => {
-        // Remove existing event listeners
-        removeInputListeners();
-
-        const selectedOption = filterTypeSelect.value;
-
-        if (selectedOption === 'startsWith') {
-            nameFilter.options[0].disabled = true;
-            filterInput.placeholder = "starts with";
-            filterInput.value = '';
-
-            // Add "starts with" event listener
-            filterInput.addEventListener('input', startsWithFilter);
-        } else if (selectedOption === 'includes') {
-            nameFilter.options[0].disabled = true;
-            filterInput.placeholder = "include";
-            filterInput.value = '';
-            
-            // Add "includes" event listener
-            filterInput.addEventListener('input', includesFilter);
-        }
-
-
-
-    });
-
-};
- */
 
 function readyFilter() {
     const filterInput = document.getElementById('filterInput');
@@ -2129,7 +1887,7 @@ function checkRangeValues() {
 }
 
 function checkAoeValues() {
-    let aoeValueAccountedFor = aoeCone + aoeCube + aoeCylinder + aoeLine + aoeSphere /* + fiftyToOneHundred + oneHundredToTwoFifty + twoFiftyToFiveHundred + valueOneMile + valueSpecial + valueUnlimited */;
+    let aoeValueAccountedFor = aoeCone + aoeCube + aoeCylinder + aoeLine + aoeSphere;
     let aoeValueUnaccountedFor = aoeItemCount - aoeValueAccountedFor;
 
     console.log(`There are ${aoeCone} attribute values containing "Cone".`);
@@ -2137,13 +1895,6 @@ function checkAoeValues() {
     console.log(`There are ${aoeCylinder} attribute values containing "Cylinder".`);
     console.log(`There are ${aoeLine} attribute values containing "Line".`);
     console.log(`There are ${aoeSphere} attribute values containing "Sphere".`);
-    /* console.log(`There are ${fiftyToOneHundred} attribute values containing "50 to 100 feet".`);
-    console.log(`There are ${oneHundredToTwoFifty} attribute values containing "100 to 250 feet".`);
-    console.log(`There are ${twoFiftyToFiveHundred} attribute values containing "250 - 500 feet".`);
-    console.log(`There are ${valueFeet} attribute values containing "Feet".`);
-    console.log(`There are ${valueOneMile} attribute values containing "1 mile".`);
-    console.log(`There are ${valueSpecial} attribute values containing "Special".`);
-    console.log(`There are ${valueUnlimited} attribute values containing "Unlimited".`); */
 
     console.log(`Values accounted for: ${aoeValueAccountedFor}`);
     console.log(`Values NOT accounted for: ${aoeValueUnaccountedFor}`);
