@@ -420,14 +420,33 @@ function createListItem(data) {
     //TODO P1-1 - FILTER - figure out how to deal with "non attributes" with values of "unknown"
     const curFilterData = dataCache.filterData[currentPage][data.index];
     //TODO P1-1 - FILTER - figure how to add filter data for class due to being an array and potentially having more than one data point
-    listItem.setAttribute('data-class', curFilterData.class);
+/*     if (curFilterData.classes.length > 1) {
+        let acc = 1
+        curFilterData.classes.forEach( dataItem => {
+        listItem.setAttribute(`data-class${acc}`, dataItem);
+        acc += 1;
+        });
+    } else if (curFilterData.classes.length === 1) {
+        listItem.setAttribute('data-class', curFilterData.classes);
+    } */
+
+    if (curFilterData.classes.length > 1) {
+        curFilterData.classes.forEach( dataItem => {
+        const classesJSON = JSON.stringify(curFilterData.classes);
+        //console.log(classesJSON)
+        listItem.setAttribute('data-classes', classesJSON);
+        });
+    } else if (curFilterData.classes.length === 1) {
+        listItem.setAttribute('data-class', curFilterData.classes);
+    }
+
     listItem.setAttribute('data-school', curFilterData.school);
     listItem.setAttribute('data-level', curFilterData.level);
     listItem.setAttribute('data-damage_type', curFilterData.damage);
     listItem.setAttribute('data-range', curFilterData.range);
     listItem.setAttribute('data-aoe', curFilterData.aoe);
-
-
+    listItem.setAttribute('data-conc', curFilterData.concentration);
+    listItem.setAttribute('data-ritual', curFilterData.ritual);
 
     const listItemImg = document.querySelector(`#${itemNameRaw} img`);
     //console.log(listItemImg);
@@ -1229,6 +1248,7 @@ function readyFilter() {
     const items = Array.from(itemList.getElementsByTagName('article'));
     const resultCountElement = document.getElementById('filterCount');
     const filterTypeSelect = document.getElementById('nameFilter');
+    const filterClassSelect = document.getElementById('classFilter');
     const filterSchoolSelect = document.getElementById('schoolFilter');
     const filterLevelSelect = document.getElementById('levelFilter');
     const filterDamTypeSelect = document.getElementById('damTypeFilter');
@@ -1287,24 +1307,30 @@ function readyFilter() {
 
     function compileResults() {
         const selectedOption = filterTypeSelect.value;
+        const selectedClass = filterClassSelect.value;
         const selectedSchool = filterSchoolSelect.value;
         const selectedLevel = filterLevelSelect.value;
         const selectedDamType = filterDamTypeSelect.value;
         const selectedRange = filterRangeSelect.value;
         const selectedArea = filterAreaSelect.value;
 
+
+
         items.forEach(item => {
             // Reset all items to the initial state
             item.style.display = 'block';
-    
             const text = item.textContent.toLowerCase();
             const searchText = filterInput.value.trim().toLowerCase();
+
             const itemClasses = item.dataset.classes;
+            const itemClass =  item.dataset.class;
             const itemSchool = item.dataset.school;
             const itemLevel = item.dataset.level;
             const itemDamType = item.dataset.damage_type;
             const itemRange = item.dataset.range;
             const itemArea = item.dataset.aoe;
+            const itemConc = item.dataset.conc;
+            const itemRitual = item.dataset.ritual;
 
             const classFilterBtn = document.getElementById('classFilterBtn');
             const schoolFilterBtn = document.getElementById('schoolFilterBtn');
@@ -1312,10 +1338,12 @@ function readyFilter() {
             const damTypeFilterBtn = document.getElementById('damTypeFilterBtn');
             const rangeFilterBtn = document.getElementById('rangeFilterBtn');
             const areaFilterBtn = document.getElementById('areaFilterBtn');
+            const concFilterBtn = document.getElementById('concFilterBtn');
+            const ritualFilterBtn = document.getElementById('ritualFilterBtn');
 
-            //console.log(itemLevel);
-            //console.log(selectedLevel);
-    
+            const classesJSON = item.getAttribute('data-classes');
+            const classes = JSON.parse(classesJSON);
+
             if (selectedOption === 'startsWith') {
                 if (!text.startsWith(searchText)) {
                     item.style.display = 'none';
@@ -1325,7 +1353,26 @@ function readyFilter() {
                     item.style.display = 'none';
                 }
             }
-    
+            
+            if (classFilterBtn.className === 'filterToggleOn' && selectedClass !== 'all') {
+                let matchFound = false;
+
+                if (itemClass) {
+                    if (selectedClass === itemClass) {
+                        matchFound = true
+                    }
+                } else if (itemClasses) {
+                    classes.forEach( eachClass => {
+                        if (selectedClass === eachClass) {
+                            matchFound = true;
+                        }
+                    });
+                }
+                if (!matchFound) {
+                    item.style.display = 'none';
+                }
+            }
+            
             if (schoolFilterBtn.className === 'filterToggleOn' && selectedSchool !== 'all' && selectedSchool !== itemSchool) {
                 item.style.display = 'none';
             }
@@ -1343,6 +1390,14 @@ function readyFilter() {
             }
 
             if (areaFilterBtn.className === 'filterToggleOn' && selectedArea !== 'all' && selectedArea !== itemArea) {
+                item.style.display = 'none';
+            }
+
+            if (concFilterBtn.className === 'filterToggleOn' && itemConc === 'false') {
+                item.style.display = 'none';
+            }
+
+            if (ritualFilterBtn.className === 'filterToggleOn' && itemRitual === 'false') {
                 item.style.display = 'none';
             }
         });

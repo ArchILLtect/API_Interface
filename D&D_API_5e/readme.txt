@@ -28,6 +28,7 @@
 10/29/23 - Major updates to filter functionality<br>
 10/30/23 - Fix image placeholder for missing images<br>
 10/30/23 - Fixed CSS for filters and main articles<br>
+10/31/23 - Filter by class, concentration and ritual are now fully functional<br>
 <br>
 <br>
 <br>
