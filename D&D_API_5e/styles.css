@@ -54,6 +54,7 @@ h2 {
     color:#0c3967;
     width: 100%;
     padding-top: 0.5rem;
+    padding-bottom: 0.7rem;
     text-align: center;
     box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.75);
     background-image: url(./images/page-elements/paper-backer-top.png);
@@ -185,15 +186,14 @@ button {
     gap: 10px;
     align-items: center;
     margin-bottom: 30px;
+    padding: 20px;
 }
 
-.filterContainer div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.filterContainer div span {
+    margin-bottom: 20px;
 }
 
-.filterContainer div:last-child {
+#filterContainer:last-child {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -226,16 +226,52 @@ button {
     font-weight: 900;
 }
 
-.filterToggleOff{
+.filterToggleOff {
+    display: flex;
+    flex-wrap: wrap;
     background-color: salmon;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 43px;
+    padding: 3px;
 }
 
-.filterToggleOn{
+.filterToggleOn {
+    display: flex;
+    flex-wrap: wrap;
     background-color: lightgreen;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 43px;
+    padding: 3px;
 }
 
 .spellFilter {
-    display: none;
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.spellFilter div {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#filterLast {
+    flex-direction: column;
+    align-items: center;
+}
+
+#filterLast div {
+    display: inline-flex;
+    gap: 5px;
+    width: 200px;
 }
 
 .filterLabel {
@@ -249,7 +285,7 @@ button {
 
 #filterInput {
     border: 2px solid black;
-    max-width: 20vw;
+    width: 97.5%;
 }
 
 #filterCount {
@@ -294,12 +330,21 @@ button {
     width: 30vw;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 900px) {
+
+    .mainContent {
+        display: block;
+    }
+
     main {
         display: grid;
+        position: absolute;
+        top: 600px;
+        right: 1px;
         grid-template-columns: 1fr 1fr;
         grid-gap: 20px;
         height: fit-content;
+        width: 67%;
     }
 
     article {
@@ -340,14 +385,51 @@ button {
         display: none;
     }
 
+    .filterContainer {
+        display: none;
+        position: sticky;
+        top: 100px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 30px;
+        width: 28%;
+    }
+
+    .filterContainer div:last-child {
+        display: flex;
+        align-items: start;
+        width: 100%;
+    }
+
+    #filterLast {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #filterLast div {
+        display: inline-flex;
+        gap: 5px;
+        width: 200px;
+    }
+
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1200px) {
+    
+    .mainContent {
+        display: block;
+    }
+
     main {
         display: grid;
+        position: absolute;
+        top: 700px;
+        right: 1px;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         height: fit-content;
+        width: 67%;
     }
 
     h1 {
@@ -445,6 +527,34 @@ button {
     #rightHomeArticle img{
         width: 100%;
         height: max-content;
+    }
+
+    .filterContainer {
+        display: none;
+        position: sticky;
+        top: 100px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 30px;
+        width: 28%;
+    }
+
+    .filterContainer div:last-child {
+        display: flex;
+        align-items: start;
+        width: 100%;
+    }
+
+    #filterLast {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #filterLast div {
+        display: inline-flex;
+        gap: 5px;
+        width: 200px;
     }
 }
 
