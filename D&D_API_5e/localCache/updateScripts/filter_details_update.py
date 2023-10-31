@@ -42,7 +42,7 @@ if response.status_code == 200:
         if detail_response.status_code == 200:
             detail_data = detail_response.json()
             # Extract the information you need from detail_data and store it in class_info
-            # print(f"Detail data for {index}: {detail_data}")
+            print(f"Detail data for {index}: {detail_data}")
 
             # Example of extracting and storing "school" and "classes"
             school_index = detail_data.get("school", {}).get("index", "unknown")
@@ -61,6 +61,7 @@ if response.status_code == 200:
             else:
                 heal_spell = False  # Set to False if the key doesn't exist
             
+            # Update class_info with a new structure
             class_info[index] = {
                 "school": school_index,
                 "classes": classes,
@@ -73,7 +74,6 @@ if response.status_code == 200:
 		        "concentration": concentration,
 		        "ritual": ritual,
                 "healing_spell": heal_spell
-
                 # Add other information as needed
             }
 
@@ -81,7 +81,8 @@ if response.status_code == 200:
         else:
             print(f'Failed to retrieve data for {index} (Status Code: {detail_response.status_code})')
 
-    # Step 6: Create a new file "filterInfo.json" and save filtered data
+    # Step 6: Create a new file "filterInfo.json" and save filtered data with "filterData" object
+    data_to_save = {"filterData": class_info}
     # Define the directory path where you want to save the file
     save_dir = os.path.join('..', api_last_part)
 
@@ -90,7 +91,7 @@ if response.status_code == 200:
 
     # Save the file in the specified directory
     with open(file_path, 'w') as file:
-        json.dump(class_info, file, indent=2)
+        json.dump(data_to_save, file, indent=2)
 
     # Step 7: Print and save the file
     print("Data has been added to filterInfo.json")
