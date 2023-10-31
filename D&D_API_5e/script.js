@@ -22,7 +22,8 @@ let raceCount = '';
 let classCount = '';
 let spellCount = '';
 
-/* //Range Count Variable Declaration
+  //Filter Count Variable Declartions
+    //Range Count Variable Declaration
 let listItemCount = 0;
 let valueSelf = 0;
 let valueTouch = 0;
@@ -35,7 +36,15 @@ let twoFiftyToFiveHundred = 0;
 let valueFeet = 0;
 let valueOneMile = 0;
 let valueSpecial = 0;
-let valueUnlimited = 0; */
+let valueUnlimited = 0;
+
+let aoeItemCount = 0;
+let aoeCone = 0;
+let aoeCube = 0;
+let aoeCylinder = 0;
+let aoeLine = 0;
+let aoeSphere = 0;
+
 
 
 const dataCache = {};
@@ -356,15 +365,13 @@ async function addList(data, count) {
     };
 
     //checkRangeValues()
+    checkAoeValues()
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
     const IMG_LIST_LOC = './images/' + currentPage + '.json';
 
     resetFilter();
     readyFilter();
-
-
-
     placeImages(ALL_IMG, 'list');
 
 };
@@ -439,44 +446,65 @@ function createListItem(data) {
     //TODO P1-1 - FILTER - figure out how to deal with "non attributes" with values of "unknown"
     const curFilterData = dataCache.filterData[currentPage][data.index];
 
-    const itemRange = curFilterData.range;
-    
     /* // Range Count Counter
-     function RangeCount() {
-    listItemCount += 1;
+    function RangeCount() {
+        const itemRange = curFilterData.range;
+        listItemCount += 1;
 
-    if (itemRange === 'Self'){
-        valueSelf += 1;
-    } else if (itemRange === 'Touch') {
-        valueTouch += 1;
-    } else if (itemRange === 'Sight') {
-        valueSight += 1;
-    } else if (itemRange === '1 mile') {
-        valueOneMile += 1;
-    } else if (itemRange === 'Special') {
-        valueSpecial += 1;
-    } else if (itemRange === 'Unlimited') {
-        valueUnlimited += 1;
-    } else {
-        const splitRange = itemRange.split(" ");
-        const valueRange = splitRange[0];
-        const valueFoot = splitRange[1];
+        if (itemRange === 'Self'){
+            valueSelf += 1;
+        } else if (itemRange === 'Touch') {
+            valueTouch += 1;
+        } else if (itemRange === 'Sight') {
+            valueSight += 1;
+        } else if (itemRange === '1 mile') {
+            valueOneMile += 1;
+        } else if (itemRange === 'Special') {
+            valueSpecial += 1;
+        } else if (itemRange === 'Unlimited') {
+            valueUnlimited += 1;
+        } else {
+            const splitRange = itemRange.split(" ");
+            const valueRange = splitRange[0];
+            const valueFoot = splitRange[1];
 
-        valueFeet += 1;
+            valueFeet += 1;
 
-        if (valueRange <= 25) {
-            lessThanTwentyFive += 1;
-        } else if (valueRange > 25 && valueRange <= 50 ) {
-            twentyFiveToFifty += 1;
-        } else if (valueRange > 50 && valueRange <= 100 ) {
-            fiftyToOneHundred += 1;
-        } else if (valueRange > 100 && valueRange <= 250 ) {
-            oneHundredToTwoFifty += 1;
-        } else if (valueRange > 250 && valueRange <= 500 ) {
-            twoFiftyToFiveHundred += 1;
+            if (valueRange <= 25) {
+                lessThanTwentyFive += 1;
+            } else if (valueRange > 25 && valueRange <= 50 ) {
+                twentyFiveToFifty += 1;
+            } else if (valueRange > 50 && valueRange <= 100 ) {
+                fiftyToOneHundred += 1;
+            } else if (valueRange > 100 && valueRange <= 250 ) {
+                oneHundredToTwoFifty += 1;
+            } else if (valueRange > 250 && valueRange <= 500 ) {
+                twoFiftyToFiveHundred += 1;
+            }
         }
-    }};
-    RangeCount(); */
+    };
+    RangeCount(); 
+
+    // AOE Count Counter
+    function AoeCount() {
+        const itemAoe = curFilterData.aoe;
+        aoeItemCount += 1;
+
+        if (itemAoe === 'cone'){
+            aoeCone += 1;
+        } else if (itemAoe === 'cube') {
+            aoeCube += 1;
+        } else if (itemAoe === 'cylinder') {
+            aoeCylinder += 1;
+        } else if (itemAoe === 'line') {
+            aoeLine += 1;
+        } else if (itemAoe === 'sphere') {
+            aoeSphere += 1;
+        } else {
+            console.log(itemAoe)
+        }
+    };
+    AoeCount();*/
 
     if (curFilterData.classes.length > 1) {
         curFilterData.classes.forEach( dataItem => {
@@ -488,11 +516,15 @@ function createListItem(data) {
         listItem.setAttribute('data-class', curFilterData.classes);
     }
 
+    console.log(curFilterData)
+
     listItem.setAttribute('data-school', curFilterData.school);
     listItem.setAttribute('data-level', curFilterData.level);
     listItem.setAttribute('data-damage_type', curFilterData.damage);
     listItem.setAttribute('data-range', curFilterData.range);
     listItem.setAttribute('data-aoe', curFilterData.aoe);
+    listItem.setAttribute('data-dc', curFilterData.dc);
+    listItem.setAttribute('data-heal', curFilterData.healing_spell);
     listItem.setAttribute('data-conc', curFilterData.concentration);
     listItem.setAttribute('data-ritual', curFilterData.ritual);
 
@@ -1302,6 +1334,7 @@ function readyFilter() {
     const filterDamTypeSelect = document.getElementById('damTypeFilter');
     const filterRangeSelect = document.getElementById('rangeFilter');
     const filterAreaSelect = document.getElementById('areaFilter');
+    const filterDcSelect = document.getElementById('dcFilter');
 
 
 
@@ -1361,6 +1394,7 @@ function readyFilter() {
         const selectedDamType = filterDamTypeSelect.value;
         const selectedRange = filterRangeSelect.value;
         const selectedArea = filterAreaSelect.value;
+        const selectedDc = filterDcSelect.value;
 
 
 
@@ -1377,6 +1411,8 @@ function readyFilter() {
             const itemDamType = item.dataset.damage_type;
             const itemRange = item.dataset.range;
             const itemArea = item.dataset.aoe;
+            const itemDc = item.dataset.dc;
+            const itemHeal = item.dataset.heal;
             const itemConc = item.dataset.conc;
             const itemRitual = item.dataset.ritual;
 
@@ -1386,6 +1422,8 @@ function readyFilter() {
             const damTypeFilterBtn = document.getElementById('damTypeFilterBtn');
             const rangeFilterBtn = document.getElementById('rangeFilterBtn');
             const areaFilterBtn = document.getElementById('areaFilterBtn');
+            const dcFilterBtn = document.getElementById('dcFilterBtn');
+            const healFilterBtn = document.getElementById('healFilterBtn');
             const concFilterBtn = document.getElementById('concFilterBtn');
             const ritualFilterBtn = document.getElementById('ritualFilterBtn');
 
@@ -1478,6 +1516,14 @@ function readyFilter() {
             }
 
             if (areaFilterBtn.className === 'filterToggleOn' && selectedArea !== 'all' && selectedArea !== itemArea) {
+                item.style.display = 'none';
+            }
+
+            if (dcFilterBtn.className === 'filterToggleOn' && selectedDc !== 'all' && selectedDc !== itemDc) {
+                item.style.display = 'none';
+            }
+
+            if (healFilterBtn.className === 'filterToggleOn' && itemHeal === 'false') {
                 item.style.display = 'none';
             }
 
@@ -2080,6 +2126,28 @@ function checkRangeValues() {
     console.log(`Values accounted for: ${valueAccountedFor}`);
     console.log(`Values NOT accounted for: ${valueUnaccountedFor}`);
     console.log(`Total values: ${listItemCount}`);
+}
+
+function checkAoeValues() {
+    let aoeValueAccountedFor = aoeCone + aoeCube + aoeCylinder + aoeLine + aoeSphere /* + fiftyToOneHundred + oneHundredToTwoFifty + twoFiftyToFiveHundred + valueOneMile + valueSpecial + valueUnlimited */;
+    let aoeValueUnaccountedFor = aoeItemCount - aoeValueAccountedFor;
+
+    console.log(`There are ${aoeCone} attribute values containing "Cone".`);
+    console.log(`There are ${aoeCube} attribute values containing "Cube".`);
+    console.log(`There are ${aoeCylinder} attribute values containing "Cylinder".`);
+    console.log(`There are ${aoeLine} attribute values containing "Line".`);
+    console.log(`There are ${aoeSphere} attribute values containing "Sphere".`);
+    /* console.log(`There are ${fiftyToOneHundred} attribute values containing "50 to 100 feet".`);
+    console.log(`There are ${oneHundredToTwoFifty} attribute values containing "100 to 250 feet".`);
+    console.log(`There are ${twoFiftyToFiveHundred} attribute values containing "250 - 500 feet".`);
+    console.log(`There are ${valueFeet} attribute values containing "Feet".`);
+    console.log(`There are ${valueOneMile} attribute values containing "1 mile".`);
+    console.log(`There are ${valueSpecial} attribute values containing "Special".`);
+    console.log(`There are ${valueUnlimited} attribute values containing "Unlimited".`); */
+
+    console.log(`Values accounted for: ${aoeValueAccountedFor}`);
+    console.log(`Values NOT accounted for: ${aoeValueUnaccountedFor}`);
+    console.log(`Total values: ${aoeItemCount}`);
 }
 
 function checkSchools() {

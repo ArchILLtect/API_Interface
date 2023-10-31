@@ -30,6 +30,8 @@
 10/30/23 - Fixed CSS for filters and main articles<br>
 10/31/23 - Filter by class, concentration and ritual are now fully functional<br>
 10/31/23 - Filter by range is now fully functional<br>
+10/31/23 - Filter by AoE is now fully functional<br>
+10/31/23 - Filter by DC saving throw and healing spells are both now fully functional<br>
 <br>
 <br>
 <br>
@@ -38,13 +40,8 @@ TTD:<br>
 <br>
 Fix Nav Bar.<br>
 ---Need drop down menus.<br>
-*1*Add more filter options.<br>
 ---Using the file(s) created named filterInfo.json.<br>
----Add 'data-<attributeType>' attributes to the cards/lists <article> elements created with addCards/addLists to match the filter <select> elements.<br>
----Filter by range: Create function to separate number and feet and then divide ranges into steps.
------->I.e. 1-50ft, 51-100ft,101-150ft,151-300ft,301-600ft,>600ft. See if other ranges beyond just the feet ranges.
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
-Add if conditional for input of None on modal window items.<br>
 Fix the modal window footer and header styles.<br>
 
 ---Make gifs using extra images.<br>
@@ -90,4 +87,6 @@ To use localize_all_api_details:<br>
 ---5 The folder you are in will contain all the newly created folders which contain the json files.
 <br>
 <br>
+Things to oconsider:<br>
+Is filtering spells by casting time needed?<br>
 <br>

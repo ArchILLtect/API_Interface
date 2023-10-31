@@ -172,17 +172,30 @@
                     <option value="cylinder">Cylinder</option>
                     <option value="line">Line</option>
                     <option value="sphere">Sphere</option>
-    <!--                 <option value="emanation">Emanation</option>
-                    <option value="blast">Blast</option>
-                    <option value="burst">Burst</option>
-                    <option value="wall">Wall</option>
-                    <option value="pointBlank">Point Blank</option>
-                    <option value="groundTarget">Ground Target</option>
-                    <option value="singleTarget">Single Target</option> -->
+                    <option value="unknown">None</option>
                 </select>
-                <span>88 matches - More Soon!!</span>
+            </div>
+            <div class="spellFilter">
+                <div>
+                    <button id="dcFilterBtn" class="filterToggleOff">OFF</button>
+                    <label for="dcFilter" class="filterLabel">Filter by Saving Throw: </label>
+                </div>                    
+                <select name="dc" id="dcFilter">
+                    <option value="all" selected>--ALL--</option>
+                    <option value="cha">Charisma</option>
+                    <option value="con">Constitution</option>
+                    <option value="dex">Dexterity</option>
+                    <option value="int">Intelligence</option>
+                    <option value="str">Strength</option>
+                    <option value="wis">Wisdom</option>
+                    <option value="unknown">None</option>
+                </select>
             </div>
             <div id="filterLast" class="spellFilter">
+                <div>
+                    <button id="healFilterBtn" class="filterToggleOff">OFF</button>
+                    <p class="filterLabel">Healing Spells</p>
+                </div>
                 <div>
                     <button id="concFilterBtn" class="filterToggleOff">OFF</button>
                     <p class="filterLabel">Concentration</p>
