@@ -26,6 +26,8 @@
 10/27/23 - Finally finished upgrading localCache, cacheData and the fetching functionalities<br>
 10/27/23 - Created the filter_details_update script to create data for the filters<br>
 10/29/23 - Major updates to filter functionality<br>
+10/30/23 - Fix image placeholder for missing images<br>
+10/30/23 - Fixed CSS for filters and main articles<br>
 <br>
 <br>
 <br>
@@ -37,10 +39,12 @@ Fix Nav Bar.<br>
 *1*Add more filter options.<br>
 ---Using the file(s) created named filterInfo.json.<br>
 ---Add 'data-<attributeType>' attributes to the cards/lists <article> elements created with addCards/addLists to match the filter <select> elements.<br>
+---Filter by range: Create function to separate number and feet and then divide ranges into steps.
+------>I.e. 1-50ft, 51-100ft,101-150ft,151-300ft,301-600ft,>600ft. See if other ranges beyond just the feet ranges.
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Add if conditional for input of None on modal window items.<br>
 Fix the modal window footer and header styles.<br>
-*1*Fix image placeholder for missing images.<br>
+
 ---Make gifs using extra images.<br>
 *1*Continue building localCache.<br>
 Fix details for races and classes.<br>
