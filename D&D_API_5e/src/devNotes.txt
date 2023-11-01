@@ -1,0 +1,36 @@
+
+
+Bard spells: 111
+Cleric spells: 106
+Druid spells: 104
+Palding spells: 33
+Ranger spells: 37
+Sorcerer spells: 120
+Warlock spells: 64
+Wizard spells: 204
+Total spells: 779
+
+There are 62 attribute values containing "Self".
+There are 67 attribute values containing "Touch".
+There are 2 attribute values containing "Sight".
+There are 13 attribute values containing "Less than 25 feet".
+There are 47 attribute values containing "25 to 50 feet".
+There are 72 attribute values containing "50 to 100 feet".
+There are 43 attribute values containing "100 to 250 feet".
+There are 9 attribute values containing "250 - 500 feet".
+There are 184 attribute values containing "Feet".
+There are 2 attribute values containing "1 mile".
+There are 1 attribute values containing "Special".
+There are 1 attribute values containing "Unlimited".
+Values accounted for: 319
+Values NOT accounted for: 0
+Total values: 319
+
+There are 6 attribute values containing "Cone".
+There are 26 attribute values containing "Cube".
+There are 9 attribute values containing "Cylinder".
+There are 8 attribute values containing "Line".
+There are 39 attribute values containing "Sphere".
+Values accounted for: 88
+Values NOT accounted for: 231
+Total values: 319
