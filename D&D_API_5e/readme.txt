@@ -40,22 +40,19 @@
 TTD:<br>
 <br>
 Add page setup functions to prepare pages CSS and other info before loading. Add JS/CSS rule mixture to accomodate<br>
-Fix Nav Bar.<br>
+Fix Nav Bar:<br>
 ---Need drop down menus.<br>
----Using the file(s) created named filterInfo.json.<br>
 Integrate Monsters, equipment, etc. that needs to be imported.<br>
 Fix the modal window footer and header styles.<br>
-
+Work on spells:<br>
 ---Make gifs using extra images.<br>
 *1*Continue building localCache.<br>
 Fix details for races and classes.<br>
-*5*Fix the other Python scripts.<br>
+*5*Fix the other Python scripts:<br>
 ---Make them able to be run from the updateScripts folder.<br>
 ---Fix filter_details_update.py to save better data into file - for example how it saves unknown data points.<br>
 Think about how to create Python scripts that update local data.<br>
 Heavy cleaning<br>
----Remove obselete functions.<br>
----Restructuring of functions - Get them in the correct place.<br>
 ---Clean up unused/obselete code within the functions.<br>
 Functions needing work:<br>
 ---createDetailsWindow<br>

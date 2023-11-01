@@ -155,42 +155,138 @@ function SetHeader (title, count) {
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
 };
-/*
-async function fetchInfo(page) {
 
-    // This URL is changed to use local files for fetching during dev.
-    //const API_LOC_CUR = API_MAIN_URL + page;
-    const API_LOC_CUR = `./localCache/${page}/localCache.json`;
-    
-    currentPage = page;
-    //TODO Make a function to determine whether page is a 'main' or 'details' like in AddContent();
-    
-    if (verifyLoadNeed(page, 'main')) {
+async function prepLoad(itemType, dataType='data', itemName) {
+    // itemType: use this parameter only for main list items.
+    // dataType: data or images. Leave blank for data lists.
+    // itemName: use all three parameters for detail items. MUST enter data or images in second parameter if getting details.
 
-        console.log('API LOAD NEEDED! LOAD NEEDED!');
+    // FIXME P5 - It seems the var "location" is in scope at root - WHY? Try ti get rid of it and then use it here.
+    let curLocation;
 
-        const apiPromise = await fetch(API_LOC_CUR);
-        apiIndex = await apiPromise.json();
+        if (dataType === 'data') {
+            if (itemName) {
+                // Get details
+                //console.log('details!')
+                dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
 
-        apiData = apiIndex.results;
-        apiCount = apiIndex.count;
+                const content = dataCache[itemType][itemName];
+                curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
 
-        // Set data to variable to prevent loading from API on next run:
- 
-        dataCache[page] = apiData;
-        dataCache[page].details = [];
-        addContent(apiData, setContentType(apiCount));
+                //(verifyLoadNeed(itemName, 'details')) {
+                if (verifyLoadNeed(itemName, 'details')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //
+                    //TODO UPDATE - Move createDetailsWindowNEW to prepLoad like spells is done.
+                    cacheData(apiData, itemType, itemName);
+                    if (itemType === 'spells') {
+                        createDetailsWindow(apiData);
+                    } else {
+                        createDetailsWindowNEW(apiData);
+                    }
+                } else {
+                    console.log('API Load NOT needed!');
+                    if (itemType === 'spells') {
+                        createDetailsWindow(content);
+                    } else {
+                        createDetailsWindowNEW(content);
+                    }
+                }
+            } else if (itemType === 'spells') {
+                // Get spells main items list
+                //console.log('spells')
+                dataCache[itemType] = dataCache[itemType] || {};
+                //console.log(itemType)
+                const content = dataCache[itemType];
+                curLocation = "./localCache/" + itemType + "/localCache.json";
 
+                if (verifyLoadNeed(itemType, 'main')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //console.log(itemType)
+                    cacheData(apiData, itemType);
+                    return;
+                    //addContent Removed
+                } else {
+                    console.log('API Load NOT needed!');
+                    return;
+                    //addContent Removed(content, 'list'); 
+                }
+            } else {
+                // Get main items list
+                //console.log('main')
+                dataCache[itemType] = dataCache[itemType] || {};
+                //console.log(itemType)
+                const content = dataCache[itemType];
+                curLocation = "./localCache/" + itemType + "/localCache.json";
+
+                if (verifyLoadNeed(itemType, 'main')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //console.log(itemType)
+                    cacheData(apiData, itemType);
+                    return;
+                    //addContent Removed
+                } else {
+                    console.log('API Load NOT needed!');
+                    return;
+                    //addContent Removed
+                }
+            }
+        } else if (dataType === 'images') {
+                // Get image list
+
+                dataCache['images'] = dataCache['images'] || {};
+                dataCache['images'][itemType] = dataCache['images'][itemType] || {};
+/* 
+                if (!dataCache['images']) {
+                    dataCache['images'] = {}; // Initialize 'images' if it doesn't exist
+                }
+
+                if (!dataCache['images'][itemType]) {
+                    dataCache['images'][itemType] = {}; // Initialize 'itemType' if it doesn't exist
+                }
+ */
+                //let content = dataCache['images'][itemType];
+                curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
+/* 
+                if (!content) {
+                    content = {}; // Initialize 'content' if it doesn't exist
+                } */
+
+                if (verifyLoadNeed(itemType, 'images')) {
+                    //console.log(`@ prepLoad: itemType: ${itemType}`);
+                    //console.log('@ prepLoad: apiIndex on next log line:');
+                    //console.log(apiIndex);
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchSecondaryData(curLocation, 'images');
+                    cacheData(jsonData, itemType);
+                } else {
+                    console.log('API Load NOT needed!');
+                }
+        } else if (dataType === 'filterData') {
+
+            dataCache['filterData'] = dataCache['filterData'] || {};
+            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
+
+            curLocation = "./localCache/" + itemType + "/filterInfo.json";
+
+            if (verifyLoadNeed(itemType, 'filterData')) {
+                //console.log(`@ prepLoad: itemType: ${itemType}`);
+                //console.log('@ prepLoad: apiIndex on next log line:');
+                //console.log(apiIndex);
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchSecondaryData(curLocation, 'filterData');
+                cacheData(jsonData, itemType);
+            } else {
+                console.log('API Load NOT needed!');
+            }
     } else {
+            throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
+        }
+};
 
-        //CUR_COUNT = getCount(page);
-        console.log('API Load NOT needed!');
-        //setCount(apiCount, page)
-        addContent(dataCache[page], setContentType(getCount(page)));
-
-    }
-}; */
- 
 function cacheData(data, itemType, itemName) {
     //console.log('@ cacheData: current dataCache on next log line:');
     //console.log(dataCache);
@@ -310,6 +406,66 @@ function cacheData(data, itemType, itemName) {
     } else {
         console.log('ERROR: Data did not cache. Data contains nothing or is corrupted.');
     }
+};
+
+function verifyLoadNeed(prop, dataType) {
+    //const asset = dataCache
+    
+    if (dataType === 'main') {
+        //const checkAsset = asset.hasOwnProperty(prop);
+        const checkAsset = Object.keys(dataCache[prop]).length
+        //console.log('Checking main...........');
+        if (checkAsset > 0) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    } else if (dataType === 'details') {
+        //const checkAsset = asset[currentPage].hasOwnProperty(prop);
+        const asset = dataCache[currentPage][prop]
+        //console.log('Checking details...........');
+        if (
+            asset &&
+            Object.keys(asset).length > 3
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    } else if (dataType === 'images') {
+        //const checkAsset = asset['images'].hasOwnProperty(prop);
+        const asset = dataCache['images'][prop]
+        //console.log('Checking images...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    } else if (dataType === 'filterData') {
+        //const checkAsset = asset['images'].hasOwnProperty(prop);
+        const asset = dataCache['filterData'][prop]
+        //console.log('Checking images...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
+    }
+       
 };
 
 function addContent(data, type) {
@@ -1300,6 +1456,7 @@ function readyFilter() {
     }
 };
 
+//TODO Update resetFilter to accomodate new filter options - make sure EVERYTHING resets!
 function resetFilter() {
     const filterInput = document.getElementById('filterInput');
     const itemList = document.getElementById('mainContent');
@@ -1338,8 +1495,6 @@ function hideFilters() {
 
     //Clear the filter inputs:
     filterInput.value = '';
-    //classFilter.selectedIndex = -1;
-    //schoolFilter.selectedIndex = -1;
 
     //Hide the spells filters:
     for (const eachItem of spellFilter) {
@@ -1368,6 +1523,76 @@ function hideFilters() {
 // Helper Functions:      //
 //////////////////////////*/
 
+async function fetchData(curLocation) {
+    //console.log(curLocation)
+
+        const apiPromise = await fetch(curLocation);
+        apiIndex = await apiPromise.json();
+        //console.log(apiIndex)
+        itemType = extractPortion(curLocation, 2)
+        //console.log(itemType)
+        apiData = apiIndex
+        apiCount = apiIndex.count;
+
+        setCount(apiCount, itemType);
+        //console.log()
+};
+
+async function fetchSecondaryData(curLocation, dataType) {
+    //console.log(curLocation)
+    if (dataType === 'images') {
+        const jsonPromise = await fetch(curLocation);
+        jsonIndex = await jsonPromise.json();
+
+        jsonData = jsonIndex;
+        jsonCount = jsonIndex.count;
+
+    } else if (dataType === 'filterData') {
+        const jsonPromise = await fetch(curLocation);
+        jsonIndex = await jsonPromise.json();
+
+        jsonData = jsonIndex;
+    } else {
+        console.log('fetchSecondaryData failed due to bad dataType.')
+    }
+        
+
+};
+
+function setContentType(count) {
+    if (count > 20) {
+        return 'details';
+    } else {
+        return 'main';
+    }
+};
+
+function setMainClass() {
+
+    if (currentPage === 'races' || currentPage === 'classes') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('cardContent');
+        return
+    } else if (currentPage === 'spells') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('listContent');
+        return
+    } else {
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('pageContent');
+        return
+    }
+
+};
+
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -1379,66 +1604,6 @@ function clearPrevPage() {
     removeAllChildNodes(homePage);
     removeAllChildNodes(pageHeaderDiv);
     removeAllChildNodes(mainElement);
-};
-
-function verifyLoadNeed(prop, dataType) {
-    //const asset = dataCache
-    
-    if (dataType === 'main') {
-        //const checkAsset = asset.hasOwnProperty(prop);
-        const checkAsset = Object.keys(dataCache[prop]).length
-        //console.log('Checking main...........');
-        if (checkAsset > 0) {
-            //console.log('Returning No')
-            return false;
-        } else {
-            //console.log('Returning Yes')
-            return true;
-        }
-    } else if (dataType === 'details') {
-        //const checkAsset = asset[currentPage].hasOwnProperty(prop);
-        const asset = dataCache[currentPage][prop]
-        //console.log('Checking details...........');
-        if (
-            asset &&
-            Object.keys(asset).length > 3
-            ) {
-            //console.log('Returning No')
-            return false;
-        } else {
-            //console.log('Returning Yes')
-            return true;
-        }
-    } else if (dataType === 'images') {
-        //const checkAsset = asset['images'].hasOwnProperty(prop);
-        const asset = dataCache['images'][prop]
-        //console.log('Checking images...........');
-        if (
-            asset &&
-            Object.keys(asset).length
-            ) {
-            //console.log('Returning No')
-            return false;
-        } else {
-            //console.log('Returning Yes')
-            return true;
-        }
-    } else if (dataType === 'filterData') {
-        //const checkAsset = asset['images'].hasOwnProperty(prop);
-        const asset = dataCache['filterData'][prop]
-        //console.log('Checking images...........');
-        if (
-            asset &&
-            Object.keys(asset).length
-            ) {
-            //console.log('Returning No')
-            return false;
-        } else {
-            //console.log('Returning Yes')
-            return true;
-        }
-    }
-       
 };
 
 function modalListeners() {
@@ -1489,146 +1654,6 @@ function modalListeners() {
     }
 };
 
-function setContentType(count) {
-    if (count > 20) {
-        return 'details';
-    } else {
-        return 'main';
-    }
-};
-
-//TODO P1-2 - Make this function the new loader!! And delete all obselete fetching functions!!
-async function prepLoad(itemType, dataType='data', itemName) {
-    // itemType: use this parameter only for main list items.
-    // dataType: data or images. Leave blank for data lists.
-    // itemName: use all three parameters for detail items. MUST enter data or images in second parameter if getting details.
-
-    // FIXME P5 - It seems the var "location" is in scope at root - WHY? Try ti get rid of it and then use it here.
-    let curLocation;
-
-        if (dataType === 'data') {
-            if (itemName) {
-                // Get details
-                //console.log('details!')
-                dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
-
-                const content = dataCache[itemType][itemName];
-                curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
-
-                //(verifyLoadNeed(itemName, 'details')) {
-                if (verifyLoadNeed(itemName, 'details')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    //
-                    //TODO UPDATE - Move createDetailsWindowNEW to prepLoad like spells is done.
-                    cacheData(apiData, itemType, itemName);
-                    if (itemType === 'spells') {
-                        createDetailsWindow(apiData);
-                    } else {
-                        createDetailsWindowNEW(apiData);
-                    }
-                } else {
-                    console.log('API Load NOT needed!');
-                    if (itemType === 'spells') {
-                        createDetailsWindow(content);
-                    } else {
-                        createDetailsWindowNEW(content);
-                    }
-                }
-            } else if (itemType === 'spells') {
-                // Get spells main items list
-                //console.log('spells')
-                dataCache[itemType] = dataCache[itemType] || {};
-                //console.log(itemType)
-                const content = dataCache[itemType];
-                curLocation = "./localCache/" + itemType + "/localCache.json";
-
-                if (verifyLoadNeed(itemType, 'main')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    //console.log(itemType)
-                    cacheData(apiData, itemType);
-                    return;
-                    //addContent Removed
-                } else {
-                    console.log('API Load NOT needed!');
-                    return;
-                    //addContent Removed(content, 'list'); 
-                }
-            } else {
-                // Get main items list
-                //console.log('main')
-                dataCache[itemType] = dataCache[itemType] || {};
-                //console.log(itemType)
-                const content = dataCache[itemType];
-                curLocation = "./localCache/" + itemType + "/localCache.json";
-
-                if (verifyLoadNeed(itemType, 'main')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    //console.log(itemType)
-                    cacheData(apiData, itemType);
-                    return;
-                    //addContent Removed
-                } else {
-                    console.log('API Load NOT needed!');
-                    return;
-                    //addContent Removed
-                }
-            }
-        } else if (dataType === 'images') {
-                // Get image list
-
-                dataCache['images'] = dataCache['images'] || {};
-                dataCache['images'][itemType] = dataCache['images'][itemType] || {};
-/* 
-                if (!dataCache['images']) {
-                    dataCache['images'] = {}; // Initialize 'images' if it doesn't exist
-                }
-
-                if (!dataCache['images'][itemType]) {
-                    dataCache['images'][itemType] = {}; // Initialize 'itemType' if it doesn't exist
-                }
- */
-                //let content = dataCache['images'][itemType];
-                curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
-/* 
-                if (!content) {
-                    content = {}; // Initialize 'content' if it doesn't exist
-                } */
-
-                if (verifyLoadNeed(itemType, 'images')) {
-                    //console.log(`@ prepLoad: itemType: ${itemType}`);
-                    //console.log('@ prepLoad: apiIndex on next log line:');
-                    //console.log(apiIndex);
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchSecondaryData(curLocation, 'images');
-                    cacheData(jsonData, itemType);
-                } else {
-                    console.log('API Load NOT needed!');
-                }
-        } else if (dataType === 'filterData') {
-
-            dataCache['filterData'] = dataCache['filterData'] || {};
-            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
-
-            curLocation = "./localCache/" + itemType + "/filterInfo.json";
-
-            if (verifyLoadNeed(itemType, 'filterData')) {
-                //console.log(`@ prepLoad: itemType: ${itemType}`);
-                //console.log('@ prepLoad: apiIndex on next log line:');
-                //console.log(apiIndex);
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
-                await fetchSecondaryData(curLocation, 'filterData');
-                cacheData(jsonData, itemType);
-            } else {
-                console.log('API Load NOT needed!');
-            }
-    } else {
-            throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
-        }
-};
-
 function imageRandomizer(itemType) {
     //console.log('at RNDMIZER');
     //console.log(dataCache);
@@ -1640,42 +1665,6 @@ function imageRandomizer(itemType) {
     const RAND_IMG = 'images/monsters/' + RAND_FILE
     //console.log(RAND_IMG);
     return RAND_IMG;
-};
-
-async function fetchData(curLocation) {
-    //console.log(curLocation)
-
-        const apiPromise = await fetch(curLocation);
-        apiIndex = await apiPromise.json();
-        //console.log(apiIndex)
-        itemType = extractPortion(curLocation, 2)
-        //console.log(itemType)
-        apiData = apiIndex
-        apiCount = apiIndex.count;
-
-        setCount(apiCount, itemType);
-        //console.log()
-};
-
-async function fetchSecondaryData(curLocation, dataType) {
-    //console.log(curLocation)
-    if (dataType === 'images') {
-        const jsonPromise = await fetch(curLocation);
-        jsonIndex = await jsonPromise.json();
-
-        jsonData = jsonIndex;
-        jsonCount = jsonIndex.count;
-
-    } else if (dataType === 'filterData') {
-        const jsonPromise = await fetch(curLocation);
-        jsonIndex = await jsonPromise.json();
-
-        jsonData = jsonIndex;
-    } else {
-        console.log('fetchSecondaryData failed due to bad dataType.')
-    }
-        
-
 };
 
 function placeImages(articles, type) {
@@ -1739,32 +1728,6 @@ function placeImages(articles, type) {
 
 };
 
-function setMainClass() {
-
-    if (currentPage === 'races' || currentPage === 'classes') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('listContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('cardContent');
-        return
-    } else if (currentPage === 'spells') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('cardContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('listContent');
-        return
-    } else {
-        mainElement.classList.remove('cardContent');
-        mainElement.classList.remove('listContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('pageContent');
-        return
-    }
-
-};
-
 function extractPortion(string, portionIndex, separator="/") {
     // Ex. console.log(extractPortion(url, 0));  // Returns "www.example.co"
     // Ex. console.log(extractPortion(url, 4, "/"));  // Returns "with"
@@ -1786,6 +1749,30 @@ function extractPortion(string, portionIndex, separator="/") {
 
     return portions[portionIndex];
 }
+
+function setCount(count, page) {
+    if (page === 'races') {
+        raceCount = count;
+    } else if (page === 'classes') {
+        classCount = count;
+    } else if (page === 'spells') {
+        spellCount = count;
+    } else if (page === 'races') {
+        raceCount = count;
+    };
+};
+
+function getCount(page) {
+    if (page === 'races') {
+        return raceCount;
+    } else if (page === 'classes') {
+        return classCount;
+    } else if (page === 'spells') {
+        return spellCount;
+    } else if (page === 'races') {
+        return raceCount;
+    };
+};
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
@@ -1834,33 +1821,6 @@ function findItems(objItem) {
 
 function checkCache() {
     console.log(dataCache)
-};
-
-
-// TODO TEMP?? function for count
-
-function setCount(count, page) {
-    if (page === 'races') {
-        raceCount = count;
-    } else if (page === 'classes') {
-        classCount = count;
-    } else if (page === 'spells') {
-        spellCount = count;
-    } else if (page === 'races') {
-        raceCount = count;
-    };
-};
-
-function getCount(page) {
-    if (page === 'races') {
-        return raceCount;
-    } else if (page === 'classes') {
-        return classCount;
-    } else if (page === 'spells') {
-        return spellCount;
-    } else if (page === 'races') {
-        return raceCount;
-    };
 };
 
 //For DEV ONLY:
