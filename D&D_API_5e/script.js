@@ -8,9 +8,10 @@ const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
 let dataType = '';
-let raceData = '';
-let classData = '';
-let spellData = '';
+//let raceData = '';
+//let classData = '';
+let monsterData = '';
+//let spellData = '';
 let currentPage = '';
 let itemCounter = 1;
 let apiCount = 0;
@@ -20,6 +21,7 @@ let jsonData;
 
 let raceCount = '';
 let classCount = '';
+let monsterCount = '';
 let spellCount = '';
 
 /*   //Filter Count Variable Declartions
@@ -137,9 +139,7 @@ function SetHeader (title, count) {
 
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'monsters') {
-        //TODO Once page is setup swap lines and delete unused line.
-        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-        pageHeaderTxt = document.createTextNode(title.toUpperCase());
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'equipment') {
         //TODO Once page is setup swap lines and delete unused line.
         //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
@@ -662,17 +662,17 @@ function createListItem(data) {
         }
     };
     AoeCount();*/
-
-    if (curFilterData.classes.length > 1) {
-        curFilterData.classes.forEach( dataItem => {
-        const classesJSON = JSON.stringify(curFilterData.classes);
-        //console.log(classesJSON)
-        listItem.setAttribute('data-classes', classesJSON);
-        });
-    } else if (curFilterData.classes.length === 1) {
-        listItem.setAttribute('data-class', curFilterData.classes);
-    }
-
+    if (currentPage === 'spells') {
+        if (curFilterData.classes.length > 1) {
+            curFilterData.classes.forEach( dataItem => {
+            const classesJSON = JSON.stringify(curFilterData.classes);
+            //console.log(classesJSON)
+            listItem.setAttribute('data-classes', classesJSON);
+            });
+        } else if (curFilterData.classes.length === 1) {
+            listItem.setAttribute('data-class', curFilterData.classes);
+        }
+    
     listItem.setAttribute('data-school', curFilterData.school);
     listItem.setAttribute('data-level', curFilterData.level);
     listItem.setAttribute('data-damage_type', curFilterData.damage);
@@ -682,6 +682,7 @@ function createListItem(data) {
     listItem.setAttribute('data-heal', curFilterData.healing_spell);
     listItem.setAttribute('data-conc', curFilterData.concentration);
     listItem.setAttribute('data-ritual', curFilterData.ritual);
+    }
 
     const listItemImg = document.querySelector(`#${itemNameRaw} img`);
     //console.log(listItemImg);
@@ -1210,7 +1211,7 @@ function setNavListen() {
         eachItem.addEventListener('click', async function(e){
             e.preventDefault();
             //console.log(eachItem.id)
-            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'monsters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
+            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
                 hideFilters();
                 goHome(eachItem.id);
             } else if (eachItem.id === 'sheets') {
@@ -1530,7 +1531,6 @@ async function fetchData(curLocation) {
         apiIndex = await apiPromise.json();
         //console.log(apiIndex)
         itemType = extractPortion(curLocation, 2)
-        //console.log(itemType)
         apiData = apiIndex
         apiCount = apiIndex.count;
 
@@ -1577,6 +1577,13 @@ function setMainClass() {
         mainElement.classList.add('cardContent');
         return
     } else if (currentPage === 'spells') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('listContent');
+        return
+    } else if (currentPage === 'monsters') {
         mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
         mainElement.classList.remove('cardContent');
@@ -1755,11 +1762,11 @@ function setCount(count, page) {
         raceCount = count;
     } else if (page === 'classes') {
         classCount = count;
+    } else if (page === 'monsters') {
+        monsterCount = count;
     } else if (page === 'spells') {
         spellCount = count;
-    } else if (page === 'races') {
-        raceCount = count;
-    };
+    }
 };
 
 function getCount(page) {
@@ -1767,11 +1774,11 @@ function getCount(page) {
         return raceCount;
     } else if (page === 'classes') {
         return classCount;
+    } else if (page === 'monsters') {
+        return monsterCount;
     } else if (page === 'spells') {
         return spellCount;
-    } else if (page === 'races') {
-        return raceCount;
-    };
+    }
 };
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
