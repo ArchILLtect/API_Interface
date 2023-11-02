@@ -1,0 +1,1 @@
+{"index": "armor-1", "name": "Armor, +1", "equipment_category": {"index": "armor", "name": "Armor", "url": "/api/equipment-categories/armor"}, "rarity": {"name": "Rare"}, "variants": [], "variant": true, "desc": ["Armor (light, medium, or heavy), rare", "You have a +1 bonus to AC while wearing this armor."], "url": "/api/magic-items/armor-1"}

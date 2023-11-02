@@ -1,0 +1,1 @@
+{"index": "weapon-3", "name": "Weapon, +3", "equipment_category": {"index": "weapon", "name": "Weapon", "url": "/api/equipment-categories/weapon"}, "rarity": {"name": "Very Rare"}, "variants": [], "variant": true, "desc": ["Weapon (any), very rare", "You have a +3 bonus to attack and damage rolls made with this magic weapon."], "url": "/api/magic-items/weapon-3"}
