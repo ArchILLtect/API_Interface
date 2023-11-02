@@ -1729,9 +1729,15 @@ function placeImages(articles, type) {
 
     } else {
         const CUR_FILES = dataCache['images'][currentPage]
+        let fileType = '';
         for (article of articles) {
             const CUR_NAME = article.id
-            const CUR_FILE = article.id + '.gif';
+            if (currentPage === 'spells') {
+                fileType = '.gif'
+            } else {
+                fileType = '.jpg'
+            }
+            const CUR_FILE = article.id + fileType;
             const CUR_IMG = document.getElementById(`${CUR_NAME}Img`);
             let matchFound = false;
             //console.log(CUR_NAME);
