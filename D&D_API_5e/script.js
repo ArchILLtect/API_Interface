@@ -10,7 +10,7 @@ const homePage = document.createElement('h3');
 let dataType = '';
 //let raceData = '';
 //let classData = '';
-let monsterData = '';
+//let monsterData = '';
 //let spellData = '';
 let currentPage = '';
 let itemCounter = 1;
@@ -23,6 +23,10 @@ let raceCount = '';
 let classCount = '';
 let monsterCount = '';
 let spellCount = '';
+let equipCateCount = '';
+let equipmentCount = '';
+let magicItemsCount = '';
+let weaponPropsCount = '';
 
 /*   //Filter Count Variable Declartions
     //Range Count Variable Declaration
@@ -85,8 +89,8 @@ async function goHome(page) {
     const article1Txt1 = document.createTextNode('This page is under heavy construction! Please forgive the chaos! ');
     const article1Txt2 = document.createTextNode('This site is dedicated to bringing the data from the D&D 5e API to life!');
     const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
-    const article1Txt4 = document.createTextNode('10/31/23 - Finally finished all the filter options for spells!!');
-    const article1Txt5 = document.createTextNode('November 2023 -COMING SOON: Monsters is next up!');
+    const article1Txt4 = document.createTextNode('11/01/23 - ADDED MONSTERS AND ITEMS!!! Though be warned it needs LOTS of work still');
+    const article1Txt5 = document.createTextNode('November 2023 -COMING SOON: Subclasses, subraces, feats, traits, skills and rule info!!');
     const article1Txt6 = document.createTextNode('This site dedicated to Nick JR!!!');
     leftHomeArticle.appendChild(homeImageSlot1);
     homePage.appendChild(homePageTxt);
@@ -140,10 +144,18 @@ function SetHeader (title, count) {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'monsters') {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'equipment') {
+    } else if (title === 'items') {
         //TODO Once page is setup swap lines and delete unused line.
         //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title === 'equipment-categories') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title === 'equipment') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title === 'magic-items') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title === 'weapon-properties') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else if (title === 'misc') {
         //TODO Once page is setup swap lines and delete unused line.
         //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
@@ -1199,9 +1211,9 @@ function setUpSheets() {
 
 // VARs - Main
 homeNav = document.getElementById('#home');
-characterNav = document.getElementById('#character');
-monsterNav = document.getElementById('#monster');
-itemNav = document.getElementById('#item');
+characterNav = document.getElementById('#characters');
+monsterNav = document.getElementById('#monsters');
+itemNav = document.getElementById('#items');
 miscNav = document.getElementById('#misc');
 allNav = document.querySelectorAll('nav ul li a');
 
@@ -1211,7 +1223,7 @@ function setNavListen() {
         eachItem.addEventListener('click', async function(e){
             e.preventDefault();
             //console.log(eachItem.id)
-            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'equipment' || eachItem.id === 'misc') {
+            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'items' || eachItem.id === 'misc') {
                 hideFilters();
                 goHome(eachItem.id);
             } else if (eachItem.id === 'sheets') {
@@ -1576,6 +1588,13 @@ function setMainClass() {
         mainElement.classList.remove('sheets');
         mainElement.classList.add('cardContent');
         return
+    } else if (currentPage === 'monsters') {
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('listContent');
+        return
     } else if (currentPage === 'spells') {
         mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
@@ -1583,7 +1602,7 @@ function setMainClass() {
         mainElement.classList.remove('sheets');
         mainElement.classList.add('listContent');
         return
-    } else if (currentPage === 'monsters') {
+    } else if (currentPage === 'equipment-categories') {
         mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
         mainElement.classList.remove('cardContent');
@@ -1766,6 +1785,14 @@ function setCount(count, page) {
         monsterCount = count;
     } else if (page === 'spells') {
         spellCount = count;
+    } else if (page === 'equipment-categories') {
+        equipCateCount = count;
+    } else if (page === 'equipment') {
+        equipmentCount = count;
+    } else if (page === 'magic-items') {
+        magicItemsCount = count;
+    } else if (page === 'weapon-properties') {
+        weaponPropsCount = count;
     }
 };
 
@@ -1778,6 +1805,14 @@ function getCount(page) {
         return monsterCount;
     } else if (page === 'spells') {
         return spellCount;
+    } else if (page === 'equipment-categories') {
+        return equipCateCount;
+    } else if (page === 'equipment') {
+        return equipmentCount;
+    } else if (page === 'magic-items') {
+        return magicItemsCount;
+    } else if (page === 'weapon-properties') {
+        return weaponPropsCount;
     }
 };
 

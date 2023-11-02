@@ -33,6 +33,12 @@
 10/31/23 - Filter by AoE is now fully functional<br>
 10/31/23 - Filter by DC saving throw and healing spells are both now fully functional<br>
 10/31/23 - Fixed buggy CSS and updated it to accomodate changes<br>
+10/31/23 - Upgrade localCache and site content to include MONSTERS! Minimal functionality currently though<br>
+10/01/23 - Upgrade localCache and site content to include equipment-categories. Minimal functionality currently though<br>
+10/01/23 - Upgrade localCache and site content to include EQUIPMENT! functionality currently though<br>
+10/01/23 - Upgrade localCache and site content to include MAGIC ITEMS! Minimal functionality currently though<br>
+10/01/23 - Upgrade localCache and site content to include weapon properties. Minimal functionality currently though<br>
+10/01/23 - Upgraded localize_all_api_details to UPDATE AND add new non-existing detail data! Renamed to update_all_api_details<br>
 <br>
 <br>
 <br>
@@ -78,12 +84,11 @@ To use create_file_list.py:<br>
 ---4 The created file will be in the folder you are in<br>
 <br>
 <br>
-To use localize_all_api_details:<br>
+To use update_all_api_details:<br>
 ---1 Make sure you have Python installed<br>
----2 Place localize_all_api_details.py in the folder you desire to contain the files<br>
----3 Edit localize_all_api_details.py so the main_api_url variable holds the correct desired API endpoint<br>
----4 Run with $ python3 test_apiEndPointCopy.py<br>
----5 The folder you are in will contain all the newly created folders which contain the json files.
+---2 If fetching new data create a folder with the data type(also API endpoint) as it's name in localCache folder<br>
+---3 Run with $ python3 update_all_api_details.py <data type ex. "monsters"><br>
+---4 The parameter passed will be the folder containing all the newly created folders which contain the json files<br>
 <br>
 <br>
 Things to oconsider:<br>
