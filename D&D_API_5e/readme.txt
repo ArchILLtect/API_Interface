@@ -58,8 +58,11 @@ Fix details for races and classes.<br>
 ---Make them able to be run from the updateScripts folder.<br>
 ---Fix filter_details_update.py to save better data into file - for example how it saves unknown data points.<br>
 Think about how to create Python scripts that update local data.<br>
-Heavy cleaning<br>
+*2*Heavy cleaning<br>
 ---Clean up unused/obselete code within the functions.<br>
+*5*Pics need to be cropped:
+---Equipment = the four "packs"<br>
+---Conditions = all<br>
 Functions needing work:<br>
 ---createDetailsWindow<br>
 <br>

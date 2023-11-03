@@ -19,14 +19,15 @@ let apiCount = 0;
 let apiData;
 let jsonData;
 
-let raceCount = '';
-let classCount = '';
-let monsterCount = '';
-let spellCount = '';
-let equipCateCount = '';
-let equipmentCount = '';
-let magicItemsCount = '';
-let weaponPropsCount = '';
+let raceCount = 0;
+let classCount = 0;
+let monsterCount = 0;
+let spellCount = 0;
+let equipCateCount = 0;
+let equipmentCount = 0;
+let magicItemsCount = 0;
+let weaponPropsCount = 0;
+let conditionsCount = 0;
 
 /*   //Filter Count Variable Declartions
     //Range Count Variable Declaration
@@ -160,6 +161,8 @@ function SetHeader (title, count) {
         //TODO Once page is setup swap lines and delete unused line.
         //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
+    } else if (title === 'conditions') {
+        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
     } else {
         pageHeaderTxt = document.createTextNode('ERROR');
     }
@@ -225,6 +228,27 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     return;
                     //addContent Removed(content, 'list'); 
                 }
+            } else if (itemType === 'equipment') {
+                //FIXME This is temp until new localCache loading system in place
+                // Get spells main items list
+                //console.log('spells')
+                dataCache[itemType] = dataCache[itemType] || {};
+                //console.log(itemType)
+                const content = dataCache[itemType];
+                curLocation = "./localCache/" + itemType + "/localCache.json";
+
+                if (verifyLoadNeed(itemType, 'main')) {
+                    console.log('API LOAD NEEDED! LOAD NEEDED!');
+                    await fetchData(curLocation);
+                    //console.log(itemType)
+                    cacheData(apiData, itemType);
+                    return;
+                    //addContent Removed
+                } else {
+                    console.log('API Load NOT needed!');
+                    return;
+                    //addContent Removed(content, 'list'); 
+                }
             } else {
                 // Get main items list
                 //console.log('main')
@@ -251,21 +275,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
 
                 dataCache['images'] = dataCache['images'] || {};
                 dataCache['images'][itemType] = dataCache['images'][itemType] || {};
-/* 
-                if (!dataCache['images']) {
-                    dataCache['images'] = {}; // Initialize 'images' if it doesn't exist
-                }
 
-                if (!dataCache['images'][itemType]) {
-                    dataCache['images'][itemType] = {}; // Initialize 'itemType' if it doesn't exist
-                }
- */
-                //let content = dataCache['images'][itemType];
                 curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
-/* 
-                if (!content) {
-                    content = {}; // Initialize 'content' if it doesn't exist
-                } */
 
                 if (verifyLoadNeed(itemType, 'images')) {
                     //console.log(`@ prepLoad: itemType: ${itemType}`);
@@ -381,6 +392,20 @@ function cacheData(data, itemType, itemName) {
         data.results.forEach(item => {
             dataCache[itemType][item.index] = item;
         });
+        //FIXME Make sure this is correct fot all pages
+        if (currentPage === 'equipment') {
+            data.results.forEach(item => {
+                dataCache[itemType][item.index] = item;
+            });
+            data.additionalResults.forEach(item => {
+                dataCache[itemType][item.index] = item;
+            });
+        } else {
+            data.results.forEach(item => {
+                dataCache[itemType][item.index] = item;
+            });
+        }
+
         const count = Object.keys(dataCache[itemType]).length;
         //console.log(`Caching data: ${itemType} object now has ${count} items`);
         return;
@@ -534,6 +559,8 @@ async function addList(data, count) {
         createListItem(data[key]);
     };
 
+    //FIXME P1-1 - Need to sort items after loading them.
+
     //checkRangeValues()
     //checkAoeValues()
 
@@ -583,14 +610,21 @@ function createCard(data) {
 };
 
 function createListItem(data) {
-    const itemNameRaw = data.index
+    let itemNameRaw = data.index
+    let itemNameData = data.name
+
+    if (itemNameRaw === 'flask-or-tankard') {
+        itemNameRaw = 'flask';
+        itemNameData = 'Flask';
+    }
+    
     //console.log(data)
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const listItem = document.createElement('article');
     listItem.id = itemNameRaw;
     
     const listItemName = document.createElement('h3');
-    const listItemTxt = document.createTextNode(data.name);
+    const listItemTxt = document.createTextNode(itemNameData);
     listItemName.appendChild(listItemTxt);
 
     const listItemPic = document.createElement('img');
@@ -603,6 +637,14 @@ function createListItem(data) {
     const deatilsButton = document.createElement('button');
     const selectButtonTxt = document.createTextNode("Click for more info");
     deatilsButton.appendChild(selectButtonTxt);
+
+    //console.log(currentPage)
+    if (currentPage === 'equipment') {
+        listItemName.style.fontFamily = "Dragon_Hunter"
+        listItemName.style.fontSize = "25px"
+    } else {
+        listItemName.style.fontFamily = "Dragon_Lord"
+    }
 
 
     listItem.appendChild(listItemName);
@@ -1229,11 +1271,17 @@ function setNavListen() {
             } else if (eachItem.id === 'sheets') {
                 hideFilters();
                 setUpSheets();
-            } else if (eachItem.id === 'races' || eachItem.id === 'classes') {
+            } else if (eachItem.id === 'races' || eachItem.id === 'classes' || eachItem.id === 'conditions') {
                 hideFilters();
                 currentPage = eachItem.id;
                 await prepLoad(eachItem.id);
                 addContent(dataCache[eachItem.id], 'main');
+            } else if (eachItem.id === 'equipment') {
+                //FIXME This is temp until new localCache loading system in place
+                hideFilters();
+                currentPage = eachItem.id;
+                await prepLoad(eachItem.id);
+                addContent(dataCache[eachItem.id], 'list');
             } else {
                 console.log('ELSE')
                 hideFilters();
@@ -1799,6 +1847,8 @@ function setCount(count, page) {
         magicItemsCount = count;
     } else if (page === 'weapon-properties') {
         weaponPropsCount = count;
+    } else if (page === 'conditions') {
+        conditionsCount = count;
     }
 };
 
@@ -1819,6 +1869,8 @@ function getCount(page) {
         return magicItemsCount;
     } else if (page === 'weapon-properties') {
         return weaponPropsCount;
+    } else if (page === 'conditions') {
+        return conditionsCount;
     }
 };
 
