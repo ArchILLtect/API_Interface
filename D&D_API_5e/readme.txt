@@ -39,6 +39,7 @@
 10/01/23 - Upgrade localCache and site content to include MAGIC ITEMS! Minimal functionality currently though<br>
 10/01/23 - Upgrade localCache and site content to include weapon properties. Minimal functionality currently though<br>
 10/01/23 - Upgraded localize_all_api_details to UPDATE AND add new non-existing detail data! Renamed to update_all_api_details<br>
+10/04/23 - Upgraded cacheData to handle object item counts which makes getCount and setCount obselete<br>
 <br>
 <br>
 <br>
@@ -63,6 +64,7 @@ Think about how to create Python scripts that update local data.<br>
 *5*Pics need to be cropped:
 ---Equipment = the four "packs"<br>
 ---Conditions = all<br>
+*5*Fix the main variables/ids that have dashes in them i.e. "magic-items", "weapon-proficiencies", etc.
 Functions needing work:<br>
 ---createDetailsWindow<br>
 <br>

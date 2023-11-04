@@ -1,8 +1,6 @@
 /* Created on 9/09/23 by ArchILLtect */
 
 
-
-
 @font-face {
     font-family: Dragon_Hunter;
     src: url(./fonts/DragonHunter-9Ynxj.otf);
@@ -173,6 +171,8 @@ button {
     background-color: darkred;
 }
 
+/* Filter Styles */
+
 .filterContainer {
     display: none;
     flex-direction: column;
@@ -182,32 +182,9 @@ button {
     padding: 20px;
 }
 
-.filterContainer div span {
-    margin-bottom: 20px;
-}
-
-#filterContainer:last-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.filterInputOnly {
     width: 100%;
-}
-
-.nameFilterContainer {
-    display: inline;
-    flex-direction: row;
-    width: fit-content;
-}
-
-#nameFilterContainer {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#filterContainer p,
-#filterContainer button {
-    display: inline-block;
-    vertical-align: middle;
+    align-content: center;
 }
 
 .filterContainer p,
@@ -217,6 +194,11 @@ button {
     margin: 0;
     padding: 0;
     font-weight: 900;
+}
+
+.filterLabel {
+    max-width: fit-content;
+    margin-right: 5px;
 }
 
 .filterToggleOff {
@@ -267,9 +249,15 @@ button {
     width: 200px;
 }
 
-.filterLabel {
-    max-width: fit-content;
-    margin-right: 5px;
+.nameFilterContainer {
+    display: inline;
+    flex-direction: row;
+    width: fit-content;
+}
+
+#nameFilterContainer {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #nameFilter {
@@ -281,6 +269,19 @@ button {
     width: 97.5%;
 }
 
+#filterExecuteContainer p,
+#filterExecuteContainer button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#filterExecuteContainer:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 #filterCount {
     text-align: center;
 }
@@ -288,6 +289,8 @@ button {
 #resetFilter {
     width: fit-content;
 }
+
+/* End of Filter Styles*/
 
 #homeArticle {
     display: flex;
@@ -326,18 +329,47 @@ button {
 @media only screen and (min-width: 900px) {
 
     .mainContent {
-        display: block;
+        display: inline;
+        padding: 20px;
     }
 
     main {
         display: grid;
-        position: absolute;
-        top: 600px;
-        right: 1px;
         grid-template-columns: 1fr 1fr;
         grid-gap: 20px;
         height: fit-content;
         width: 67%;
+    }
+
+    /* FIXME P5-1 - Width Manually Set - Figure Out Why it Needs to be Currently */
+    .cardContent {
+        width: 97%;
+    }
+
+    /* TODO Figure out list positioning*/
+    .listContent {
+        position: absolute;
+        top: 600px;
+        right: 1px;
+    }
+
+    .filterContainer {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 30px;
+        width: 28%;
+    }
+
+    .filterInputOnly {
+        width: 100%;
+        align-content: center;
+    }
+
+    .spellFilterContainer {
+        position: sticky;
+        top: 100px;
     }
 
     article {
@@ -373,17 +405,6 @@ button {
         display: none;
     }
 
-    .filterContainer {
-        display: none;
-        position: sticky;
-        top: 100px;
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 30px;
-        width: 28%;
-    }
-
     .filterContainer div:last-child {
         display: flex;
         align-items: start;
@@ -405,19 +426,22 @@ button {
 
 @media only screen and (min-width: 1200px) {
     
-    .mainContent {
+/*     #mainContent {
         display: block;
-    }
+    } */
 
     main {
         display: grid;
-        position: absolute;
-        top: 726px;
-        right: 1px;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         height: fit-content;
-        width: 67%;
+/*         width: 90%; */
+    }
+
+    .listContent {
+        position: absolute;
+        top: 726px;
+        right: 1px;
     }
 
     h1 {
@@ -526,8 +550,6 @@ button {
 
     .filterContainer {
         display: none;
-        position: sticky;
-        top: 100px;
         flex-direction: column;
         gap: 10px;
         align-items: center;
@@ -535,6 +557,15 @@ button {
         width: 28%;
     }
 
+    .filterInputOnly {
+        width: 100%;
+        align-content: center;
+    }
+
+    .spellFilterContainer {
+        position: sticky;
+        top: 100px;
+    }
     .filterContainer div:last-child {
         display: flex;
         align-items: start;

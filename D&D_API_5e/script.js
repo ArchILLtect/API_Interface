@@ -19,15 +19,14 @@ let apiCount = 0;
 let apiData;
 let jsonData;
 
-let raceCount = 0;
-let classCount = 0;
+/* let classCount = 0;
 let monsterCount = 0;
 let spellCount = 0;
 let equipCateCount = 0;
 let equipmentCount = 0;
 let magicItemsCount = 0;
 let weaponPropsCount = 0;
-let conditionsCount = 0;
+let conditionsCount = 0; */
 
 /*   //Filter Count Variable Declartions
     //Range Count Variable Declaration
@@ -128,41 +127,13 @@ function SetHeader (title, count) {
     const pageHeader = document.getElementById('pageHeader');
     let pageHeaderTxt = '';
 
-    if (title === 'home' || title === 'sheets') {
+    //TODO PRelease When finished adding categories move lost consditional to Else and remove ERROR.
+    if (title === 'home' || title === 'sheets' || title === 'characters' || title === 'items' || title === 'misc') {
         pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title === 'characters') {
-        //TODO Once page is setup swap lines and delete unused line.
-        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-        pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title === 'races') {
-
+    } else if (title === 'races' || title === 'classes' || title === 'spells' || title === 'monsters' || title === 'equipment' || title === 'magic-items' || title === 'weapon-properties' || title === 'conditions') {
         pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'classes') {
-
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'spells') {
-
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'monsters') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'items') {
-        //TODO Once page is setup swap lines and delete unused line.
-        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-        pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title === 'equipment-categories') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'equipment') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'magic-items') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'weapon-properties') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-    } else if (title === 'misc') {
-        //TODO Once page is setup swap lines and delete unused line.
-        //pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
-        pageHeaderTxt = document.createTextNode(title.toUpperCase());
-    } else if (title === 'conditions') {
-        pageHeaderTxt = document.createTextNode(`${title.toUpperCase()} (${count})`);
+    } else if (title === 'equipCategories') {
+        pageHeaderTxt = document.createTextNode(`EQUIPMENT CATEGORIES (${count})`);
     } else {
         pageHeaderTxt = document.createTextNode('ERROR');
     }
@@ -222,11 +193,9 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     //console.log(itemType)
                     cacheData(apiData, itemType);
                     return;
-                    //addContent Removed
                 } else {
                     console.log('API Load NOT needed!');
                     return;
-                    //addContent Removed(content, 'list'); 
                 }
             } else if (itemType === 'equipment') {
                 //FIXME This is temp until new localCache loading system in place
@@ -240,14 +209,11 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 if (verifyLoadNeed(itemType, 'main')) {
                     console.log('API LOAD NEEDED! LOAD NEEDED!');
                     await fetchData(curLocation);
-                    //console.log(itemType)
                     cacheData(apiData, itemType);
                     return;
-                    //addContent Removed
                 } else {
                     console.log('API Load NOT needed!');
                     return;
-                    //addContent Removed(content, 'list'); 
                 }
             } else {
                 // Get main items list
@@ -260,14 +226,11 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 if (verifyLoadNeed(itemType, 'main')) {
                     console.log('API LOAD NEEDED! LOAD NEEDED!');
                     await fetchData(curLocation);
-                    //console.log(itemType)
                     cacheData(apiData, itemType);
                     return;
-                    //addContent Removed
                 } else {
                     console.log('API Load NOT needed!');
                     return;
-                    //addContent Removed
                 }
             }
         } else if (dataType === 'images') {
@@ -392,19 +355,24 @@ function cacheData(data, itemType, itemName) {
         data.results.forEach(item => {
             dataCache[itemType][item.index] = item;
         });
-        //FIXME Make sure this is correct fot all pages
-        if (currentPage === 'equipment') {
-            data.results.forEach(item => {
-                dataCache[itemType][item.index] = item;
-            });
+        //FIXME Make sure this is correct for all pages
+/*         if (currentPage === 'equipment') { */
+        console.log(data.count)
+        dataCache['count'] = dataCache['count'] || {};
+        dataCache['count'][itemType] = data.count;
+        data.results.forEach(item => {
+            dataCache[itemType][item.index] = item;
+        });
+        if (data.additionalResults) {
             data.additionalResults.forEach(item => {
                 dataCache[itemType][item.index] = item;
             });
-        } else {
+        }
+/*         } else {
             data.results.forEach(item => {
                 dataCache[itemType][item.index] = item;
             });
-        }
+        } */
 
         const count = Object.keys(dataCache[itemType]).length;
         //console.log(`Caching data: ${itemType} object now has ${count} items`);
@@ -508,16 +476,20 @@ function verifyLoadNeed(prop, dataType) {
 function addContent(data, type) {
     //console.log(`At addContent() currentPage = ${currentPage}`);
     if (type === 'main') {
-        addCards(data, getCount(currentPage));
+        addCards(data, dataCache.count[currentPage]);
     } else if (type === 'list'){
-        addList(data, getCount(currentPage));
+        console.log('@addContent data =');
+        console.log(data);
+        addList(data, dataCache.count[currentPage]);
     } else if (type === 'details'){
-        addList(data, getCount(currentPage));
+        addList(data, dataCache.count[currentPage]);
     } else { console.log( `Error - bad type in addContent function = line 146 to 151. current type = ${type}`) }
 };
 
 async function addCards(data, count) {
-
+    //console.log('@addCards data =');
+    //console.log(data);
+    //console.log(count)
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -543,7 +515,7 @@ async function addCards(data, count) {
 };
 
 async function addList(data, count) {
-    
+    console.log("addList Used");
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -553,12 +525,12 @@ async function addList(data, count) {
     //Load page's secondary data
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'filterData');
-
+    console.log("Back from prepLoad")
     // Add list to the page:
     for (const key in data) {
         createListItem(data[key]);
     };
-
+    console.log("Back from createListItem")
     //FIXME P1-1 - Need to sort items after loading them.
 
     //checkRangeValues()
@@ -569,13 +541,14 @@ async function addList(data, count) {
 
     resetFilter();
     readyFilter();
+    console.log("at Place Images")
     placeImages(ALL_IMG, 'list');
 
 };
 
 function createCard(data) {
     const cardNameRaw = data.index
-    //console.log(data.index)
+    console.log(data.index)
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
     card.id = cardNameRaw;
@@ -634,9 +607,9 @@ function createListItem(data) {
     listItemPic.id = itemName + 'Img';
     
     const buttonContainer = document.createElement('div');
-    const deatilsButton = document.createElement('button');
+    const detailsButton = document.createElement('button');
     const selectButtonTxt = document.createTextNode("Click for more info");
-    deatilsButton.appendChild(selectButtonTxt);
+    detailsButton.appendChild(selectButtonTxt);
 
     //console.log(currentPage)
     if (currentPage === 'equipment') {
@@ -650,7 +623,7 @@ function createListItem(data) {
     listItem.appendChild(listItemName);
     listItem.appendChild(listItemPic);
     listItem.appendChild(buttonContainer);
-    buttonContainer.appendChild(deatilsButton);
+    buttonContainer.appendChild(detailsButton);
     mainElement.appendChild(listItem);
 
     //Add filter data to each list item
@@ -739,10 +712,9 @@ function createListItem(data) {
     }
 
     const listItemImg = document.querySelector(`#${itemNameRaw} img`);
-    //console.log(listItemImg);
 
     listItemImg.src = "./images/page-elements/spinner-dnd.gif";
-    deatilsButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
+    detailsButton.addEventListener('click', () => { prepLoad(currentPage, 'data', itemNameRaw) } );
 };
 
 function createDetailsWindow(data) {
@@ -1283,7 +1255,7 @@ function setNavListen() {
                 await prepLoad(eachItem.id);
                 addContent(dataCache[eachItem.id], 'list');
             } else {
-                console.log('ELSE')
+                //console.log('ELSE')
                 hideFilters();
                 currentPage = eachItem.id;
                 await prepLoad(eachItem.id);
@@ -1318,11 +1290,22 @@ function readyFilter() {
 
     let resultCount = items.length;
 
+    //console.log(currentPage)
+
     if (currentPage === 'spells') { 
+        filterContainer.classList.remove('filterInputOnly');
+        filterContainer.classList.add('spellFilterContainer');
+
         for (const eachItem of spellFilter) {
             eachItem.style.display = 'block';
         }
         filterLast.style.display = 'inline-flex';
+    } else if (currentPage === 'monsters' || currentPage === 'equipment' || currentPage === 'magic-items') { 
+        filterContainer.classList.remove('filterInputOnly');
+        filterContainer.classList.add('spellFilterContainer');
+    } else {
+        filterContainer.classList.remove('spellFilterContainer');
+        filterContainer.classList.add('filterInputOnly');
     }
 
 
@@ -1594,7 +1577,8 @@ async function fetchData(curLocation) {
         apiData = apiIndex
         apiCount = apiIndex.count;
 
-        setCount(apiCount, itemType);
+        //setCount(apiCount, itemType);
+        //dataCache[curLocation].count = apiCount;
         //console.log()
 };
 
@@ -1620,7 +1604,7 @@ async function fetchSecondaryData(curLocation, dataType) {
 };
 
 function setContentType(count) {
-    if (count > 20) {
+    if (count > 40) {
         return 'details';
     } else {
         return 'main';
@@ -1629,40 +1613,31 @@ function setContentType(count) {
 
 function setMainClass() {
 
-    if (currentPage === 'races' || currentPage === 'classes') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('listContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('cardContent');
-        return
-    } else if (currentPage === 'monsters') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('cardContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('listContent');
-        return
-    } else if (currentPage === 'spells') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('cardContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('listContent');
-        return
-    } else if (currentPage === 'equipment-categories') {
-        mainElement.classList.remove('homeContent');
-        mainElement.classList.remove('pageContent');
-        mainElement.classList.remove('cardContent');
-        mainElement.classList.remove('sheets');
-        mainElement.classList.add('listContent');
-        return
-    } else {
+    if (currentPage === 'home' || currentPage === 'characters' || currentPage === 'items' || currentPage === 'misc') {
+        console.log("num 1")
+        console.log(currentPage)
         mainElement.classList.remove('cardContent');
         mainElement.classList.remove('listContent');
         mainElement.classList.remove('sheets');
         mainElement.classList.add('pageContent');
-        return
+        return;
+    } else if (currentPage === 'monsters' || currentPage === 'spells' || currentPage === 'equipment' || currentPage === 'magic-items') {
+        console.log('num 2')
+        console.log(currentPage)
+        mainElement.classList.remove('homeContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('listContent');
+        return;
+    } else {
+        console.log("num 3")
+        console.log(currentPage)
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('cardContent');
+        return;
     }
 
 };
@@ -1829,17 +1804,20 @@ function extractPortion(string, portionIndex, separator="/") {
 
     return portions[portionIndex];
 }
-
+/*
 function setCount(count, page) {
-    if (page === 'races') {
-        raceCount = count;
+    console.log(dataCache[page]);
+    dataCache[page].count = count;
+     if (page === 'races') {
+        //dataCache[page].count = {}
+
     } else if (page === 'classes') {
         classCount = count;
     } else if (page === 'monsters') {
         monsterCount = count;
     } else if (page === 'spells') {
         spellCount = count;
-    } else if (page === 'equipment-categories') {
+    } else if (page === 'equipCategories') {
         equipCateCount = count;
     } else if (page === 'equipment') {
         equipmentCount = count;
@@ -1851,17 +1829,19 @@ function setCount(count, page) {
         conditionsCount = count;
     }
 };
-
+*/
+/*
 function getCount(page) {
-    if (page === 'races') {
-        return raceCount;
+    return dataCache[page].count;
+     if (page === 'races') {
+        return dataCache[page].count;
     } else if (page === 'classes') {
         return classCount;
     } else if (page === 'monsters') {
         return monsterCount;
     } else if (page === 'spells') {
         return spellCount;
-    } else if (page === 'equipment-categories') {
+    } else if (page === 'equipCategories') {
         return equipCateCount;
     } else if (page === 'equipment') {
         return equipmentCount;
@@ -1871,8 +1851,8 @@ function getCount(page) {
         return weaponPropsCount;
     } else if (page === 'conditions') {
         return conditionsCount;
-    }
-};
+    } 
+};*/
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED

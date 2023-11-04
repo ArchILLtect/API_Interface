@@ -52,7 +52,7 @@
                     <i class="fas fa-caret-down"></i>
                     </a>
                     <ul class="dropDownContent">
-                        <li><a href="#equipCategories" id="equipment-categories" class="subNavItem">Equipment Categories</a></li>
+                        <li><a href="#equipCategories" id="equipCategories" class="subNavItem">Equipment Categories</a></li>
                         <li><a href="#equipment" id="equipment" class="subNavItem">Equipment</a></li>
                         <li><a href="#magicItems" id="magic-items" class="subNavItem">Magic Items</a></li>
                         <li><a href="#weaponProps" id="weapon-properties" class="subNavItem">Weapon Properties</a></li>
@@ -74,166 +74,166 @@
 
     <div id="pageHeader" ></div>
 
-    <div class="mainContent">
-        <div id="filterInputContainer" class="filterContainer" >
-            <div class="spellFilter">
-                <!-- TODO P5 - FILTER - Decide if filters should be able to select multiple options at once -->
-                <div>
-                    <button id="classFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="classFilter" class="filterLabel">Filter by class: </label>
-                </div>
-                <select name="classes" id="classFilter">
+    <div id="filterInputContainer" class="filterContainer" >
+        <div class="spellFilter">
+            <!-- TODO P5 - FILTER - Decide if filters should be able to select multiple options at once -->
+            <div>
+                <button id="classFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="classFilter" class="filterLabel">Filter by class: </label>
+            </div>
+            <select name="classes" id="classFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="bard">Bard</option>
+                <option value="cleric">Cleric</option>
+                <option value="druid">Druid</option>
+                <option value="paladin">Paladin</option>
+                <option value="ranger">Ranger</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="warlock">Warlock</option>
+                <option value="wizard">Wizard</option>
+            </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="schoolFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="schoolFilter" class="filterLabel">Filter by school: </label>
+            </div>
+            <select name="schools" id="schoolFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="abjuration">Abjuration</option>
+                <option value="conjuration">Conjuration</option>
+                <option value="divination">Divination</option>
+                <option value="enchantment">Enchantment</option>
+                <option value="evocation">Evocation</option>
+                <option value="illusion">Illusion</option>
+                <option value="necromancy">Necromancy</option>
+                <option value="transmutation">Transmutation</option>
+            </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="levelFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="levelFilter" class="filterLabel">Filter by level: </label>
+            </div>
+            <select name="level" id="levelFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="damTypeFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="damTypeFilter" class="filterLabel">Filter by damage type: </label>
+            </div>
+            <select name="damageType" id="damTypeFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="acid">Acid</option>
+                <option value="bludgeoning">Bludgeoning</option>
+                <option value="cold">Cold</option>
+                <option value="fire">Fire</option>
+                <option value="force">Force</option>
+                <option value="lightning">Lightning</option>
+                <option value="necrotic">Necrotic</option>
+                <option value="peircing">Peircing</option>
+                <option value="poison">Poison</option>
+                <option value="psychic">Psychic</option>
+                <option value="radiant">Radiant</option>
+                <option value="slashing">Slashing</option>
+                <option value="thunder">Thunder</option>
+            </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="rangeFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="rangeFilter" class="filterLabel">Filter by range: </label>
+            </div>
+                <select name="range" id="rangeFilter">
                     <option value="all" selected>--ALL--</option>
-                    <option value="bard">Bard</option>
-                    <option value="cleric">Cleric</option>
-                    <option value="druid">Druid</option>
-                    <option value="paladin">Paladin</option>
-                    <option value="ranger">Ranger</option>
-                    <option value="sorcerer">Sorcerer</option>
-                    <option value="warlock">Warlock</option>
-                    <option value="wizard">Wizard</option>
+                    <option value="Self">Self</option>
+                    <option value="Touch">Touch</option>
+                    <option value="Sight">Sight</option>
+                    <option value="1 mile">One Mile</option>
+                    <option value="Special">Special</option>
+                    <option value="Unlimited">Unlimited</option>
+                    <option value="lessThanTwentyFive">Less than 25 feet</option>
+                    <option value="twentyFiveToFifty">25 - 50 feet</option>
+                    <option value="fiftyToOneHundred">51 - 100 ft</option>
+                    <option value="oneHundredToTwoFifty">101 - 250 ft</option>
+                    <option value="twoFiftyToFiveHundred">250 - 500 feet</option>
                 </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="areaFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="areaFilter" class="filterLabel">Filter by AoE: </label>
+            </div>                    
+            <select name="area" id="areaFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="cone">Cone</option>
+                <option value="cube">Cube</option>
+                <option value="cylinder">Cylinder</option>
+                <option value="line">Line</option>
+                <option value="sphere">Sphere</option>
+                <option value="unknown">None</option>
+            </select>
+        </div>
+        <div class="spellFilter">
+            <div>
+                <button id="dcFilterBtn" class="filterToggleOff">OFF</button>
+                <label for="dcFilter" class="filterLabel">Filter by Saving Throw: </label>
+            </div>                    
+            <select name="dc" id="dcFilter">
+                <option value="all" selected>--ALL--</option>
+                <option value="cha">Charisma</option>
+                <option value="con">Constitution</option>
+                <option value="dex">Dexterity</option>
+                <option value="int">Intelligence</option>
+                <option value="str">Strength</option>
+                <option value="wis">Wisdom</option>
+                <option value="unknown">None</option>
+            </select>
+        </div>
+        <div id="filterLast" class="spellFilter">
+            <div>
+                <button id="healFilterBtn" class="filterToggleOff">OFF</button>
+                <p class="filterLabel">Healing Spells</p>
             </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="schoolFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="schoolFilter" class="filterLabel">Filter by school: </label>
-                </div>
-                <select name="schools" id="schoolFilter">
-                    <option value="all" selected>--ALL--</option>
-                    <option value="abjuration">Abjuration</option>
-                    <option value="conjuration">Conjuration</option>
-                    <option value="divination">Divination</option>
-                    <option value="enchantment">Enchantment</option>
-                    <option value="evocation">Evocation</option>
-                    <option value="illusion">Illusion</option>
-                    <option value="necromancy">Necromancy</option>
-                    <option value="transmutation">Transmutation</option>
-                </select>
+            <div>
+                <button id="concFilterBtn" class="filterToggleOff">OFF</button>
+                <p class="filterLabel">Concentration</p>
             </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="levelFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="levelFilter" class="filterLabel">Filter by level: </label>
-                </div>
-                <select name="level" id="levelFilter">
-                    <option value="all" selected>--ALL--</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                </select>
-            </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="damTypeFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="damTypeFilter" class="filterLabel">Filter by damage type: </label>
-                </div>
-                <select name="damageType" id="damTypeFilter">
-                    <option value="all" selected>--ALL--</option>
-                    <option value="acid">Acid</option>
-                    <option value="bludgeoning">Bludgeoning</option>
-                    <option value="cold">Cold</option>
-                    <option value="fire">Fire</option>
-                    <option value="force">Force</option>
-                    <option value="lightning">Lightning</option>
-                    <option value="necrotic">Necrotic</option>
-                    <option value="peircing">Peircing</option>
-                    <option value="poison">Poison</option>
-                    <option value="psychic">Psychic</option>
-                    <option value="radiant">Radiant</option>
-                    <option value="slashing">Slashing</option>
-                    <option value="thunder">Thunder</option>
-                </select>
-            </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="rangeFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="rangeFilter" class="filterLabel">Filter by range: </label>
-                </div>
-                    <select name="range" id="rangeFilter">
-                        <option value="all" selected>--ALL--</option>
-                        <option value="Self">Self</option>
-                        <option value="Touch">Touch</option>
-                        <option value="Sight">Sight</option>
-                        <option value="1 mile">One Mile</option>
-                        <option value="Special">Special</option>
-                        <option value="Unlimited">Unlimited</option>
-                        <option value="lessThanTwentyFive">Less than 25 feet</option>
-                        <option value="twentyFiveToFifty">25 - 50 feet</option>
-                        <option value="fiftyToOneHundred">51 - 100 ft</option>
-                        <option value="oneHundredToTwoFifty">101 - 250 ft</option>
-                        <option value="twoFiftyToFiveHundred">250 - 500 feet</option>
-                    </select>
-            </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="areaFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="areaFilter" class="filterLabel">Filter by AoE: </label>
-                </div>                    
-                <select name="area" id="areaFilter">
-                    <option value="all" selected>--ALL--</option>
-                    <option value="cone">Cone</option>
-                    <option value="cube">Cube</option>
-                    <option value="cylinder">Cylinder</option>
-                    <option value="line">Line</option>
-                    <option value="sphere">Sphere</option>
-                    <option value="unknown">None</option>
-                </select>
-            </div>
-            <div class="spellFilter">
-                <div>
-                    <button id="dcFilterBtn" class="filterToggleOff">OFF</button>
-                    <label for="dcFilter" class="filterLabel">Filter by Saving Throw: </label>
-                </div>                    
-                <select name="dc" id="dcFilter">
-                    <option value="all" selected>--ALL--</option>
-                    <option value="cha">Charisma</option>
-                    <option value="con">Constitution</option>
-                    <option value="dex">Dexterity</option>
-                    <option value="int">Intelligence</option>
-                    <option value="str">Strength</option>
-                    <option value="wis">Wisdom</option>
-                    <option value="unknown">None</option>
-                </select>
-            </div>
-            <div id="filterLast" class="spellFilter">
-                <div>
-                    <button id="healFilterBtn" class="filterToggleOff">OFF</button>
-                    <p class="filterLabel">Healing Spells</p>
-                </div>
-                <div>
-                    <button id="concFilterBtn" class="filterToggleOff">OFF</button>
-                    <p class="filterLabel">Concentration</p>
-                </div>
-                <div>
-                    <button id="ritualFilterBtn" class="filterToggleOff">OFF</button>
-                    <p class="filterLabel">Ritual</p>
-                </div>
-            </div>
-            <div id="filterContainer">
-                <div id="nameFilterContainer">
-                    <label for="nameFilter" class="filterLabel">Filter by name: </label>
-
-                    <select name="name" id="nameFilter" >
-                        <option id="defaultOption" selected>--Select One--</option>
-                        <option value="startsWith">Starts with</option>
-                        <option value="includes">Includes</option>
-                    </select>
-                    <input type="text" id="filterInput" placeholder="Select One!!"/>
-                </div>
-                <p id="filterCount">This filter returns 0 entries.</p>
-                <button id="resultsBtn">Compile Results</button>
-                <button id="resetFilter">Reset Filter</button>
+            <div>
+                <button id="ritualFilterBtn" class="filterToggleOff">OFF</button>
+                <p class="filterLabel">Ritual</p>
             </div>
         </div>
+        <div id="filterExecuteContainer">
+            <div id="nameFilterContainer">
+                <label for="nameFilter" class="filterLabel">Filter by name: </label>
 
+                <select name="name" id="nameFilter" >
+                    <option id="defaultOption" selected>--Select One--</option>
+                    <option value="startsWith">Starts with</option>
+                    <option value="includes">Includes</option>
+                </select>
+                <input type="text" id="filterInput" placeholder="Select One!!"/>
+            </div>
+            <p id="filterCount">This filter returns 0 entries.</p>
+            <button id="resultsBtn">Compile Results</button>
+            <button id="resetFilter">Reset Filter</button>
+        </div>
+    </div>
+
+    <div class="mainContent">
         <main id="mainContent" class="homeContent" ></main>
     </div>
     <script src="script.js"></script>
