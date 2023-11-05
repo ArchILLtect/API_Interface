@@ -40,6 +40,7 @@
 10/01/23 - Upgrade localCache and site content to include weapon properties. Minimal functionality currently though<br>
 10/01/23 - Upgraded localize_all_api_details to UPDATE AND add new non-existing detail data! Renamed to update_all_api_details<br>
 10/04/23 - Upgraded cacheData to handle object item counts which makes getCount and setCount obselete<br>
+10/04/23 - Updates to details<br>
 <br>
 <br>
 <br>

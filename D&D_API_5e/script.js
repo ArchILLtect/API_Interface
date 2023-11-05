@@ -8,25 +8,11 @@ const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
 let dataType = '';
-//let raceData = '';
-//let classData = '';
-//let monsterData = '';
-//let spellData = '';
 let currentPage = '';
 let itemCounter = 1;
-let apiCount = 0;
 
 let apiData;
 let jsonData;
-
-/* let classCount = 0;
-let monsterCount = 0;
-let spellCount = 0;
-let equipCateCount = 0;
-let equipmentCount = 0;
-let magicItemsCount = 0;
-let weaponPropsCount = 0;
-let conditionsCount = 0; */
 
 /*   //Filter Count Variable Declartions
     //Range Count Variable Declaration
@@ -1100,12 +1086,13 @@ function createDetailsWindowNEW(data) {
     //console.log(data)
     //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
+    //Create Modal Window
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
     detailModal.id = 'detailModal';
     detailModal.classList.add('modalWindow');
 
-    //Name
+    //Header
     const detailsHeader = document.createElement('div');
     const detailName = document.createElement('h3');
     detailsHeader.appendChild(detailName);
@@ -1113,66 +1100,190 @@ function createDetailsWindowNEW(data) {
     detailsHeader.id = 'detailsHeader';
     detailName.textContent = data.name;
 
+    //Details Container
+    const detailItemsDiv = document.createElement('div');
+    const statsContainerOne = document.createElement('div');
+    detailItemsDiv.classList.add('detailItemsDiv');
+    statsContainerOne.id = 'statsContainerOne';
+
     //Image
     const detailImage = document.createElement('img');
-    detailImage.className = 'detailImage'
+    detailImage.className = 'detailImage';
+    detailItemsDiv.appendChild(detailImage);
 
     if (currentPage === 'spells') {
         detailImage.src = `./images/${currentPage}/${data.index}.gif`;
     } else {
         detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
     }
-    //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
 
-
-    //Add Items
-    const detailItemsDiv = document.createElement('div');
-    detailItemsDiv.classList.add('detailItemsDiv');
-
-        // For objects:
+    // For objects:
+    if (currentPage === 'monsters') {
+        // First apply HP, AC and SPD
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+                detailItemsDiv.appendChild(statsContainerOne);
+
+                if (key === 'armor_class') {
+                    const currentAC = document.createElement('p');
+                    currentAC.textContent = `Armor Class: ${eachItem[0]['value']} (${capitalizeWord(eachItem[0]['type'])} Armor)`;
+                    currentAC.classList.add('detailContent');
+                    statsContainerOne.appendChild(currentAC);
+                }
+                if (key === 'hit_points') {
+                    const currentHP = document.createElement('p');
+                    currentHP.textContent = `Hit Points: ${eachItem} (${data.hit_points_roll})`;
+                    currentHP.classList.add('detailContent');
+                    statsContainerOne.appendChild(currentHP);
+                }
+                if (key === 'speed') {
+                    console.log("speed");
+                    console.log(eachItem);
+                    console.log(currentPage)
+                    const currentSpeed = document.createElement('p');
+                    currentSpeed.textContent = `Speed:  walk ${eachItem.walk}, ` + " " + `swim ${eachItem.swim}`;
+                    currentSpeed.classList.add('detailContent');
+                    statsContainerOne.appendChild(currentSpeed);
+                }
+
+            }
+        }
+        //TODO P1 - Continue Here
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+                detailItemsDiv.appendChild(statsContainerOne);
+
+                if (key === 'armor_class') {
+
+                }
+
+            }
+        }                    
+                    
+/* 
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                //console.log('')
                 //console.log(data)
                 //console.log(key)
                 const eachItem = data[key];
-                const currentItem = `detailItem${itemCounter}`;
-                const detailItemDiv = document.createElement('div');
-                detailItemDiv.id = 'detailItemsDiv' + key;
-                const detailItem = document.createElement('p');
-                const detailItemName = document.createElement('p');
-                itemCounter++;
-                detailItemDiv.appendChild(detailItemName);
-                detailItemDiv.appendChild(detailItem);
-                detailItemName.textContent = key.toUpperCase();
-                detailItem.textContent = eachItem;
-                detailItemName.classList.add('detailTitle');
-                detailItem.id = currentPage + 'Desc';
-                detailItem.classList.add('detailItem');
-                detailItemsDiv.appendChild(detailItemDiv);
-                for (const secondkey in data[key]) {
-                    let newData = data[key];
-                    //console.log(secondkey);
-                    //console.log(data[key]);
-                    if (Array.isArray(newData)) {
-                        //console.log(data[key]);
-                        //console.log(secondkey);
-                        for (const lastkey in newData[key]) {
-                            let lastData = newData[key];
-                            console.log(lastkey);
-                            console.log(lastData)
 
-                        }
+                if (key === 'index' || key === 'name') {
+                    
+                } else {
+                    const currentDetail = key.replace(/_/g, " ");
+                    const detailContentDiv = document.createElement('div');
+                    const detailItemNameContent = document.createElement('p');
+                    detailContentDiv.id = key + 'DetailDiv';
+                    detailContentDiv.classList.add('detailContentDiv');
+                    detailItemNameContent.classList.add('detailNameContentDiv');
+                    if (key === 'strength' || key === 'constitution' || key === 'dexterity' || key === 'intelligence' || key === 'wisdom' || key === 'charisma') {
+                        const currentStat = key.slice(0, 3).toUpperCase();
+                        console.log(currentStat);
+                        detailItemNameContent.textContent = currentStat;
+                    } else if (key === 'speed') {
+                        const currentStat = 'SPD';
+                        console.log(currentStat);
+                        detailItemNameContent.textContent = currentStat;
+                    } else {
+                        detailItemNameContent.textContent = `${currentDetail.toUpperCase()}:`;
                     }
-                };//typeof newKey === 'object'
-            }//Array.isArray(key)
-        };//newKey.hasOwnProperty(key)
+                    if (typeof eachItem === 'string') {
+                        const detailItemContent = document.createElement('p');
+                        detailItemContent.classList.add('detailContent');
+                        detailContentDiv.appendChild(detailItemContent);
+                        detailItemContent.textContent = capitalizeWord(eachItem);
+                    } else if (typeof eachItem === 'object') {
+                        if (key === 'armor_class') {
+                            console.log("AC")
+                            console.log(eachItem)
+                            const currentAC = document.createElement('p');
+                            const ACType = document.createElement('p');
+                            currentAC.textContent = `AC ${eachItem[0]['value']}`;
+                            ACType.textContent = `(${capitalizeWord(eachItem[0]['type'])})`;
+                            currentAC.classList.add('detailContent');
+                            ACType.classList.add('detailContent');
+                            detailContentDiv.appendChild(ACType);
+                            detailContentDiv.appendChild(currentAC);
+                        } else {
+                            //console.log("Not AC")
+                            //console.log(key)
+                        }
+                    } else if (typeof eachItem === 'number'){
+                        console.log("##")
+                        if (key === 'strength' || key === 'dexterity' || key === 'constitution' || key === 'intelligence' || key === 'wisdom' || key === 'charisma') {
+                            console.log("HP")
+                            console.log(eachItem)
+                            const currentHP = document.createElement('p');
+                            currentHP.textContent = eachItem;
+                            currentHP.classList.add('detailContent');
+                            detailContentDiv.appendChild(currentHP);
+                        }
+                    } else {
+                        console.log("Not String - Not Object - Not ##")
+                        console.log(typeof eachItem)
+                    }
+                    detailItemNameContent.classList.add('detailContent');
+                    detailContentDiv.appendChild(detailItemNameContent);
+                    detailItemsDiv.appendChild(detailContentDiv);
+                }
+            }
+        };*/
+    } else {
+        
+    }
 
-    const mainDetailsDiv = document.createElement('div');
+/* 
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            //console.log(data)
+            //console.log(key)
+            const eachItem = data[key];
+            const currentItem = `detailItem${itemCounter}`;
+            const detailItemDiv = document.createElement('div');
+            detailItemDiv.id = 'detailItemsDiv' + key;
+            const detailItem = document.createElement('p');
+            const detailItemName = document.createElement('p');
+            itemCounter++;
+            detailItemDiv.appendChild(detailItemName);
+            detailItemDiv.appendChild(detailItem);
+            detailItemName.textContent = key.toUpperCase();
+            detailItem.textContent = eachItem;
+            detailItemName.classList.add('detailTitle');
+            detailItem.id = currentPage + 'Desc';
+            detailItem.classList.add('detailItem');
+            detailItemsDiv.appendChild(detailItemDiv);
+            for (const secondkey in data[key]) {
+                let newData = data[key];
+                //console.log(secondkey);
+                //console.log(data[key]);
+                if (Array.isArray(newData)) {
+                    //console.log(data[key]);
+                    //console.log(secondkey);
+                    for (const lastkey in newData[key]) {
+                        let lastData = newData[key];
+                        console.log(lastkey);
+                        console.log(lastData)
+
+                    }
+                }
+            };
+        }
+    };
+  */
+
+    //Footer
     const detailsFooter = document.createElement('div');
+    const mainDetailsDiv = document.createElement('div');
+
     const buttonContainer = document.createElement('div');
     const closeButton = document.createElement('button');
     closeButton.id = 'closeButton'
-    mainDetailsDiv.appendChild(detailImage);
+
     mainDetailsDiv.appendChild(detailItemsDiv);
     mainDetailsDiv.classList.add('mainDetailContent');
     detailsFooter.appendChild(buttonContainer);
@@ -1575,11 +1686,6 @@ async function fetchData(curLocation) {
         //console.log(apiIndex)
         itemType = extractPortion(curLocation, 2)
         apiData = apiIndex
-        apiCount = apiIndex.count;
-
-        //setCount(apiCount, itemType);
-        //dataCache[curLocation].count = apiCount;
-        //console.log()
 };
 
 async function fetchSecondaryData(curLocation, dataType) {
@@ -1804,55 +1910,13 @@ function extractPortion(string, portionIndex, separator="/") {
 
     return portions[portionIndex];
 }
-/*
-function setCount(count, page) {
-    console.log(dataCache[page]);
-    dataCache[page].count = count;
-     if (page === 'races') {
-        //dataCache[page].count = {}
 
-    } else if (page === 'classes') {
-        classCount = count;
-    } else if (page === 'monsters') {
-        monsterCount = count;
-    } else if (page === 'spells') {
-        spellCount = count;
-    } else if (page === 'equipCategories') {
-        equipCateCount = count;
-    } else if (page === 'equipment') {
-        equipmentCount = count;
-    } else if (page === 'magic-items') {
-        magicItemsCount = count;
-    } else if (page === 'weapon-properties') {
-        weaponPropsCount = count;
-    } else if (page === 'conditions') {
-        conditionsCount = count;
-    }
-};
-*/
-/*
-function getCount(page) {
-    return dataCache[page].count;
-     if (page === 'races') {
-        return dataCache[page].count;
-    } else if (page === 'classes') {
-        return classCount;
-    } else if (page === 'monsters') {
-        return monsterCount;
-    } else if (page === 'spells') {
-        return spellCount;
-    } else if (page === 'equipCategories') {
-        return equipCateCount;
-    } else if (page === 'equipment') {
-        return equipmentCount;
-    } else if (page === 'magic-items') {
-        return magicItemsCount;
-    } else if (page === 'weapon-properties') {
-        return weaponPropsCount;
-    } else if (page === 'conditions') {
-        return conditionsCount;
-    } 
-};*/
+function capitalizeWord(inputString) {
+    return inputString
+        .split(' ') // Split the string into words
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+        .join(' '); // Join the words back together
+}
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
