@@ -343,7 +343,6 @@ function cacheData(data, itemType, itemName) {
         });
         //FIXME Make sure this is correct for all pages
 /*         if (currentPage === 'equipment') { */
-        console.log(data.count)
         dataCache['count'] = dataCache['count'] || {};
         dataCache['count'][itemType] = data.count;
         data.results.forEach(item => {
@@ -464,8 +463,6 @@ function addContent(data, type) {
     if (type === 'main') {
         addCards(data, dataCache.count[currentPage]);
     } else if (type === 'list'){
-        console.log('@addContent data =');
-        console.log(data);
         addList(data, dataCache.count[currentPage]);
     } else if (type === 'details'){
         addList(data, dataCache.count[currentPage]);
@@ -501,7 +498,6 @@ async function addCards(data, count) {
 };
 
 async function addList(data, count) {
-    console.log("addList Used");
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -511,12 +507,10 @@ async function addList(data, count) {
     //Load page's secondary data
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'filterData');
-    console.log("Back from prepLoad")
     // Add list to the page:
     for (const key in data) {
         createListItem(data[key]);
     };
-    console.log("Back from createListItem")
     //FIXME P1-1 - Need to sort items after loading them.
 
     //checkRangeValues()
@@ -527,7 +521,6 @@ async function addList(data, count) {
 
     resetFilter();
     readyFilter();
-    console.log("at Place Images")
     placeImages(ALL_IMG, 'list');
 
 };
@@ -722,6 +715,7 @@ function createDetailsWindow(data) {
     detailName.textContent = data.name;
 
     //Image
+    const detailImageDiv = document.createElement('div');
     const detailImage = document.createElement('img');
     detailImage.src = `./images/${currentPage}/${data.index}.gif`;
     //listItemImg.src = `./images/${globalData.currentPage}/${data.index}.gif`;
@@ -730,6 +724,8 @@ function createDetailsWindow(data) {
     //Add Items
     const detailItemsDiv = document.createElement('div');
     detailItemsDiv.classList.add('detailItemsDiv');
+    detailImageDiv.classList.add('detailImageDiv');
+
 
     // For objects:
     for (const key in data) {
@@ -1055,7 +1051,8 @@ function createDetailsWindow(data) {
     const detailsFooter = document.createElement('div');
     const buttonContainer = document.createElement('div');
     const closeButton = document.createElement('button');
-    mainDetailsDiv.appendChild(detailImage);
+    detailImageDiv.appendChild(detailImage);
+    mainDetailsDiv.appendChild(detailImageDiv);
     mainDetailsDiv.appendChild(detailItemsDiv);
     mainDetailsDiv.classList.add('mainDetailContent');
     detailsFooter.appendChild(buttonContainer);
@@ -1083,8 +1080,8 @@ function createDetailsWindow(data) {
 
 function createDetailsWindowNEW(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
-    //console.log(data)
-    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    console.log(data)
+    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -1118,23 +1115,29 @@ function createDetailsWindowNEW(data) {
     const detailInitialDiv = document.createElement('div');
     const detailInitialDesc = document.createElement('div');
     const statsContainerOne = document.createElement('div');
+    const statsContainerTwo = document.createElement('div');
     const statsBarOne = document.createElement('img');
     const statsBarTwo = document.createElement('img');
+    const statsBarThree = document.createElement('img');
     statsBarOne.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarTwo.src = "./images/page-elements/stat-block-header-bar.svg";
+    statsBarThree.src = "./images/page-elements/stat-block-header-bar.svg";
     detailItemsDiv.classList.add('detailItemsDiv');
     detailInitialDiv.classList.add('initialDetailInfo');
     detailInitialDesc.classList.add('initialDetailDesc');
     statsBarOne.className = 'statsBar';
     statsContainerOne.id = 'statsContainerOne';
     statsBarTwo.className = 'statsBar';
+    statsContainerTwo.id = 'statsContainerTwo';
+    statsBarThree.className = 'statsBar';
     mainDetailsDiv.appendChild(detailItemsDiv);
     detailItemsDiv.appendChild(detailInitialDiv);
     detailInitialDiv.appendChild(detailInitialDesc);
     detailItemsDiv.appendChild(statsBarOne);
     detailItemsDiv.appendChild(statsContainerOne);
     detailItemsDiv.appendChild(statsBarTwo);
-
+    detailItemsDiv.appendChild(statsContainerTwo);
+    detailItemsDiv.appendChild(statsBarThree);
 
     if (currentPage === 'spells') {
         detailImage.src = `./images/${currentPage}/${data.index}.gif`;
@@ -1142,6 +1145,12 @@ function createDetailsWindowNEW(data) {
         detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
     }
 
+    let savThrowValues = [];
+    let skillValues = [];
+    let senseValues = [];
+    let langValues = [];
+    let challValues = '';
+    let profBonus = '';
     // For objects:
     if (currentPage === 'monsters') {
         for (const key in data) {
@@ -1223,130 +1232,205 @@ function createDetailsWindowNEW(data) {
                 }
 
             }
-            //TODO P1 - Continue Here
             //Add second stat group
             if (data.hasOwnProperty(key)) {
                 const eachItem = data[key];
                 const currentDetail = key.replace(/_/g, " ");
 
-                if (key === 'armor_class') {
+                if (key === 'strength' || key === 'constitution' || key === 'dexterity' || key === 'intelligence' || key === 'wisdom' || key === 'charisma') {
+                    const currentStat = key.slice(0, 3).toUpperCase();
+                    const currentStatDiv = document.createElement('div');
+                    const currentStatTitle = document.createElement('p');
+                    const currentStatValue = document.createElement('p');
+                    currentStatDiv.className = 'statDivTwo';
+                    currentStatTitle.textContent = currentStat;
+                    currentStatValue.textContent = eachItem;
+                    currentStatDiv.appendChild(currentStatTitle);
+                    currentStatDiv.appendChild(currentStatValue);
+                    statsContainerTwo.appendChild(currentStatDiv);
 
                 }
             }
-        }             
-                    
-/* 
-        for (const key in data) {
+            //Add third stat group
             if (data.hasOwnProperty(key)) {
-                //console.log('')
-                //console.log(data)
-                //console.log(key)
                 const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
 
-                if (key === 'index' || key === 'name') {
-                    
-                } else {
-                    const currentDetail = key.replace(/_/g, " ");
-                    const detailContentDiv = document.createElement('div');
-                    const detailItemNameContent = document.createElement('p');
-                    detailContentDiv.id = key + 'DetailDiv';
-                    detailContentDiv.classList.add('detailContentDiv');
-                    detailItemNameContent.classList.add('detailNameContentDiv');
-                    if (key === 'strength' || key === 'constitution' || key === 'dexterity' || key === 'intelligence' || key === 'wisdom' || key === 'charisma') {
-                        const currentStat = key.slice(0, 3).toUpperCase();
-                        console.log(currentStat);
-                        detailItemNameContent.textContent = currentStat;
-                    } else if (key === 'speed') {
-                        const currentStat = 'SPD';
-                        console.log(currentStat);
-                        detailItemNameContent.textContent = currentStat;
-                    } else {
-                        detailItemNameContent.textContent = `${currentDetail.toUpperCase()}:`;
+                if (key === 'proficiencies') {
+
+                    for (const profKey in eachItem) {
+                        const profItem = eachItem[profKey];
+                        const profType = profItem.proficiency.index;
+                        const profNameRaw = profItem.proficiency.name;
+
+                        if (profType.startsWith('saving-throw')) {
+                            const profName = profNameRaw.replace(/^Saving Throw: /, '');
+                            const profValue = profItem.value;
+
+                            savThrowValues.push(`${profName} +${profValue}`)
+                        } else if (profType.startsWith('skill')) {
+                            const skillName = profNameRaw.replace(/^Skill: /, '');
+                            const skillValue = profItem.value;
+
+                            skillValues.push(`${skillName} +${skillValue}`)                        
+                        }
                     }
-                    if (typeof eachItem === 'string') {
-                        const detailItemContent = document.createElement('p');
-                        detailItemContent.classList.add('detailContent');
-                        detailContentDiv.appendChild(detailItemContent);
-                        detailItemContent.textContent = capitalizeWords(eachItem);
-                    } else if (typeof eachItem === 'object') {
-                        if (key === 'armor_class') {
-                            console.log("AC")
-                            console.log(eachItem)
-                            const currentAC = document.createElement('p');
-                            const ACType = document.createElement('p');
-                            currentAC.textContent = `AC ${eachItem[0]['value']}`;
-                            ACType.textContent = `(${capitalizeWords(eachItem[0]['type'])})`;
-                            currentAC.classList.add('detailContent');
-                            ACType.classList.add('detailContent');
-                            detailContentDiv.appendChild(ACType);
-                            detailContentDiv.appendChild(currentAC);
+                }
+                if (key === 'senses') {
+
+                    for (const eachKey in eachItem) {
+                        const senseItem = eachItem[eachKey];
+
+                        if (eachKey === 'passive_perception') {
+                            const passPerc = capitalizeWords(eachKey.replace(/_/g, " "));
+
+                            senseValues.push(`${passPerc} ${senseItem}`)
                         } else {
-                            //console.log("Not AC")
-                            //console.log(key)
+                            senseValues.unshift(`${capitalizeWords(eachKey)} ${senseItem}`)
                         }
-                    } else if (typeof eachItem === 'number'){
-                        console.log("##")
-                        if (key === 'strength' || key === 'dexterity' || key === 'constitution' || key === 'intelligence' || key === 'wisdom' || key === 'charisma') {
-                            console.log("HP")
-                            console.log(eachItem)
-                            const currentHP = document.createElement('p');
-                            currentHP.textContent = eachItem;
-                            currentHP.classList.add('detailContent');
-                            detailContentDiv.appendChild(currentHP);
+                    }
+                }
+                if (key === 'languages') {
+                    //TODO Test this with data as an array
+                    if (eachItem.typeof === 'array') {
+                        for (const eachKey in eachItem) {
+                            const langItem = eachItem[eachKey];
+    
+                            const lang = capitalizeWords(eachKey.replace(/_/g, " "));
+                            langValues.push(`${lang} ${langItem}`)
                         }
                     } else {
-                        console.log("Not String - Not Object - Not ##")
-                        console.log(typeof eachItem)
+                        langValues = eachItem;
                     }
-                    detailItemNameContent.classList.add('detailContent');
-                    detailContentDiv.appendChild(detailItemNameContent);
-                    detailItemsDiv.appendChild(detailContentDiv);
+                }
+                if (key === 'challenge_rating' || key === 'xp') {
+
+                    if (key === 'challenge_rating') {
+                        challValues = ` ${eachItem}`;
+                    } else {
+                        challValues += ` (${eachItem} XP)`;
+                    }
+                }
+                if (key === 'proficiency_bonus') {
+                    profBonus = ` +${eachItem}`;
+
                 }
             }
-        };*/
+            //TODO P1 - Continue Here
+        }                     
     } else {
         
     }
 
-/* 
-    for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            //console.log(data)
-            //console.log(key)
-            const eachItem = data[key];
-            const currentItem = `detailItem${itemCounter}`;
-            const detailItemDiv = document.createElement('div');
-            detailItemDiv.id = 'detailItemsDiv' + key;
-            const detailItem = document.createElement('p');
-            const detailItemName = document.createElement('p');
-            itemCounter++;
-            detailItemDiv.appendChild(detailItemName);
-            detailItemDiv.appendChild(detailItem);
-            detailItemName.textContent = key.toUpperCase();
-            detailItem.textContent = eachItem;
-            detailItemName.classList.add('detailTitle');
-            detailItem.id = currentPage + 'Desc';
-            detailItem.classList.add('detailItem');
-            detailItemsDiv.appendChild(detailItemDiv);
-            for (const secondkey in data[key]) {
-                let newData = data[key];
-                //console.log(secondkey);
-                //console.log(data[key]);
-                if (Array.isArray(newData)) {
-                    //console.log(data[key]);
-                    //console.log(secondkey);
-                    for (const lastkey in newData[key]) {
-                        let lastData = newData[key];
-                        console.log(lastkey);
-                        console.log(lastData)
-
-                    }
-                }
-            };
+    //Third Stats Container
+    const statsContainerThree = document.createElement('div');
+    const statsBarFour = document.createElement('img');
+    const savThrowStatDiv = document.createElement('div');
+    const skillsStatDiv = document.createElement('div');
+    const sensesStatDiv = document.createElement('div');
+    const langStatDiv = document.createElement('div');
+    const challStatDiv = document.createElement('div');
+    const proBonusStatDiv = document.createElement('div');
+    //Saving Throws
+    const savThrowTitle = document.createElement('p');
+    const currentSavThrow = document.createElement('p');
+    savThrowTitle.textContent = 'Saving Throws';
+    const sTV = savThrowValues;
+    sTV.forEach((value, index) => {
+        currentSavThrow.textContent += value;
+        if (index < sTV.length - 1) {
+            currentSavThrow.textContent += ", ";
         }
+    });
+    savThrowStatDiv.classList.add('statDiv');
+    savThrowTitle.classList.add('detailContent');
+    currentSavThrow.classList.add('detailContent');
+    //Skills
+    const skillTitle = document.createElement('p');
+    const currentSkill = document.createElement('p');
+    skillTitle.textContent = 'Skills';
+    const skV = skillValues;
+    skV.forEach((value, index) => {
+        currentSkill.textContent += value;
+        if (index < skV.length - 1) {
+            currentSkill.textContent += ", ";
+        }
+    });
+    skillsStatDiv.classList.add('statDiv');
+    skillTitle.classList.add('detailContent');
+    currentSkill.classList.add('detailContent');
+    //Senses
+    const senseTitle = document.createElement('p');
+    const currentSense = document.createElement('p');
+    senseTitle.textContent = 'Senses';
+    const seV = senseValues;
+    seV.forEach((value, index) => {
+        currentSense.textContent += value;
+        if (index < seV.length - 1) {
+            currentSense.textContent += ", ";
+        }
+    });
+    sensesStatDiv.classList.add('statDiv');
+    senseTitle.classList.add('detailContent');
+    currentSense.classList.add('detailContent');
+    //Languages
+    const langTitle = document.createElement('p');
+    const currentLang = document.createElement('p');
+    langTitle.textContent = 'Languages';
+    const lV = langValues;
+    if (data.languages.typeof === 'array'){
+        lV.forEach((value, index) => {
+            currentLang.textContent += value;
+            if (index < lV.length - 1) {
+                currentLang.textContent += ", ";
+            }
+        })
+    } else {
+        currentLang.textContent = langValues;
     };
-  */
-
+    langStatDiv.classList.add('statDiv');
+    langTitle.classList.add('detailContent');
+    currentLang.classList.add('detailContent');
+    //Challenge
+    const challTitle = document.createElement('p');
+    const currentChall = document.createElement('p');
+    challTitle.textContent = 'Challenge';
+    currentChall.textContent = challValues;
+    challStatDiv.classList.add('statDiv');
+    challTitle.classList.add('detailContent');
+    currentChall.classList.add('detailContent');
+    //Proficiency Bonus
+    const proBonusTitle = document.createElement('p');
+    const currentProBonus = document.createElement('p');
+    proBonusTitle.textContent = 'Proficiency Bonus';
+    currentProBonus.textContent = profBonus;
+    proBonusStatDiv.classList.add('statDiv');
+    proBonusTitle.classList.add('detailContent');
+    currentProBonus.classList.add('detailContent');
+    //End of Third Stats Container
+    statsContainerThree.id = 'statsContainerThree';
+    statsBarFour.src = "./images/page-elements/stat-block-header-bar.svg";
+    statsBarFour.className = 'statsBar';
+    detailItemsDiv.appendChild(statsContainerThree);
+    detailItemsDiv.appendChild(statsBarFour);
+    statsContainerThree.appendChild(savThrowStatDiv);
+    statsContainerThree.appendChild(skillsStatDiv);
+    statsContainerThree.appendChild(sensesStatDiv);
+    statsContainerThree.appendChild(langStatDiv);
+    statsContainerThree.appendChild(challStatDiv);
+    statsContainerThree.appendChild(proBonusStatDiv);
+    savThrowStatDiv.appendChild(savThrowTitle);
+    savThrowStatDiv.appendChild(currentSavThrow);
+    skillsStatDiv.appendChild(skillTitle);
+    skillsStatDiv.appendChild(currentSkill);
+    sensesStatDiv.appendChild(senseTitle);
+    sensesStatDiv.appendChild(currentSense);
+    langStatDiv.appendChild(langTitle);
+    langStatDiv.appendChild(currentLang);
+    challStatDiv.appendChild(challTitle);
+    challStatDiv.appendChild(currentChall);
+    proBonusStatDiv.appendChild(proBonusTitle);
+    proBonusStatDiv.appendChild(currentProBonus);
 
     //Footer
     const detailsFooter = document.createElement('div');
@@ -1792,16 +1876,12 @@ function setContentType(count) {
 function setMainClass() {
 
     if (currentPage === 'home' || currentPage === 'characters' || currentPage === 'items' || currentPage === 'misc') {
-        console.log("num 1")
-        console.log(currentPage)
         mainElement.classList.remove('cardContent');
         mainElement.classList.remove('listContent');
         mainElement.classList.remove('sheets');
         mainElement.classList.add('pageContent');
         return;
     } else if (currentPage === 'monsters' || currentPage === 'spells' || currentPage === 'equipment' || currentPage === 'magic-items') {
-        console.log('num 2')
-        console.log(currentPage)
         mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
         mainElement.classList.remove('cardContent');
