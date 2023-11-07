@@ -22,10 +22,18 @@
 
 @font-face {
     font-family: Scala_Sans_Bold;
-    src: url(./fonts/ScalaSans-BoldLF.otf);
+    src: url(./fonts/ScalaSans-Bold.otf);
 }
 
+@font-face {
+    font-family: Scala_Sans_Italic;
+    src: url(./fonts/ScalaSans-Italic.otf);
+}
 
+@font-face {
+    font-family: Scala_Sans_Bold_Italic;
+    src: url(./fonts/ScalaSans-BoldItalic.otf);
+}
 
 h1, h2, h3, p, ul, li {
     margin:0;
@@ -167,13 +175,10 @@ article {
     margin-bottom: 45px;
 }
 
-.mainDetailContent img {
-    max-width: 300px;
-}
-
 .detailContent {
     font-family: Scala_Sans;
-    font-size: 20px;
+    font-weight: 100;
+    font-size: 15px;
     color: #822000;
     gap: 3px;
     margin-bottom: 5px;
@@ -189,6 +194,7 @@ article {
     border-radius: 6%;
     height: auto;
     width: 100%;
+    max-width: 300px;
     margin-bottom: 20px;
 }
 
@@ -205,11 +211,10 @@ article {
     margin-top: 0;
 }
 
-.initialDetailDesc p {
-    font-family: Scala_Sans;
-    font-size: 1rem;
+.detailText {
+    font-family: Scala_Sans_Italic;
     font-weight: 100;
-    font-style: italic;
+    font-size: 1rem;
     margin-bottom: 10px;
 }
 
@@ -221,11 +226,17 @@ article {
     line-height: 1.75rem;
 }
 
+.statsBarDiv {
+    width: 100%;
+}
+
 .statsBar {
     font-size: 15px;
     margin-top: 8px;
     margin-left: 20px;
     margin-bottom: 8px;
+    max-width: 100%;
+    vertical-align: middle;
 }
 
 .statDiv {
@@ -241,6 +252,7 @@ article {
 
 .statDivTwo p:first-child {
     font-family: Scala_Sans_Bold;
+    font-weight: 100;
     color: #822000;
     margin: 0;
 }
@@ -270,6 +282,37 @@ article {
 
 #statsContainerThree {
     margin-left: 20px;
+}
+/* TODO instead of gap - use a div to space? With min-width 10px? */
+#challandBonusDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+#challandBonusDiv :nth-child(1),
+#challandBonusDiv :nth-child(3) {
+    font-family: Scala_Sans_Bold;
+}
+
+.specAbilMain {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.specAbilDiv {
+    display: flex;
+    gap: 5px;
+}
+
+.specAbilContent {
+    font-family: Scala_Sans;
+    font-weight: 100;
+}
+
+.specAbilContent span {
+    font-family: Scala_Sans_Bold_Italic;
+    font-weight: 100;
 }
 
 .detailItemsDiv {
@@ -654,9 +697,16 @@ button {
         background-color: white;
     }
 
+    .detailTextContent {
+        margin-top: 2px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
     .detailItemsDiv {
+        padding-top: 20px;
         margin-right: 20px;
-        max-width: 50vw;
+        max-width: 100%;
     }
 
     .detailImage {

@@ -1111,33 +1111,45 @@ function createDetailsWindowNEW(data) {
     mainDetailsDiv.appendChild(detailImageDiv);
 
     //Details Container
+    const detailMainContent = document.createElement('div');
     const detailItemsDiv = document.createElement('div');
     const detailInitialDiv = document.createElement('div');
     const detailInitialDesc = document.createElement('div');
     const statsContainerOne = document.createElement('div');
     const statsContainerTwo = document.createElement('div');
+    const statBarDivOne = document.createElement('div');
     const statsBarOne = document.createElement('img');
+    const statBarDivTwo = document.createElement('div');
     const statsBarTwo = document.createElement('img');
+    const statBarDivThree = document.createElement('div');
     const statsBarThree = document.createElement('img');
     statsBarOne.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarTwo.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarThree.src = "./images/page-elements/stat-block-header-bar.svg";
+    detailMainContent.classList.add('detailTextContent');
     detailItemsDiv.classList.add('detailItemsDiv');
     detailInitialDiv.classList.add('initialDetailInfo');
     detailInitialDesc.classList.add('initialDetailDesc');
+    statBarDivOne.className = 'statsBarDiv';
     statsBarOne.className = 'statsBar';
     statsContainerOne.id = 'statsContainerOne';
+    statBarDivTwo.className = 'statsBarDiv';
     statsBarTwo.className = 'statsBar';
     statsContainerTwo.id = 'statsContainerTwo';
+    statBarDivThree.className = 'statsBarDiv';
     statsBarThree.className = 'statsBar';
-    mainDetailsDiv.appendChild(detailItemsDiv);
+    mainDetailsDiv.appendChild(detailMainContent);
+    detailMainContent.appendChild(detailItemsDiv);
     detailItemsDiv.appendChild(detailInitialDiv);
     detailInitialDiv.appendChild(detailInitialDesc);
-    detailItemsDiv.appendChild(statsBarOne);
+    detailItemsDiv.appendChild(statBarDivOne);
+    statBarDivOne.appendChild(statsBarOne);
     detailItemsDiv.appendChild(statsContainerOne);
-    detailItemsDiv.appendChild(statsBarTwo);
+    detailItemsDiv.appendChild(statBarDivTwo);
+    statBarDivTwo.appendChild(statsBarTwo);
     detailItemsDiv.appendChild(statsContainerTwo);
-    detailItemsDiv.appendChild(statsBarThree);
+    detailItemsDiv.appendChild(statBarDivThree);
+    statBarDivThree.appendChild(statsBarThree);
 
     if (currentPage === 'spells') {
         detailImage.src = `./images/${currentPage}/${data.index}.gif`;
@@ -1151,6 +1163,7 @@ function createDetailsWindowNEW(data) {
     let langValues = [];
     let challValues = '';
     let profBonus = '';
+    let specAbilDivs = [];
     // For objects:
     if (currentPage === 'monsters') {
         for (const key in data) {
@@ -1169,7 +1182,7 @@ function createDetailsWindowNEW(data) {
                     const detailSize = document.createElement('p');
                     detailSize.textContent = capitalizeWords(eachItem + ' ');
                     detailInitialDesc.appendChild(detailSize);
-                    detailName.classList.add('detailText');
+                    detailSize.classList.add('detailText');
                 }
                 if (key === 'type') {
                     const detailType = document.createElement('p');
@@ -1317,20 +1330,46 @@ function createDetailsWindowNEW(data) {
                 }
             }
             //TODO P1 - Continue Here
-        }                     
+            //Special Abilities Section
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+
+                if (key === 'special_abilities') {
+                    for (eachKey in eachItem) {
+                        const specAbilItem = eachItem[eachKey];
+                        const specAbilDiv = document.createElement('div');
+                        const specAbilContent = document.createElement('p');
+                        const curAbilTitle = specAbilItem.name;
+                        const curAbilDesc = specAbilItem.desc;
+                        specAbilDiv.className = 'specAbilDiv';
+                        specAbilContent.className = 'specAbilContent';
+                        specAbilContent.innerHTML = `<span>${curAbilTitle}</span>. ${curAbilDesc}`;
+                        specAbilDiv.appendChild(specAbilContent);
+                        specAbilDivs.push(specAbilDiv);
+                    }
+
+                }
+            }
+        }                 
     } else {
         
     }
 
+    console.log(specAbilDivs)
     //Third Stats Container
     const statsContainerThree = document.createElement('div');
+    const statBarDivFour = document.createElement('div');
     const statsBarFour = document.createElement('img');
     const savThrowStatDiv = document.createElement('div');
     const skillsStatDiv = document.createElement('div');
     const sensesStatDiv = document.createElement('div');
     const langStatDiv = document.createElement('div');
+    const challandBonusDiv = document.createElement('div');
+    challandBonusDiv.id = 'challandBonusDiv';
     const challStatDiv = document.createElement('div');
     const proBonusStatDiv = document.createElement('div');
+
     //Saving Throws
     const savThrowTitle = document.createElement('p');
     const currentSavThrow = document.createElement('p');
@@ -1412,13 +1451,15 @@ function createDetailsWindowNEW(data) {
     statsBarFour.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarFour.className = 'statsBar';
     detailItemsDiv.appendChild(statsContainerThree);
-    detailItemsDiv.appendChild(statsBarFour);
+    detailItemsDiv.appendChild(statBarDivFour);
+    statBarDivFour.appendChild(statsBarFour);
     statsContainerThree.appendChild(savThrowStatDiv);
     statsContainerThree.appendChild(skillsStatDiv);
     statsContainerThree.appendChild(sensesStatDiv);
     statsContainerThree.appendChild(langStatDiv);
-    statsContainerThree.appendChild(challStatDiv);
-    statsContainerThree.appendChild(proBonusStatDiv);
+    statsContainerThree.appendChild(challandBonusDiv);
+    challandBonusDiv.appendChild(challStatDiv);
+    challandBonusDiv.appendChild(proBonusStatDiv);
     savThrowStatDiv.appendChild(savThrowTitle);
     savThrowStatDiv.appendChild(currentSavThrow);
     skillsStatDiv.appendChild(skillTitle);
@@ -1431,6 +1472,14 @@ function createDetailsWindowNEW(data) {
     challStatDiv.appendChild(currentChall);
     proBonusStatDiv.appendChild(proBonusTitle);
     proBonusStatDiv.appendChild(currentProBonus);
+
+    //Special Abilities
+    const specAbilMain = document.createElement('div');
+    specAbilMain.className = 'specAbilMain';
+    specAbilDivs.forEach((curDiv) => {
+        specAbilMain.appendChild(curDiv);
+    });
+    detailItemsDiv.appendChild(specAbilMain);
 
     //Footer
     const detailsFooter = document.createElement('div');
