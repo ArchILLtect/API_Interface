@@ -1111,7 +1111,8 @@ function createDetailsWindowNEW(data) {
     mainDetailsDiv.appendChild(detailImageDiv);
 
     //Details Container
-    const detailMainContent = document.createElement('div');
+    const statHeaderBar = document.createElement('img');
+    const detailTextContent = document.createElement('div');
     const detailItemsDiv = document.createElement('div');
     const detailInitialDiv = document.createElement('div');
     const detailInitialDesc = document.createElement('div');
@@ -1123,10 +1124,12 @@ function createDetailsWindowNEW(data) {
     const statsBarTwo = document.createElement('img');
     const statBarDivThree = document.createElement('div');
     const statsBarThree = document.createElement('img');
+    statHeaderBar.src = './images/page-elements/stat-bar-book.png';
     statsBarOne.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarTwo.src = "./images/page-elements/stat-block-header-bar.svg";
     statsBarThree.src = "./images/page-elements/stat-block-header-bar.svg";
-    detailMainContent.classList.add('detailTextContent');
+    statHeaderBar.classList.add('statHeadFootBar');
+    detailTextContent.classList.add('detailTextContent');
     detailItemsDiv.classList.add('detailItemsDiv');
     detailInitialDiv.classList.add('initialDetailInfo');
     detailInitialDesc.classList.add('initialDetailDesc');
@@ -1138,8 +1141,9 @@ function createDetailsWindowNEW(data) {
     statsContainerTwo.id = 'statsContainerTwo';
     statBarDivThree.className = 'statsBarDiv';
     statsBarThree.className = 'statsBar';
-    mainDetailsDiv.appendChild(detailMainContent);
-    detailMainContent.appendChild(detailItemsDiv);
+    mainDetailsDiv.appendChild(statHeaderBar);
+    mainDetailsDiv.appendChild(detailTextContent);
+    detailTextContent.appendChild(detailItemsDiv);
     detailItemsDiv.appendChild(detailInitialDiv);
     detailInitialDiv.appendChild(detailInitialDesc);
     detailItemsDiv.appendChild(statBarDivOne);
@@ -1164,6 +1168,8 @@ function createDetailsWindowNEW(data) {
     let challValues = '';
     let profBonus = '';
     let specAbilDivs = [];
+    let actionDivs = [];
+
     // For objects:
     if (currentPage === 'monsters') {
         for (const key in data) {
@@ -1329,7 +1335,6 @@ function createDetailsWindowNEW(data) {
 
                 }
             }
-            //TODO P1 - Continue Here
             //Special Abilities Section
             if (data.hasOwnProperty(key)) {
                 const eachItem = data[key];
@@ -1351,13 +1356,56 @@ function createDetailsWindowNEW(data) {
 
                 }
             }
+            //Actions Section
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+
+                if (key === 'actions') {
+                    for (eachKey in eachItem) {
+                        const actionItem = eachItem[eachKey];
+                        const actionDiv = document.createElement('div');
+                        const actionContent = document.createElement('p');
+                        const curActionTitle = actionItem.name;
+                        const curactionDesc = actionItem.desc;
+                        actionDiv.className = 'specAbilDiv';
+                        actionContent.className = 'specAbilContent';
+                        actionContent.innerHTML = `<span>${curActionTitle}</span>. ${curactionDesc}`;
+                        actionDiv.appendChild(actionContent);
+                        actionDivs.push(actionDiv);
+                    }
+
+                }
+            }
+            //TODO P1 - Continue Here
+            //Legendary Actions Section
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+
+                if (key === 'actions') {
+                    for (eachKey in eachItem) {
+                        const actionItem = eachItem[eachKey];
+                        const actionDiv = document.createElement('div');
+                        const actionContent = document.createElement('p');
+                        const curActionTitle = actionItem.name;
+                        const curactionDesc = actionItem.desc;
+                        actionDiv.className = 'specAbilDiv';
+                        actionContent.className = 'specAbilContent';
+                        actionContent.innerHTML = `<span>${curActionTitle}</span>. ${curactionDesc}`;
+                        actionDiv.appendChild(actionContent);
+                        actionDivs.push(actionDiv);
+                    }
+
+                }
+            }
         }                 
     } else {
         
     }
 
-    console.log(specAbilDivs)
     //Third Stats Container
+    //TODO Add Tooltips??
     const statsContainerThree = document.createElement('div');
     const statBarDivFour = document.createElement('div');
     const statsBarFour = document.createElement('img');
@@ -1481,7 +1529,30 @@ function createDetailsWindowNEW(data) {
     });
     detailItemsDiv.appendChild(specAbilMain);
 
+    //Split Page
+    const detailItemsDivTwo = document.createElement('div');
+    detailItemsDivTwo.classList.add('detailItemsDiv');
+    detailTextContent.appendChild(detailItemsDivTwo);
+
+    //Actions
+    const actionsMain = document.createElement('div');
+    const actionsHeader = document.createElement('div');
+    actionsMain.className = 'actionsMain';
+    actionsHeader.className = 'detailHeader';
+    actionsHeader.textContent = 'Actions';
+    actionDivs.forEach((curDiv) => {
+        actionsMain.appendChild(curDiv);
+    });
+    detailItemsDivTwo.appendChild(actionsHeader);
+    detailItemsDivTwo.appendChild(actionsMain);
+
+
+
     //Footer
+    const statFooterBar = document.createElement('img');
+    statFooterBar.src = './images/page-elements/stat-bar-book.png';
+    statFooterBar.classList.add('statHeadFootBar');
+    mainDetailsDiv.appendChild(statFooterBar);
     const detailsFooter = document.createElement('div');
 
 
