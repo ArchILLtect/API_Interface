@@ -1096,20 +1096,45 @@ function createDetailsWindowNEW(data) {
     const detailsHeader = document.createElement('div');
     const detailName = document.createElement('h3');
     detailsHeader.appendChild(detailName);
-    detailModal.appendChild(detailsHeader)
+    detailModal.appendChild(detailsHeader);
     detailsHeader.id = 'detailsHeader';
     detailName.textContent = data.name;
 
-    //Details Container
-    const detailItemsDiv = document.createElement('div');
-    const statsContainerOne = document.createElement('div');
-    detailItemsDiv.classList.add('detailItemsDiv');
-    statsContainerOne.id = 'statsContainerOne';
+    //Details Content
+    const mainDetailsDiv = document.createElement('div');
+    mainDetailsDiv.classList.add('mainDetailContent');
+    detailModal.appendChild(mainDetailsDiv);
 
     //Image
+    const detailImageDiv = document.createElement('div');
     const detailImage = document.createElement('img');
+    detailImageDiv.className = 'detailImageDiv';
     detailImage.className = 'detailImage';
-    detailItemsDiv.appendChild(detailImage);
+    detailImageDiv.appendChild(detailImage);
+    mainDetailsDiv.appendChild(detailImageDiv);
+
+    //Details Container
+    const detailItemsDiv = document.createElement('div');
+    const detailInitialDiv = document.createElement('div');
+    const detailInitialDesc = document.createElement('div');
+    const statsContainerOne = document.createElement('div');
+    const statsBarOne = document.createElement('img');
+    const statsBarTwo = document.createElement('img');
+    statsBarOne.src = "./images/page-elements/stat-block-header-bar.svg";
+    statsBarTwo.src = "./images/page-elements/stat-block-header-bar.svg";
+    detailItemsDiv.classList.add('detailItemsDiv');
+    detailInitialDiv.classList.add('initialDetailInfo');
+    detailInitialDesc.classList.add('initialDetailDesc');
+    statsBarOne.className = 'statsBar';
+    statsContainerOne.id = 'statsContainerOne';
+    statsBarTwo.className = 'statsBar';
+    mainDetailsDiv.appendChild(detailItemsDiv);
+    detailItemsDiv.appendChild(detailInitialDiv);
+    detailInitialDiv.appendChild(detailInitialDesc);
+    detailItemsDiv.appendChild(statsBarOne);
+    detailItemsDiv.appendChild(statsContainerOne);
+    detailItemsDiv.appendChild(statsBarTwo);
+
 
     if (currentPage === 'spells') {
         detailImage.src = `./images/${currentPage}/${data.index}.gif`;
@@ -1119,50 +1144,96 @@ function createDetailsWindowNEW(data) {
 
     // For objects:
     if (currentPage === 'monsters') {
-        // First apply HP, AC and SPD
         for (const key in data) {
+            //Add Initial Info
             if (data.hasOwnProperty(key)) {
                 const eachItem = data[key];
                 const currentDetail = key.replace(/_/g, " ");
-                detailItemsDiv.appendChild(statsContainerOne);
+
+                if (key === 'name') {
+                    const detailName = document.createElement('p');
+                    detailName.textContent = eachItem;
+                    detailInitialDiv.appendChild(detailName);
+                    detailName.classList.add('detailName');
+                }
+                if (key === 'size') {
+                    const detailSize = document.createElement('p');
+                    detailSize.textContent = capitalizeWords(eachItem + ' ');
+                    detailInitialDesc.appendChild(detailSize);
+                    detailName.classList.add('detailText');
+                }
+                if (key === 'type') {
+                    const detailType = document.createElement('p');
+                    detailType.textContent = capitalizeWords(eachItem + ', ');
+                    detailInitialDesc.appendChild(detailType);
+                    detailType.classList.add('detailText');
+                }
+                if (key === 'alignment') {
+                    const detailAlign = document.createElement('p');
+                    detailAlign.textContent = capitalizeWords(eachItem);
+                    detailInitialDesc.appendChild(detailAlign);
+                    detailAlign.classList.add('detailText');
+                }
+
+            }
+
+            //Add first stat group
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
 
                 if (key === 'armor_class') {
+                    const acStatDiv = document.createElement('div');
+                    const acTitle = document.createElement('p');
                     const currentAC = document.createElement('p');
-                    currentAC.textContent = `Armor Class: ${eachItem[0]['value']} (${capitalizeWord(eachItem[0]['type'])} Armor)`;
+                    acTitle.textContent = 'Armor Class';
+                    currentAC.textContent = ` ${eachItem[0]['value']} (${capitalizeWords(eachItem[0]['type'])} Armor)`;
+                    acStatDiv.classList.add('statDiv');
+                    acTitle.classList.add('detailContent');
                     currentAC.classList.add('detailContent');
-                    statsContainerOne.appendChild(currentAC);
+                    statsContainerOne.appendChild(acStatDiv);
+                    acStatDiv.appendChild(acTitle);
+                    acStatDiv.appendChild(currentAC);
                 }
                 if (key === 'hit_points') {
+                    const hpStatDiv = document.createElement('div');
+                    const hpTitle = document.createElement('p');
                     const currentHP = document.createElement('p');
-                    currentHP.textContent = `Hit Points: ${eachItem} (${data.hit_points_roll})`;
+                    hpTitle.textContent = 'Hit Points';
+                    currentHP.textContent = ` ${eachItem} (${data.hit_points_roll})`;
+                    hpStatDiv.classList.add('statDiv');
+                    hpTitle.classList.add('detailContent');
                     currentHP.classList.add('detailContent');
-                    statsContainerOne.appendChild(currentHP);
+                    statsContainerOne.appendChild(hpStatDiv);
+                    hpStatDiv.appendChild(hpTitle);
+                    hpStatDiv.appendChild(currentHP);
                 }
                 if (key === 'speed') {
-                    console.log("speed");
-                    console.log(eachItem);
-                    console.log(currentPage)
+                    const speedStatDiv = document.createElement('div');
+                    const speedTitle = document.createElement('p');
                     const currentSpeed = document.createElement('p');
-                    currentSpeed.textContent = `Speed:  walk ${eachItem.walk}, ` + " " + `swim ${eachItem.swim}`;
+                    speedTitle.textContent = 'Speed';
+                    currentSpeed.textContent = ` walk ${eachItem.walk}, swim ${eachItem.swim}`;
+                    speedStatDiv.classList.add('statDiv');
+                    speedTitle.classList.add('detailContent');
                     currentSpeed.classList.add('detailContent');
-                    statsContainerOne.appendChild(currentSpeed);
+                    statsContainerOne.appendChild(speedStatDiv);
+                    speedStatDiv.appendChild(speedTitle);
+                    speedStatDiv.appendChild(currentSpeed);
                 }
 
             }
-        }
-        //TODO P1 - Continue Here
-        for (const key in data) {
+            //TODO P1 - Continue Here
+            //Add second stat group
             if (data.hasOwnProperty(key)) {
                 const eachItem = data[key];
                 const currentDetail = key.replace(/_/g, " ");
-                detailItemsDiv.appendChild(statsContainerOne);
 
                 if (key === 'armor_class') {
 
                 }
-
             }
-        }                    
+        }             
                     
 /* 
         for (const key in data) {
@@ -1196,7 +1267,7 @@ function createDetailsWindowNEW(data) {
                         const detailItemContent = document.createElement('p');
                         detailItemContent.classList.add('detailContent');
                         detailContentDiv.appendChild(detailItemContent);
-                        detailItemContent.textContent = capitalizeWord(eachItem);
+                        detailItemContent.textContent = capitalizeWords(eachItem);
                     } else if (typeof eachItem === 'object') {
                         if (key === 'armor_class') {
                             console.log("AC")
@@ -1204,7 +1275,7 @@ function createDetailsWindowNEW(data) {
                             const currentAC = document.createElement('p');
                             const ACType = document.createElement('p');
                             currentAC.textContent = `AC ${eachItem[0]['value']}`;
-                            ACType.textContent = `(${capitalizeWord(eachItem[0]['type'])})`;
+                            ACType.textContent = `(${capitalizeWords(eachItem[0]['type'])})`;
                             currentAC.classList.add('detailContent');
                             ACType.classList.add('detailContent');
                             detailContentDiv.appendChild(ACType);
@@ -1276,16 +1347,17 @@ function createDetailsWindowNEW(data) {
     };
   */
 
+
     //Footer
     const detailsFooter = document.createElement('div');
-    const mainDetailsDiv = document.createElement('div');
 
+
+    //Modal Close Button
     const buttonContainer = document.createElement('div');
     const closeButton = document.createElement('button');
     closeButton.id = 'closeButton'
 
-    mainDetailsDiv.appendChild(detailItemsDiv);
-    mainDetailsDiv.classList.add('mainDetailContent');
+
     detailsFooter.appendChild(buttonContainer);
     detailsFooter.id = 'detailsFooter';
     closeButton.id = 'closeButton';
@@ -1295,7 +1367,7 @@ function createDetailsWindowNEW(data) {
 
 
     detailModal.showModal();
-    detailModal.appendChild(mainDetailsDiv);
+
     detailModal.appendChild(detailsFooter)
     //detailModal.appendChild(buttonContainer);
     buttonContainer.appendChild(closeButton);
@@ -1911,7 +1983,7 @@ function extractPortion(string, portionIndex, separator="/") {
     return portions[portionIndex];
 }
 
-function capitalizeWord(inputString) {
+function capitalizeWords(inputString) {
     return inputString
         .split(' ') // Split the string into words
         .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
