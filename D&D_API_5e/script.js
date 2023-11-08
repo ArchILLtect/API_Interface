@@ -1169,6 +1169,7 @@ function createDetailsWindowNEW(data) {
     let profBonus = '';
     let specAbilDivs = [];
     let actionDivs = [];
+    let actionLegDivs = [];
 
     // For objects:
     if (currentPage === 'monsters') {
@@ -1347,8 +1348,8 @@ function createDetailsWindowNEW(data) {
                         const specAbilContent = document.createElement('p');
                         const curAbilTitle = specAbilItem.name;
                         const curAbilDesc = specAbilItem.desc;
-                        specAbilDiv.className = 'specAbilDiv';
-                        specAbilContent.className = 'specAbilContent';
+                        specAbilDiv.className = 'detailTxtDiv';
+                        specAbilContent.className = 'detailTxtContent';
                         specAbilContent.innerHTML = `<span>${curAbilTitle}</span>. ${curAbilDesc}`;
                         specAbilDiv.appendChild(specAbilContent);
                         specAbilDivs.push(specAbilDiv);
@@ -1367,10 +1368,10 @@ function createDetailsWindowNEW(data) {
                         const actionDiv = document.createElement('div');
                         const actionContent = document.createElement('p');
                         const curActionTitle = actionItem.name;
-                        const curactionDesc = actionItem.desc;
-                        actionDiv.className = 'specAbilDiv';
-                        actionContent.className = 'specAbilContent';
-                        actionContent.innerHTML = `<span>${curActionTitle}</span>. ${curactionDesc}`;
+                        const curActionDesc = actionItem.desc;
+                        actionDiv.className = 'detailTxtDiv';
+                        actionContent.className = 'detailTxtContent';
+                        actionContent.innerHTML = `<span>${curActionTitle}</span>. ${curActionDesc}`;
                         actionDiv.appendChild(actionContent);
                         actionDivs.push(actionDiv);
                     }
@@ -1383,18 +1384,18 @@ function createDetailsWindowNEW(data) {
                 const eachItem = data[key];
                 const currentDetail = key.replace(/_/g, " ");
 
-                if (key === 'actions') {
+                if (key === 'legendary_actions') {
                     for (eachKey in eachItem) {
-                        const actionItem = eachItem[eachKey];
-                        const actionDiv = document.createElement('div');
-                        const actionContent = document.createElement('p');
-                        const curActionTitle = actionItem.name;
-                        const curactionDesc = actionItem.desc;
-                        actionDiv.className = 'specAbilDiv';
-                        actionContent.className = 'specAbilContent';
-                        actionContent.innerHTML = `<span>${curActionTitle}</span>. ${curactionDesc}`;
-                        actionDiv.appendChild(actionContent);
-                        actionDivs.push(actionDiv);
+                        const actionLegItem = eachItem[eachKey];
+                        const actionLegDiv = document.createElement('div');
+                        const actionLegContent = document.createElement('p');
+                        const curActionLegTitle = actionLegItem.name;
+                        const curActionLegDesc = actionLegItem.desc;
+                        actionLegDiv.className = 'detailTxtDiv';
+                        actionLegContent.className = 'detailTxtContent';
+                        actionLegContent.innerHTML = `<span>${curActionLegTitle}</span>. ${curActionLegDesc}`;
+                        actionLegDiv.appendChild(actionLegContent);
+                        actionLegDivs.push(actionLegDiv);
                     }
 
                 }
@@ -1527,26 +1528,38 @@ function createDetailsWindowNEW(data) {
     specAbilDivs.forEach((curDiv) => {
         specAbilMain.appendChild(curDiv);
     });
-    detailItemsDiv.appendChild(specAbilMain);
+    detailTextContent.appendChild(specAbilMain);
 
     //Split Page
-    const detailItemsDivTwo = document.createElement('div');
+/*     const detailItemsDivTwo = document.createElement('div');
     detailItemsDivTwo.classList.add('detailItemsDiv');
-    detailTextContent.appendChild(detailItemsDivTwo);
+    detailTextContent.appendChild(detailItemsDivTwo); */
 
     //Actions
     const actionsMain = document.createElement('div');
     const actionsHeader = document.createElement('div');
-    actionsMain.className = 'actionsMain';
-    actionsHeader.className = 'detailHeader';
+    actionsMain.className = 'detailTxtMain';
+    actionsHeader.className = 'detailTxtHeader';
     actionsHeader.textContent = 'Actions';
     actionDivs.forEach((curDiv) => {
         actionsMain.appendChild(curDiv);
     });
-    detailItemsDivTwo.appendChild(actionsHeader);
-    detailItemsDivTwo.appendChild(actionsMain);
+    detailTextContent.appendChild(actionsHeader);
+    detailTextContent.appendChild(actionsMain);
 
-
+    //Legendary Actions
+    if (data.legendary_actions.length > 1) {
+        const actionsLegMain = document.createElement('div');
+        const actionsLegHeader = document.createElement('div');
+        actionsLegMain.className = 'detailTxtLegMain';
+        actionsLegHeader.className = 'detailTxtHeader';
+        actionsLegHeader.textContent = 'Legendary Actions';
+        actionLegDivs.forEach((curDiv) => {
+            actionsLegMain.appendChild(curDiv);
+        });
+        detailTextContent.appendChild(actionsLegHeader);
+        detailTextContent.appendChild(actionsLegMain);
+    }
 
     //Footer
     const statFooterBar = document.createElement('img');

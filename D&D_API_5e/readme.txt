@@ -51,6 +51,7 @@
 <br>
 TTD:<br>
 <br>
+*2*Add "Watermark" pics to details page instead of image at top???
 Add page setup functions to prepare pages CSS and other info before loading. Add JS/CSS rule mixture to accomodate<br>
 Fix Nav Bar:<br>
 ---Need drop down menus.<br>

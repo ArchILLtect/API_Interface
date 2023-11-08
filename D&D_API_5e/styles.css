@@ -306,22 +306,22 @@ article {
     margin-left: 0;
 }
 
-.specAbilDiv {
+.detailTxtDiv {
     display: flex;
     gap: 5px;
 }
 
-.specAbilContent {
+.detailTxtContent {
     font-family: Scala_Sans;
     font-weight: 100;
 }
 
-.specAbilContent span {
+.detailTxtContent span {
     font-family: Scala_Sans_Bold_Italic;
     font-weight: 100;
 }
 
-.detailHeader {
+.detailTxtHeader {
     font-family: Scala_Sans;
     font-size: 24px;
     font-weight: 100;
@@ -685,7 +685,7 @@ button {
     .modalWindow {
         padding: 0;
         max-height: 75%;
-        min-width: 80%;
+        min-width: 60%;
         max-width: 80%;
     }
 
@@ -705,10 +705,11 @@ button {
     }
 
     .detailTextContent {
-        margin-top: 2px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: block;
+        column-count: 2;
         gap: 20px;
+        margin-top: 2px;
+        margin-bottom: 20px;
         padding-left: 20px;
         padding-right: 20px;
     }
