@@ -3,7 +3,7 @@
 const API_MAIN_URL = 'https://www.dnd5eapi.co/api/';
 const MON_IMG_ALL = "./images/monsters.json";
 
-const pageHeaderDiv = document.getElementById('pageHeader');
+const pageHeaderDiv = document.getElementById('pageHeaderContainer');
 const mainElement = document.querySelector('main');
 const homePage = document.createElement('h3');
 
@@ -110,7 +110,7 @@ goHome('home');
 
 function SetHeader (title, count) {
     const curPageHeader = document.createElement('h2');
-    const pageHeader = document.getElementById('pageHeader');
+    const pageHeader = document.getElementById('pageHeaderContainer');
     let pageHeaderTxt = '';
 
     //TODO PRelease When finished adding categories move lost consditional to Else and remove ERROR.
@@ -124,6 +124,7 @@ function SetHeader (title, count) {
         pageHeaderTxt = document.createTextNode('ERROR');
     }
 
+    curPageHeader.className = 'pageHeader'
     curPageHeader.appendChild(pageHeaderTxt);
     pageHeader.appendChild(curPageHeader);
 };
@@ -149,11 +150,12 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 if (verifyLoadNeed(itemName, 'details')) {
                     console.log('API LOAD NEEDED! LOAD NEEDED!');
                     await fetchData(curLocation);
-                    //
-                    //TODO UPDATE - Move createDetailsWindowNEW to prepLoad like spells is done.
+
                     cacheData(apiData, itemType, itemName);
                     if (itemType === 'spells') {
                         createDetailsWindow(apiData);
+                    } else if (currentPage === 'races') {
+                        raceDetailsWindow(apiData);
                     } else {
                         createDetailsWindowNEW(apiData);
                     }
@@ -161,6 +163,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     console.log('API Load NOT needed!');
                     if (itemType === 'spells') {
                         createDetailsWindow(content);
+                    } else if (currentPage === 'races') {
+                        raceDetailsWindow(content);
                     } else {
                         createDetailsWindowNEW(content);
                     }
@@ -557,7 +561,8 @@ function createCard(data) {
     const cardImg = document.querySelector(`#${cardNameRaw}`);
 
     cardImg.src = "./images/page-elements/spinner-dnd.gif";
-    // cardImg.src = `./images/${globalData.currentPage}/${data.index}.jpg`;
+
+    //Detail modal window listener will prepload on click
     selectButton.addEventListener('click', () => { prepLoad(currentPage, 'data', cardNameRaw) } );
 };
 
@@ -1089,26 +1094,33 @@ function createDetailsWindowNEW(data) {
     detailModal.id = 'detailModal';
     detailModal.classList.add('modalWindow');
 
+    //Watermark image
+    const watermarkDiv = document.createElement('div');
+    watermarkDiv.id = 'watermark';
+    watermarkDiv.className = 'watermark';
+    detailModal.appendChild(watermarkDiv);
+    if (currentPage === 'spells') {
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.gif)`;
+    } else {
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
+    }
+
     //Header
-    const detailsHeader = document.createElement('div');
-    const detailName = document.createElement('h3');
-    detailsHeader.appendChild(detailName);
-    detailModal.appendChild(detailsHeader);
-    detailsHeader.id = 'detailsHeader';
-    detailName.textContent = data.name;
+    if (currentPage === 'monsters') {
+        
+    } else {
+        const detailsHeader = document.createElement('div');
+        const detailName = document.createElement('h3');
+        detailsHeader.appendChild(detailName);
+        detailModal.appendChild(detailsHeader);
+        detailsHeader.id = 'detailsHeader';
+        detailName.textContent = data.name; 
+    }
 
     //Details Content
     const mainDetailsDiv = document.createElement('div');
     mainDetailsDiv.classList.add('mainDetailContent');
     detailModal.appendChild(mainDetailsDiv);
-
-    //Image
-    const detailImageDiv = document.createElement('div');
-    const detailImage = document.createElement('img');
-    detailImageDiv.className = 'detailImageDiv';
-    detailImage.className = 'detailImage';
-    detailImageDiv.appendChild(detailImage);
-    mainDetailsDiv.appendChild(detailImageDiv);
 
     //Details Container
     const statHeaderBar = document.createElement('img');
@@ -1155,12 +1167,7 @@ function createDetailsWindowNEW(data) {
     detailItemsDiv.appendChild(statBarDivThree);
     statBarDivThree.appendChild(statsBarThree);
 
-    if (currentPage === 'spells') {
-        detailImage.src = `./images/${currentPage}/${data.index}.gif`;
-    } else {
-        detailImage.src = `./images/${currentPage}/${data.index}.jpg`;
-    }
-
+    //FIXME Check these variable names - are Values and Divs the correct discriptor?
     let savThrowValues = [];
     let skillValues = [];
     let senseValues = [];
@@ -1378,7 +1385,6 @@ function createDetailsWindowNEW(data) {
 
                 }
             }
-            //TODO P1 - Continue Here
             //Legendary Actions Section
             if (data.hasOwnProperty(key)) {
                 const eachItem = data[key];
@@ -1401,8 +1407,21 @@ function createDetailsWindowNEW(data) {
                 }
             }
         }                 
-    } else {
-        
+    } else if (currentPage === 'races') {
+        for (const key in data) {
+            //Add Initial Info
+            if (data.hasOwnProperty(key)) {
+                const eachItem = data[key];
+                const currentDetail = key.replace(/_/g, " ");
+
+                if (key === 'name') {
+                    const detailName = document.createElement('p');
+                    detailName.textContent = eachItem;
+                    detailInitialDiv.appendChild(detailName);
+                    detailName.classList.add('detailName');
+                }
+            }
+        }
     }
 
     //Third Stats Container
@@ -1466,7 +1485,7 @@ function createDetailsWindowNEW(data) {
     const currentLang = document.createElement('p');
     langTitle.textContent = 'Languages';
     const lV = langValues;
-    if (data.languages.typeof === 'array'){
+    if (data.languages && data.languages.typeof === 'array'){
         lV.forEach((value, index) => {
             currentLang.textContent += value;
             if (index < lV.length - 1) {
@@ -1530,11 +1549,6 @@ function createDetailsWindowNEW(data) {
     });
     detailTextContent.appendChild(specAbilMain);
 
-    //Split Page
-/*     const detailItemsDivTwo = document.createElement('div');
-    detailItemsDivTwo.classList.add('detailItemsDiv');
-    detailTextContent.appendChild(detailItemsDivTwo); */
-
     //Actions
     const actionsMain = document.createElement('div');
     const actionsHeader = document.createElement('div');
@@ -1548,7 +1562,7 @@ function createDetailsWindowNEW(data) {
     detailTextContent.appendChild(actionsMain);
 
     //Legendary Actions
-    if (data.legendary_actions.length > 1) {
+    if (data.legendary_actions && data.legendary_actions.length > 1) {
         const actionsLegMain = document.createElement('div');
         const actionsLegHeader = document.createElement('div');
         actionsLegMain.className = 'detailTxtLegMain';
@@ -1562,34 +1576,280 @@ function createDetailsWindowNEW(data) {
     }
 
     //Footer
+    const detailsFooter = document.createElement('div');
     const statFooterBar = document.createElement('img');
+    detailsFooter.id = 'detailsFooter';
     statFooterBar.src = './images/page-elements/stat-bar-book.png';
     statFooterBar.classList.add('statHeadFootBar');
     mainDetailsDiv.appendChild(statFooterBar);
-    const detailsFooter = document.createElement('div');
+    detailModal.appendChild(detailsFooter)
 
 
     //Modal Close Button
-    const buttonContainer = document.createElement('div');
+    const closeButtonDiv = document.createElement('div');
     const closeButton = document.createElement('button');
-    closeButton.id = 'closeButton'
-
-
-    detailsFooter.appendChild(buttonContainer);
-    detailsFooter.id = 'detailsFooter';
-    closeButton.id = 'closeButton';
     const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.id = 'closeButton'
+    detailsFooter.appendChild(closeButtonDiv);
     closeButton.appendChild(closeButtonTxt);
 
-
+    //Modal Watermark Button
+    const watermarkToggleDiv = document.createElement('div');
+    const watermarkToggleBtn = document.createElement('button');
+    const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
+    watermarkToggleBtn.id = 'watermarkToggle'
+    detailsFooter.appendChild(watermarkToggleDiv);
+    watermarkToggleBtn.appendChild(watermarkToggleTxt);
 
     detailModal.showModal();
+    //Set watermark height to account for amout of content
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    closeButtonDiv.appendChild(closeButton);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+    modalListeners()
+};
 
+function raceDetailsWindow(data) {
+    const NUM_OF_ITEMS = Object.keys(data).length;
+    const raceType = data.index;
+    console.log(data)
+    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+
+    //Create Modal Window
+    const detailModal = document.createElement('dialog');
+    mainElement.appendChild(detailModal);
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
+
+    //Watermark image
+    const watermarkDiv = document.createElement('div');
+    watermarkDiv.id = 'watermark';
+    watermarkDiv.className = 'watermark';
+    detailModal.appendChild(watermarkDiv);
+    if (currentPage === 'spells') {
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.gif)`;
+    } else {
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
+    }
+
+    //Header
+    const detailsHeader = document.createElement('div');
+    const detailName = document.createElement('h3');
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader);
+    detailsHeader.id = 'detailsHeader';
+    detailName.textContent = data.name;
+
+    //Details Content
+    const mainDetailsDiv = document.createElement('div');
+    mainDetailsDiv.classList.add('mainDetailContent');
+    detailModal.appendChild(mainDetailsDiv);
+
+    //Details Container
+    const statHeaderBar = document.createElement('img');
+    const detailTextContent = document.createElement('div');
+    const detailItemsDiv = document.createElement('div');
+    statHeaderBar.src = './images/page-elements/stat-bar-book.png';
+    statHeaderBar.classList.add('statHeadFootBar');
+    detailTextContent.classList.add('detailTextContent');
+    detailItemsDiv.classList.add('detailItemsDiv');
+    mainDetailsDiv.appendChild(statHeaderBar);
+    mainDetailsDiv.appendChild(detailTextContent);
+    detailTextContent.appendChild(detailItemsDiv);
+
+    //Set race Specific data not included with API
+    let raceDescTxt = '';
+    let traitsIntroTxt = '';
+    if (raceType === 'dragonborn') {
+        raceDescTxt = "Born of dragons, as their name proclaims, the dragonborn walk proudly through a world that greets them with fearful incomprehension. Shaped by draconic gods or the dragons themselves, dragonborn originally hatched from dragon eggs as a unique race, combining the best attributes of dragons and humanoids. Some dragonborn are faithful servants to true dragons, others form the ranks of soldiers in great wars, and still others find themselves adrift, with no clear calling in life."
+        traitsIntroTxt = "Your draconic heritage manifests in a variety of traits you share with other dragonborn."
+    } else if (raceType === 'dwarf') {
+        raceDescTxt = "Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs—these common threads unite all dwarves."
+        traitsIntroTxt = "Your dwarf character has an assortment of inborn abilities, part and parcel of dwarven nature."
+    } else if (raceType === 'elf') {
+        raceDescTxt = "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it. They live in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry, and the good things of the world."
+        traitsIntroTxt = "Your elf character has a variety of natural abilities, the result of thousands of years of elven refinement."
+    } else if (raceType === 'gnome') {
+        raceDescTxt = "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close-knit communities. Louder sounds punctuate the hum: a crunch of grinding gears here, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play."
+        traitsIntroTxt = "Your gnome character has certain characteristics in common with all other gnomes."
+    } else if (raceType === 'half-elf') {
+        raceDescTxt = "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves. Some half-elves live among humans, set apart by their emotional and physical differences, watching friends and loved ones age while time barely touches them. Others live with the elves, growing restless as they reach adulthood in the timeless elven realms, while their peers continue to live as children. Many half-elves, unable to fit into either society, choose lives of solitary wandering or join with other misfits and outcasts in the adventuring life."
+        traitsIntroTxt = "Your half-elf character has some qualities in common with elves and some that are unique to half-elves."
+    } else if (raceType === 'half-orc') {
+        raceDescTxt = "Whether united under the leadership of a mighty warlock or having fought to a standstill after years of conflict, orc and human tribes sometimes form alliances, joining forces into a larger horde to the terror of civilized lands nearby. When these alliances are sealed by marriages, half-orcs are born. Some half-orcs rise to become proud chiefs of orc tribes, their human blood giving them an edge over their full-blooded orc rivals. Some venture into the world to prove their worth among humans and other more civilized races. Many of these become adventurers, achieving greatness for their mighty deeds and notoriety for their barbaric customs and savage fury."
+        traitsIntroTxt = "Your half-orc character has certain traits deriving from your orc ancestry."
+    } else if (raceType === 'halfling') {
+        raceDescTxt = "The comforts of home are the goals of most halflings’ lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver."
+        traitsIntroTxt = "Your halfling character has a number of traits in common with all other halflings."
+    } else if (raceType === 'human') {
+        raceDescTxt = "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds."
+        traitsIntroTxt = "It’s hard to make generalizations about humans, but your human character has these traits."
+    } else if (raceType === 'tiefling') {
+        raceDescTxt = "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus—overlord of the Nine Hells—into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children’s children will always be held accountable."
+        traitsIntroTxt = "Tieflings share certain racial traits as a result of their infernal descent."
+    } else {
+        console.log('Race not found! Needs to be added?')
+    }
+
+    // For objects:
+    let abilBonValues = [];
+    let raceAgeValue = '';
+    let raceAlignDesc = '';
+    let raceSizeValue = '';
+    let raceSizeDesc = '';
+    let raceSpeedValue = '';
+    for (const key in data) {
+        //Actions Section
+        if (data.hasOwnProperty(key)) {
+            const eachItem = data[key];
+            const currentDetail = key.replace(/_/g, " ");
+
+            if (key === 'ability_bonuses') {
+                for (eachKey in eachItem) {
+                    const abilBonItem = eachItem[eachKey];
+                    const curAbilBonTitle = abilBonItem.ability_score.name;
+                    const curAbilBonDesc = abilBonItem.bonus;
+
+                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`)
+                }
+            } else if (key === 'age') {
+                raceAgeValue = eachItem;
+            } else if (key === 'alignment') {
+                raceAlignDesc = eachItem;
+            } else if (key === 'size') {
+                raceSizeValue = eachItem;
+            } else if (key === 'size_description') {
+                raceSizeDesc = eachItem;
+            } else if (key === 'speed') {
+                raceSpeedValue = eachItem;
+            } else if (key === 'index' || key === 'name' || key === 'url') {
+
+            } else {
+                console.log(key)
+            }
+        }
+    }
+
+    //Race Description
+    const raceDescDiv = document.createElement('div');
+    const raceDescPara = document.createElement('p');
+    detailTextContent.appendChild(raceDescDiv);
+    raceDescDiv.appendChild(raceDescPara);
+    raceDescPara.textContent = raceDescTxt;
+    
+    //Traits
+    const traitsMain = document.createElement('div');
+    const traitsHeader = document.createElement('div');
+    const traitsIntro = document.createElement('p');
+    traitsMain.className = 'detailTxtMain';
+    traitsHeader.className = 'detailTxtHeader';
+    traitsIntro.className = 'detailTxtContent';
+    traitsHeader.textContent = 'Traits';
+    traitsIntro.textContent = traitsIntroTxt;
+    traitsMain.appendChild(traitsHeader);
+    traitsMain.appendChild(traitsIntro);
+    detailTextContent.appendChild(traitsMain);
+
+
+    //Ability Bonuses
+    const abilBonMain = document.createElement('div');
+    const abilityBonus = document.createElement('p');
+    abilBonMain.className = 'detailTxtDiv';
+    abilityBonus.className = 'detailTxtContent';
+    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
+    aBV = abilBonValues;
+    aBV.forEach((value, index) => {
+        abilityBonus.innerHTML += value;
+        if (index < aBV.length - 1) {
+            abilityBonus.innerHTML += ", ";
+        }
+    });
+    abilBonMain.appendChild(abilityBonus);
+    detailTextContent.appendChild(abilBonMain);
+
+    //Age
+    const ageMain = document.createElement('div');
+    const raceAge = document.createElement('p');
+    ageMain.className = 'detailTxtDiv';
+    raceAge.className = 'detailTxtContent';
+    raceAge.innerHTML = `<span>Age</span> ${raceAgeValue}`;
+    ageMain.appendChild(raceAge);
+    detailTextContent.appendChild(ageMain);
+
+    //Alignment
+    const alignMain = document.createElement('div');
+    const raceAlign = document.createElement('p');
+    alignMain.className = 'detailTxtDiv';
+    raceAlign.className = 'detailTxtContent';
+    raceAlign.innerHTML = `<span>Alignment</span> ${raceAlignDesc}`;
+    alignMain.appendChild(raceAlign);
+    detailTextContent.appendChild(alignMain);
+
+    //Size
+    const sizeMain = document.createElement('div');
+    const raceSize = document.createElement('p');
+    sizeMain.className = 'detailTxtDiv';
+    raceSize.className = 'detailTxtContent';
+    raceSize.innerHTML = `<span>Size</span> ${raceSizeValue}. ${raceSizeDesc}`;
+    sizeMain.appendChild(raceSize);
+    detailTextContent.appendChild(sizeMain);
+
+    //Speed
+    const speedMain = document.createElement('div');
+    const raceSpeed = document.createElement('p');
+    speedMain.className = 'detailTxtDiv';
+    raceSpeed.className = 'detailTxtContent';
+    if (data.index === 'dwarf') {
+        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.Your speed is not reduced by wearing heavy armor.`;
+    } else {
+        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.`;
+    }
+    speedMain.appendChild(raceSpeed);
+    detailTextContent.appendChild(speedMain);
+
+
+    const statBarDivOne = document.createElement('div');
+    const statsBarOne = document.createElement('img');
+
+
+
+
+
+
+
+
+    //Footer
+    const detailsFooter = document.createElement('div');
+    const statFooterBar = document.createElement('img');
+    detailsFooter.id = 'detailsFooter';
+    statFooterBar.src = './images/page-elements/stat-bar-book.png';
+    statFooterBar.classList.add('statHeadFootBar');
+    mainDetailsDiv.appendChild(statFooterBar);
     detailModal.appendChild(detailsFooter)
-    //detailModal.appendChild(buttonContainer);
-    buttonContainer.appendChild(closeButton);
-        modalListeners()
 
+
+    //Modal Close Button
+    const closeButtonDiv = document.createElement('div');
+    const closeButton = document.createElement('button');
+    const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.id = 'closeButton'
+    detailsFooter.appendChild(closeButtonDiv);
+    closeButton.appendChild(closeButtonTxt);
+
+    //Modal Watermark Button
+    const watermarkToggleDiv = document.createElement('div');
+    const watermarkToggleBtn = document.createElement('button');
+    const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
+    watermarkToggleBtn.id = 'watermarkToggle'
+    detailsFooter.appendChild(watermarkToggleDiv);
+    watermarkToggleBtn.appendChild(watermarkToggleTxt);
+
+    detailModal.showModal();
+    //Set watermark height to account for amout of content
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    closeButtonDiv.appendChild(closeButton);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+    modalListeners()
 };
 
 function setUpSheets() {
@@ -2047,7 +2307,8 @@ function clearPrevPage() {
 };
 
 function modalListeners() {
-    const closeButton = document.getElementById('closeButton')
+    const closeButton = document.getElementById('closeButton');
+    const watermarkToggleBtn = document.getElementById('watermarkToggle');
 
    // Define named functions for event listeners
    function keydownListener(e) {
@@ -2064,24 +2325,21 @@ function modalListeners() {
         cleanUpModal();
     }
 
+    function watermarkTogListener() {
+        const watermark = document.getElementById('watermark');
+        if (watermark.style.display === 'none') {
+            watermark.style.display = 'block';
+        } else {
+            watermark.style.display = 'none';
+        }
+    }
+
     // Add event listeners
     document.addEventListener('keydown', keydownListener);
     document.addEventListener('click', clickListener);
     closeButton.addEventListener('click', closeButtonListener);
-
-    /*     document.addEventListener('keydown', function keydownListener(e) {
-            if (e.key === 'Escape') {
-                cleanUpModal();
-            }
-        });
-        document.addEventListener('click', function clickListener(e) {
-            if (e.target === detailModal) {
-                cleanUpModal();
-            }
-        });
-        closeButton.addEventListener('click', function clickListener() {
-            cleanUpModal();
-        }); */
+    watermarkToggleBtn.addEventListener('click', watermarkTogListener);
+    
 
     function cleanUpModal() {
         const modal = document.getElementById('detailModal');

@@ -57,7 +57,7 @@ body {
 }
 
 h1, h3 {
-    font-family: 'Dragon_Lord', cursive;
+    font-family: Dragon_Hunter, cursive;
     font-weight: 400;
 }
 
@@ -73,14 +73,13 @@ h1 {
 }
 
 h2 {
-    font-family: 'Dragon_Hunter', cursive;
+    font-family: Scala_Sans, cursive;
     font-size: 2.5em;
     font-weight: 900;
-    color:#0c3967;
+    color:#822000;
     width: 100%;
     padding-top: 0.5rem;
     padding-bottom: 0.7rem;
-    text-align: center;
     box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.75);
     background-image: url(./images/page-elements/paper-backer-top.png);
 
@@ -124,9 +123,8 @@ article img {
 }
 
 article {
-    display: flexbox;
+    display: flex;
     text-align: center;
-/*     background-color: #fff; */
     background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
     background-repeat: no-repeat, repeat;
     background-size: 100%;
@@ -140,6 +138,26 @@ article {
     background-image: url(./images/page-elements/paper-backer-top.png), url(./images/page-elements/paper-backer.jpg);
     background-repeat: no-repeat, repeat;
     background-size: 100%;
+    padding: 20px;
+}
+
+.watermark {
+    display: block;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-size: 70%;
+    height: 130%;
+    opacity: 0.3;
+    position: absolute;
+    height: 120%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-attachment: fixed;
     padding: 20px;
 }
 
@@ -173,6 +191,7 @@ article {
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 45px;
+    z-index: +1;
 }
 
 .detailContent {
@@ -340,10 +359,31 @@ article {
     margin-bottom: 20px;
 }
 
+/* Race Detail Styles */
+.raceDetailMain {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-family: Scala_Sans;
+    font-size: 17px;
+    color: #822000;
+}
+
+.raceDetailMain p:first-child {
+    font-family: Scala_Sans_Bold;
+    color: #822000;
+}
+
 #closeButton {
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 0;
+    padding: 2px;
+}
+
+#watermarkToggle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 2px;
 }
 
 strong {
@@ -354,9 +394,18 @@ button {
     margin-top: 1rem;
 }
 
-#pageHeader {
+#pageHeaderContainer {
+    display: flex;
+    text-align: center;
+    padding: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pageHeader {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 20px;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -750,6 +799,11 @@ button {
     }
 
     #closeButton {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    #watermarkToggle {
         margin-top: 20px;
         margin-bottom: 20px;
     }
