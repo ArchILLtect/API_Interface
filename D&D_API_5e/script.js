@@ -137,130 +137,148 @@ async function prepLoad(itemType, dataType='data', itemName) {
     // FIXME P5 - It seems the var "location" is in scope at root - WHY? Try ti get rid of it and then use it here.
     let curLocation;
 
-        if (dataType === 'data') {
-            if (itemName) {
-                // Get details
-                //console.log('details!')
-                dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
+    if (dataType === 'data') {
+        if (itemName) {
+            // Get details
+            //console.log('details!')
+            dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
 
-                const content = dataCache[itemType][itemName];
-                curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
+            const content = dataCache[itemType][itemName];
+            curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
 
-                //(verifyLoadNeed(itemName, 'details')) {
-                if (verifyLoadNeed(itemName, 'details')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
+            //(verifyLoadNeed(itemName, 'details')) {
+            if (verifyLoadNeed(itemName, 'details')) {
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchData(curLocation);
 
-                    cacheData(apiData, itemType, itemName);
-                    if (itemType === 'spells') {
-                        createDetailsWindow(apiData);
-                    } else if (currentPage === 'races') {
-                        raceDetailsWindow(apiData);
-                    } else {
-                        createDetailsWindowNEW(apiData);
-                    }
+                cacheData(apiData, itemType, itemName);
+                if (itemType === 'spells') {
+                    createDetailsWindow(apiData);
+                } else if (currentPage === 'races') {
+                    raceDetailsWindow(apiData);
                 } else {
-                    console.log('API Load NOT needed!');
-                    if (itemType === 'spells') {
-                        createDetailsWindow(content);
-                    } else if (currentPage === 'races') {
-                        raceDetailsWindow(content);
-                    } else {
-                        createDetailsWindowNEW(content);
-                    }
-                }
-            } else if (itemType === 'spells') {
-                // Get spells main items list
-                //console.log('spells')
-                dataCache[itemType] = dataCache[itemType] || {};
-                //console.log(itemType)
-                const content = dataCache[itemType];
-                curLocation = "./localCache/" + itemType + "/localCache.json";
-
-                if (verifyLoadNeed(itemType, 'main')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    //console.log(itemType)
-                    cacheData(apiData, itemType);
-                    return;
-                } else {
-                    console.log('API Load NOT needed!');
-                    return;
-                }
-            } else if (itemType === 'equipment') {
-                //FIXME This is temp until new localCache loading system in place
-                // Get spells main items list
-                //console.log('spells')
-                dataCache[itemType] = dataCache[itemType] || {};
-                //console.log(itemType)
-                const content = dataCache[itemType];
-                curLocation = "./localCache/" + itemType + "/localCache.json";
-
-                if (verifyLoadNeed(itemType, 'main')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    cacheData(apiData, itemType);
-                    return;
-                } else {
-                    console.log('API Load NOT needed!');
-                    return;
+                    createDetailsWindowNEW(apiData);
                 }
             } else {
-                // Get main items list
-                //console.log('main')
-                dataCache[itemType] = dataCache[itemType] || {};
-                //console.log(itemType)
-                const content = dataCache[itemType];
-                curLocation = "./localCache/" + itemType + "/localCache.json";
-
-                if (verifyLoadNeed(itemType, 'main')) {
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchData(curLocation);
-                    cacheData(apiData, itemType);
-                    return;
+                console.log('API Load NOT needed!');
+                if (itemType === 'spells') {
+                    createDetailsWindow(content);
+                } else if (currentPage === 'races') {
+                    raceDetailsWindow(content);
                 } else {
-                    console.log('API Load NOT needed!');
-                    return;
+                    createDetailsWindowNEW(content);
                 }
             }
-        } else if (dataType === 'images') {
-                // Get image list
+        } else if (itemType === 'spells') {
+            // Get spells main items list
+            //console.log('spells')
+            dataCache[itemType] = dataCache[itemType] || {};
+            //console.log(itemType)
+            const content = dataCache[itemType];
+            curLocation = "./localCache/" + itemType + "/localCache.json";
 
-                dataCache['images'] = dataCache['images'] || {};
-                dataCache['images'][itemType] = dataCache['images'][itemType] || {};
+            if (verifyLoadNeed(itemType, 'main')) {
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchData(curLocation);
+                //console.log(itemType)
+                cacheData(apiData, itemType);
+                return;
+            } else {
+                console.log('API Load NOT needed!');
+                return;
+            }
+        } else if (itemType === 'equipment') {
+            //FIXME This is temp until new localCache loading system in place
+            // Get spells main items list
+            //console.log('spells')
+            dataCache[itemType] = dataCache[itemType] || {};
+            //console.log(itemType)
+            const content = dataCache[itemType];
+            curLocation = "./localCache/" + itemType + "/localCache.json";
 
-                curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
+            if (verifyLoadNeed(itemType, 'main')) {
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchData(curLocation);
+                cacheData(apiData, itemType);
+                return;
+            } else {
+                console.log('API Load NOT needed!');
+                return;
+            }
+        } else {
+            // Get main items list
+            //console.log('main')
+            dataCache[itemType] = dataCache[itemType] || {};
+            //console.log(itemType)
+            const content = dataCache[itemType];
+            curLocation = "./localCache/" + itemType + "/localCache.json";
 
-                if (verifyLoadNeed(itemType, 'images')) {
-                    //console.log(`@ prepLoad: itemType: ${itemType}`);
-                    //console.log('@ prepLoad: apiIndex on next log line:');
-                    //console.log(apiIndex);
-                    console.log('API LOAD NEEDED! LOAD NEEDED!');
-                    await fetchSecondaryData(curLocation, 'images');
-                    cacheData(jsonData, itemType);
-                } else {
-                    console.log('API Load NOT needed!');
-                }
-        } else if (dataType === 'filterData') {
+            if (verifyLoadNeed(itemType, 'main')) {
+                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                await fetchData(curLocation);
+                cacheData(apiData, itemType);
+                return;
+            } else {
+                console.log('API Load NOT needed!');
+                return;
+            }
+        }
+    } else if (dataType === 'images') {
+            // Get image list
 
-            dataCache['filterData'] = dataCache['filterData'] || {};
-            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
+            dataCache['images'] = dataCache['images'] || {};
+            dataCache['images'][itemType] = dataCache['images'][itemType] || {};
 
-            curLocation = "./localCache/" + itemType + "/filterInfo.json";
+            curLocation = "./images/" + itemType + "/" + itemType + "Images.json";
 
-            if (verifyLoadNeed(itemType, 'filterData')) {
+            if (verifyLoadNeed(itemType, 'images')) {
                 //console.log(`@ prepLoad: itemType: ${itemType}`);
                 //console.log('@ prepLoad: apiIndex on next log line:');
                 //console.log(apiIndex);
                 console.log('API LOAD NEEDED! LOAD NEEDED!');
-                await fetchSecondaryData(curLocation, 'filterData');
+                await fetchSecondaryData(curLocation, 'images');
                 cacheData(jsonData, itemType);
             } else {
                 console.log('API Load NOT needed!');
             }
-    } else {
-            throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
+    } else if (dataType === 'filterData') {
+
+        dataCache['filterData'] = dataCache['filterData'] || {};
+        dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
+
+        curLocation = "./localCache/" + itemType + "/filterInfo.json";
+
+        if (verifyLoadNeed(itemType, 'filterData')) {
+            //console.log(`@ prepLoad: itemType: ${itemType}`);
+            //console.log('@ prepLoad: apiIndex on next log line:');
+            //console.log(apiIndex);
+            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            await fetchSecondaryData(curLocation, 'filterData');
+            cacheData(jsonData, itemType);
+        } else {
+            console.log('API Load NOT needed!');
         }
+    } else if (dataType === 'traits') {
+        //TODO NEED TO BE FIGURED OUT - TOO TIRED RIGHT NOW
+        dataCache['traits'] = dataCache['traits'] || {};
+        //TODO Does traits need subcategory?
+        dataCache['traits'][itemType] = dataCache['traits'][itemType] || {};
+
+        curLocation = "./localCache/" + itemType + "/filterInfo.json";
+
+        if (verifyLoadNeed(itemType, 'filterData')) {
+            //console.log(`@ prepLoad: itemType: ${itemType}`);
+            //console.log('@ prepLoad: apiIndex on next log line:');
+            //console.log(apiIndex);
+            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            await fetchSecondaryData(curLocation, 'filterData');
+            cacheData(jsonData, itemType);
+        } else {
+            console.log('API Load NOT needed!');
+        }
+    } else {
+        throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
+    }
 };
 
 function cacheData(data, itemType, itemName) {
@@ -1407,21 +1425,6 @@ function createDetailsWindowNEW(data) {
                 }
             }
         }                 
-    } else if (currentPage === 'races') {
-        for (const key in data) {
-            //Add Initial Info
-            if (data.hasOwnProperty(key)) {
-                const eachItem = data[key];
-                const currentDetail = key.replace(/_/g, " ");
-
-                if (key === 'name') {
-                    const detailName = document.createElement('p');
-                    detailName.textContent = eachItem;
-                    detailInitialDiv.appendChild(detailName);
-                    detailName.classList.add('detailName');
-                }
-            }
-        }
     }
 
     //Third Stats Container
@@ -1695,9 +1698,11 @@ function raceDetailsWindow(data) {
     let abilBonValues = [];
     let raceAgeValue = '';
     let raceAlignDesc = '';
+    let raceLangValue = '';
     let raceSizeValue = '';
     let raceSizeDesc = '';
     let raceSpeedValue = '';
+    let traitDivs = [];
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
@@ -1716,13 +1721,28 @@ function raceDetailsWindow(data) {
                 raceAgeValue = eachItem;
             } else if (key === 'alignment') {
                 raceAlignDesc = eachItem;
+            } else if (key === 'language_desc') {
+                raceLangValue = eachItem;
             } else if (key === 'size') {
                 raceSizeValue = eachItem;
             } else if (key === 'size_description') {
                 raceSizeDesc = eachItem;
             } else if (key === 'speed') {
                 raceSpeedValue = eachItem;
-            } else if (key === 'index' || key === 'name' || key === 'url') {
+            } else if (key === 'traits') {
+                for (eachKey in eachItem) {
+                    const traitItem = eachItem[eachKey];
+                    const traitDiv = document.createElement('div');
+                    const traitContent = document.createElement('p');
+                    const curTraitTitle = traitItem.name;
+                    const curTraitIndex = traitItem.index;
+                    traitDiv.className = 'detailTxtDiv';
+                    traitContent.className = 'detailTxtContent';
+                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. DESCRIPTIONS COMING SOON.`;
+                    traitDiv.appendChild(traitContent);
+                    traitDivs.push(traitDiv);
+                }
+            } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
 
             } else {
                 console.log(key)
@@ -1738,17 +1758,17 @@ function raceDetailsWindow(data) {
     raceDescPara.textContent = raceDescTxt;
     
     //Traits
-    const traitsMain = document.createElement('div');
-    const traitsHeader = document.createElement('div');
-    const traitsIntro = document.createElement('p');
-    traitsMain.className = 'detailTxtMain';
-    traitsHeader.className = 'detailTxtHeader';
-    traitsIntro.className = 'detailTxtContent';
-    traitsHeader.textContent = 'Traits';
-    traitsIntro.textContent = traitsIntroTxt;
-    traitsMain.appendChild(traitsHeader);
-    traitsMain.appendChild(traitsIntro);
-    detailTextContent.appendChild(traitsMain);
+    const statsMain = document.createElement('div');
+    const statsHeader = document.createElement('div');
+    //const traitsIntro = document.createElement('p');
+    statsMain.className = 'detailTxtMain';
+    statsHeader.className = 'detailTxtHeader';
+    //traitsIntro.className = 'detailTxtContent';
+    statsHeader.textContent = 'Traits';
+    //traitsIntro.textContent = traitsIntroTxt;
+    statsMain.appendChild(statsHeader);
+    //traitsMain.appendChild(traitsIntro);
+    detailTextContent.appendChild(statsMain);
 
 
     //Ability Bonuses
@@ -1785,6 +1805,15 @@ function raceDetailsWindow(data) {
     alignMain.appendChild(raceAlign);
     detailTextContent.appendChild(alignMain);
 
+    //Languages
+    const langMain = document.createElement('div');
+    const raceLang = document.createElement('p');
+    langMain.className = 'detailTxtDiv';
+    raceLang.className = 'detailTxtContent';
+    raceLang.innerHTML = `<span>Languages</span> ${raceLangValue}`;
+    langMain.appendChild(raceLang);
+    detailTextContent.appendChild(langMain);
+
     //Size
     const sizeMain = document.createElement('div');
     const raceSize = document.createElement('p');
@@ -1807,16 +1836,33 @@ function raceDetailsWindow(data) {
     speedMain.appendChild(raceSpeed);
     detailTextContent.appendChild(speedMain);
 
+    //Special Traits
+    const specialMain = document.createElement('div');
+    const specialHeader = document.createElement('div');
+    const specialIntro = document.createElement('p');
+    specialMain.className = 'detailTxtMain';
+    specialHeader.className = 'detailTxtHeader';
+    specialIntro.className = 'detailTxtContent';
+    specialHeader.textContent = 'Special Traits';
+    specialIntro.textContent = traitsIntroTxt;
+    specialMain.appendChild(specialHeader);
+    specialMain.appendChild(specialIntro);
+    detailTextContent.appendChild(specialMain);
 
+    const traitsMain = document.createElement('div');
+    traitsMain.className = 'detailTxtMain';
+    traitDivs.forEach((curDiv) => {
+        traitsMain.appendChild(curDiv);
+    });
+    detailTextContent.appendChild(traitsMain);
+
+
+    //TODO NEED TO PUT SUBRACES INFO SOMEWHERE
+
+
+    //TODO DO I EVEN WANT THESE HERE??
     const statBarDivOne = document.createElement('div');
     const statsBarOne = document.createElement('img');
-
-
-
-
-
-
-
 
     //Footer
     const detailsFooter = document.createElement('div');
@@ -1907,6 +1953,10 @@ function setNavListen() {
                 hideFilters();
                 currentPage = eachItem.id;
                 await prepLoad(eachItem.id);
+                //TODO NEED TO BE FIGURED OUT - TOO TIRED RIGHT NOW!
+                /* if (eachItem.id === 'races') {
+                    await prepLoad('traits') 
+                } */
                 addContent(dataCache[eachItem.id], 'main');
             } else if (eachItem.id === 'equipment') {
                 //FIXME This is temp until new localCache loading system in place
