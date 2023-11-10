@@ -55,7 +55,7 @@ async function goHome(page) {
     SetHeader(page);
 
     mainElement.classList.remove('sheets');
-    mainElement.classList.add('homeContent');
+    mainElement.classList.add('homePageContent');
 
     // Add HOME info to <main>
     const leftHomeArticle = document.createElement('article');
@@ -107,6 +107,47 @@ async function goHome(page) {
 
 };
 goHome('home');
+
+async function charHome(page) {
+
+    currentPage = page;
+    setMainClass();
+    clearPrevPage();
+    SetHeader(page);
+
+    await prepLoad(page, 'pageData');
+
+    mainElement.classList.remove('sheets');
+    mainElement.classList.add('homeContent');
+
+    // Add Characters info to <main>
+    const charMain = document.createElement('div');
+    mainElement.appendChild(charMain);
+
+    //Races Introduction
+    const raceIntro = document.createElement('div');
+    const raceIntroPara1 = document.createElement('p');
+    const raceIntroPara2 = document.createElement('p');
+    const raceIntroPara3 = document.createElement('p');
+    const raceIntroTxt1 = document.createTextNode(dataCache['characters']['pageData']['intro'].para1);
+    const raceIntroTxt2 = document.createTextNode(dataCache['characters']['pageData']['intro'].para2);
+    const raceIntroTxt3 = document.createTextNode(dataCache['characters']['pageData']['intro'].para3);
+    raceIntroPara1.appendChild(raceIntroTxt1);
+    raceIntroPara2.appendChild(raceIntroTxt2);
+    raceIntroPara3.appendChild(raceIntroTxt3);
+    raceIntro.appendChild(raceIntroPara1);
+    raceIntro.appendChild(raceIntroPara2);
+    raceIntro.appendChild(raceIntroPara3);
+    charMain.appendChild(raceIntro);
+    raceIntro.id = "raceIntro";
+    raceIntro.className = "detailDesc"
+
+    //Choosing a Race
+    const raceChooseHdr = document.createElement('div');
+    raceChooseHdr.className = 'detailTxtHeader';
+    raceChooseHdr.textContent = 'Choosing a Race';
+    charMain.appendChild(raceChooseHdr);
+};
 
 function SetHeader (title, count) {
     const curPageHeader = document.createElement('h2');
@@ -223,6 +264,24 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 return;
             }
         }
+    } else if (dataType === 'pageData') {
+        dataCache[itemType] = dataCache[dataType] || {};
+        dataCache[itemType][dataType] = dataCache[itemType][dataType] || {};
+        //Use this variable if making this reusable
+        //curLocation = "./localCache/" + dataType + "/" + dataType + "DetailsData.json";
+        //TODO P3-1 Migrate traits to be a child of a characters folder.
+        curFile = `./localCache/${capitalizeWords(itemType)}/${itemType}.json`;
+
+        if (verifyLoadNeed(itemType, dataType)) {
+            //console.log(`@ prepLoad: itemType: ${itemType}`);
+            //console.log('@ prepLoad: apiIndex on next log line:');
+            //console.log(apiIndex);
+            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            await fetchSecondaryData(curFile, dataType);
+            cacheData(jsonData, itemType);
+        } else {
+            console.log('API Load NOT needed!');
+        }
     } else if (dataType === 'images') {
             // Get image list
 
@@ -259,25 +318,27 @@ async function prepLoad(itemType, dataType='data', itemName) {
             console.log('API Load NOT needed!');
         }
     } else if (dataType === 'traits') {
-        //TODO NEED TO BE FIGURED OUT - TOO TIRED RIGHT NOW
-        dataCache['traits'] = dataCache['traits'] || {};
+        dataCache['characters']['traits'] = dataCache['characters']['traits'] || {};
         //TODO Does traits need subcategory?
-        dataCache['traits'][itemType] = dataCache['traits'][itemType] || {};
+        //dataCache['traits'][itemType] = dataCache['traits'][itemType] || {};
 
-        curLocation = "./localCache/" + itemType + "/filterInfo.json";
+        //Use this variable if making this reusable
+        //curLocation = "./localCache/" + dataType + "/" + dataType + "DetailsData.json";
+        //TODO P3-1 Migrate traits to be a child of a characters folder.
+        curFile = "./localCache/traits/traitsDetailsData.json";
 
-        if (verifyLoadNeed(itemType, 'filterData')) {
+        if (verifyLoadNeed(itemType, 'traits')) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
             //console.log(apiIndex);
             console.log('API LOAD NEEDED! LOAD NEEDED!');
-            await fetchSecondaryData(curLocation, 'filterData');
+            await fetchSecondaryData(curFile, 'traits');
             cacheData(jsonData, itemType);
         } else {
             console.log('API Load NOT needed!');
         }
     } else {
-        throw new Error(`ERROR: ${itemType} is a new data type or something is VERY wrong!!`)
+        throw new Error(`ERROR: ${dataType} is a new data type or something is VERY wrong!!`)
     }
 };
 
@@ -321,7 +382,6 @@ function cacheData(data, itemType, itemName) {
       }
 
     const numberOfItems = Object.keys(data).length;
-    //console.log(numberOfItems)
 
     if (itemName) {
         // This condiition caches single item details
@@ -385,6 +445,21 @@ function cacheData(data, itemType, itemName) {
         //console.log(`Caching data: ${itemType} object now has ${count} items`);
         return;
 
+    } else if (data.pageData) {
+        // This condition caches filterData
+        if (
+            dataCache[itemType] &&
+            dataCache[itemType]['pageData'] === data
+            ) {
+            console.log('Data already exists');
+            return;
+
+        } else {
+            dataCache[itemType]['pageData'] = dataCache[itemType]['pageData'] || {};
+            dataCache[itemType]['pageData'] = data.pageData;
+            console.log(`Caching data: ${itemType}.pageData object now has ${numberOfItems} items`);
+            return;
+        }
     } else if (data.filenames) {
         // This condition caches image lists
         if (
@@ -420,8 +495,8 @@ function cacheData(data, itemType, itemName) {
     }
 };
 
+//TODO P3-1 I think I can reduce the conditions by reusing for some
 function verifyLoadNeed(prop, dataType) {
-    //const asset = dataCache
     
     if (dataType === 'main') {
         //const checkAsset = asset.hasOwnProperty(prop);
@@ -448,6 +523,20 @@ function verifyLoadNeed(prop, dataType) {
             //console.log('Returning Yes')
             return true;
         }
+    } else if (dataType === 'pageData') {
+        //const checkAsset = asset['images'].hasOwnProperty(prop);
+        const asset = dataCache[prop][dataType]
+        //console.log('Checking images...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
     } else if (dataType === 'images') {
         //const checkAsset = asset['images'].hasOwnProperty(prop);
         const asset = dataCache['images'][prop]
@@ -463,9 +552,7 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'filterData') {
-        //const checkAsset = asset['images'].hasOwnProperty(prop);
         const asset = dataCache['filterData'][prop]
-        //console.log('Checking images...........');
         if (
             asset &&
             Object.keys(asset).length
@@ -474,6 +561,19 @@ function verifyLoadNeed(prop, dataType) {
             return false;
         } else {
             //console.log('Returning Yes')
+            return true;
+        }
+    } else if (dataType === 'traits') {
+        const asset = dataCache['traits']
+        console.log('Checking traits...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            console.log('Returning No')
+            return false;
+        } else {
+            console.log('Returning Yes')
             return true;
         }
     }
@@ -1756,6 +1856,7 @@ function raceDetailsWindow(data) {
     detailTextContent.appendChild(raceDescDiv);
     raceDescDiv.appendChild(raceDescPara);
     raceDescPara.textContent = raceDescTxt;
+    raceDescPara.className = 'detailDesc'
     
     //Traits
     const statsMain = document.createElement('div');
@@ -1769,7 +1870,6 @@ function raceDetailsWindow(data) {
     statsMain.appendChild(statsHeader);
     //traitsMain.appendChild(traitsIntro);
     detailTextContent.appendChild(statsMain);
-
 
     //Ability Bonuses
     const abilBonMain = document.createElement('div');
@@ -1873,7 +1973,6 @@ function raceDetailsWindow(data) {
     mainDetailsDiv.appendChild(statFooterBar);
     detailModal.appendChild(detailsFooter)
 
-
     //Modal Close Button
     const closeButtonDiv = document.createElement('div');
     const closeButton = document.createElement('button');
@@ -1903,7 +2002,7 @@ function setUpSheets() {
     currentPage = 'sheets';
     setMainClass();
 
-    mainElement.classList.remove('homeContent');
+    mainElement.classList.remove('homePageContent');
     mainElement.classList.add('sheets');
 
     clearPrevPage();
@@ -1943,12 +2042,12 @@ function setNavListen() {
         eachItem.addEventListener('click', async function(e){
             e.preventDefault();
             //console.log(eachItem.id)
-            if (eachItem.id === 'home' || eachItem.id === 'characters' || eachItem.id === 'items' || eachItem.id === 'misc') {
+            if (eachItem.id === 'home' || eachItem.id === 'items' || eachItem.id === 'misc') {
                 hideFilters();
                 goHome(eachItem.id);
-            } else if (eachItem.id === 'sheets') {
+            } else if (eachItem.id === 'characters') {
                 hideFilters();
-                setUpSheets();
+                charHome(eachItem.id);
             } else if (eachItem.id === 'races' || eachItem.id === 'classes' || eachItem.id === 'conditions') {
                 hideFilters();
                 currentPage = eachItem.id;
@@ -1964,6 +2063,9 @@ function setNavListen() {
                 currentPage = eachItem.id;
                 await prepLoad(eachItem.id);
                 addContent(dataCache[eachItem.id], 'list');
+            } else if (eachItem.id === 'sheets') {
+                hideFilters();
+                setUpSheets();
             } else {
                 //console.log('ELSE')
                 hideFilters();
@@ -2287,19 +2389,26 @@ async function fetchData(curLocation) {
         apiData = apiIndex
 };
 
-async function fetchSecondaryData(curLocation, dataType) {
-    //console.log(curLocation)
-    if (dataType === 'images') {
-        const jsonPromise = await fetch(curLocation);
+//TODO P3-1 I think I can reduce conditionals by reusing for some
+async function fetchSecondaryData(curFile, dataType) {
+    //console.log(curFile)
+    if (dataType === 'images' || dataType === 'pageData') {
+        const jsonPromise = await fetch(curFile);
         jsonIndex = await jsonPromise.json();
 
         jsonData = jsonIndex;
         jsonCount = jsonIndex.count;
 
     } else if (dataType === 'filterData') {
-        const jsonPromise = await fetch(curLocation);
+        const jsonPromise = await fetch(curFile);
         jsonIndex = await jsonPromise.json();
 
+        jsonData = jsonIndex;
+    } else if (dataType === 'traits') {
+        const jsonPromise = await fetch(curFile);
+        jsonIndex = await jsonPromise.json();
+
+        //FIXME P5 - Why even have jsonData = jsonIndex?
         jsonData = jsonIndex;
     } else {
         console.log('fetchSecondaryData failed due to bad dataType.')
@@ -2318,13 +2427,23 @@ function setContentType(count) {
 
 function setMainClass() {
 
-    if (currentPage === 'home' || currentPage === 'characters' || currentPage === 'items' || currentPage === 'misc') {
+    if (currentPage === 'home' || currentPage === 'items' || currentPage === 'misc') {
+        mainElement.classList.remove('homeContent');
         mainElement.classList.remove('cardContent');
         mainElement.classList.remove('listContent');
         mainElement.classList.remove('sheets');
         mainElement.classList.add('pageContent');
         return;
+    } else if (currentPage === 'characters') {
+        mainElement.classList.remove('homePageContent');
+        mainElement.classList.remove('pageContent');
+        mainElement.classList.remove('cardContent');
+        mainElement.classList.remove('listContent');
+        mainElement.classList.remove('sheets');
+        mainElement.classList.add('homeContent');
+        return;
     } else if (currentPage === 'monsters' || currentPage === 'spells' || currentPage === 'equipment' || currentPage === 'magic-items') {
+        mainElement.classList.remove('homePageContent');
         mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
         mainElement.classList.remove('cardContent');
@@ -2332,8 +2451,8 @@ function setMainClass() {
         mainElement.classList.add('listContent');
         return;
     } else {
-        console.log("num 3")
-        console.log(currentPage)
+        mainElement.classList.remove('homePageContent');
+        mainElement.classList.remove('homeContent');
         mainElement.classList.remove('pageContent');
         mainElement.classList.remove('listContent');
         mainElement.classList.remove('sheets');

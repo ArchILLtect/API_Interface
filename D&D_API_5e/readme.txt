@@ -45,13 +45,17 @@
 10/05/23 - Add resources<br>
 10/06/23 - Add new fonts<br>
 10/06/23 - Upgrade details modals and monsters details display<br>
+10/08/23 - Update details modals for races details display<br>
+10/08/23 - Update to add watermarks to details display<br>
+10/09/23 - Update Python scripts to run from the updateScripts folder<br>
 <br>
 <br>
 <br>
 <br>
 TTD:<br>
 <br>
-*2*Add "Watermark" pics to details page instead of image at top???
+*1*Get rid of the really bad MAIN selector and switch to class selectors<br>
+*1*Upgrade Python scripts to check files and update with changes - IF changed<br>
 Add page setup functions to prepare pages CSS and other info before loading. Add JS/CSS rule mixture to accomodate<br>
 Fix Nav Bar:<br>
 ---Need drop down menus.<br>

@@ -117,6 +117,22 @@ main {
     height: 65vh;
 }
 
+.homePageContent {
+    position: unset;
+    width: auto;
+    top: unset;
+    right: unset;
+}
+
+.homeContent {
+    display: flex;
+    position: unset;
+    width: 98%;
+    top: unset;
+    right: unset;
+    padding: 20px;
+}
+
 article img {
     max-width: 80%;
     height: 300px;
@@ -132,6 +148,16 @@ article {
     padding: 20px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     margin-bottom: 20px;
+}
+
+#charRace {
+    width: 90%;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+#raceIntro p {
+    max-width: 100%;
 }
 
 .modalWindow {
@@ -372,6 +398,11 @@ article {
 .raceDetailMain p:first-child {
     font-family: Scala_Sans_Bold;
     color: #822000;
+}
+
+.detailDesc {
+    font-family: Scala_Sans_Bold;
+    font-weight: 100;
 }
 
 #closeButton {
@@ -823,13 +854,6 @@ button {
     #rightHomeArticle img{
         width: auto;
         height: max-content;
-    }
-
-    .homeContent {
-        position: unset;
-        width: auto;
-        top: unset;
-        right: unset;
     }
 
     .filterContainer {
