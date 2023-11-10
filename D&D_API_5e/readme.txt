@@ -48,6 +48,8 @@
 10/08/23 - Update details modals for races details display<br>
 10/08/23 - Update to add watermarks to details display<br>
 10/09/23 - Update Python scripts to run from the updateScripts folder<br>
+10/09/23 - Upgrade localCache to include multiple new categories<br>
+10/09/23 - Update CSS, integrate traits and homepage info json files<br>
 <br>
 <br>
 <br>
