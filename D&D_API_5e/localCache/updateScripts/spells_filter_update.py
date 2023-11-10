@@ -1,5 +1,6 @@
 # This file should not be moved from the update_scripts folder.
-# Run by using the syntax: $ Python3 <filename>.py <type of data> - Example: Python3 localize_all_api_details.py spells
+# Use this file to update the spellFilter,json file with current filtering details.
+# Run by using the syntax: $ Python3 <filename>.py <type of data>  - Example: Python3 localize_all_api_details.py spells
 # This is only set up for spells ATM
 
 

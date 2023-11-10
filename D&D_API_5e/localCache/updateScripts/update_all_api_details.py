@@ -1,5 +1,6 @@
-# BE SURE TO RUN THIS FILE INSIDE THE DIR/FOLDER YOU WANT THE DATA INSIDE OF!!
-# Run by using the syntax: $ Python3 <filename>.py <type of data> - Example: Python3 localize_all_api_details.py races
+# This file should not be moved from the update_scripts folder.
+# Use a parameter that is a source folder and a data type the creates multiple files and their respective directories that each contain the details for that item.
+# Run by using the syntax: $ Python3 <filename>.py <type of data>  - Example: Python3 update_all_api_details.py races
 
 # Import the necessary modules
 import os
@@ -21,6 +22,11 @@ if not api_last_part.endswith("/"):
 
 # Define the target directory
 target_directory = os.path.join('..', api_last_part)
+
+# Check if the provided parameters are "traits" or "subraces"
+if sys.argv[1] in ["traits", "subraces"]:
+    # Adjust target_directory for "traits" or "subraces"
+    target_directory = os.path.join('..', 'Characters', api_last_part)
 
 # Change the current working directory to the target directory
 os.chdir(target_directory)
