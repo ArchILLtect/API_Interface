@@ -77,7 +77,7 @@ async function goHome(page) {
     const article1Txt3 = document.createTextNode('Please check in regurlarly for new updates. THX!!');
     const article1Txt4 = document.createTextNode('11/01/23 - ADDED MONSTERS AND ITEMS!!! Though be warned it needs LOTS of work still');
     const article1Txt5 = document.createTextNode('November 2023 -COMING SOON: Subclasses, subraces, feats, traits, skills and rule info!!');
-    const article1Txt6 = document.createTextNode('This site dedicated to Nick JR!!!');
+    const article1Txt6 = document.createTextNode('Check the repo @ https://github.com/ArchILLtect/API_Interface');
     leftHomeArticle.appendChild(homeImageSlot1);
     homePage.appendChild(homePageTxt);
     homeArticle.appendChild(homePage);
@@ -92,6 +92,7 @@ async function goHome(page) {
     homeArticle.appendChild(homeArticleItem3);
     homeArticle.appendChild(homeArticleItem4);
     homeArticle.appendChild(homeArticleItem5);
+    homeArticle.appendChild(homeArticleItem6);
     rightHomeArticle.appendChild(homeImageSlot2);
     mainElement.appendChild(leftHomeArticle);
     mainElement.appendChild(homeArticle);
@@ -140,13 +141,80 @@ async function charHome(page) {
     raceIntro.appendChild(raceIntroPara3);
     charMain.appendChild(raceIntro);
     raceIntro.id = "raceIntro";
-    raceIntro.className = "detailDesc"
+    raceIntro.className = "homepageText"
 
-    //Choosing a Race
+    //Choosing a Race Header
     const raceChooseHdr = document.createElement('div');
     raceChooseHdr.className = 'detailTxtHeader';
     raceChooseHdr.textContent = 'Choosing a Race';
     charMain.appendChild(raceChooseHdr);
+
+    //Choosing a Race
+    const raceChoose = document.createElement('div');
+    const raceChoosePara1 = document.createElement('p');
+    const raceChoosePara2 = document.createElement('p');
+    const raceChoosePara3 = document.createElement('p');
+    const raceChoosePara4 = document.createElement('p');
+    const raceChooseTxt1 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para1);
+    const raceChooseTxt2 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para2);
+    const raceChooseTxt3 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para3);
+    const raceChooseTxt4 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para4);
+    raceChoosePara1.appendChild(raceChooseTxt1);
+    raceChoosePara2.appendChild(raceChooseTxt2);
+    raceChoosePara3.appendChild(raceChooseTxt3);
+    raceChoosePara4.appendChild(raceChooseTxt4);
+    raceChoose.appendChild(raceChoosePara1);
+    raceChoose.appendChild(raceChoosePara2);
+    raceChoose.appendChild(raceChoosePara3);
+    raceChoose.appendChild(raceChoosePara4);
+    charMain.appendChild(raceChoose);
+    raceChoose.id = "raceChoose";
+    raceChoose.className = "homepageText"
+
+    //Racial Traits Header
+    const racialTraitsHdr = document.createElement('div');
+    racialTraitsHdr.className = 'detailTxtHeader';
+    racialTraitsHdr.textContent = 'Racial Traits';
+    charMain.appendChild(racialTraitsHdr);
+
+    //Racial Traits
+    const racialTraits = document.createElement('div');
+    const racialTraitsDesc = document.createElement('p');
+    const racialTraitsDiv1 = document.createElement('div');
+    const racialTraitsPara1 = document.createElement('p');
+    const racialTraitsDiv2 = document.createElement('div');
+    const racialTraitsPara2 = document.createElement('p');
+    const racialTraitsDiv3 = document.createElement('div');
+    const racialTraitsPara3 = document.createElement('p');
+    const racialTraitsDiv4 = document.createElement('div');
+    const racialTraitsPara4 = document.createElement('p');
+    const racialTraitsDiv5 = document.createElement('div');
+    const racialTraitsPara5 = document.createElement('p');
+    const racialTraitsDiv6 = document.createElement('div');
+    const racialTraitsPara6 = document.createElement('p');
+    racialTraitsDesc.textContent = dataCache['characters']['pageData']['racialTraits'].desc;
+    racialTraitsPara1.innerHTML = `<span>Ability Score Increase</span>. ${dataCache['characters']['pageData']['racialTraits'].abilScorInc}`;
+    racialTraitsPara2.innerHTML = `<span>Age</span>. ${dataCache['characters']['pageData']['racialTraits'].age}`;
+    racialTraitsPara3.innerHTML = `<span>Size</span>. ${dataCache['characters']['pageData']['racialTraits'].size}`;
+    racialTraitsPara4.innerHTML = `<span>Speed</span>. ${dataCache['characters']['pageData']['racialTraits'].speed}`;
+    racialTraitsPara5.innerHTML = `<span>Languages</span>. ${dataCache['characters']['pageData']['racialTraits'].languages}`;
+    racialTraitsPara6.innerHTML = `<span>Subraces</span>. ${dataCache['characters']['pageData']['racialTraits'].subraces}`;
+    racialTraitsDiv1.className = 'racialTraitsDiv';
+    racialTraitsDiv2.className = 'racialTraitsDiv';
+    racialTraitsDiv3.className = 'racialTraitsDiv';
+    racialTraitsDiv4.className = 'racialTraitsDiv';
+    racialTraitsDiv5.className = 'racialTraitsDiv';
+    racialTraitsDiv6.className = 'racialTraitsDiv';
+    racialTraits.appendChild(racialTraitsDesc);
+    racialTraits.appendChild(racialTraitsPara1);
+    racialTraits.appendChild(racialTraitsPara2);
+    racialTraits.appendChild(racialTraitsPara3);
+    racialTraits.appendChild(racialTraitsPara4);
+    racialTraits.appendChild(racialTraitsPara5);
+    racialTraits.appendChild(racialTraitsPara6);
+    charMain.appendChild(racialTraits);
+    racialTraits.id = "racialTraits";
+    racialTraits.className = "raceTraitsText"
 };
 
 function SetHeader (title, count) {
@@ -210,28 +278,9 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindowNEW(content);
                 }
             }
-        } else if (itemType === 'spells') {
-            // Get spells main items list
-            //console.log('spells')
-            dataCache[itemType] = dataCache[itemType] || {};
-            //console.log(itemType)
-            const content = dataCache[itemType];
-            curLocation = "./localCache/" + itemType + "/localCache.json";
-
-            if (verifyLoadNeed(itemType, 'main')) {
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
-                await fetchData(curLocation);
-                //console.log(itemType)
-                cacheData(apiData, itemType);
-                return;
-            } else {
-                console.log('API Load NOT needed!');
-                return;
-            }
-        } else if (itemType === 'equipment') {
-            //FIXME This is temp until new localCache loading system in place
-            // Get spells main items list
-            //console.log('spells')
+        } else if (itemType === 'spells' || itemType === 'equipment' || itemType === 'monsters') {
+            // Get spells & equipment main items list
+            console.log('main list items')
             dataCache[itemType] = dataCache[itemType] || {};
             //console.log(itemType)
             const content = dataCache[itemType];
@@ -248,7 +297,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             }
         } else {
             // Get main items list
-            //console.log('main')
+            console.log('main but else')
             dataCache[itemType] = dataCache[itemType] || {};
             //console.log(itemType)
             const content = dataCache[itemType];
@@ -301,7 +350,6 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 console.log('API Load NOT needed!');
             }
     } else if (dataType === 'filterData') {
-
         dataCache['filterData'] = dataCache['filterData'] || {};
         dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
 
@@ -552,6 +600,7 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'filterData') {
+        //FIXME P1-1 NOT WORKING but maybe only for items that have empty "filterData.json"
         const asset = dataCache['filterData'][prop]
         if (
             asset &&
@@ -656,6 +705,7 @@ function createCard(data) {
 
     const cardName = document.createElement('h3');
     const cardNameTxt = document.createTextNode(data.name);
+    cardName.className = 'cardTitle';
     cardName.appendChild(cardNameTxt);
 
     const cardPic = document.createElement('img');
@@ -700,6 +750,7 @@ function createListItem(data) {
     
     const listItemName = document.createElement('h3');
     const listItemTxt = document.createTextNode(itemNameData);
+    listItemName.className = 'articleTitle';
     listItemName.appendChild(listItemTxt);
 
     const listItemPic = document.createElement('img');
@@ -714,12 +765,12 @@ function createListItem(data) {
     detailsButton.appendChild(selectButtonTxt);
 
     //console.log(currentPage)
-    if (currentPage === 'equipment') {
+/*     if (currentPage === 'equipment') {
         listItemName.style.fontFamily = "Dragon_Hunter"
         listItemName.style.fontSize = "25px"
     } else {
         listItemName.style.fontFamily = "Dragon_Lord"
-    }
+    } */
 
 
     listItem.appendChild(listItemName);
@@ -857,7 +908,7 @@ function createDetailsWindow(data) {
             const eachItem = data[key];
             const currentItem = `detailItem${itemCounter}`;
             const detailItemDiv = document.createElement('div');
-            detailItemDiv.id = 'detailItemsDiv' + key;
+            detailItemDiv.id = 'detailItemsDiv' + capitalizeWords(key);
             const detailItem = document.createElement('p');
             const detailItemName = document.createElement('p');
             itemCounter++;
