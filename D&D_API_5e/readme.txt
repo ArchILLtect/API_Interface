@@ -51,6 +51,8 @@
 10/09/23 - Upgrade localCache to include multiple new categories<br>
 10/09/23 - Update CSS, integrate traits and homepage info json files<br>
 10/10/23 - Update CSS, charaters homepage info json file and characters hompepage content<br>
+10/10/23 - Upgraded races details to contain traits info<br>
+10/10/23 - Added filter data<br>
 <br>
 <br>
 <br>

@@ -121,33 +121,44 @@ async function charHome(page) {
     mainElement.classList.remove('sheets');
     mainElement.classList.add('homeContent');
 
-    // Add Characters info to <main>
+    //Main Page
     const charMain = document.createElement('div');
     mainElement.appendChild(charMain);
+
+    // Add Characters info to <main>
+    const charRaceDiv = document.createElement('div');
+    charMain.className = 'charMain'
+    charMain.appendChild(charRaceDiv);
+
+    //Races Header
+    const charRaceHdr = document.createElement('div');
+    charRaceHdr.className = 'homepageTxtHeader';
+    charRaceHdr.textContent = 'Races';
+    charRaceDiv.appendChild(charRaceHdr);
 
     //Races Introduction
     const raceIntro = document.createElement('div');
     const raceIntroPara1 = document.createElement('p');
     const raceIntroPara2 = document.createElement('p');
     const raceIntroPara3 = document.createElement('p');
-    const raceIntroTxt1 = document.createTextNode(dataCache['characters']['pageData']['intro'].para1);
-    const raceIntroTxt2 = document.createTextNode(dataCache['characters']['pageData']['intro'].para2);
-    const raceIntroTxt3 = document.createTextNode(dataCache['characters']['pageData']['intro'].para3);
+    const raceIntroTxt1 = document.createTextNode(dataCache['characters']['pageData']['races']['intro'].para1);
+    const raceIntroTxt2 = document.createTextNode(dataCache['characters']['pageData']['races']['intro'].para2);
+    const raceIntroTxt3 = document.createTextNode(dataCache['characters']['pageData']['races']['intro'].para3);
     raceIntroPara1.appendChild(raceIntroTxt1);
     raceIntroPara2.appendChild(raceIntroTxt2);
     raceIntroPara3.appendChild(raceIntroTxt3);
     raceIntro.appendChild(raceIntroPara1);
     raceIntro.appendChild(raceIntroPara2);
     raceIntro.appendChild(raceIntroPara3);
-    charMain.appendChild(raceIntro);
+    charRaceDiv.appendChild(raceIntro);
     raceIntro.id = "raceIntro";
-    raceIntro.className = "homepageText"
+    raceIntro.className = "homepageText";
 
     //Choosing a Race Header
     const raceChooseHdr = document.createElement('div');
     raceChooseHdr.className = 'detailTxtHeader';
     raceChooseHdr.textContent = 'Choosing a Race';
-    charMain.appendChild(raceChooseHdr);
+    charRaceDiv.appendChild(raceChooseHdr);
 
     //Choosing a Race
     const raceChoose = document.createElement('div');
@@ -155,10 +166,10 @@ async function charHome(page) {
     const raceChoosePara2 = document.createElement('p');
     const raceChoosePara3 = document.createElement('p');
     const raceChoosePara4 = document.createElement('p');
-    const raceChooseTxt1 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para1);
-    const raceChooseTxt2 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para2);
-    const raceChooseTxt3 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para3);
-    const raceChooseTxt4 = document.createTextNode(dataCache['characters']['pageData']['chooseRace'].para4);
+    const raceChooseTxt1 = document.createTextNode(dataCache['characters']['pageData']['races']['chooseRace'].para1);
+    const raceChooseTxt2 = document.createTextNode(dataCache['characters']['pageData']['races']['chooseRace'].para2);
+    const raceChooseTxt3 = document.createTextNode(dataCache['characters']['pageData']['races']['chooseRace'].para3);
+    const raceChooseTxt4 = document.createTextNode(dataCache['characters']['pageData']['races']['chooseRace'].para4);
     raceChoosePara1.appendChild(raceChooseTxt1);
     raceChoosePara2.appendChild(raceChooseTxt2);
     raceChoosePara3.appendChild(raceChooseTxt3);
@@ -167,7 +178,7 @@ async function charHome(page) {
     raceChoose.appendChild(raceChoosePara2);
     raceChoose.appendChild(raceChoosePara3);
     raceChoose.appendChild(raceChoosePara4);
-    charMain.appendChild(raceChoose);
+    charRaceDiv.appendChild(raceChoose);
     raceChoose.id = "raceChoose";
     raceChoose.className = "homepageText"
 
@@ -175,7 +186,7 @@ async function charHome(page) {
     const racialTraitsHdr = document.createElement('div');
     racialTraitsHdr.className = 'detailTxtHeader';
     racialTraitsHdr.textContent = 'Racial Traits';
-    charMain.appendChild(racialTraitsHdr);
+    charRaceDiv.appendChild(racialTraitsHdr);
 
     //Racial Traits
     const racialTraits = document.createElement('div');
@@ -192,13 +203,13 @@ async function charHome(page) {
     const racialTraitsPara5 = document.createElement('p');
     const racialTraitsDiv6 = document.createElement('div');
     const racialTraitsPara6 = document.createElement('p');
-    racialTraitsDesc.textContent = dataCache['characters']['pageData']['racialTraits'].desc;
-    racialTraitsPara1.innerHTML = `<span>Ability Score Increase</span>. ${dataCache['characters']['pageData']['racialTraits'].abilScorInc}`;
-    racialTraitsPara2.innerHTML = `<span>Age</span>. ${dataCache['characters']['pageData']['racialTraits'].age}`;
-    racialTraitsPara3.innerHTML = `<span>Size</span>. ${dataCache['characters']['pageData']['racialTraits'].size}`;
-    racialTraitsPara4.innerHTML = `<span>Speed</span>. ${dataCache['characters']['pageData']['racialTraits'].speed}`;
-    racialTraitsPara5.innerHTML = `<span>Languages</span>. ${dataCache['characters']['pageData']['racialTraits'].languages}`;
-    racialTraitsPara6.innerHTML = `<span>Subraces</span>. ${dataCache['characters']['pageData']['racialTraits'].subraces}`;
+    racialTraitsDesc.textContent = dataCache['characters']['pageData']['races']['racialTraits'].desc;
+    racialTraitsPara1.innerHTML = `<span>Ability Score Increase</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].abilScorInc}`;
+    racialTraitsPara2.innerHTML = `<span>Age</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].age}`;
+    racialTraitsPara3.innerHTML = `<span>Size</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].size}`;
+    racialTraitsPara4.innerHTML = `<span>Speed</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].speed}`;
+    racialTraitsPara5.innerHTML = `<span>Languages</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].languages}`;
+    racialTraitsPara6.innerHTML = `<span>Subraces</span>. ${dataCache['characters']['pageData']['races']['racialTraits'].subraces}`;
     racialTraitsDiv1.className = 'racialTraitsDiv';
     racialTraitsDiv2.className = 'racialTraitsDiv';
     racialTraitsDiv3.className = 'racialTraitsDiv';
@@ -212,9 +223,64 @@ async function charHome(page) {
     racialTraits.appendChild(racialTraitsPara4);
     racialTraits.appendChild(racialTraitsPara5);
     racialTraits.appendChild(racialTraitsPara6);
-    charMain.appendChild(racialTraits);
+    charRaceDiv.appendChild(racialTraits);
     racialTraits.id = "racialTraits";
-    racialTraits.className = "raceTraitsText"
+    racialTraits.className = "raceTraitsText";
+
+    // Add Characters info to <main>
+    const charClassDiv = document.createElement('div');
+    charMain.appendChild(charClassDiv);
+    
+    //Classes Header
+    const charClassHdr = document.createElement('div');
+    charClassHdr.className = 'homepageTxtHeader';
+    charClassHdr.textContent = 'Classes';
+    charClassDiv.appendChild(charClassHdr);
+
+    //Races Introduction
+    const classIntro = document.createElement('div');
+    const classIntroPara1 = document.createElement('p');
+    const classIntroPara2 = document.createElement('p');
+    const classIntroPara3 = document.createElement('p');
+    const classIntroPara4 = document.createElement('p');
+    const classIntroPara5 = document.createElement('p');
+    const classIntroTxt1 = document.createTextNode(dataCache['characters']['pageData']['classes']['intro'].para1);
+    const classIntroTxt2 = document.createTextNode(dataCache['characters']['pageData']['classes']['intro'].para2);
+    const classIntroTxt3 = document.createTextNode(dataCache['characters']['pageData']['classes']['intro'].para3);
+    const classIntroTxt4 = document.createTextNode(dataCache['characters']['pageData']['classes']['intro'].para4);
+    const classIntroTxt5 = document.createTextNode(dataCache['characters']['pageData']['classes']['intro'].para5);
+    classIntroPara1.appendChild(classIntroTxt1);
+    classIntroPara2.appendChild(classIntroTxt2);
+    classIntroPara3.appendChild(classIntroTxt3);
+    classIntroPara4.appendChild(classIntroTxt4);
+    classIntroPara5.appendChild(classIntroTxt5);
+    classIntro.appendChild(classIntroPara1);
+    classIntro.appendChild(classIntroPara2);
+    classIntro.appendChild(classIntroPara3);
+    classIntro.appendChild(classIntroPara4);
+    classIntro.appendChild(classIntroPara5);
+    charClassDiv.appendChild(classIntro);
+    classIntro.id = "classIntro";
+    classIntro.className = "homepageText";
+
+    //Classes Summary Header
+    const classChooseHdr = document.createElement('div');
+    classChooseHdr.className = 'detailTxtHeader';
+    classChooseHdr.textContent = 'Classes Summary';
+    charClassDiv.appendChild(classChooseHdr);
+
+    //Build the Classes Summary Table
+    const classSummaryDiv = document.createElement('div');
+    const classSummaryTable = document.createElement('table');
+    const classSummaryKeys = Object.keys(dataCache['characters']['pageData']['classes']['classesSummary'][0]);
+    const classSummaryData = dataCache['characters']['pageData']['classes']['classesSummary'];
+    classSummaryDiv.className = 'class-summary-div';
+    classSummaryTable.className = 'class-summary-table';
+    charClassDiv.appendChild(classSummaryDiv);
+    classSummaryDiv.appendChild(classSummaryTable);
+
+    generateTable(classSummaryTable, classSummaryData);
+    generateTableHead(classSummaryTable, classSummaryKeys);
 };
 
 function SetHeader (title, count) {
@@ -280,7 +346,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             }
         } else if (itemType === 'spells' || itemType === 'equipment' || itemType === 'monsters') {
             // Get spells & equipment main items list
-            console.log('main list items')
+            //console.log('main list items')
             dataCache[itemType] = dataCache[itemType] || {};
             //console.log(itemType)
             const content = dataCache[itemType];
@@ -297,7 +363,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             }
         } else {
             // Get main items list
-            console.log('main but else')
+            //console.log('main but else')
             dataCache[itemType] = dataCache[itemType] || {};
             //console.log(itemType)
             const content = dataCache[itemType];
@@ -366,6 +432,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
             console.log('API Load NOT needed!');
         }
     } else if (dataType === 'traits') {
+        //console.log('traits prepping');
+        dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters']['traits'] = dataCache['characters']['traits'] || {};
         //TODO Does traits need subcategory?
         //dataCache['traits'][itemType] = dataCache['traits'][itemType] || {};
@@ -373,7 +441,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
         //Use this variable if making this reusable
         //curLocation = "./localCache/" + dataType + "/" + dataType + "DetailsData.json";
         //TODO P3-1 Migrate traits to be a child of a characters folder.
-        curFile = "./localCache/traits/traitsDetailsData.json";
+        curFile = "./localCache/Characters/traits/traitsDetailsData.json";
 
         if (verifyLoadNeed(itemType, 'traits')) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
@@ -381,7 +449,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             //console.log(apiIndex);
             console.log('API LOAD NEEDED! LOAD NEEDED!');
             await fetchSecondaryData(curFile, 'traits');
-            cacheData(jsonData, itemType);
+            cacheData(jsonData, 'traits');
         } else {
             console.log('API Load NOT needed!');
         }
@@ -436,16 +504,16 @@ function cacheData(data, itemType, itemName) {
     
         if (dataCache[itemType][itemName]) {
             if (deepEqual(dataCache[itemType][itemName], data)) {
-                console.log(`${itemName} is already cached`);
+                //console.log(`${itemName} is already cached`);
                 return;
             } else {
-                console.log(`Data conflict for ${itemType} object. DataCache already contains items.`);
+                //console.log(`Data conflict for ${itemType} object. DataCache already contains items.`);
             }
         }
 
         dataCache[itemType][itemName] = dataCache[itemType][itemName] || {};
         dataCache[itemType][itemName] = data;
-        console.log(`Caching data: ${itemType}/${itemName} object now has ${numberOfItems} items`);
+        //console.log(`Caching data: ${itemType}/${itemName} object now has ${numberOfItems} items`);
         return;
     
     
@@ -535,7 +603,22 @@ function cacheData(data, itemType, itemName) {
         } else {
             dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
             dataCache['filterData'][itemType] = data.filterData;
-            console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
+            //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
+            return;
+        }
+    } else if (data.traitsData) {
+        // This condition caches filterData
+        if (
+            dataCache['characters'] &&
+            dataCache['characters'][itemType] === data
+            ) {
+            console.log('Data already exists');
+            return;
+
+        } else {
+            dataCache['characters'][itemType] = dataCache['characters'][itemType] || {};
+            dataCache['characters'][itemType] = data.traitsData;
+            //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
             return;
         }
     } else {
@@ -614,15 +697,15 @@ function verifyLoadNeed(prop, dataType) {
         }
     } else if (dataType === 'traits') {
         const asset = dataCache['traits']
-        console.log('Checking traits...........');
+        //console.log('Checking traits...........');
         if (
             asset &&
             Object.keys(asset).length
             ) {
-            console.log('Returning No')
+            //console.log('Returning No')
             return false;
         } else {
-            console.log('Returning Yes')
+            //console.log('Returning Yes')
             return true;
         }
     }
@@ -641,15 +724,14 @@ function addContent(data, type) {
 };
 
 async function addCards(data, count) {
-    //console.log('@addCards data =');
-    //console.log(data);
-    //console.log(count)
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
-    //SetHeader(globalData.currentPage);
 
+    await prepLoad(currentPage, 'images');
+    await prepLoad(currentPage, 'filterData');
+    await prepLoad(currentPage, 'traits');
     // Add cards to the page:
     for (const key in data) {
         createCard(data[key]);
@@ -661,11 +743,9 @@ async function addCards(data, count) {
     resetFilter();
     readyFilter();
 
-    await prepLoad(currentPage, 'images')
     //await fetchData(IMG_LIST_LOC, currentPage, 'image');
 
     placeImages(ALL_IMG, 'card');
-
 };
 
 async function addList(data, count) {
@@ -673,7 +753,6 @@ async function addList(data, count) {
     // Clear previous page and set new title:
     clearPrevPage();
     SetHeader(currentPage, count);
-    //SetHeader(globalData.currentPage);
 
     //Load page's secondary data
     await prepLoad(currentPage, 'images');
@@ -693,12 +772,11 @@ async function addList(data, count) {
     resetFilter();
     readyFilter();
     placeImages(ALL_IMG, 'list');
-
 };
 
 function createCard(data) {
     const cardNameRaw = data.index
-    console.log(data.index)
+    //console.log(data.index)
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
     card.id = cardNameRaw;
@@ -1254,8 +1332,8 @@ function createDetailsWindow(data) {
 
 function createDetailsWindowNEW(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
-    console.log(data)
-    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    //console.log(data)
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -1766,8 +1844,8 @@ function createDetailsWindowNEW(data) {
 function raceDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const raceType = data.index;
-    console.log(data)
-    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    //console.log(data)
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -1792,7 +1870,9 @@ function raceDetailsWindow(data) {
     detailsHeader.appendChild(detailName);
     detailModal.appendChild(detailsHeader);
     detailsHeader.id = 'detailsHeader';
+    detailName.className = 'detailHeader'
     detailName.textContent = data.name;
+
 
     //Details Content
     const mainDetailsDiv = document.createElement('div');
@@ -1889,7 +1969,7 @@ function raceDetailsWindow(data) {
                     const curTraitIndex = traitItem.index;
                     traitDiv.className = 'detailTxtDiv';
                     traitContent.className = 'detailTxtContent';
-                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. DESCRIPTIONS COMING SOON.`;
+                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
                     traitDiv.appendChild(traitContent);
                     traitDivs.push(traitDiv);
                 }
@@ -2456,6 +2536,7 @@ async function fetchSecondaryData(curFile, dataType) {
 
         jsonData = jsonIndex;
     } else if (dataType === 'traits') {
+        //console.log('loading traits')
         const jsonPromise = await fetch(curFile);
         jsonIndex = await jsonPromise.json();
 
@@ -2650,6 +2731,29 @@ function placeImages(articles, type) {
         };
     };
 
+};
+
+function generateTableHead(table, data) {
+    const thead = table.createTHead();
+    const row = thead.insertRow();
+    for (const key of data) {
+      const th = document.createElement("th");
+      const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+      const text = document.createTextNode(capitalizeWords(fixedKey));
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+};
+
+function generateTable(table, data) {
+    for (const element of data) {
+        const row = table.insertRow();
+        for (key in element) {
+            const cell = row.insertCell();
+            const text = document.createTextNode(element[key]);
+            cell.appendChild(text);
+            }
+    }
 };
 
 function extractPortion(string, portionIndex, separator="/") {
