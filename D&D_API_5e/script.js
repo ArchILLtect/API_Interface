@@ -44,14 +44,8 @@ const dataCache = {};
 async function goHome(page) {
 
     currentPage = page;
-
     setMainClass();
-
-    // Clear previous page
     clearPrevPage();
-
-    // Set page header to HOME
-
     SetHeader(page);
 
     mainElement.classList.remove('sheets');
@@ -380,8 +374,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
             }
         }
     } else if (dataType === 'pageData') {
-        dataCache[itemType] = dataCache[dataType] || {};
-        dataCache[itemType][dataType] = dataCache[itemType][dataType] || {};
+        dataCache['characters'] = dataCache['characters'] || {};
+        dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
         //Use this variable if making this reusable
         //curLocation = "./localCache/" + dataType + "/" + dataType + "DetailsData.json";
         //TODO P3-1 Migrate traits to be a child of a characters folder.
@@ -562,17 +556,17 @@ function cacheData(data, itemType, itemName) {
         return;
 
     } else if (data.pageData) {
-        // This condition caches filterData
+        // This condition caches pageData
         if (
-            dataCache[itemType] &&
-            dataCache[itemType]['pageData'] === data
+            dataCache['characters'] &&
+            dataCache['characters']['pageData'] === data
             ) {
             console.log('Data already exists');
             return;
 
         } else {
-            dataCache[itemType]['pageData'] = dataCache[itemType]['pageData'] || {};
-            dataCache[itemType]['pageData'] = data.pageData;
+            dataCache['characters']['pageData'] = dataCache['characters']['pageData'] || {};
+            dataCache['characters']['pageData'] = data.pageData;
             console.log(`Caching data: ${itemType}.pageData object now has ${numberOfItems} items`);
             return;
         }
@@ -607,17 +601,17 @@ function cacheData(data, itemType, itemName) {
             return;
         }
     } else if (data.traitsData) {
-        // This condition caches filterData
+        // This condition caches traitsData
         if (
             dataCache['characters'] &&
-            dataCache['characters'][itemType] === data
+            dataCache['characters']['traits'] === data
             ) {
             console.log('Data already exists');
             return;
 
         } else {
-            dataCache['characters'][itemType] = dataCache['characters'][itemType] || {};
-            dataCache['characters'][itemType] = data.traitsData;
+            dataCache['characters']['traits'] = dataCache['characters']['traits'] || {};
+            dataCache['characters']['traits'] = data.traitsData;
             //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
             return;
         }
@@ -1858,11 +1852,6 @@ function raceDetailsWindow(data) {
     watermarkDiv.id = 'watermark';
     watermarkDiv.className = 'watermark';
     detailModal.appendChild(watermarkDiv);
-    if (currentPage === 'spells') {
-    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.gif)`;
-    } else {
-    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
-    }
 
     //Header
     const detailsHeader = document.createElement('div');
@@ -1934,12 +1923,15 @@ function raceDetailsWindow(data) {
     let raceSizeDesc = '';
     let raceSpeedValue = '';
     let traitDivs = [];
+    let draconicAncestryData = [];
+    const draconicAncestryTable = document.createElement('table');
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
             const eachItem = data[key];
             const currentDetail = key.replace(/_/g, " ");
-
+            console.log(eachItem)
+            //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Porfs[options](?)
             if (key === 'ability_bonuses') {
                 for (eachKey in eachItem) {
                     const abilBonItem = eachItem[eachKey];
@@ -1972,6 +1964,34 @@ function raceDetailsWindow(data) {
                     traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
                     traitDiv.appendChild(traitContent);
                     traitDivs.push(traitDiv);
+                    if (curTraitIndex === 'draconic-ancestry') {
+                        const traitItem = dataCache.characters.traits;
+                        const draconicAncestryDiv = document.createElement('div');
+                        draconicAncestryDiv.className = 'class-summary-div';
+                        draconicAncestryTable.className = 'class-summary-table';
+                        draconicAncestryDiv.appendChild(draconicAncestryTable)
+                        for (traitKey in traitItem) {
+                            if (traitKey.startsWith('draconic-ancestry-')) {
+                                const index = traitItem[traitKey].index;
+                                const AOE_SIZE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.size;
+                                const AOE_TYPE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.type;
+                                const DC_SAVE = traitItem[traitKey].trait_specific.breath_weapon.dc.dc_type.index;
+                                const dragonType = capitalizeWords(extractPortion(index, 2, "-"));
+                                const damage_type = traitItem[traitKey].trait_specific.damage_type.name;
+                                let breathWeapon = '';
+                                if (AOE_SIZE === 30) {
+                                    breathWeapon = `5 by ${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`;
+                                } else {
+                                    breathWeapon = `${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`
+                                }
+                                const draconicAncestry = { "name": dragonType, "damage_type": damage_type, "breath_weapon": breathWeapon };
+                                draconicAncestryData.push(draconicAncestry);
+                            }
+                        }
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
+                        traitDivs.push(draconicAncestryDiv);
+                    }
+                
                 }
             } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
 
@@ -2079,14 +2099,17 @@ function raceDetailsWindow(data) {
     specialMain.appendChild(specialHeader);
     specialMain.appendChild(specialIntro);
     detailTextContent.appendChild(specialMain);
-
     const traitsMain = document.createElement('div');
     traitsMain.className = 'detailTxtMain';
     traitDivs.forEach((curDiv) => {
         traitsMain.appendChild(curDiv);
     });
     detailTextContent.appendChild(traitsMain);
-
+    if (raceType === 'dragonborn') {
+        const draconicAncestryKeys = Object.keys(draconicAncestryData[0]);
+        generateTable(draconicAncestryTable, draconicAncestryData);
+        generateTableHead(draconicAncestryTable, draconicAncestryKeys);
+    }
 
     //TODO NEED TO PUT SUBRACES INFO SOMEWHERE
 
@@ -2758,7 +2781,7 @@ function generateTable(table, data) {
 
 function extractPortion(string, portionIndex, separator="/") {
     // Ex. console.log(extractPortion(url, 0));  // Returns "www.example.co"
-    // Ex. console.log(extractPortion(url, 4, "/"));  // Returns "with"
+    // Ex. console.log(extractPortion("three-word-string", 2, "-"));  // Returns "word"
     // Takes a string and returns a string that consists of the wanted portion only
 
     string = string.trim().replace(/(^\/|\/$)/g, ''); // Remove leading/trailing separators ("/") and any trim
