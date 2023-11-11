@@ -1,25 +1,135 @@
 {
     "pageData": {
-        "intro": {
-            "para1": "A visit to one of the great cities in the worlds of Dungeons & Dragons — Waterdeep, the Free City of Greyhawk, or even uncanny Sigil, the City of Doors — overwhelms the senses. Voices chatter in countless different languages. The smells of cooking in dozens of different cuisines mingle with the odors of crowded streets and poor sanitation. Buildings in myriad architectural styles display the diverse origins of their inhabitants.",
-            "para2": "And the people themselves — people of varying size, shape, and color, dressed in a dazzling spectrum of styles and hues — represent many different races, from diminutive halflings and stout dwarves to majestically beautiful elves, mingling among a variety of human ethnicities.",
-            "para3": "Scattered among these common peoples are less numerous folk: a hulking dragonborn here, pushing his way through the crowd, and a sly tiefling there, lurking in the shadows with mischief in her eyes. A group of gnomes laughs as one of them activates a clever wooden toy that moves of its own accord. Half-elves and half-orcs live and work alongside humans, without fully belonging to the races of either of their parents. And there, well out of the sunlight, is a lone drow — a fugitive from the subterranean expanse of the Underdark, trying to make his way in a world that fears his kind."
-        },
-        "chooseRace": {
-            "para1": "Humans are the most common people in the worlds of D&D, but they live and work alongside dwarves, elves, halflings, and countless other fantastic species. Your character belongs to one of these peoples.",
-            "para2": "Not every intelligent race of the multiverse is appropriate for a player-controlled adventurer. Dwarves, elves, halflings, and humans are the most common races to produce the sort of adventurers who make up typical parties. Dragonborn, gnomes, half-elves, half-orcs, and tieflings are less common as adventurers. Drow, a subrace of elves, are also uncommon.",
-            "para3": "Your choice of race affects many different aspects of your character. It establishes fundamental qualities that exist throughout your character’s adventuring career. When making this decision, keep in mind the kind of character you want to play. For example, a halfling could be a good choice for a sneaky rogue, a dwarf makes a tough warrior, and an elf can be a master of arcane magic.",
-            "para4": "Your character race not only affects your ability scores and traits but also provides the cues for building your character’s story. Each race’s description in this section includes information to help you roleplay a character of that race, including personality, physical appearance, and features of society. These details are suggestions to help you think about your character; adventurers can deviate widely from the norm for their race. It’s worthwhile to consider why your character is different, as a helpful way to think about your character’s background and personality."
+        "races": {
+            "intro": {
+                "para1": "A visit to one of the great cities in the worlds of Dungeons & Dragons — Waterdeep, the Free City of Greyhawk, or even uncanny Sigil, the City of Doors — overwhelms the senses. Voices chatter in countless different languages. The smells of cooking in dozens of different cuisines mingle with the odors of crowded streets and poor sanitation. Buildings in myriad architectural styles display the diverse origins of their inhabitants.",
+                "para2": "And the people themselves — people of varying size, shape, and color, dressed in a dazzling spectrum of styles and hues — represent many different races, from diminutive halflings and stout dwarves to majestically beautiful elves, mingling among a variety of human ethnicities.",
+                "para3": "Scattered among these common peoples are less numerous folk: a hulking dragonborn here, pushing his way through the crowd, and a sly tiefling there, lurking in the shadows with mischief in her eyes. A group of gnomes laughs as one of them activates a clever wooden toy that moves of its own accord. Half-elves and half-orcs live and work alongside humans, without fully belonging to the races of either of their parents. And there, well out of the sunlight, is a lone drow — a fugitive from the subterranean expanse of the Underdark, trying to make his way in a world that fears his kind."
+            },
+            "chooseRace": {
+                "para1": "Humans are the most common people in the worlds of D&D, but they live and work alongside dwarves, elves, halflings, and countless other fantastic species. Your character belongs to one of these peoples.",
+                "para2": "Not every intelligent race of the multiverse is appropriate for a player-controlled adventurer. Dwarves, elves, halflings, and humans are the most common races to produce the sort of adventurers who make up typical parties. Dragonborn, gnomes, half-elves, half-orcs, and tieflings are less common as adventurers. Drow, a subrace of elves, are also uncommon.",
+                "para3": "Your choice of race affects many different aspects of your character. It establishes fundamental qualities that exist throughout your character’s adventuring career. When making this decision, keep in mind the kind of character you want to play. For example, a halfling could be a good choice for a sneaky rogue, a dwarf makes a tough warrior, and an elf can be a master of arcane magic.",
+                "para4": "Your character race not only affects your ability scores and traits but also provides the cues for building your character’s story. Each race’s description in this section includes information to help you roleplay a character of that race, including personality, physical appearance, and features of society. These details are suggestions to help you think about your character; adventurers can deviate widely from the norm for their race. It’s worthwhile to consider why your character is different, as a helpful way to think about your character’s background and personality."
 
+            },
+            "racialTraits": {
+                "desc": "The description of each race includes racial traits that are common to members of that race. The following entries appear among the traits of most races.",
+                "abilScorInc": "A race that has this trait increases one or more of a character’s ability scores.",
+                "age": "The age entry notes the age when a member of the race is considered an adult, as well as the race’s expected lifespan. This information can help you decide how old your character is at the start of the game. You can choose any age for your character, which could provide an explanation for some of your ability scores. For example, if you play a young or very old character, your age could explain a particularly low Strength or Constitution score, while advanced age could account for a high Intelligence or Wisdom.",
+                "size": "Characters of most races are Medium, a size category including creatures that are roughly 4 to 8 feet tall. Members of a few races are Small (between 2 and 4 feet tall), which means that certain rules of the game affect them differently. The most important of these rules is that Small characters have trouble wielding heavy weapons, as explained in the Equipment section.",
+                "speed": "Your speed determines how far you can move when traveling (“Adventuring”) and fighting (“Combat”).",
+                "languages": "Your character can speak, read, and write certain languages. “Personality and Background” lists the most common languages of the D&D multiverse.",
+                "subraces": "Some races have subraces. Members of a subrace have the traits of the parent race in addition to the traits specified for their subrace. Relationships among subraces vary significantly from race to race and world to world. In the Dragonlance campaign setting, for example, mountain dwarves and hill dwarves live together as different clans of the same people, but in the Forgotten Realms, they live far apart in separate kingdoms and call themselves shield dwarves and gold dwarves, respectively."
+            }
         },
-        "racialTraits": {
-            "desc": "The description of each race includes racial traits that are common to members of that race. The following entries appear among the traits of most races.",
-            "abilScorInc": "A race that has this trait increases one or more of a character’s ability scores.",
-            "age": "The age entry notes the age when a member of the race is considered an adult, as well as the race’s expected lifespan. This information can help you decide how old your character is at the start of the game. You can choose any age for your character, which could provide an explanation for some of your ability scores. For example, if you play a young or very old character, your age could explain a particularly low Strength or Constitution score, while advanced age could account for a high Intelligence or Wisdom.",
-            "size": "Characters of most races are Medium, a size category including creatures that are roughly 4 to 8 feet tall. Members of a few races are Small (between 2 and 4 feet tall), which means that certain rules of the game affect them differently. The most important of these rules is that Small characters have trouble wielding heavy weapons, as explained in the Equipment section.",
-            "speed": "Your speed determines how far you can move when traveling (“Adventuring”) and fighting (“Combat”).",
-            "languages": "Your character can speak, read, and write certain languages. “Personality and Background” lists the most common languages of the D&D multiverse.",
-            "subraces": "Some races have subraces. Members of a subrace have the traits of the parent race in addition to the traits specified for their subrace. Relationships among subraces vary significantly from race to race and world to world. In the Dragonlance campaign setting, for example, mountain dwarves and hill dwarves live together as different clans of the same people, but in the Forgotten Realms, they live far apart in separate kingdoms and call themselves shield dwarves and gold dwarves, respectively."
+        "classes": {
+            "intro": {
+                "para1": "Adventurers are extraordinary people, driven by a thirst for excitement into a life that others would never dare lead. They are heroes, compelled to explore the dark places of the world and take on the challenges that lesser women and men can’t stand against.",
+                "para2": "Class is the primary definition of what your character can do. It’s more than a profession; it’s your character’s calling. Class shapes the way you think about the world and interact with it and your relationship with other people and powers in the multiverse. A fighter, for example, might view the world in pragmatic terms of strategy and maneuvering, and see herself as just a pawn in a much larger game. A cleric, by contrast, might see himself as a willing servant in a god’s unfolding plan or a conflict brewing among various deities. While the fighter has contacts in a mercenary company or army, the cleric might know a number of priests, paladins, and devotees who share his faith.",
+                "para3": "Your class gives you a variety of special features, such as a fighter’s mastery of weapons and armor, and a wizard’s spells. At low levels, your class gives you only two or three features, but as you advance in level you gain more and your existing features often improve. Each class entry in this chapter includes a table summarizing the benefits you gain at every level, and a detailed explanation of each one.",
+                "para4": "Adventurers sometimes advance in more than one class. A rogue might switch direction in life and swear the oath of a paladin. A barbarian might discover latent magical ability and dabble in the sorcerer class while continuing to advance as a barbarian. Elves are known to combine martial mastery with magical training and advance as fighters and wizards simultaneously. Optional rules for combining classes in this way, called multiclassing, appear in chapter 6.",
+                "para5": "Twelve classes — listed in the Classes table — are found in almost every D&D world and define the spectrum of typical adventurers."
+            },
+            "classesSummary":
+            [
+                {
+                    "name": "Barbarian",
+                    "description": "A fierce warrior of primitive background who can enter a battle rage",
+                    "hit-die": "d12",
+                    "primary-ability": "Strength",
+                    "saving-throw-proficiencies": "Strength & Constitution",
+                    "armor-&-weapon-proficiencies": "Light and medium armor, shields, simple and martial weapons"
+                },
+                {
+                    "name": "Bard",
+                    "description": "An inspiring magician whose power echoes the music of creation",
+                    "hit-die": "d8",
+                    "primary-ability": "Charisma",
+                    "saving-throw-proficiencies": "Dexterity & Charisma",
+                    "armor-&-weapon-proficiencies": "Light armor, simple weapons, hand crossbows, longswords, rapiers, shortswords"
+                },
+                {
+                    "name": "Cleric",
+                    "description": "A priestly champion who wields divine magic in service of a higher power",
+                    "hit-die": "d8",
+                    "primary-ability": "Wisdom",
+                    "saving-throw-proficiencies": "Wisdom & Charisma",
+                    "armor-&-weapon-proficiencies": "Light and medium armor, shields, simple weapons"
+                },
+                {
+                    "name": "Druid",
+                    "description": "A priest of the Old Faith, wielding the powers of nature — moonlight and plant growth, fire and lightning — and adopting animal forms",
+                    "hit-die": "d8",
+                    "primary-ability": "Wisdom",
+                    "saving-throw-proficiencies": "Intelligence & Wisdom",
+                    "armor-&-weapon-proficiencies": "Light and medium armor (nonmetal), shields (nonmetal), clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears"
+                },
+                {
+                    "name": "Fighter",
+                    "description": "A master of martial combat, skilled with a variety of weapons and armor",
+                    "hit-die": "d10",
+                    "primary-ability": "Strength or Dexterity",
+                    "saving-throw-proficiencies": "Strength & Constitution",
+                    "armor-&-weapon-proficiencies": "All armor, shields, simple and martial weapons"
+                },
+                {
+                    "name": "Monk",
+                    "description": "A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection",
+                    "hit-die": "d8",
+                    "primary-ability": "Dexterity & Wisdom",
+                    "saving-throw-proficiencies": "Strength & Dexterity",
+                    "armor-&-weapon-proficiencies": "Simple weapons, shortswords"
+                },
+                {
+                    "name": "Paladin",
+                    "description": "A holy warrior bound to a sacred oath",
+                    "hit-die": "d10",
+                    "primary-ability": "Strength & Charisma",
+                    "saving-throw-proficiencies": "Wisdom & Charisma",
+                    "armor-&-weapon-proficiencies": "All armor, shields, simple and martial weapons"
+                },
+                {
+                    "name": "Ranger",
+                    "description": "A warrior who uses martial prowess and nature magic to combat threats on the edges of civilization",
+                    "hit-die": "d10",
+                    "primary-ability": "Dexterity & Wisdom",
+                    "saving-throw-proficiencies": "Strength & Dexterity",
+                    "armor-&-weapon-proficiencies": "Light and medium armor, shields, simple and martial weapons"
+                },
+                {
+                    "name": "Rogue",
+                    "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies",
+                    "hit-die": "d8",
+                    "primary-ability": "Dexterity",
+                    "saving-throw-proficiencies": "Dexterity & Intelligence",
+                    "armor-&-weapon-proficiencies": "Light armor, simple weapons, hand crossbows, longswords, rapiers, shortswords"
+                },
+                {
+                    "name": "Sorcerer",
+                    "description": "A spellcaster who draws on inherent magic from a gift or bloodline",
+                    "hit-die": "d6",
+                    "primary-ability": "Charisma",
+                    "saving-throw-proficiencies": "Constitution & Charisma",
+                    "armor-&-weapon-proficiencies": "Daggers, darts, slings, quarterstaffs, light crossbows"
+                },
+                {
+                    "name": "Warlock",
+                    "description": "A wielder of magic that is derived from a bargain with an extraplanar entity",
+                    "hit-die": "d8",
+                    "primary-ability": "Charisma",
+                    "saving-throw-proficiencies": "Wisdom & Charisma",
+                    "armor-&-weapon-proficiencies": "Light armor, simple weapons"
+                },
+                {
+                    "name": "Wizard",
+                    "description": "A scholarly magic-user capable of manipulating the structures of reality",
+                    "hit-die": "d6",
+                    "primary-ability": "Intelligence",
+                    "saving-throw-proficiencies": "Intelligence & Wisdom",
+                    "armor-&-weapon-proficiencies": "Daggers, darts, slings, quarterstaffs, light crossbows"
+                }
+            ]
         }
     }
 }
