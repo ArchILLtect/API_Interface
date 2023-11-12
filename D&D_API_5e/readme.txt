@@ -55,6 +55,7 @@
 10/10/23 - Added filter data<br>
 10/12/23 - Added additional data source integration functionality<br>
 10/12/23 - Added missing API basic subraces and traits<br>
+10/12/23 - Upgrade main to integrate additonal-data for traits and subraces in localCache<br>
 <br>
 <br>
 <br>

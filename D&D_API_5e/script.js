@@ -379,10 +379,15 @@ async function prepLoad(itemType, dataType='data', itemName) {
             }
         }
     } else if (dataType === 'additionalData') {
-        const dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`
-        
+        let dataLocation;
+        if (itemType === 'subraces' || itemType === 'traits') {
+            dataLocation = `./localCache/Characters/${itemType}/localCacheAdditonal.json`
+        } else {
+            dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`
+        }
 
         localCacheAssets['additional-data'][itemType] = localCacheAssets['additional-data'][itemType] || {};
+        console.log(localCacheAssets)
 
         if (verifyLoadNeed(itemType, dataType)) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
@@ -451,7 +456,6 @@ async function prepLoad(itemType, dataType='data', itemName) {
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
 
         curFile = `./localCache/Characters/${dataType}/${dataType}DetailsData.json`;
-
         if (verifyLoadNeed(itemType, dataType)) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
@@ -527,10 +531,17 @@ function cacheData(data, itemType, itemName) {
     
     
     } else if (itemName === 'added') {
-        // This condition caches additonal data
-        const currentData = dataCache[itemType];
         const addedData = data.results
         let addedItems = 0;
+        // This condition caches additonal data
+        let currentData;
+        if (itemType === 'traits' || itemType === 'subraces' ) {
+            currentData = dataCache['characters'][itemType];
+            localCacheAssets['additional-data'][itemType] = data.results
+        } else {
+            currentData = dataCache[itemType];
+            localCacheAssets['additional-data'][itemType] = data.results
+        }
 
         addedData.forEach(item => {
             if (!currentData[item.index]) {
@@ -723,7 +734,7 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'additionalData') {
-        const asset = localCacheAssets[prop]
+        const asset = localCacheAssets['additional-data'][prop]
         //console.log('Checking traits...........');
         if (
             asset &&
@@ -759,7 +770,14 @@ async function addCards(data, count) {
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'filterData');
     await prepLoad(currentPage, 'traits');
+    //TODO Can I prepload the additional-data RIGHT AFTER dataCaching traits and subraces - I mean right at the end of the dataCache() run for each.
+    if (localCacheAssets['additional-data'].includes('traits')) {
+        await prepLoad('traits', 'additionalData');                 
+    }
     await prepLoad(currentPage, 'subraces');
+    if (localCacheAssets['additional-data'].includes('subraces')) {
+        await prepLoad('subraces', 'additionalData');                 
+    }
 
     // Add cards to the page:
     for (const key in data) {
