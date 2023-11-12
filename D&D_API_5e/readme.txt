@@ -53,6 +53,8 @@
 10/10/23 - Update CSS, charaters homepage info json file and characters hompepage content<br>
 10/10/23 - Upgraded races details to contain traits info<br>
 10/10/23 - Added filter data<br>
+10/12/23 - Added additional data source integration functionality<br>
+10/12/23 - Added missing API basic subraces and traits<br>
 <br>
 <br>
 <br>

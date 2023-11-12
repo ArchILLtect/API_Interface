@@ -1982,7 +1982,7 @@ function raceDetailsWindow(data) {
         if (data.hasOwnProperty(key)) {
             const eachItem = data[key];
             const currentDetail = key.replace(/_/g, " ");
-            //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Porfs[options](?)
+            //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Profs[options](?)
             //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!
             if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
                 subrace = true;
