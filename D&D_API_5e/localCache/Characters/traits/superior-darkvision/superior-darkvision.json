@@ -1,0 +1,17 @@
+{
+    "index": "superior-darkvision",
+    "races": [],
+    "subraces": [
+        {
+            "index": "deep-gnome",
+            "name": "Deep Gnome",
+            "source": "basic"
+        }
+    ],
+    "name": "Superior Darkvision",
+    "desc": [
+        "Your darkvision has a radius of 120 feet."
+    ],
+    "proficiencies": [],
+    "source": "basic"
+}

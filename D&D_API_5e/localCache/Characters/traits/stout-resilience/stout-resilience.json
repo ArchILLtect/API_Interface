@@ -1,0 +1,17 @@
+{
+    "index": "stout-resilience",
+    "races": [],
+    "subraces": [
+        {
+            "index": "stout-halfling",
+            "name": "Stout Halfling",
+            "source": "basic"
+        }
+    ],
+    "name": "Stout Resilience",
+    "desc": [
+        "You have advantage on saving throws against poison, and you have resistance against poison damage."
+    ],
+    "proficiencies": [],
+    "source": "basic"
+}

@@ -1,0 +1,55 @@
+{
+    "index": "deep-gnome",
+    "name": "Deep Gnome",
+    "race": {
+        "index": "gnome",
+        "name": "Gnome",
+        "url": "/api/races/gnome"
+    },
+    "desc": "Forest gnomes and rock gnomes are the gnomes most commonly encountered in the lands of the surface world. There is another subrace of gnomes rarely seen by any surface-dweller: deep gnomes, also known as svirfneblin. Guarded, and suspicious of outsiders, svirfneblin are cunning and taciturn, but can be just as kind-hearted, loyal, and compassionate as their surface cousins. When you create a gnome character, you may choose the deep gnome as an alternative to the subraces in the Player’s Handbook.",
+    "ability_bonuses": [
+        {
+            "ability_score": {
+                "index": "dex",
+                "name": "DEX",
+                "url": "/api/ability-scores/dex"
+            },
+            "bonus": 1
+        }
+    ],
+    "age": "Deep gnomes are short-lived for gnomes. They mature at the same rate humans do and are considered full-grown adults by 25. They live 200 to 250 years, although hard toil and the dangers of the Underdark often claim them before their time.",
+    "alignment": "Svirfneblin believe that survival depends on avoiding entanglements with other creatures and not making enemies, so they favor neutral alignments. They rarely wish others ill, and they are unlikely to take risks on behalf of others.",
+    "size": "A typical svirfneblin stands about 3 to 3½ feet tall and weighs 80 to 120 pounds. Your size is Small.",
+    "starting_proficiencies": [],
+    "languages": [
+        {
+            "index": "common",
+            "name": "Common",
+            "url": "/api/languages/common"
+        },
+        {
+            "index": "gnomish",
+            "name": "Gnomish",
+            "url": "/api/languages/gnomish"
+        },
+        {
+            "index": "undercommon",
+            "name": "Gnomish",
+            "url": "/api/languages/gnomish"
+        }
+    ],
+    "language_desc": "You can speak, read, and write Common, Gnomish, and Undercommon. The svirfneblin dialect is more guttural than surface Gnomish, and most svirfneblin know only a little bit of Common, but those who deal with outsiders (and that includes you as an adventurer) pick up enough Common to get by in other lands.",
+    "racial_traits": [
+        {
+            "index": "superior-darkvision",
+            "name": "Superior Darkvision",
+            "url": "/api/traits/artificers-lore"
+        },
+        {
+            "index": "stone-camouflage",
+            "name": "Stone Camouflage",
+            "url": "/api/traits/tinker"
+        }
+    ],
+    "source": "basic"
+}

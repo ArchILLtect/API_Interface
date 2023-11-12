@@ -1,0 +1,17 @@
+{
+    "index": "fey-step",
+    "races": [],
+    "subraces": [
+        {
+            "index": "eladrin",
+            "name": "Eladrin",
+            "url": ""
+        }
+    ],
+    "name": "Fey Step",
+    "desc": [
+        "You can cast the misty step spell once using this trait. You regain the ability to do so when you finish a short or long rest."
+    ],
+    "proficiencies": [],
+    "url": ""
+}

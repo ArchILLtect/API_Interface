@@ -1,0 +1,35 @@
+{
+    "count": 5,
+    "results": [
+        {
+            "race": "dwarf",
+            "index": "mountain-dwarf",
+            "name": "Mountain Dwarf",
+            "source": "basic"
+        },
+        {
+            "race": "elf",
+            "index": "eladrin",
+            "name": "Eladrin",
+            "source": "DMG Variant"
+        },
+        {
+            "race": "elf",
+            "index": "wood-elf",
+            "name": "Wood Elf",
+            "source": "basic"
+        },
+        {
+            "race": "gnome",
+            "index": "deep-gnome",
+            "name": "Deep Gnome",
+            "source": "Legacy"
+        },
+        {
+            "race": "halfling",
+            "index": "stout-halfling",
+            "name": "Stout Halfling",
+            "source": "basic"
+        }
+    ]
+}

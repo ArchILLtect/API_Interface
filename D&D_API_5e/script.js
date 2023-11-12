@@ -1926,20 +1926,25 @@ function raceDetailsWindow(data) {
     detailTextContent.appendChild(detailItemsDiv);
 
     //Set race Specific data not included with API
+    //TODO P3 Move this to additional Data for races
     let raceDescTxt = '';
     let traitsIntroTxt = '';
+    let subracesIntroTxt = '';
     if (raceType === 'dragonborn') {
         raceDescTxt = "Born of dragons, as their name proclaims, the dragonborn walk proudly through a world that greets them with fearful incomprehension. Shaped by draconic gods or the dragons themselves, dragonborn originally hatched from dragon eggs as a unique race, combining the best attributes of dragons and humanoids. Some dragonborn are faithful servants to true dragons, others form the ranks of soldiers in great wars, and still others find themselves adrift, with no clear calling in life."
         traitsIntroTxt = "Your draconic heritage manifests in a variety of traits you share with other dragonborn."
     } else if (raceType === 'dwarf') {
         raceDescTxt = "Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs—these common threads unite all dwarves."
         traitsIntroTxt = "Your dwarf character has an assortment of inborn abilities, part and parcel of dwarven nature."
+        subracesIntroTxt = "Two main subraces of dwarves populate the worlds of D&D: hill dwarves and mountain dwarves. Choose one of these subraces or one from another source."
     } else if (raceType === 'elf') {
         raceDescTxt = "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it. They live in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry, and the good things of the world."
         traitsIntroTxt = "Your elf character has a variety of natural abilities, the result of thousands of years of elven refinement."
+        subracesIntroTxt = "Ancient divides among the elven people resulted in three main subraces: high elves, wood elves, and dark elves, who are commonly called drow. Choose one of the two subraces presented below or one from another source. In some worlds, these subraces are divided still further (such as the sun elves and moon elves of the Forgotten Realms), so if you wish, you can choose a narrower subrace."
     } else if (raceType === 'gnome') {
         raceDescTxt = "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close-knit communities. Louder sounds punctuate the hum: a crunch of grinding gears here, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play."
         traitsIntroTxt = "Your gnome character has certain characteristics in common with all other gnomes."
+        subracesIntroTxt = "Choose one of the subraces below or one from another source."
     } else if (raceType === 'half-elf') {
         raceDescTxt = "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves. Some half-elves live among humans, set apart by their emotional and physical differences, watching friends and loved ones age while time barely touches them. Others live with the elves, growing restless as they reach adulthood in the timeless elven realms, while their peers continue to live as children. Many half-elves, unable to fit into either society, choose lives of solitary wandering or join with other misfits and outcasts in the adventuring life."
         traitsIntroTxt = "Your half-elf character has some qualities in common with elves and some that are unique to half-elves."
@@ -1949,6 +1954,7 @@ function raceDetailsWindow(data) {
     } else if (raceType === 'halfling') {
         raceDescTxt = "The comforts of home are the goals of most halflings’ lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver."
         traitsIntroTxt = "Your halfling character has a number of traits in common with all other halflings."
+        subracesIntroTxt = "The two main kinds of halfling, lightfoot and stout, are more like closely related families than true subraces. Choose one of these subraces or one from another source."
     } else if (raceType === 'human') {
         raceDescTxt = "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds."
         traitsIntroTxt = "It’s hard to make generalizations about humans, but your human character has these traits."
@@ -2070,7 +2076,7 @@ function raceDetailsWindow(data) {
         subraceHeader.className = 'detailTxtHeader';
         subraceIntro.className = 'detailTxtContent';
         subraceHeader.textContent = 'Subrace';
-        subraceIntro.textContent = traitsIntroTxt;
+        subraceIntro.textContent = subracesIntroTxt;
         subraceMain.appendChild(subraceHeader);
         subraceMain.appendChild(subraceIntro);
         detailTextContent.appendChild(subraceMain);
@@ -2190,7 +2196,6 @@ function raceDetailsWindow(data) {
         generateTableHead(draconicAncestryTable, draconicAncestryKeys);
     }
 
-    //TODO NEED TO PUT SUBRACES INFO SOMEWHERE
 
 
     //TODO DO I EVEN WANT THESE HERE??

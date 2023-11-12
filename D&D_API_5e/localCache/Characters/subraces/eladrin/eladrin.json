@@ -1,0 +1,57 @@
+{
+    "index": "eladrin",
+    "name": "Eladrin",
+    "race": {
+        "index": "elf",
+        "name": "Elf",
+        "url": "/api/races/elf"
+    },
+    "desc": "Creatures of magic with strong ties to nature, eladrin live in the twilight realm of the Feywild. Their cities sometimes cross over to the Material Plane, appearing briefly in mountain valleys or deep forest glades before fading back into the Feywild.",
+    "ability_bonuses": [
+        {
+            "ability_score": {
+                "index": "int",
+                "name": "INT",
+                "url": "/api/ability-scores/int"
+            },
+            "bonus": 1
+        }
+    ],
+    "starting_proficiencies": [
+        {
+            "index": "longswords",
+            "name": "Longswords",
+            "url": "/api/proficiencies/longswords"
+        },
+        {
+            "index": "shortswords",
+            "name": "Shortswords",
+            "url": "/api/proficiencies/shortswords"
+        },
+        {
+            "index": "shortbows",
+            "name": "Shortbows",
+            "url": "/api/proficiencies/shortbows"
+        },
+        {
+            "index": "longbows",
+            "name": "Longbows",
+            "url": "/api/proficiencies/longbows"
+        }
+    ],
+    "languages": [],
+    "racial_traits": [
+        {
+            "index": "elf-weapon-training",
+            "name": "Elf Weapon Training",
+            "url": "/api/traits/elf-weapon-training"
+        },
+
+        {
+            "index": "fey-step",
+            "name": "Fey Step",
+            "source": "basic"
+        }
+    ],
+    "source": "basic"
+}

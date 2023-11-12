@@ -1,0 +1,17 @@
+{
+    "index": "fleet-of-foot",
+    "races": [
+        {
+            "index": "wood-elf",
+            "name": "Wood Elf",
+            "source": "basic"
+        }
+    ],
+    "subraces": [],
+    "name": "Fleet of Foot",
+    "desc": [
+        "Your base walking speed increases to 35 feet."
+    ],
+    "proficiencies": [],
+    "source": "basic"
+}

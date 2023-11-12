@@ -1,0 +1,40 @@
+{
+    "count": 7,
+    "results": [
+        {
+            "index": "dwarven-armor-training",
+            "name": "Dwarven Armor Training",
+            "source": "basic"
+        },
+        {
+            "index": "fey-step",
+            "name": "Fey Step",
+            "source": "basic"
+        },
+        {
+            "index": "fleet-of-foot",
+            "name": "Fleet of Foot",
+            "source": "basic"
+        },
+        {
+            "index": "mask-of-the-wild",
+            "name": "Mask of the Wild",
+            "source": "basic"
+        },
+        {
+            "index": "stone-camoflage",
+            "name": "Stone Camoflage",
+            "source": "basic"
+        },
+        {
+            "index": "superior-darkvision",
+            "name": "Superior Darkvision",
+            "source": "basic"
+        },
+        {
+            "index": "stout-resilience",
+            "name": "Stout Resilience",
+            "source": "basic"
+        }
+    ]
+}

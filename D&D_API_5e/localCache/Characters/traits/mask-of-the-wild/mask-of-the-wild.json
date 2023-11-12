@@ -1,0 +1,17 @@
+{
+    "index": "mask-of-the-wild",
+    "races": [
+        {
+            "index": "wood-elf",
+            "name": "Wood Elf",
+            "source": "basic"
+        }
+    ],
+    "subraces": [],
+    "name": "Mask of the Wild",
+    "desc": [
+        "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."
+    ],
+    "proficiencies": [],
+    "source": "basic"
+}
