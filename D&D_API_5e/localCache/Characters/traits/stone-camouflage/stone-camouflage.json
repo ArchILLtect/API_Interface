@@ -1,5 +1,5 @@
 {
-    "index": "stone-camoflage",
+    "index": "stone-camouflage",
     "races": [],
     "subraces": [
         {
@@ -8,7 +8,7 @@
             "source": "basic"
         }
     ],
-    "name": "Stone Camoflage",
+    "name": "Stone Camouflage",
     "desc": [
         "You have advantage on Dexterity (Stealth) checks to hide in rocky terrain."
     ],
