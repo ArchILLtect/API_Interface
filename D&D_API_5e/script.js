@@ -321,7 +321,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
 
             //(verifyLoadNeed(itemName, 'details')) {
             if (verifyLoadNeed(itemName, 'details')) {
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
 
                 cacheData(apiData, itemType, itemName);
@@ -333,7 +333,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindowNEW(apiData);
                 }
             } else {
-                console.log('API Load NOT needed!');
+                console.log('MAIN - API Load NOT needed!');
                 if (itemType === 'spells') {
                     createDetailsWindow(content);
                 } else if (currentPage === 'races') {
@@ -351,12 +351,12 @@ async function prepLoad(itemType, dataType='data', itemName) {
             curLocation = "./localCache/" + itemType + "/localCache.json";
 
             if (verifyLoadNeed(itemType, 'main')) {
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
                 cacheData(apiData, itemType);
                 return;
             } else {
-                console.log('API Load NOT needed!');
+                console.log('MAIN - API Load NOT needed!');
                 return;
             }
         } else {
@@ -368,17 +368,18 @@ async function prepLoad(itemType, dataType='data', itemName) {
             curLocation = "./localCache/" + itemType + "/localCache.json";
             additionalLocation = "./localCache/" + itemType + "/localCacheAdditional.json";
             if (verifyLoadNeed(itemType, 'main')) {
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
 
                 cacheData(apiData, itemType);
                 return;
             } else {
-                console.log('API Load NOT needed!');
+                console.log('MAIN - API Load NOT needed!');
                 return;
             }
         }
-    } else if (dataType === 'additionalData') {
+    //FIXME The following needs to be removed
+    } /* else if (dataType === 'additionalData') {
         let dataLocation;
         if (itemType === 'subraces' || itemType === 'traits') {
             dataLocation = `./localCache/Characters/${itemType}/localCacheAdditonal.json`
@@ -400,7 +401,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
         } else {
             console.log('API Load NOT needed!');
         }
-    } else if (dataType === 'pageData') {
+    } */ else if (dataType === 'pageData') {
         dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
 
@@ -410,11 +411,11 @@ async function prepLoad(itemType, dataType='data', itemName) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
             //console.log(apiIndex);
-            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
             await fetchSecondaryData(curFile, dataType);
             cacheData(jsonData, itemType);
         } else {
-            console.log('API Load NOT needed!');
+            console.log('MAIN - API Load NOT needed!');
         }
     } else if (dataType === 'images') {
             // Get image list
@@ -428,11 +429,11 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 //console.log(`@ prepLoad: itemType: ${itemType}`);
                 //console.log('@ prepLoad: apiIndex on next log line:');
                 //console.log(apiIndex);
-                console.log('API LOAD NEEDED! LOAD NEEDED!');
+                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchSecondaryData(curLocation, 'images');
                 cacheData(jsonData, itemType);
             } else {
-                console.log('API Load NOT needed!');
+                console.log('MAIN - API Load NOT needed!');
             }
     } else if (dataType === 'filterData') {
         dataCache['filterData'] = dataCache['filterData'] || {};
@@ -444,11 +445,11 @@ async function prepLoad(itemType, dataType='data', itemName) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
             //console.log(apiIndex);
-            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
             await fetchSecondaryData(curLocation, 'filterData');
             cacheData(jsonData, itemType);
         } else {
-            console.log('API Load NOT needed!');
+            console.log('MAIN - API Load NOT needed!');
         }
     } else if (dataType === 'traits' || dataType === 'subraces') {
         //console.log('traits prepping');
@@ -460,16 +461,58 @@ async function prepLoad(itemType, dataType='data', itemName) {
             //console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
             //console.log(apiIndex);
-            console.log('API LOAD NEEDED! LOAD NEEDED!');
+            console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
             await fetchSecondaryData(curFile, dataType);
             cacheData(jsonData, dataType);
         } else {
-            console.log('API Load NOT needed!');
+            console.log('MAIN - API Load NOT needed!');
         }
     } else {
         throw new Error(`ERROR: ${dataType} is a new data type or something has gone VERY wrong!!`)
     }
 };
+
+async function prepLoadAddition(itemType) {
+
+    let dataLocation;
+    if (itemType === 'subraces' || itemType === 'traits') {
+        dataCache['characters'] = dataCache['characters'] || {};
+        dataCache['characters'][itemType] = dataCache['characters'][itemType] || {};
+        dataLocation = `./localCache/Characters/${itemType}/localCacheAdditonal.json`
+    } else {
+        dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`
+    }
+    localCacheAssets['additional-data'][itemType] = localCacheAssets['additional-data'][itemType] || {};
+
+    if (verifyLoadNeed(itemType, 'additional-data')) {
+        //console.log(`@ prepLoad: itemType: ${itemType}`);
+        //console.log('@ prepLoad: apiIndex on next log line:');
+        //console.log(apiIndex);
+        console.log('ADDED - API LOAD NEEDED! LOAD NEEDED!');
+        await fetchAddedData(dataLocation);
+        //TODO CHANGE THIS
+        //cacheData(apiAdditionIndex, itemType, 'added');
+        localCacheAssets['additional-data'][itemType] = apiAdditionIndex;
+        const additionItems = localCacheAssets['additional-data'][itemType]['results'];
+        if (itemType === 'subraces' || itemType === 'traits') {
+            for (const key in additionItems) {
+                const eachItem = additionItems[key];
+                const curLocation = `./localCache/Characters/${itemType}/${eachItem.index}/${eachItem.index}.json`
+                await fetchAddedData(curLocation);
+                cacheData(apiAdditionIndex, itemType, 'added');
+            }
+        } else {
+            for (const key in additionItems) {
+                const eachItem = additionItems[key];
+                const curLocation = `./localCache/${itemType}/${eachItem.index}/${eachItem.index}.json`
+                await fetchAddedData(curLocation);
+                cacheData(apiAdditionIndex, itemType, 'added');
+            }
+        }
+    } else {
+        console.log('ADDED - API Load NOT needed!');
+    }
+}
 
 function cacheData(data, itemType, itemName) {
     //console.log('@ cacheData: current dataCache on next log line:');
@@ -531,25 +574,19 @@ function cacheData(data, itemType, itemName) {
     
     
     } else if (itemName === 'added') {
-        const addedData = data.results
-        let addedItems = 0;
+        //console.log(data)
+        const dataIndex = data.index
         // This condition caches additonal data
         let currentData;
         if (itemType === 'traits' || itemType === 'subraces' ) {
             currentData = dataCache['characters'][itemType];
-            localCacheAssets['additional-data'][itemType] = data.results
         } else {
             currentData = dataCache[itemType];
-            localCacheAssets['additional-data'][itemType] = data.results
         }
-
-        addedData.forEach(item => {
-            if (!currentData[item.index]) {
-              currentData[item.index] = item;
-              addedItems += 1;
-            }
-        }); 
-        console.log(`Caching data: ${itemType} object now has ${addedItems} additional item(s)`);
+        if (!currentData[dataIndex]) {
+            currentData[dataIndex] = data;
+        }
+        console.log(`Caching data: ${itemType} object has been added`);
         return;
     } else if (numberOfItems > 1 && data['count']) {
         // This condition caches main lists
@@ -653,6 +690,9 @@ function cacheData(data, itemType, itemName) {
 
 //TODO P3-1 I think I can reduce the conditions by reusing for some
 function verifyLoadNeed(prop, dataType) {
+    //console.log('verifyLoadNeed running...')
+    //console.log(prop)
+    //console.log(dataType)
     
     if (dataType === 'main') {
         //const checkAsset = asset.hasOwnProperty(prop);
@@ -721,8 +761,8 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'traits' || dataType === 'subraces') {
-        const asset = dataCache.characters[dataType]
-        //console.log('Checking traits...........');
+        const asset = localCacheAssets['additional-data'][dataType]
+        console.log(`Checking ${dataType}...........`);
         if (
             asset &&
             Object.keys(asset).length
@@ -733,9 +773,9 @@ function verifyLoadNeed(prop, dataType) {
             //console.log('Returning Yes')
             return true;
         }
-    } else if (dataType === 'additionalData') {
+    } else if (dataType === 'additional-data') {
         const asset = localCacheAssets['additional-data'][prop]
-        //console.log('Checking traits...........');
+        console.log('Checking additional Data...........');
         if (
             asset &&
             Object.keys(asset).length
@@ -770,15 +810,10 @@ async function addCards(data, count) {
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'filterData');
     await prepLoad(currentPage, 'traits');
-    //TODO Can I prepload the additional-data RIGHT AFTER dataCaching traits and subraces - I mean right at the end of the dataCache() run for each.
-    if (localCacheAssets['additional-data'].includes('traits')) {
-        await prepLoad('traits', 'additionalData');                 
-    }
     await prepLoad(currentPage, 'subraces');
-    if (localCacheAssets['additional-data'].includes('subraces')) {
-        await prepLoad('subraces', 'additionalData');                 
-    }
 
+    prepLoadAddition('traits');
+    prepLoadAddition('subraces');
     // Add cards to the page:
     for (const key in data) {
         createCard(data[key]);
@@ -1389,7 +1424,7 @@ function createDetailsWindow(data) {
 
 function createDetailsWindowNEW(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
-    //console.log(data)
+    console.log(data)
     //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
@@ -1901,7 +1936,8 @@ function createDetailsWindowNEW(data) {
 function raceDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const raceType = data.index;
-    //console.log(data)
+    const subraceData = dataCache['characters']['subraces'];
+    const traitsData = dataCache['characters']['traits'];
     //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
@@ -1995,6 +2031,7 @@ function raceDetailsWindow(data) {
     let traitDivs = [];
     let draconicAncestryData = [];
     const draconicAncestryTable = document.createElement('table');
+    let subracesValue = [];
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
@@ -2004,9 +2041,9 @@ function raceDetailsWindow(data) {
             //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!
             if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
                 subrace = true;
-                console.log(eachItem);
                 for (eachKey in eachItem) {
-
+                    const subRaceItem = eachItem[eachKey];
+                    subracesValue.push(subRaceItem.index)
                 }
             } else if (key === 'ability_bonuses') {
                 for (eachKey in eachItem) {
@@ -2076,7 +2113,19 @@ function raceDetailsWindow(data) {
             }
         }
     }
+    for (const key in subraceData) {
 
+        //Actions Section
+        const eachItem = subraceData[key];
+        console.log(eachItem)
+        const parentRace = eachItem.race.index;
+        const currentDetail = key.replace(/_/g, " ");
+        if (parentRace === "raceType")
+        console.log(eachItem)
+        //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!
+        subrace = true;
+
+    }
     //Race Description
     const raceDescDiv = document.createElement('div');
     const raceDescPara = document.createElement('p');
@@ -2098,18 +2147,6 @@ function raceDetailsWindow(data) {
         subraceMain.appendChild(subraceHeader);
         subraceMain.appendChild(subraceIntro);
         detailTextContent.appendChild(subraceMain);
-    
-    /*     const subraceMain = document.createElement('div');
-        traitsMain.className = 'detailTxtMain';
-        traitDivs.forEach((curDiv) => {
-            traitsMain.appendChild(curDiv);
-        });
-        detailTextContent.appendChild(traitsMain);
-        if (raceType === 'dragonborn') {
-            const draconicAncestryKeys = Object.keys(draconicAncestryData[0]);
-            generateTable(draconicAncestryTable, draconicAncestryData);
-            generateTableHead(draconicAncestryTable, draconicAncestryKeys);
-        } */
     }
 
     //Traits
@@ -2213,8 +2250,23 @@ function raceDetailsWindow(data) {
         generateTable(draconicAncestryTable, draconicAncestryData);
         generateTableHead(draconicAncestryTable, draconicAncestryKeys);
     }
-
-
+    console.log(subracesValue)
+    //Subrace Traits
+    if (subrace) {
+        for (subrace of subracesValue) {
+            const subraceItem = document.createElement('div');
+            const subraceItemHeader = document.createElement('div');
+            const subraceItemIntro = document.createElement('p');
+            subraceItem.className = 'detailTxtMain';
+            subraceItemHeader.className = 'detailTxtHeader';
+            subraceItemIntro.className = 'detailTxtContent';
+            subraceItemHeader.textContent = subracesValue;
+            //subraceItemIntro.textContent = subraceItemsIntroTxt;
+            subraceItem.appendChild(subraceItemHeader);
+            subraceItem.appendChild(subraceItemIntro);
+            detailTextContent.appendChild(subraceItem);
+        }
+    }
 
     //TODO DO I EVEN WANT THESE HERE??
     const statBarDivOne = document.createElement('div');
@@ -2319,8 +2371,8 @@ function setNavListen() {
                 currentPage = eachItem.id;
                 console.log(currentPage)
                 await prepLoad(eachItem.id);
-                if (localCacheAssets['additional-data'].includes(currentPage)) {
-                    await prepLoad(eachItem.id, 'additionalData');                 
+                if (localCacheAssets['additional-data'].assets.includes(currentPage)) {
+                    prepLoadAddition(currentPage);
                 }
                 addContent(dataCache[eachItem.id], 'list');
             } else if (eachItem.id === 'sheets') {
@@ -3014,9 +3066,11 @@ function checkSchools() {
 
 async function loadLCAssets() {
     const asset = './localCache/localCacheAssets.json';
+    localCacheAssets['additional-data'] = localCacheAssets['additional-data'] || {}
+    localCacheAssets['additional-data']['assets'] =     localCacheAssets['additional-data']['assets'] || {}
 
     const apiPromise = await fetch(asset);
     assetData = await apiPromise.json();
 
-    localCacheAssets['additional-data'] = assetData['additional-data'];
+    localCacheAssets['additional-data']['assets'] = assetData['additional-data'];
 }
