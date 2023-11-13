@@ -438,6 +438,18 @@ article {
     gap: 5px;
 }
 
+.detailTxtDivLarge {
+    font-family: Scala_Sans;
+    font-weight: 100;
+    font-size: 16px;     
+}
+
+.subraceTraitDetail span {
+    font-family: Scala_Sans_Italic;
+    font-weight: 100;
+    font-size: 16px;     
+}
+
 .detailTxtContent {
     font-family: Scala_Sans;
     font-weight: 100;

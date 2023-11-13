@@ -586,7 +586,7 @@ function cacheData(data, itemType, itemName) {
         if (!currentData[dataIndex]) {
             currentData[dataIndex] = data;
         }
-        console.log(`Caching data: ${itemType} object has been added`);
+        //console.log(`Caching data: ${itemType} object has been added`);
         return;
     } else if (numberOfItems > 1 && data['count']) {
         // This condition caches main lists
@@ -762,7 +762,7 @@ function verifyLoadNeed(prop, dataType) {
         }
     } else if (dataType === 'traits' || dataType === 'subraces') {
         const asset = localCacheAssets['additional-data'][dataType]
-        console.log(`Checking ${dataType}...........`);
+        //console.log(`Checking ${dataType}...........`);
         if (
             asset &&
             Object.keys(asset).length
@@ -775,7 +775,7 @@ function verifyLoadNeed(prop, dataType) {
         }
     } else if (dataType === 'additional-data') {
         const asset = localCacheAssets['additional-data'][prop]
-        console.log('Checking additional Data...........');
+        //console.log('Checking additional Data...........');
         if (
             asset &&
             Object.keys(asset).length
@@ -2031,27 +2031,23 @@ function raceDetailsWindow(data) {
     let traitDivs = [];
     let draconicAncestryData = [];
     const draconicAncestryTable = document.createElement('table');
-    let subracesValue = [];
+    let subracesInfo = [];
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
             const eachItem = data[key];
             const currentDetail = key.replace(/_/g, " ");
             //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Profs[options](?)
-            //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!
+            //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!! GET RID OF THIS WHOLE ENTIRE FOR?????
             if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
-                subrace = true;
-                for (eachKey in eachItem) {
-                    const subRaceItem = eachItem[eachKey];
-                    subracesValue.push(subRaceItem.index)
-                }
+
             } else if (key === 'ability_bonuses') {
                 for (eachKey in eachItem) {
                     const abilBonItem = eachItem[eachKey];
                     const curAbilBonTitle = abilBonItem.ability_score.name;
                     const curAbilBonDesc = abilBonItem.bonus;
 
-                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`)
+                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`) 
                 }
             } else if (key === 'age') {
                 raceAgeValue = eachItem;
@@ -2082,7 +2078,7 @@ function raceDetailsWindow(data) {
                         const draconicAncestryDiv = document.createElement('div');
                         draconicAncestryDiv.className = 'class-summary-div';
                         draconicAncestryTable.className = 'class-summary-table';
-                        draconicAncestryDiv.appendChild(draconicAncestryTable)
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
                         for (traitKey in traitItem) {
                             if (traitKey.startsWith('draconic-ancestry-')) {
                                 const index = traitItem[traitKey].index;
@@ -2113,19 +2109,97 @@ function raceDetailsWindow(data) {
             }
         }
     }
-    for (const key in subraceData) {
 
+    for (const key in subraceData) {
         //Actions Section
-        const eachItem = subraceData[key];
-        console.log(eachItem)
-        const parentRace = eachItem.race.index;
+        const subraceItemData = subraceData[key];
+        const parentRace = subraceItemData.race.index;
         const currentDetail = key.replace(/_/g, " ");
-        if (parentRace === "raceType")
-        console.log(eachItem)
-        //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!!
-        subrace = true;
+        if (parentRace === raceType) {
+            console.log(subraceItemData);
+            subrace = true;
+            const subraceItem = document.createElement('div');
+            const subraceItemHeader = document.createElement('div');
+            const subraceDiv = document.createElement('div');
+            const subraceItemIntro = document.createElement('p');
+            const subraceContent = document.createElement('p');
+            subraceItem.className = 'detailTxtMain';
+            subraceDiv.className = 'detailTxtDiv';
+            subraceContent.className = 'detailTxtContent';
+            subraceItemHeader.className = 'detailTxtHeader';
+            subraceItemIntro.className = 'detailTxtContent';
+            subraceItemHeader.textContent = subraceItemData.name;
+            subraceItemIntro.textContent = subraceItemData.desc;
+            subraceItem.appendChild(subraceItemHeader);
+            subraceItem.appendChild(subraceItemIntro);
+            for (const detailKey in subraceItemData) {
+                const detailItem = subraceItemData[detailKey];
+                if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const abilBonItem = detailItem;
+                    const abilBonMain = document.createElement('div');
+                    const abilityBonus = document.createElement('p');
+                    abilBonMain.className = 'detailTxtDiv';
+                    abilityBonus.className = 'detailTxtContent';
+                    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
+                    abilBonItem.forEach((value, index) => {
+                        const abilBonTitle = value.ability_score.name;
+                        const abilBonDesc = value.bonus;
+                        abilityBonus.innerHTML += `${abilBonTitle} + ${abilBonDesc}`;
+                        if (index < abilityBonus.length - 1) {
+                            abilityBonus.innerHTML += ", ";
+                        }
+                    });
+                    abilBonMain.appendChild(abilityBonus);
+                    subraceItem.appendChild(abilBonMain);
+                }
+                if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const traitsItem = detailItem;
+                    console.log(traitsItem)
+                    traitsItem.forEach((value, index) => {
+                        const traitsMain = document.createElement('div');
+                        const traitsContent = document.createElement('p');
+                        const traitsTitle = value.name;
+                        const traitsIndex = value.index;
+                        const traitDesc = dataCache.characters.traits[traitsIndex]['desc']
+                        traitsContent.className = 'detailTxtContent';
+                        traitsContent.innerHTML = `<span>${traitsTitle}.</span> `;
+                        traitCounter = 0;
+                        traitsMain.appendChild(traitsContent);
+                        traitDesc.forEach( item => {
+                            if (traitDesc.length > 1 && traitCounter === 0) {
+                                traitsContent.innerHTML += item;
+                                traitCounter++
+                                traitsMain.className = 'detailTxtDivLarge';
+                            } else if (traitDesc.length > 1 && traitCounter === 1) {
+                                const traitsContentMore = document.createElement('p');
+                                traitsContentMore.innerHTML += item;
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else if (traitDesc.length > 1 && traitCounter > 1) {
+                                const traitsContentMore = document.createElement('p');
+                                const splitCurTrait = item.split(':');
+                                const traitItemTitle = splitCurTrait[0];
+                                const traitItemContent = splitCurTrait[1];
+                                traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
+                                traitsContentMore.className = 'subraceTraitDetail';
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else {
+                                traitsContent.innerHTML += item;
+                            }
+                        });
+                        if (index < traitsContent.length - 1) {
+                            traitsContent.innerHTML += ", ";
+                        }
+                        subraceItem.appendChild(traitsMain);
+                    });
+                }
+            }
+            subracesInfo.push(subraceItem);
+        }
 
     }
+
     //Race Description
     const raceDescDiv = document.createElement('div');
     const raceDescPara = document.createElement('p');
@@ -2136,17 +2210,17 @@ function raceDetailsWindow(data) {
 
     //SubRace
     if (subrace) {
-        const subraceMain = document.createElement('div');
-        const subraceHeader = document.createElement('div');
-        const subraceIntro = document.createElement('p');
-        subraceMain.className = 'detailTxtMain';
-        subraceHeader.className = 'detailTxtHeader';
-        subraceIntro.className = 'detailTxtContent';
-        subraceHeader.textContent = 'Subrace';
-        subraceIntro.textContent = subracesIntroTxt;
-        subraceMain.appendChild(subraceHeader);
-        subraceMain.appendChild(subraceIntro);
-        detailTextContent.appendChild(subraceMain);
+        const subraceIntroMain = document.createElement('div');
+        const subraceIntroHeader = document.createElement('div');
+        const subraceIntroTxt = document.createElement('p');
+        subraceIntroMain.className = 'detailTxtMain';
+        subraceIntroHeader.className = 'detailTxtHeader';
+        subraceIntroTxt.className = 'detailTxtContent';
+        subraceIntroHeader.textContent = 'Subrace';
+        subraceIntroTxt.textContent = subracesIntroTxt;
+        subraceIntroMain.appendChild(subraceIntroHeader);
+        subraceIntroMain.appendChild(subraceIntroTxt);
+        detailTextContent.appendChild(subraceIntroMain);
     }
 
     //Traits
@@ -2250,23 +2324,13 @@ function raceDetailsWindow(data) {
         generateTable(draconicAncestryTable, draconicAncestryData);
         generateTableHead(draconicAncestryTable, draconicAncestryKeys);
     }
-    console.log(subracesValue)
+
     //Subrace Traits
-    if (subrace) {
-        for (subrace of subracesValue) {
-            const subraceItem = document.createElement('div');
-            const subraceItemHeader = document.createElement('div');
-            const subraceItemIntro = document.createElement('p');
-            subraceItem.className = 'detailTxtMain';
-            subraceItemHeader.className = 'detailTxtHeader';
-            subraceItemIntro.className = 'detailTxtContent';
-            subraceItemHeader.textContent = subracesValue;
-            //subraceItemIntro.textContent = subraceItemsIntroTxt;
-            subraceItem.appendChild(subraceItemHeader);
-            subraceItem.appendChild(subraceItemIntro);
-            detailTextContent.appendChild(subraceItem);
-        }
-    }
+    const subraceMain = document.createElement('div');
+    subracesInfo.forEach( div => {
+        subraceMain.appendChild(div);
+    });
+    detailTextContent.appendChild(subraceMain);
 
     //TODO DO I EVEN WANT THESE HERE??
     const statBarDivOne = document.createElement('div');
