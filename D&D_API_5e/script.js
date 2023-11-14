@@ -329,6 +329,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindow(apiData);
                 } else if (currentPage === 'races') {
                     raceDetailsWindow(apiData);
+                } else if (currentPage === 'equipment') {
+                    equipDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(apiData);
                 }
@@ -338,6 +340,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindow(content);
                 } else if (currentPage === 'races') {
                     raceDetailsWindow(content);
+                } else if (currentPage === 'equipment') {
+                    equipDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(content);
                 }
@@ -370,7 +374,6 @@ async function prepLoad(itemType, dataType='data', itemName) {
             if (verifyLoadNeed(itemType, 'main')) {
                 console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
-
                 cacheData(apiData, itemType);
                 return;
             } else {
@@ -378,30 +381,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 return;
             }
         }
-    //FIXME The following needs to be removed
-    } /* else if (dataType === 'additionalData') {
-        let dataLocation;
-        if (itemType === 'subraces' || itemType === 'traits') {
-            dataLocation = `./localCache/Characters/${itemType}/localCacheAdditonal.json`
-        } else {
-            dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`
-        }
-
-        localCacheAssets['additional-data'][itemType] = localCacheAssets['additional-data'][itemType] || {};
-        console.log(localCacheAssets)
-
-        if (verifyLoadNeed(itemType, dataType)) {
-            //console.log(`@ prepLoad: itemType: ${itemType}`);
-            //console.log('@ prepLoad: apiIndex on next log line:');
-            //console.log(apiIndex);
-            console.log('API LOAD NEEDED! LOAD NEEDED!');
-            await fetchAddedData(dataLocation);
-            //TODO CHANGE THIS
-            cacheData(apiAdditionIndex, itemType, 'added');
-        } else {
-            console.log('API Load NOT needed!');
-        }
-    } */ else if (dataType === 'pageData') {
+    } else if (dataType === 'pageData') {
         dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
 
@@ -931,17 +911,8 @@ function createListItem(data) {
     
     const buttonContainer = document.createElement('div');
     const detailsButton = document.createElement('button');
-    const selectButtonTxt = document.createTextNode("Click for more info");
-    detailsButton.appendChild(selectButtonTxt);
-
-    //console.log(currentPage)
-/*     if (currentPage === 'equipment') {
-        listItemName.style.fontFamily = "Dragon_Hunter"
-        listItemName.style.fontSize = "25px"
-    } else {
-        listItemName.style.fontFamily = "Dragon_Lord"
-    } */
-
+    const detailsButtonTxt = document.createTextNode("Click for more info");
+    detailsButton.appendChild(detailsButtonTxt);
 
     listItem.appendChild(listItemName);
     listItem.appendChild(listItemPic);
@@ -2335,6 +2306,311 @@ function raceDetailsWindow(data) {
     //TODO DO I EVEN WANT THESE HERE??
     const statBarDivOne = document.createElement('div');
     const statsBarOne = document.createElement('img');
+
+    //Footer
+    const detailsFooter = document.createElement('div');
+    const statFooterBar = document.createElement('img');
+    detailsFooter.id = 'detailsFooter';
+    statFooterBar.src = './images/page-elements/stat-bar-book.png';
+    statFooterBar.classList.add('statHeadFootBar');
+    mainDetailsDiv.appendChild(statFooterBar);
+    detailModal.appendChild(detailsFooter)
+
+    //Modal Close Button
+    const closeButtonDiv = document.createElement('div');
+    const closeButton = document.createElement('button');
+    const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.id = 'closeButton'
+    detailsFooter.appendChild(closeButtonDiv);
+    closeButton.appendChild(closeButtonTxt);
+
+    //Modal Watermark Button
+    const watermarkToggleDiv = document.createElement('div');
+    const watermarkToggleBtn = document.createElement('button');
+    const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
+    watermarkToggleBtn.id = 'watermarkToggle'
+    detailsFooter.appendChild(watermarkToggleDiv);
+    watermarkToggleBtn.appendChild(watermarkToggleTxt);
+
+    detailModal.showModal();
+    //Set watermark height to account for amout of content
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    closeButtonDiv.appendChild(closeButton);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+    modalListeners()
+};
+
+function equipDetailsWindow(data) {
+    const NUM_OF_ITEMS = Object.keys(data).length;
+    const equipData = dataCache['equipment'][data.index];
+    const equipIndex = data.index
+    const equipType = equipData['equipment_category'].name;
+    const equipCost = equipData.cost;
+    const equipWeight = equipData.weight;
+    let equipWeightUnit = '';
+    if (equipWeight < 2) {
+        equipWeightUnit = 'lb';
+    } else {
+        equipWeightUnit = 'lbs';
+    }
+    let equipDesc = equipData.desc;
+
+    if (equipIndex === 'abacus') {
+        equipDesc = "A standard tool used to make calculations."
+    } else if (equipIndex === 'backpack') {
+        equipDesc = "A backpack is a leather pack carried on the back, typically with straps to secure it. A backpack can hold 1 cubic foot/ 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack."
+    }
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+
+    //Create Modal Window
+    const detailModal = document.createElement('dialog');
+    mainElement.appendChild(detailModal);
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
+
+    //Watermark image
+    const watermarkDiv = document.createElement('div');
+    watermarkDiv.id = 'watermark';
+    watermarkDiv.className = 'watermark';
+    detailModal.appendChild(watermarkDiv);
+
+    //Header
+    const detailsHeader = document.createElement('div');
+    const detailName = document.createElement('h3');
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader);
+    detailsHeader.id = 'detailsHeader';
+    detailName.className = 'detailHeader'
+    detailName.textContent = data.name;
+
+    //Details Content
+    const mainDetailsDiv = document.createElement('div');
+    mainDetailsDiv.classList.add('mainDetailContent');
+    detailModal.appendChild(mainDetailsDiv);
+
+    //Details Container
+    const statHeaderBar = document.createElement('img');
+    const detailTextContent = document.createElement('div');
+    const detailItemsDiv = document.createElement('div');
+    statHeaderBar.src = './images/page-elements/stat-bar-book.png';
+    statHeaderBar.classList.add('statHeadFootBar');
+    detailTextContent.classList.add('detailTextContent');
+    detailItemsDiv.classList.add('detailItemsDiv');
+    mainDetailsDiv.appendChild(statHeaderBar);
+    mainDetailsDiv.appendChild(detailTextContent);
+    detailTextContent.appendChild(detailItemsDiv);
+
+    // For objects:
+    let subrace = false;
+    let abilBonValues = [];
+    let raceAgeValue = '';
+    let raceAlignDesc = '';
+    let raceLangValue = '';
+    let raceSizeValue = '';
+    let raceSizeDesc = '';
+    let raceSpeedValue = '';
+    let traitDivs = [];
+    let draconicAncestryData = [];
+    const draconicAncestryTable = document.createElement('table');
+    let subracesInfo = [];
+    for (const key in data) {
+        //Actions Section
+/*         if (data.hasOwnProperty(key)) {
+            const eachItem = data[key];
+            const currentDetail = key.replace(/_/g, " ");
+
+            if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
+
+            } else if (key === 'ability_bonuses') {
+                for (eachKey in eachItem) {
+                    const abilBonItem = eachItem[eachKey];
+                    const curAbilBonTitle = abilBonItem.ability_score.name;
+                    const curAbilBonDesc = abilBonItem.bonus;
+
+                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`) 
+                }
+            } else if (key === 'age') {
+                raceAgeValue = eachItem;
+            } else if (key === 'alignment') {
+                raceAlignDesc = eachItem;
+            } else if (key === 'language_desc') {
+                raceLangValue = eachItem;
+            } else if (key === 'size') {
+                raceSizeValue = eachItem;
+            } else if (key === 'size_description') {
+                raceSizeDesc = eachItem;
+            } else if (key === 'speed') {
+                raceSpeedValue = eachItem;
+            } else if (key === 'traits') {
+                for (eachKey in eachItem) {
+                    const traitItem = eachItem[eachKey];
+                    const traitDiv = document.createElement('div');
+                    const traitContent = document.createElement('p');
+                    const curTraitTitle = traitItem.name;
+                    const curTraitIndex = traitItem.index;
+                    traitDiv.className = 'detailTxtDiv';
+                    traitContent.className = 'detailTxtContent';
+                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
+                    traitDiv.appendChild(traitContent);
+                    traitDivs.push(traitDiv);
+                    if (curTraitIndex === 'draconic-ancestry') {
+                        const traitItem = dataCache.characters.traits;
+                        const draconicAncestryDiv = document.createElement('div');
+                        draconicAncestryDiv.className = 'class-summary-div';
+                        draconicAncestryTable.className = 'class-summary-table';
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
+                        for (traitKey in traitItem) {
+                            if (traitKey.startsWith('draconic-ancestry-')) {
+                                const index = traitItem[traitKey].index;
+                                const AOE_SIZE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.size;
+                                const AOE_TYPE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.type;
+                                const DC_SAVE = traitItem[traitKey].trait_specific.breath_weapon.dc.dc_type.index;
+                                const dragonType = capitalizeWords(extractPortion(index, 2, "-"));
+                                const damage_type = traitItem[traitKey].trait_specific.damage_type.name;
+                                let breathWeapon = '';
+                                if (AOE_SIZE === 30) {
+                                    breathWeapon = `5 by ${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`;
+                                } else {
+                                    breathWeapon = `${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`
+                                }
+                                const draconicAncestry = { "name": dragonType, "damage_type": damage_type, "breath_weapon": breathWeapon };
+                                draconicAncestryData.push(draconicAncestry);
+                            }
+                        }
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
+                        traitDivs.push(draconicAncestryDiv);
+                    }
+                
+                }
+            } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
+
+            } else {
+                console.log(key);
+            }
+        }*/
+    } 
+
+    for (const key in data) {
+/*         //Actions Section
+        const subraceItemData = subraceData[key];
+        const parentRace = subraceItemData.race.index;
+        const currentDetail = key.replace(/_/g, " ");
+        if (parentRace === raceType) {
+            console.log(subraceItemData);
+            subrace = true;
+            const subraceItem = document.createElement('div');
+            const subraceItemHeader = document.createElement('div');
+            const subraceDiv = document.createElement('div');
+            const subraceItemIntro = document.createElement('p');
+            const subraceContent = document.createElement('p');
+            subraceItem.className = 'detailTxtMain';
+            subraceDiv.className = 'detailTxtDiv';
+            subraceContent.className = 'detailTxtContent';
+            subraceItemHeader.className = 'detailTxtHeader';
+            subraceItemIntro.className = 'detailTxtContent';
+            subraceItemHeader.textContent = subraceItemData.name;
+            subraceItemIntro.textContent = subraceItemData.desc;
+            subraceItem.appendChild(subraceItemHeader);
+            subraceItem.appendChild(subraceItemIntro);
+            for (const detailKey in subraceItemData) {
+                const detailItem = subraceItemData[detailKey];
+                if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const abilBonItem = detailItem;
+                    const abilBonMain = document.createElement('div');
+                    const abilityBonus = document.createElement('p');
+                    abilBonMain.className = 'detailTxtDiv';
+                    abilityBonus.className = 'detailTxtContent';
+                    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
+                    abilBonItem.forEach((value, index) => {
+                        const abilBonTitle = value.ability_score.name;
+                        const abilBonDesc = value.bonus;
+                        abilityBonus.innerHTML += `${abilBonTitle} + ${abilBonDesc}`;
+                        if (index < abilityBonus.length - 1) {
+                            abilityBonus.innerHTML += ", ";
+                        }
+                    });
+                    abilBonMain.appendChild(abilityBonus);
+                    subraceItem.appendChild(abilBonMain);
+                }
+                if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const traitsItem = detailItem;
+                    console.log(traitsItem)
+                    traitsItem.forEach((value, index) => {
+                        const traitsMain = document.createElement('div');
+                        const traitsContent = document.createElement('p');
+                        const traitsTitle = value.name;
+                        const traitsIndex = value.index;
+                        const traitDesc = dataCache.characters.traits[traitsIndex]['desc']
+                        traitsContent.className = 'detailTxtContent';
+                        traitsContent.innerHTML = `<span>${traitsTitle}.</span> `;
+                        traitCounter = 0;
+                        traitsMain.appendChild(traitsContent);
+                        traitDesc.forEach( item => {
+                            if (traitDesc.length > 1 && traitCounter === 0) {
+                                traitsContent.innerHTML += item;
+                                traitCounter++
+                                traitsMain.className = 'detailTxtDivLarge';
+                            } else if (traitDesc.length > 1 && traitCounter === 1) {
+                                const traitsContentMore = document.createElement('p');
+                                traitsContentMore.innerHTML += item;
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else if (traitDesc.length > 1 && traitCounter > 1) {
+                                const traitsContentMore = document.createElement('p');
+                                const splitCurTrait = item.split(':');
+                                const traitItemTitle = splitCurTrait[0];
+                                const traitItemContent = splitCurTrait[1];
+                                traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
+                                traitsContentMore.className = 'subraceTraitDetail';
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else {
+                                traitsContent.innerHTML += item;
+                            }
+                        });
+                        if (index < traitsContent.length - 1) {
+                            traitsContent.innerHTML += ", ";
+                        }
+                        subraceItem.appendChild(traitsMain);
+                    });
+                }
+            }
+            subracesInfo.push(subraceItem);
+        }
+ */
+    }
+
+    //Equipment Type
+    const equipTypeDiv = document.createElement('div');
+    const equipTypePara = document.createElement('p');
+    detailItemsDiv.appendChild(equipTypeDiv);
+    equipTypeDiv.appendChild(equipTypePara);
+    equipTypePara.textContent = `Equipment Type: ${equipType}`;
+    equipTypePara.className = 'detailTxtContent';
+
+    //Equipment Cost
+    const equipCostDiv = document.createElement('div');
+    const equipCostPara = document.createElement('p');
+    detailItemsDiv.appendChild(equipCostDiv);
+    equipCostDiv.appendChild(equipCostPara);
+    equipCostPara.textContent = `Equipment Cost: ${equipCost.quantity}${equipCost.unit}`;
+    equipCostPara.className = 'detailTxtContent';
+
+    //Equipment Weight
+    const equipWeightDiv = document.createElement('div');
+    const equipWeightPara = document.createElement('p');
+    detailItemsDiv.appendChild(equipWeightDiv);
+    equipWeightDiv.appendChild(equipWeightPara);
+    equipWeightPara.textContent = `Equipment Weight: ${equipWeight}${equipWeightUnit}`;
+    equipWeightPara.className = 'detailTxtContent';
+
+    //Equipment Description
+    const equipDescDiv = document.createElement('div');
+    const equipDescPara = document.createElement('p');
+    detailItemsDiv.appendChild(equipDescDiv);
+    equipDescDiv.appendChild(equipDescPara);
+    equipDescPara.textContent = equipDesc;
+    equipDescPara.className = 'detailTxtContent';
 
     //Footer
     const detailsFooter = document.createElement('div');
