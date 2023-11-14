@@ -302,6 +302,43 @@ article {
     z-index: +1;
 }
 
+.detailTextContent {
+    display: block;
+    column-count: 2;
+    gap: 20px;
+    margin-top: 2px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.equipTextContent {
+    display: block;
+    background-image: url(./images/page-elements/paper-backer-white.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.equipDetailContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 45px;
+    z-index: +1;
+}
+
+.equipHeadFootBar {
+    height: 6px;
+    width: 95.5%;
+    margin: 0;
+    padding: 0;
+}
+
 .detailContent {
     font-family: Scala_Sans;
     font-weight: 100;
@@ -349,6 +386,18 @@ article {
     font-weight: 100;
     font-size: 1rem;
     margin-bottom: 10px;
+}
+
+.equipTxtContent {
+    font-family: Scala_Sans;
+    font-weight: 100;
+    font-size: 16px;
+}
+
+.equipTxtContent span {
+    font-family: Scala_Sans_Bold;
+    font-weight: 100;
+    font-size: 16px;
 }
 
 .detailName {
@@ -896,16 +945,6 @@ button {
         position: sticky;
         bottom: 0;
         border: 1px solid black;
-    }
-
-    .detailTextContent {
-        display: block;
-        column-count: 2;
-        gap: 20px;
-        margin-top: 2px;
-        margin-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
     }
 
     .detailItemsDiv {

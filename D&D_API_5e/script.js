@@ -1922,6 +1922,7 @@ function raceDetailsWindow(data) {
     watermarkDiv.id = 'watermark';
     watermarkDiv.className = 'watermark';
     detailModal.appendChild(watermarkDiv);
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
 
     //Header
     const detailsHeader = document.createElement('div');
@@ -2373,6 +2374,7 @@ function equipDetailsWindow(data) {
     watermarkDiv.id = 'watermark';
     watermarkDiv.className = 'watermark';
     detailModal.appendChild(watermarkDiv);
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
 
     //Header
     const detailsHeader = document.createElement('div');
@@ -2385,7 +2387,7 @@ function equipDetailsWindow(data) {
 
     //Details Content
     const mainDetailsDiv = document.createElement('div');
-    mainDetailsDiv.classList.add('mainDetailContent');
+    mainDetailsDiv.classList.add('equipDetailContent');
     detailModal.appendChild(mainDetailsDiv);
 
     //Details Container
@@ -2393,8 +2395,8 @@ function equipDetailsWindow(data) {
     const detailTextContent = document.createElement('div');
     const detailItemsDiv = document.createElement('div');
     statHeaderBar.src = './images/page-elements/stat-bar-book.png';
-    statHeaderBar.classList.add('statHeadFootBar');
-    detailTextContent.classList.add('detailTextContent');
+    statHeaderBar.classList.add('equipHeadFootBar');
+    detailTextContent.classList.add('equipTextContent');
     detailItemsDiv.classList.add('detailItemsDiv');
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
@@ -2585,39 +2587,43 @@ function equipDetailsWindow(data) {
     const equipTypePara = document.createElement('p');
     detailItemsDiv.appendChild(equipTypeDiv);
     equipTypeDiv.appendChild(equipTypePara);
-    equipTypePara.textContent = `Equipment Type: ${equipType}`;
-    equipTypePara.className = 'detailTxtContent';
+    equipTypePara.innerHTML = `<span>Equipment Type:</span> ${equipType}`;
+    equipTypeDiv.className = 'equipTxtDiv';
+    equipTypePara.className = 'equipTxtContent';
 
     //Equipment Cost
     const equipCostDiv = document.createElement('div');
     const equipCostPara = document.createElement('p');
     detailItemsDiv.appendChild(equipCostDiv);
     equipCostDiv.appendChild(equipCostPara);
-    equipCostPara.textContent = `Equipment Cost: ${equipCost.quantity}${equipCost.unit}`;
-    equipCostPara.className = 'detailTxtContent';
+    equipCostPara.innerHTML = `<span>Equipment Cost:</span> ${equipCost.quantity}${equipCost.unit}`;
+    equipCostDiv.className = 'equipTxtDiv';
+    equipCostPara.className = 'equipTxtContent';
 
     //Equipment Weight
     const equipWeightDiv = document.createElement('div');
     const equipWeightPara = document.createElement('p');
     detailItemsDiv.appendChild(equipWeightDiv);
     equipWeightDiv.appendChild(equipWeightPara);
-    equipWeightPara.textContent = `Equipment Weight: ${equipWeight}${equipWeightUnit}`;
-    equipWeightPara.className = 'detailTxtContent';
+    equipWeightPara.innerHTML = `<span>Equipment Weight:</span> ${equipWeight}${equipWeightUnit}`;
+    equipWeightDiv.className = 'equipTxtDiv';
+    equipWeightPara.className = 'equipTxtContent';
 
     //Equipment Description
     const equipDescDiv = document.createElement('div');
     const equipDescPara = document.createElement('p');
     detailItemsDiv.appendChild(equipDescDiv);
     equipDescDiv.appendChild(equipDescPara);
-    equipDescPara.textContent = equipDesc;
-    equipDescPara.className = 'detailTxtContent';
+    equipDescPara.innerHTML = equipDesc;
+    equipDescDiv.className = 'equipTxtDiv';
+    equipDescPara.className = 'equipTxtContent';
 
     //Footer
     const detailsFooter = document.createElement('div');
     const statFooterBar = document.createElement('img');
     detailsFooter.id = 'detailsFooter';
     statFooterBar.src = './images/page-elements/stat-bar-book.png';
-    statFooterBar.classList.add('statHeadFootBar');
+    statFooterBar.classList.add('equipHeadFootBar');
     mainDetailsDiv.appendChild(statFooterBar);
     detailModal.appendChild(detailsFooter)
 
@@ -2639,7 +2645,7 @@ function equipDetailsWindow(data) {
 
     detailModal.showModal();
     //Set watermark height to account for amout of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 120) + 'px';
     closeButtonDiv.appendChild(closeButton);
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
