@@ -331,6 +331,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     raceDetailsWindow(apiData);
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
+                } else if (currentPage === 'magic-items') {
+                    magicItemDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(apiData);
                 }
@@ -342,12 +344,14 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     raceDetailsWindow(content);
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
+                } else if (currentPage === 'magic-items') {
+                    magicItemDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(content);
                 }
             }
-        } else if (itemType === 'spells' || itemType === 'equipment' || itemType === 'monsters') {
-            // Get spells & equipment main items list
+        } else if (itemType === 'monsters' || itemType === 'spells' || itemType === 'equipment'|| itemType === 'magic-items') {
+            // Get spells, monsters & equipment main items list
             //console.log('main list items')
             dataCache[itemType] = dataCache[itemType] || {};
             //console.log(itemType)
@@ -782,6 +786,7 @@ function addContent(data, type) {
 };
 
 async function addCards(data, count) {
+  
     setMainClass();
     // Clear previous page and set new title:
     clearPrevPage();
@@ -792,8 +797,8 @@ async function addCards(data, count) {
     await prepLoad(currentPage, 'traits');
     await prepLoad(currentPage, 'subraces');
 
-    prepLoadAddition('traits');
-    prepLoadAddition('subraces');
+    await prepLoadAddition('traits');
+    await prepLoadAddition('subraces');
     // Add cards to the page:
     for (const key in data) {
         createCard(data[key]);
@@ -839,7 +844,6 @@ async function addList(data, count) {
     //checkAoeValues()
 
     const ALL_IMG = document.querySelectorAll('#mainContent article');
-    const IMG_LIST_LOC = './images/' + currentPage + '.json';
 
     resetFilter();
     readyFilter();
@@ -2361,7 +2365,6 @@ function equipDetailsWindow(data) {
     } else if (equipIndex === 'backpack') {
         equipDesc = "A backpack is a leather pack carried on the back, typically with straps to secure it. A backpack can hold 1 cubic foot/ 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack."
     }
-    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -2397,190 +2400,10 @@ function equipDetailsWindow(data) {
     statHeaderBar.src = './images/page-elements/stat-bar-book.png';
     statHeaderBar.classList.add('equipHeadFootBar');
     detailTextContent.classList.add('equipTextContent');
-    detailItemsDiv.classList.add('detailItemsDiv');
+    detailItemsDiv.classList.add('equipItemsDiv');
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
     detailTextContent.appendChild(detailItemsDiv);
-
-    // For objects:
-    let subrace = false;
-    let abilBonValues = [];
-    let raceAgeValue = '';
-    let raceAlignDesc = '';
-    let raceLangValue = '';
-    let raceSizeValue = '';
-    let raceSizeDesc = '';
-    let raceSpeedValue = '';
-    let traitDivs = [];
-    let draconicAncestryData = [];
-    const draconicAncestryTable = document.createElement('table');
-    let subracesInfo = [];
-    for (const key in data) {
-        //Actions Section
-/*         if (data.hasOwnProperty(key)) {
-            const eachItem = data[key];
-            const currentDetail = key.replace(/_/g, " ");
-
-            if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
-
-            } else if (key === 'ability_bonuses') {
-                for (eachKey in eachItem) {
-                    const abilBonItem = eachItem[eachKey];
-                    const curAbilBonTitle = abilBonItem.ability_score.name;
-                    const curAbilBonDesc = abilBonItem.bonus;
-
-                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`) 
-                }
-            } else if (key === 'age') {
-                raceAgeValue = eachItem;
-            } else if (key === 'alignment') {
-                raceAlignDesc = eachItem;
-            } else if (key === 'language_desc') {
-                raceLangValue = eachItem;
-            } else if (key === 'size') {
-                raceSizeValue = eachItem;
-            } else if (key === 'size_description') {
-                raceSizeDesc = eachItem;
-            } else if (key === 'speed') {
-                raceSpeedValue = eachItem;
-            } else if (key === 'traits') {
-                for (eachKey in eachItem) {
-                    const traitItem = eachItem[eachKey];
-                    const traitDiv = document.createElement('div');
-                    const traitContent = document.createElement('p');
-                    const curTraitTitle = traitItem.name;
-                    const curTraitIndex = traitItem.index;
-                    traitDiv.className = 'detailTxtDiv';
-                    traitContent.className = 'detailTxtContent';
-                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
-                    traitDiv.appendChild(traitContent);
-                    traitDivs.push(traitDiv);
-                    if (curTraitIndex === 'draconic-ancestry') {
-                        const traitItem = dataCache.characters.traits;
-                        const draconicAncestryDiv = document.createElement('div');
-                        draconicAncestryDiv.className = 'class-summary-div';
-                        draconicAncestryTable.className = 'class-summary-table';
-                        draconicAncestryDiv.appendChild(draconicAncestryTable);
-                        for (traitKey in traitItem) {
-                            if (traitKey.startsWith('draconic-ancestry-')) {
-                                const index = traitItem[traitKey].index;
-                                const AOE_SIZE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.size;
-                                const AOE_TYPE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.type;
-                                const DC_SAVE = traitItem[traitKey].trait_specific.breath_weapon.dc.dc_type.index;
-                                const dragonType = capitalizeWords(extractPortion(index, 2, "-"));
-                                const damage_type = traitItem[traitKey].trait_specific.damage_type.name;
-                                let breathWeapon = '';
-                                if (AOE_SIZE === 30) {
-                                    breathWeapon = `5 by ${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`;
-                                } else {
-                                    breathWeapon = `${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`
-                                }
-                                const draconicAncestry = { "name": dragonType, "damage_type": damage_type, "breath_weapon": breathWeapon };
-                                draconicAncestryData.push(draconicAncestry);
-                            }
-                        }
-                        draconicAncestryDiv.appendChild(draconicAncestryTable);
-                        traitDivs.push(draconicAncestryDiv);
-                    }
-                
-                }
-            } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
-
-            } else {
-                console.log(key);
-            }
-        }*/
-    } 
-
-    for (const key in data) {
-/*         //Actions Section
-        const subraceItemData = subraceData[key];
-        const parentRace = subraceItemData.race.index;
-        const currentDetail = key.replace(/_/g, " ");
-        if (parentRace === raceType) {
-            console.log(subraceItemData);
-            subrace = true;
-            const subraceItem = document.createElement('div');
-            const subraceItemHeader = document.createElement('div');
-            const subraceDiv = document.createElement('div');
-            const subraceItemIntro = document.createElement('p');
-            const subraceContent = document.createElement('p');
-            subraceItem.className = 'detailTxtMain';
-            subraceDiv.className = 'detailTxtDiv';
-            subraceContent.className = 'detailTxtContent';
-            subraceItemHeader.className = 'detailTxtHeader';
-            subraceItemIntro.className = 'detailTxtContent';
-            subraceItemHeader.textContent = subraceItemData.name;
-            subraceItemIntro.textContent = subraceItemData.desc;
-            subraceItem.appendChild(subraceItemHeader);
-            subraceItem.appendChild(subraceItemIntro);
-            for (const detailKey in subraceItemData) {
-                const detailItem = subraceItemData[detailKey];
-                if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
-                    const abilBonItem = detailItem;
-                    const abilBonMain = document.createElement('div');
-                    const abilityBonus = document.createElement('p');
-                    abilBonMain.className = 'detailTxtDiv';
-                    abilityBonus.className = 'detailTxtContent';
-                    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
-                    abilBonItem.forEach((value, index) => {
-                        const abilBonTitle = value.ability_score.name;
-                        const abilBonDesc = value.bonus;
-                        abilityBonus.innerHTML += `${abilBonTitle} + ${abilBonDesc}`;
-                        if (index < abilityBonus.length - 1) {
-                            abilityBonus.innerHTML += ", ";
-                        }
-                    });
-                    abilBonMain.appendChild(abilityBonus);
-                    subraceItem.appendChild(abilBonMain);
-                }
-                if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
-                    const traitsItem = detailItem;
-                    console.log(traitsItem)
-                    traitsItem.forEach((value, index) => {
-                        const traitsMain = document.createElement('div');
-                        const traitsContent = document.createElement('p');
-                        const traitsTitle = value.name;
-                        const traitsIndex = value.index;
-                        const traitDesc = dataCache.characters.traits[traitsIndex]['desc']
-                        traitsContent.className = 'detailTxtContent';
-                        traitsContent.innerHTML = `<span>${traitsTitle}.</span> `;
-                        traitCounter = 0;
-                        traitsMain.appendChild(traitsContent);
-                        traitDesc.forEach( item => {
-                            if (traitDesc.length > 1 && traitCounter === 0) {
-                                traitsContent.innerHTML += item;
-                                traitCounter++
-                                traitsMain.className = 'detailTxtDivLarge';
-                            } else if (traitDesc.length > 1 && traitCounter === 1) {
-                                const traitsContentMore = document.createElement('p');
-                                traitsContentMore.innerHTML += item;
-                                traitsMain.appendChild(traitsContentMore);
-                                traitCounter++
-                            } else if (traitDesc.length > 1 && traitCounter > 1) {
-                                const traitsContentMore = document.createElement('p');
-                                const splitCurTrait = item.split(':');
-                                const traitItemTitle = splitCurTrait[0];
-                                const traitItemContent = splitCurTrait[1];
-                                traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
-                                traitsContentMore.className = 'subraceTraitDetail';
-                                traitsMain.appendChild(traitsContentMore);
-                                traitCounter++
-                            } else {
-                                traitsContent.innerHTML += item;
-                            }
-                        });
-                        if (index < traitsContent.length - 1) {
-                            traitsContent.innerHTML += ", ";
-                        }
-                        subraceItem.appendChild(traitsMain);
-                    });
-                }
-            }
-            subracesInfo.push(subraceItem);
-        }
- */
-    }
 
     //Equipment Type
     const equipTypeDiv = document.createElement('div');
@@ -2615,6 +2438,202 @@ function equipDetailsWindow(data) {
     detailItemsDiv.appendChild(equipDescDiv);
     equipDescDiv.appendChild(equipDescPara);
     equipDescPara.innerHTML = equipDesc;
+    equipDescDiv.className = 'equipTxtDiv';
+    equipDescPara.className = 'equipTxtContent';
+
+    //Footer
+    const detailsFooter = document.createElement('div');
+    const statFooterBar = document.createElement('img');
+    detailsFooter.id = 'detailsFooter';
+    statFooterBar.src = './images/page-elements/stat-bar-book.png';
+    statFooterBar.classList.add('equipHeadFootBar');
+    mainDetailsDiv.appendChild(statFooterBar);
+    detailModal.appendChild(detailsFooter)
+
+    //Modal Close Button
+    const closeButtonDiv = document.createElement('div');
+    const closeButton = document.createElement('button');
+    const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.id = 'closeButton'
+    detailsFooter.appendChild(closeButtonDiv);
+    closeButton.appendChild(closeButtonTxt);
+
+    //Modal Watermark Button
+    const watermarkToggleDiv = document.createElement('div');
+    const watermarkToggleBtn = document.createElement('button');
+    const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
+    watermarkToggleBtn.id = 'watermarkToggle'
+    detailsFooter.appendChild(watermarkToggleDiv);
+    watermarkToggleBtn.appendChild(watermarkToggleTxt);
+
+    detailModal.showModal();
+    //Set watermark height to account for amout of content
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 120) + 'px';
+    closeButtonDiv.appendChild(closeButton);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+    modalListeners()
+};
+
+function magicItemDetailsWindow(data) {
+    const NUM_OF_ITEMS = Object.keys(data).length;
+    const magicItemIndex = data.index
+    const magicItemData = dataCache['magic-items'][magicItemIndex];
+    const magicItemType = magicItemData.equipment_category.name;
+    const magicItemName = magicItemData.name;
+    const magicItemRarity = magicItemData.rarity.name;
+    const magicItemIsVariant = magicItemData.variant;
+    const magicItemVariants = magicItemData.variants;
+    const magicItemDescRaw = magicItemData.desc;
+    console.log(data);
+    console.log(magicItemIndex);
+    console.log(magicItemData);
+    console.log(magicItemType);
+    console.log(magicItemName);
+    console.log(magicItemDescRaw);
+    console.log(magicItemRarity);
+    console.log(magicItemIsVariant);
+    console.log(magicItemVariants);
+
+    //TODO CONTINUE HERE
+    //TODO Do a console.log on all desc[0] strings and find out what the options are. Decide how to filter them.
+    //TODO If keeping nothing with Type or changing things - clean up these vars.
+    function getItemAtts(string) {
+        const regex = /\(([^)]+)\)/g;
+        const matches = string.match(regex);
+
+        if (matches) {
+            return matches.map((match) => match.slice(1, -1));
+        } else {
+            return [];
+        }
+    };
+    const firstAtts = getItemAtts(magicItemDescRaw[0]);
+    let itemAtts = firstAtts.filter(att => !att.includes('requires attunement') && !att.includes('shield') && !att.includes('any ') && !att.includes('+') && !att.includes('light'));
+    const almostAtts = firstAtts.filter(att => !att.includes('requires attunement'));
+    const filterAtts = almostAtts.filter(att => att.includes('any ') || att.includes('shield') || att.includes('light'));
+
+/*    let equipWeightUnit = '';
+     if (equipWeight < 2) {
+        equipWeightUnit = 'lb';
+    } else {
+        equipWeightUnit = 'lbs';
+    }
+    let equipDesc = equipData.desc;
+
+    if (equipIndex === 'abacus') {
+        equipDesc = "A standard tool used to make calculations."
+    } else if (equipIndex === 'backpack') {
+        equipDesc = "A backpack is a leather pack carried on the back, typically with straps to secure it. A backpack can hold 1 cubic foot/ 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack."
+    }
+ */
+
+    //Create Modal Window
+    const detailModal = document.createElement('dialog');
+    mainElement.appendChild(detailModal);
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
+
+    //Watermark image
+    const watermarkDiv = document.createElement('div');
+    watermarkDiv.id = 'watermark';
+    watermarkDiv.className = 'watermark';
+    detailModal.appendChild(watermarkDiv);
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
+
+    //Header
+    const detailsHeader = document.createElement('div');
+    const detailName = document.createElement('h3');
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader);
+    detailsHeader.id = 'detailsHeader';
+    detailName.className = 'detailHeader'
+    detailName.textContent = data.name;
+
+    //Details Content
+    const mainDetailsDiv = document.createElement('div');
+    mainDetailsDiv.classList.add('equipDetailContent');
+    detailModal.appendChild(mainDetailsDiv);
+
+    //Details Container
+    const statHeaderBar = document.createElement('img');
+    const detailTextContent = document.createElement('div');
+    const detailItemsDiv = document.createElement('div');
+    statHeaderBar.src = './images/page-elements/stat-bar-book.png';
+    statHeaderBar.classList.add('equipHeadFootBar');
+    detailTextContent.classList.add('equipTextContent');
+    detailItemsDiv.classList.add('equipItemsDiv');
+    mainDetailsDiv.appendChild(statHeaderBar);
+    mainDetailsDiv.appendChild(detailTextContent);
+    detailTextContent.appendChild(detailItemsDiv);
+
+    //Magic Item Type
+    const magicItemTypeDiv = document.createElement('div');
+    const magicItemTypePara = document.createElement('p');
+    if (itemAtts.length > 0) {
+        magicItemTypePara.innerHTML = `<span>Magic Item Type:</span> ${magicItemType} (${itemAtts})`;
+    } else {
+        magicItemTypePara.innerHTML = `<span>Magic Item Type:</span> ${magicItemType}`;
+    }
+    detailItemsDiv.appendChild(magicItemTypeDiv);
+    magicItemTypeDiv.appendChild(magicItemTypePara);
+    magicItemTypeDiv.className = 'equipTxtDiv';
+    magicItemTypePara.className = 'equipTxtContent';
+
+    //Magic Item Rarity
+    const magicItemRarityDiv = document.createElement('div');
+    const magicItemRarityPara = document.createElement('p');
+    detailItemsDiv.appendChild(magicItemRarityDiv);
+    magicItemRarityDiv.appendChild(magicItemRarityPara);
+    magicItemRarityPara.innerHTML = `<span>Magic Item Rarity:</span> ${magicItemRarity}`;
+    magicItemRarityDiv.className = 'equipTxtDiv';
+    magicItemRarityPara.className = 'equipTxtContent';
+
+    //Magic Item Attune
+    const magicItemAttuneDiv = document.createElement('div');
+    const magicItemAttunePara = document.createElement('p');
+    detailItemsDiv.appendChild(magicItemAttuneDiv);
+    magicItemAttuneDiv.appendChild(magicItemAttunePara);
+    magicItemAttunePara.innerHTML = `<span>Requires Attunement:</span> ${itemAtts.includes('requires attunement')}`;
+    magicItemAttuneDiv.className = 'equipTxtDiv';
+    magicItemAttunePara.className = 'equipTxtContent';
+
+    //Magic Item Material
+    const magicItemWeightDiv = document.createElement('div');
+    const magicItemWeightPara = document.createElement('p');
+    detailItemsDiv.appendChild(magicItemWeightDiv);
+    magicItemWeightDiv.appendChild(magicItemWeightPara);
+    if (filterAtts.length === 1) {
+        magicItemWeightPara.innerHTML = `<span>Magic Item Material:</span> ${capitalizeWords(filterAtts[0])}`;
+    } else if (filterAtts.length === 0) {
+        magicItemWeightPara.innerHTML = `<span>Magic Item Material:</span> None`;
+    } else {
+        console.log(filterAtts)
+    }
+    magicItemWeightDiv.className = 'equipTxtDiv';
+    magicItemWeightPara.className = 'equipTxtContent';
+
+    //TODO Create a function to make lists, tables, etc. where applicable.
+    //Magic Item Description
+    const equipDescDiv = document.createElement('div');
+    const equipDescPara = document.createElement('p');
+    detailItemsDiv.appendChild(equipDescDiv);
+    equipDescDiv.appendChild(equipDescPara);
+    let descCounter = 0;
+    let magicItemDesc = [];
+    if (magicItemDescRaw.length < 1) {
+        magicItemDesc = 'No description available.'
+    } else {
+        magicItemDescRaw.forEach( para => {
+            if (descCounter === 0) {
+                console.log('0')
+                descCounter++
+            } else {
+                magicItemDesc.push(para)
+                descCounter++
+            }
+        });
+    }
+    equipDescPara.innerHTML = magicItemDesc;
     equipDescDiv.className = 'equipTxtDiv';
     equipDescPara.className = 'equipTxtContent';
 
@@ -2711,7 +2730,7 @@ function setNavListen() {
                     await prepLoad('traits') 
                 } */
                 addContent(dataCache[eachItem.id], 'main');
-            } else if (eachItem.id === 'equipment') {
+            } else if (eachItem.id === 'equipment' || eachItem.id === 'magic-items') {
                 //FIXME This is temp until new localCache loading system in place
                 hideFilters();
                 currentPage = eachItem.id;

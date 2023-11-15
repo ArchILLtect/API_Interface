@@ -391,13 +391,13 @@ article {
 .equipTxtContent {
     font-family: Scala_Sans;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 1.3rem;
 }
 
 .equipTxtContent span {
     font-family: Scala_Sans_Bold;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 1.3rem;
 }
 
 .detailName {
@@ -525,6 +525,15 @@ article {
     display: block;
     height: auto;
     width: 100%;
+    padding: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.equipItemsDiv {
+    display: block;
+    height: auto;
+    width: 95.5%;
     padding: 20px;
     margin-top: 0;
     margin-bottom: 20px;
