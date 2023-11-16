@@ -400,6 +400,31 @@ article {
     font-size: 1.3rem;
 }
 
+.rarityTxtDiv {
+    display: flex;
+    gap: 5px;
+}
+
+.common {
+    background-color: grey;
+}
+
+.uncommon {
+    color: darkgreen;
+}
+
+.rare {
+    color: blue;
+}
+
+.varyRare {
+    color: orangered;
+}
+
+.legendary {
+    background-color: gold;
+}
+
 .detailName {
     font-family: Mrs_Eaves;
     font-size: 2.25rem;
