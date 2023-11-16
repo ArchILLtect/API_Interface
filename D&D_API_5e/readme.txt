@@ -57,6 +57,7 @@
 10/12/23 - Added missing API basic subraces and traits<br>
 10/12/23 - Upgraded main to integrate additonal-data for traits and subraces in localCache<br>
 10/14/23 - Upgraded magic items list and detail display<br>
+10/15/23 - Upgraded magic items list and detail display<br>
 <br>
 <br>
 <br>
