@@ -332,7 +332,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
                 } else if (currentPage === 'magic-items') {
-                    magicItemDetailsWindow(content);
+                    //TODO Turn this back on!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    //magicItemDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(apiData);
                 }
@@ -825,8 +826,10 @@ async function addList(data, count) {
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'filterData');
     // Add list to the page:
+
     for (const key in data) {
         createListItem(data[key]);
+        prepLoad(currentPage, 'data', key)
     };
 
     const mainContent = document.getElementById("mainContent");
@@ -2484,7 +2487,11 @@ function magicItemDetailsWindow(data) {
     const magicItemIsVariant = magicItemData.variant;
     const magicItemVariants = magicItemData.variants;
     const magicItemDescRaw = magicItemData.desc;
-    console.log(data);
+    const magicItemMainData = getItemAtts(magicItemDescRaw[0]);
+    const filterMats = magicItemMainData.filter(att => !att.includes('+') && !att.includes('requires') && !att.includes('any'));
+    const filterWeapon = filterMats.filter(att => !att.includes('arrow') && !att.includes('dagger'));
+    console.log(magicItemData)
+/*     console.log(data);
     console.log(magicItemIndex);
     console.log(magicItemData);
     console.log(magicItemType);
@@ -2492,11 +2499,12 @@ function magicItemDetailsWindow(data) {
     console.log(magicItemDescRaw);
     console.log(magicItemRarity);
     console.log(magicItemIsVariant);
-    console.log(magicItemVariants);
+    console.log(magicItemVariants); */
 
     //TODO CONTINUE HERE
     //TODO Do a console.log on all desc[0] strings and find out what the options are. Decide how to filter them.
     //TODO If keeping nothing with Type or changing things - clean up these vars.
+
     function getItemAtts(string) {
         const regex = /\(([^)]+)\)/g;
         const matches = string.match(regex);
@@ -2507,25 +2515,82 @@ function magicItemDetailsWindow(data) {
             return [];
         }
     };
-    const firstAtts = getItemAtts(magicItemDescRaw[0]);
-    let itemAtts = firstAtts.filter(att => !att.includes('requires attunement') && !att.includes('shield') && !att.includes('any ') && !att.includes('+') && !att.includes('light'));
-    const almostAtts = firstAtts.filter(att => !att.includes('requires attunement'));
-    const filterAtts = almostAtts.filter(att => att.includes('any ') || att.includes('shield') || att.includes('light'));
+    const itemAtts = getItemAtts(magicItemDescRaw[0]);
 
-/*    let equipWeightUnit = '';
-     if (equipWeight < 2) {
-        equipWeightUnit = 'lb';
-    } else {
-        equipWeightUnit = 'lbs';
-    }
-    let equipDesc = equipData.desc;
-
-    if (equipIndex === 'abacus') {
-        equipDesc = "A standard tool used to make calculations."
-    } else if (equipIndex === 'backpack') {
-        equipDesc = "A backpack is a leather pack carried on the back, typically with straps to secure it. A backpack can hold 1 cubic foot/ 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack."
-    }
- */
+    let armorDescCount = 0;
+    let potionDescCount = 0;
+    let ringDescCount = 0;
+    let rodDescCount = 0;
+    let scrollDescCount = 0;
+    let staffDescCount = 0;
+    let wandDescCount = 0;
+    let weaponDescCount = 0;
+    let wonderDescCount = 0;
+    let uncountedDescItems = 0;
+    //TODO Reset filtering to find the (+1,2,3) so I can update rarity "varies" values.
+    testData = dataCache['magic-items'];
+    for (key in testData) {
+        const itemData = testData[key]
+        const desc = itemData.desc
+        const name = itemData.name
+        if (desc[0].includes('Wondrous') || desc[0].includes('Wondous')) {
+            const wondrousDataTypes = getItemAtts(desc[0]);
+            const wondrousFilter = wondrousDataTypes.filter(att => !att.includes('requires'));
+            console.log(wondrousFilter);
+            console.log(name);
+            wonderDescCount++
+        } else if (desc[0].includes('Armor')) {
+            const armorDataTypes = getItemAtts(desc[0]);
+            const armorFilter = armorDataTypes.filter(att => !att.includes('+') && !att.includes('requires'));
+            armorDescCount++
+        } else if (desc[0].includes('Potion')) {
+            potionDescCount++
+        } else if (desc[0].includes('Ring')) {
+            const ringDataTypes = getItemAtts(desc[0]);
+            const ringFilter = ringDataTypes.filter(att => !att.includes('requires'));
+            ringDescCount++
+        } else if (desc[0].includes('Rod')) {
+            const rodDataTypes = getItemAtts(desc[0]);
+            const rodFilter = rodDataTypes.filter(att => !att.includes('requires'));
+            rodDescCount++
+        } else if (desc[0].includes('Scroll')) {
+            scrollDescCount++
+        } else if (desc[0].includes('Staff')) {
+            const staffDataTypes = getItemAtts(desc[0]);
+            const staffFilter = staffDataTypes.filter(att => !att.includes('requires'));
+            staffDescCount++
+        } else if (desc[0].includes('Wand')) {
+            const wandDataTypes = getItemAtts(desc[0]);
+            const wandFilter = wandDataTypes.filter(att => !att.includes('+') && !att.includes('requires'));
+            wandDescCount++
+        } else if (desc[0].includes('Weapon')) {
+            const weaponDataTypes = getItemAtts(desc[0]);
+            const weaponFilter = weaponDataTypes.filter(att => !att.includes('+') && !att.includes('requires') && !att.includes('any') && !att.includes('arrow') && !att.includes('dagger'));
+            weaponDescCount++
+        } else if (desc.length > 1) {
+            console.log(desc[0]);
+            console.log(itemData.name);
+            uncountedDescItems++
+        } else {
+            console.log('1 =')
+            console.log(desc);
+            console.log(itemData.name);
+            uncountedDescItems++
+        }
+    } 
+    
+    console.log(`Armor Items: ${armorDescCount}`);
+    console.log(`Potion Items: ${potionDescCount}`);
+    console.log(`Ring Items: ${ringDescCount}`);
+    console.log(`Rod Items: ${rodDescCount}`);
+    console.log(`Scroll Items: ${scrollDescCount}`);
+    console.log(`Staff Items: ${staffDescCount}`);
+    console.log(`Wand Items: ${wandDescCount}`);
+    console.log(`Weapon Items: ${weaponDescCount}`);
+    console.log(`Wondrous Items: ${wonderDescCount}`);
+    const totalCountedDescItems = armorDescCount + potionDescCount + ringDescCount + rodDescCount + scrollDescCount + staffDescCount + wandDescCount + weaponDescCount + wonderDescCount;
+    const netTotalDescItems = totalCountedDescItems + uncountedDescItems;
+    console.log(`Total counted items: ${totalCountedDescItems}, Total uncounted items: ${uncountedDescItems} - Net total items: ${netTotalDescItems}`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -2569,11 +2634,7 @@ function magicItemDetailsWindow(data) {
     //Magic Item Type
     const magicItemTypeDiv = document.createElement('div');
     const magicItemTypePara = document.createElement('p');
-    if (itemAtts.length > 0) {
-        magicItemTypePara.innerHTML = `<span>Magic Item Type:</span> ${magicItemType} (${itemAtts})`;
-    } else {
-        magicItemTypePara.innerHTML = `<span>Magic Item Type:</span> ${magicItemType}`;
-    }
+    magicItemTypePara.innerHTML = `<span>Magic Item Type:</span> ${magicItemType}`;
     detailItemsDiv.appendChild(magicItemTypeDiv);
     magicItemTypeDiv.appendChild(magicItemTypePara);
     magicItemTypeDiv.className = 'equipTxtDiv';
@@ -2581,36 +2642,79 @@ function magicItemDetailsWindow(data) {
 
     //Magic Item Rarity
     const magicItemRarityDiv = document.createElement('div');
+    const magicItemRarityKey = document.createElement('p');
     const magicItemRarityPara = document.createElement('p');
+    const filterRarity = getItemAtts(dataCache['magic-items'][data.index].desc[0])
     detailItemsDiv.appendChild(magicItemRarityDiv);
+    magicItemRarityDiv.appendChild(magicItemRarityKey);
     magicItemRarityDiv.appendChild(magicItemRarityPara);
-    magicItemRarityPara.innerHTML = `<span>Magic Item Rarity:</span> ${magicItemRarity}`;
-    magicItemRarityDiv.className = 'equipTxtDiv';
-    magicItemRarityPara.className = 'equipTxtContent';
+    magicItemRarityKey.innerHTML = '<span>Magic Item Rarity:</span> '
+    if (filterRarity.includes('silver or brass')){
+        magicItemRarityPara.innerHTML = "Silver or Brass - <span class='rare'>Rare</span>, Bronze - <span class='varyRare'>Very Rare</span>, Iron - <span class='legendary'>Legendary</span>.";
+    } else {
+        magicItemRarityPara.textContent = `${magicItemRarity}`;
+    }
+    if (magicItemRarity === 'Common') {
+        magicItemRarityPara.classList.add('common');
+    } else if (magicItemRarity === 'Uncommon') {
+        magicItemRarityPara.classList.add('uncommon');
+    } else if (magicItemRarity === 'Rare') {
+        magicItemRarityPara.classList.add('rare');
+    } else if (magicItemRarity === 'Very Rare') {
+        magicItemRarityPara.classList.add('varyRare');
+    } else if (magicItemRarity === 'Legendary') {
+        magicItemRarityPara.classList.add('legendary');
+    } else if (magicItemRarity === 'Varies') {
+        console.log(`We got us a ${magicItemRarity} rarity value!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
+        console.log(magicItemName);
+    } else {
+        console.log(`We got us a ${magicItemRarity} rarity value!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
+        console.log(magicItemName);
+    }
+    magicItemRarityDiv.className = 'rarityTxtDiv';
+    magicItemRarityKey.className = 'equipTxtContent';
+    magicItemRarityPara.classList.add('equipTxtContent');
 
     //Magic Item Attune
     const magicItemAttuneDiv = document.createElement('div');
     const magicItemAttunePara = document.createElement('p');
     detailItemsDiv.appendChild(magicItemAttuneDiv);
     magicItemAttuneDiv.appendChild(magicItemAttunePara);
-    magicItemAttunePara.innerHTML = `<span>Requires Attunement:</span> ${itemAtts.includes('requires attunement')}`;
+    function attune() {
+        const needsAttune = /requires attunement/i;
+        const specialAttune = /requires attunement /i;
+        if (needsAttune.test(itemAtts)) {
+            if (specialAttune.test(itemAtts)) {
+                return `True - ${itemAtts}.`;
+            } else {
+                return 'True';
+            }
+        } else {
+            return "False";
+        }};
+    magicItemAttunePara.innerHTML = `<span>Requires Attunement:</span> ${attune()}`;
     magicItemAttuneDiv.className = 'equipTxtDiv';
     magicItemAttunePara.className = 'equipTxtContent';
 
+    //TODO Magic Item MATS need work
     //Magic Item Material
-    const magicItemWeightDiv = document.createElement('div');
-    const magicItemWeightPara = document.createElement('p');
-    detailItemsDiv.appendChild(magicItemWeightDiv);
-    magicItemWeightDiv.appendChild(magicItemWeightPara);
-    if (filterAtts.length === 1) {
-        magicItemWeightPara.innerHTML = `<span>Magic Item Material:</span> ${capitalizeWords(filterAtts[0])}`;
-    } else if (filterAtts.length === 0) {
-        magicItemWeightPara.innerHTML = `<span>Magic Item Material:</span> None`;
+    const magicItemMatsDiv = document.createElement('div');
+    const magicItemMatsPara = document.createElement('p');
+    detailItemsDiv.appendChild(magicItemMatsDiv);
+    magicItemMatsDiv.appendChild(magicItemMatsPara);
+    const anyWeaponRegex = /any /i;
+    if (filterMats.includes('any')) {
+        magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> Any weapon`;
+        console.log(`CHECK: Is ${magicItemName} a weapon?`)
+    } else if (anyWeaponRegex.test(filterMats)) {
+        magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> ${filterMats}`;
+    } else if (0 === 0) {
+        magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> None`;
     } else {
         console.log(filterAtts)
     }
-    magicItemWeightDiv.className = 'equipTxtDiv';
-    magicItemWeightPara.className = 'equipTxtContent';
+    magicItemMatsDiv.className = 'equipTxtDiv';
+    magicItemMatsPara.className = 'equipTxtContent';
 
     //TODO Create a function to make lists, tables, etc. where applicable.
     //Magic Item Description
