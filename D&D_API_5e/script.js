@@ -2488,7 +2488,8 @@ function magicItemDetailsWindow(data) {
     const magicItemVariants = magicItemData.variants;
     const magicItemDescRaw = magicItemData.desc;
     const magicItemMainData = getItemAtts(magicItemDescRaw[0]);
-    const filterMats = magicItemMainData.filter(att => !att.includes('+') && !att.includes('requires') && !att.includes('any'));
+    const filterDesc = magicItemMainData.filter(att => !att.includes('+') && !att.includes('requires') && !att.includes('any'));
+    const filterMats = magicItemMainData.filter(att => !att.includes('+') && !att.includes('requires'));
     const filterWeapon = filterMats.filter(att => !att.includes('arrow') && !att.includes('dagger'));
     console.log(magicItemData)
 /*     console.log(data);
@@ -2536,8 +2537,7 @@ function magicItemDetailsWindow(data) {
         if (desc[0].includes('Wondrous') || desc[0].includes('Wondous')) {
             const wondrousDataTypes = getItemAtts(desc[0]);
             const wondrousFilter = wondrousDataTypes.filter(att => !att.includes('requires'));
-            console.log(wondrousFilter);
-            console.log(name);
+
             wonderDescCount++
         } else if (desc[0].includes('Armor')) {
             const armorDataTypes = getItemAtts(desc[0]);
@@ -2566,6 +2566,8 @@ function magicItemDetailsWindow(data) {
         } else if (desc[0].includes('Weapon')) {
             const weaponDataTypes = getItemAtts(desc[0]);
             const weaponFilter = weaponDataTypes.filter(att => !att.includes('+') && !att.includes('requires') && !att.includes('any') && !att.includes('arrow') && !att.includes('dagger'));
+            console.log(weaponFilter);
+            console.log(name);
             weaponDescCount++
         } else if (desc.length > 1) {
             console.log(desc[0]);
@@ -2648,10 +2650,56 @@ function magicItemDetailsWindow(data) {
     detailItemsDiv.appendChild(magicItemRarityDiv);
     magicItemRarityDiv.appendChild(magicItemRarityKey);
     magicItemRarityDiv.appendChild(magicItemRarityPara);
-    magicItemRarityKey.innerHTML = '<span>Magic Item Rarity:</span> '
+    magicItemRarityKey.innerHTML = '<span>Magic Item Rarity:</span> ';
+    function filterForRarity(inputString) {
+        // Define a regular expression to match content within parentheses with at least one comma
+        const regex = /\([^)]*,[^)]*\)/g;
+        const regexPlusOne = /\+1/;
+        const regexPlusTwo = /\+2/;
+        const regexPlusThree = /\+3/;
+        // Replace the matched content with an empty string
+        const resultOne = inputString.replace(regex, '');
+        // Split string at commas
+        const resultOneSplit = resultOne.split(',');
+        resultOneSplit.shift();
+        // Find rarities
+        plusOneRarity = '';
+        plusTwoRarity = '';
+        plusThreeRarity = '';
+        let rarityCounter = 0;
+        resultOneSplit.forEach( curString => {
+            const stringSplit = curString.split(' ');
+            rarityCounter++
+            if (rarityCounter === 1) {
+                if (stringSplit[2] === 'very') {
+                    plusOneRarity = `${extractParenth(stringSplit[4])} = <span class='${stringSplit[2]}${capitalizeWords(stringSplit[3])}'>${capitalizeWords(stringSplit[2])} ${capitalizeWords(stringSplit[3])}</span>`;
+                } else {
+                    plusOneRarity = `${extractParenth(stringSplit[2])} = <span class='${stringSplit[1]}'>${capitalizeWords(stringSplit[1])}</span>`;
+                }
+            } else if (rarityCounter === 2) {
+                if (stringSplit[2] === 'very') {
+                    plusTwoRarity = `${extractParenth(stringSplit[4])} = <span class='${stringSplit[2]}${capitalizeWords(stringSplit[3])}'>${capitalizeWords(stringSplit[2])} ${capitalizeWords(stringSplit[3])}</span>`;
+                } else {
+                    plusTwoRarity = `${extractParenth(stringSplit[2])} = <span class='${stringSplit[1]}'>${capitalizeWords(stringSplit[1])}</span>`;
+                }
+            } else if (rarityCounter === 3) {
+                if (stringSplit[2] === 'very') {
+                    plusThreeRarity = `${extractParenth(stringSplit[4])} = <span class='${stringSplit[2]}${capitalizeWords(stringSplit[3])}'>${capitalizeWords(stringSplit[2])} ${capitalizeWords(stringSplit[3])}</span>`;
+                } else {
+                    plusThreeRarity = `${extractParenth(stringSplit[2])} = <span class='${stringSplit[1]}'>${capitalizeWords(stringSplit[1])}</span>`;
+                }
+
+            }
+
+        });
+        return `${plusOneRarity}, ${plusTwoRarity}, ${plusThreeRarity}`;
+    }
     if (filterRarity.includes('silver or brass')){
-        magicItemRarityPara.innerHTML = "Silver or Brass - <span class='rare'>Rare</span>, Bronze - <span class='varyRare'>Very Rare</span>, Iron - <span class='legendary'>Legendary</span>.";
+        magicItemRarityPara.innerHTML = "Silver or Brass = <span class='rare'>Rare</span>, Bronze = <span class='veryRare'>Very Rare</span>, Iron = <span class='legendary'>Legendary</span>.";
+    } else if (filterRarity.includes('+1') && filterRarity.includes('+2') && filterRarity.includes('+3')){
+        magicItemRarityPara.innerHTML = filterForRarity(magicItemDescRaw[0]);
     } else {
+        console.log('Youve been elsed!!!')
         magicItemRarityPara.textContent = `${magicItemRarity}`;
     }
     if (magicItemRarity === 'Common') {
@@ -2667,6 +2715,9 @@ function magicItemDetailsWindow(data) {
     } else if (magicItemRarity === 'Varies') {
         console.log(`We got us a ${magicItemRarity} rarity value!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
         console.log(magicItemName);
+        console.log(magicItemRarity);
+        console.log(magicItemDescRaw);
+    
     } else {
         console.log(`We got us a ${magicItemRarity} rarity value!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
         console.log(magicItemName);
@@ -2678,6 +2729,7 @@ function magicItemDetailsWindow(data) {
     //Magic Item Attune
     const magicItemAttuneDiv = document.createElement('div');
     const magicItemAttunePara = document.createElement('p');
+    const attuneFilter = itemAtts.filter(att => !att.includes('+'));
     detailItemsDiv.appendChild(magicItemAttuneDiv);
     magicItemAttuneDiv.appendChild(magicItemAttunePara);
     function attune() {
@@ -2685,7 +2737,7 @@ function magicItemDetailsWindow(data) {
         const specialAttune = /requires attunement /i;
         if (needsAttune.test(itemAtts)) {
             if (specialAttune.test(itemAtts)) {
-                return `True - ${itemAtts}.`;
+                return `True - ${attuneFilter}.`;
             } else {
                 return 'True';
             }
@@ -2705,11 +2757,12 @@ function magicItemDetailsWindow(data) {
     const anyWeaponRegex = /any /i;
     if (filterMats.includes('any')) {
         magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> Any weapon`;
-        console.log(`CHECK: Is ${magicItemName} a weapon?`)
+        console.log(`CHECK: Is ${magicItemName} a weapon?`);
     } else if (anyWeaponRegex.test(filterMats)) {
         magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> ${filterMats}`;
     } else if (0 === 0) {
         magicItemMatsPara.innerHTML = `<span>Magic Item Material:</span> None`;
+        console.log(magicItemDescRaw[0])
     } else {
         console.log(filterAtts)
     }
@@ -3429,6 +3482,22 @@ function extractPortion(string, portionIndex, separator="/") {
     }
 
     return portions[portionIndex];
+}
+
+function extractParenth(inputString) {
+  // Define a regular expression to match content within parentheses
+  const regex = /\(([^)]*)\)/;
+
+  // Use the match method to find the content within parentheses
+  const match = inputString.match(regex);
+
+  // Check if a match is found and return the content
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    // Return an empty string if no match is found
+    return '';
+  }
 }
 
 function capitalizeWords(inputString) {
