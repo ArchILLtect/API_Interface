@@ -406,22 +406,32 @@ article {
 }
 
 .common {
+    font-family: Scala_Sans;
+    font-weight: 100;
     background-color: grey;
 }
 
 .uncommon {
+    font-family: Scala_Sans !important;
+    font-weight: 100;
     color: darkgreen;
 }
 
 .rare {
+    font-family: Scala_Sans !important;
+    font-weight: 100;
     color: blue;
 }
 
 .veryRare {
+    font-family: Scala_Sans !important;
+    font-weight: 100;
     color: orangered;
 }
 
 .legendary {
+    font-family: Scala_Sans !important;
+    font-weight: 100;
     background-color: gold;
 }
 

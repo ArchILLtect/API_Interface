@@ -2600,13 +2600,6 @@ function magicItemDetailsWindow(data) {
     detailModal.id = 'detailModal';
     detailModal.classList.add('modalWindow');
 
-    //Watermark image
-    const watermarkDiv = document.createElement('div');
-    watermarkDiv.id = 'watermark';
-    watermarkDiv.className = 'watermark';
-    detailModal.appendChild(watermarkDiv);
-    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
-
     //Header
     const detailsHeader = document.createElement('div');
     const detailName = document.createElement('h3');
@@ -2811,19 +2804,19 @@ function magicItemDetailsWindow(data) {
     detailsFooter.appendChild(closeButtonDiv);
     closeButton.appendChild(closeButtonTxt);
 
+    //TODO P5-T1 Finish removing the watermark toggle button including listeners and figure out how to deal with pages that don't have the watermark.
     //Modal Watermark Button
     const watermarkToggleDiv = document.createElement('div');
     const watermarkToggleBtn = document.createElement('button');
     const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
-    watermarkToggleBtn.id = 'watermarkToggle'
+    watermarkToggleBtn.id = 'watermarkToggle';
     detailsFooter.appendChild(watermarkToggleDiv);
     watermarkToggleBtn.appendChild(watermarkToggleTxt);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+
 
     detailModal.showModal();
-    //Set watermark height to account for amout of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 120) + 'px';
     closeButtonDiv.appendChild(closeButton);
-    watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
 };
 
@@ -3346,7 +3339,6 @@ function modalListeners() {
     document.addEventListener('click', clickListener);
     closeButton.addEventListener('click', closeButtonListener);
     watermarkToggleBtn.addEventListener('click', watermarkTogListener);
-    
 
     function cleanUpModal() {
         const modal = document.getElementById('detailModal');
@@ -3406,6 +3398,8 @@ function placeImages(articles, type) {
             }
         }
 
+    } else if (type === 'magic-items') {
+        // TODO P1T1 CONTINUE HERE - First set up to load new filterData for magic-items and then use type to set images!!!!!!!!!!!!!!!!!!!!!!!!!!
     } else {
         const CUR_FILES = dataCache['images'][currentPage]
         let fileType = '';
