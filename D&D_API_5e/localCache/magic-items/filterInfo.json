@@ -1,5 +1,1814 @@
 {
-    "filterData": {
-        "empty": "empty"
+  "filterData": {
+    "adamantine-armor": {
+      "type": "armor",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "ammunition": {
+      "type": "ammunition",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "ammunition-1": {
+      "type": "ammunition",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "ammunition-2": {
+      "type": "ammunition",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "ammunition-3": {
+      "type": "ammunition",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "amulet-of-health": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "amulet-of-proof-against-detection-and-location": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "amulet-of-the-planes": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "animated-shield": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "apparatus-of-the-crab": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "armor": {
+      "type": "armor",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "armor-1": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "armor-2": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "armor-3": {
+      "type": "armor",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "armor-of-invulnerability": {
+      "type": "armor",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "armor-of-resistance": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "armor-of-vulnerability": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "arrow-catching-shield": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "arrow-of-slaying": {
+      "type": "ammunition",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "bag-of-beans": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "bag-of-devouring": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "bag-of-holding": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "bag-of-tricks": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "bag-of-tricks-gray": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "bag-of-tricks-rust": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "bag-of-tricks-tan": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "bead-of-force": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "belt-of-dwarvenkind": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "belt-of-giant-strength": {
+      "type": "wondrous-items",
+      "rarity": "Varies",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-cloud": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-fire": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-frost": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-hill": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-stone": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "belt-of-giant-strength-storm": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "berserker-axe": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "boots-of-elvenkind": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "boots-of-levitation": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "boots-of-speed": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "boots-of-striding-and-springing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "boots-of-the-winterlands": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "bowl-of-commanding-water-elementals": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "bracers-of-archery": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "bracers-of-defense": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "brazier-of-commanding-fire-elementals": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "brooch-of-shielding": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "broom-of-flying": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "candle-of-invocation": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "cape-of-the-mountebank": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "carpet-of-flying": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "carpet-of-flying-3x5": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "carpet-of-flying-4x6": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "carpet-of-flying-5x7": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "carpet-of-flying-6x9": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "censer-of-controlling-air-elementals": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "chime-of-opening": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "circlet-of-blasting": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "cloak-of-arachnida": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "cloak-of-displacement": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "cloak-of-elvenkind": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "cloak-of-protection": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "cloak-of-the-bat": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "cloak-of-the-manta-ray": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "crystal-ball": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "crystal-ball-of-mind-reading": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "crystal-ball-of-telepathy": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "crystal-ball-of-true-seeing": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "cube-of-force": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "cubic-gate": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "dagger-of-venom": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "dancing-sword": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "decanter-of-endless-water": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "deck-of-illusions": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "deck-of-many-things": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "defender": {
+      "type": "weapon",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "demon-armor": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dimensional-shackles": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "dragon-scale-mail": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-black": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-blue": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-brass": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-bronze": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-copper": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-gold": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-green": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-red": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-silver": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-scale-mail-white": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "dragon-slayer": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "dust-of-disappearance": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "dust-of-dryness": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "dust-of-sneezing-and-choking": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "dwarven-plate": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "dwarven-thrower": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "efficient-quiver": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "efreeti-bottle": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "elemental-gem": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "elemental-gem-air": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "elemental-gem-earth": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "elemental-gem-fire": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "elemental-gem-water": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "elven-chain": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "eversmoking-bottle": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "eyes-of-charming": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "eyes-of-minute-seeing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "eyes-of-the-eagle": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "feather-token": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-anchor": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-bird": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-fan": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-swan-boat": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-tree": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "feather-token-whip": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power": {
+      "type": "wondrous-items",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-bronze-griffon": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-ebony-fly": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-golden-lions": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-ivory-goats": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-marble-elephant": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-obsidian-steed": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-onyx-dog": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-serpentine-owl": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "figurine-of-wondrous-power-silver-raven": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "flame-tongue": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "folding-boat": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "frost-brand": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "gauntlets-of-ogre-power": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "gem-of-brightness": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "gem-of-seeing": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "giant-slayer": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "glamoured-studded-leather-armor": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "gloves-of-missile-snaring": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "gloves-of-swimming-and-climbing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "goggles-of-night": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "hammer-of-thunderbolts": {
+      "type": "weapon",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "handy-haversack": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "hat-of-disguise": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "headband-of-intellect": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "helm-of-brilliance": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "helm-of-comprehending-languages": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "helm-of-telepathy": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "helm-of-teleportation": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "holy-avenger": {
+      "type": "weapon",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "horn-of-blasting": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "horn-of-valhalla": {
+      "type": "wondrous-items",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "horn-of-valhalla-brass": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "horn-of-valhalla-bronze": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "horn-of-valhalla-iron": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "horn-of-valhalla-silver": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "horseshoes-of-a-zephyr": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "horseshoes-of-speed": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "immovable-rod": {
+      "type": "rod",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "instant-fortress": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "ioun-stone": {
+      "type": "wondrous-items",
+      "rarity": "Varies",
+      "req_attune": true
+    },
+    "ioun-stone-of-absorption": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-agility": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-awareness": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-fortitude": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-greater-absorption": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ioun-stone-of-insight": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-intellect": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-leadership": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-mastery": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ioun-stone-of-protection": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-regeneration": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ioun-stone-of-reserve": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-strength": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ioun-stone-of-sustenance": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "iron-bands-of-binding": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "iron-flask": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "javelin-of-lightning": {
+      "type": "weapon",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "lantern-of-revealing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "luck-blade": {
+      "type": "weapon",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "mace-of-disruption": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "mace-of-smiting": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "mace-of-terror": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "mantle-of-spell-resistance": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "manual-of-bodily-health": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-gainful-exercise": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-golems": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-golems-clay": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-golems-flesh": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-golems-iron": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-golems-stone": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "manual-of-quickness-of-action": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "marvelous-pigments": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "medallion-of-thoughts": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "mirror-of-life-trapping": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "mithral-armor": {
+      "type": "armor",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "necklace-of-adaptation": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "necklace-of-fireballs": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "necklace-of-prayer-beads": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "nine-lives-stealer": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "oathbow": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "oil-of-etherealness": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "oil-of-sharpness": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "oil-of-slipperiness": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "orb-of-dragonkind": {
+      "type": "wondrous-items",
+      "rarity": "Artifact",
+      "req_attune": true
+    },
+    "pearl-of-power": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "periapt-of-health": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "periapt-of-proof-against-poison": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "periapt-of-wound-closure": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "philter-of-love": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "pipes-of-haunting": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "pipes-of-the-sewers": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "plate-armor-of-etherealness": {
+      "type": "armor",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "portable-hole": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-animal-friendship": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-clairvoyance": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-climbing": {
+      "type": "potion",
+      "rarity": "Common",
+      "req_attune": false
+    },
+    "potion-of-diminution": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-flying": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "potion-of-gaseous-form": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-giant-strength": {
+      "type": "potion",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-cloud": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-fire": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-frost": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-hill": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-stone": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-giant-strength-storm": {
+      "type": "potion",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "potion-of-growth": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-healing": {
+      "type": "potion",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "potion-of-healing-common": {
+      "type": "potion",
+      "rarity": "Common",
+      "req_attune": false
+    },
+    "potion-of-healing-greater": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-healing-superior": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-healing-supreme": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "potion-of-heroism": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-invisibility": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "potion-of-mind-reading": {
+      "type": "potion",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "potion-of-poison": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-acid": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-cold": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-fire": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-force": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-lightning": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-necrotic": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-poison": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-psychic": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-radiant": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-resistance-thunder": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "potion-of-speed": {
+      "type": "potion",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "potion-of-water-breathing": {
+      "type": "potion",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "restorative-ointment": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "ring-of-animal-influence": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "ring-of-djinni-summoning": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-elemental-command": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-elemental-command-air": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-elemental-command-earth": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-elemental-command-fire": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-elemental-command-water": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-evasion": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-feather-falling": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-free-action": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-invisibility": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-jumping": {
+      "type": "ring",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "ring-of-mind-shielding": {
+      "type": "ring",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "ring-of-protection": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-regeneration": {
+      "type": "ring",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-acid": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-cold": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-fire": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-force": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-lightning": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-necrotic": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-poison": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-psychic": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-radiant": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-resistance-thunder": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-shooting-stars": {
+      "type": "ring",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "ring-of-spell-storing": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-spell-turning": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "ring-of-swimming": {
+      "type": "ring",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "ring-of-telekinesis": {
+      "type": "ring",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "ring-of-the-ram": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "ring-of-three-wishes": {
+      "type": "ring",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "ring-of-warmth": {
+      "type": "ring",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "ring-of-water-walking": {
+      "type": "ring",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "ring-of-x-ray-vision": {
+      "type": "ring",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "robe-of-eyes": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "robe-of-scintillating-colors": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "robe-of-stars": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "robe-of-the-archmagi": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "robe-of-useful-items": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "rod-of-absorption": {
+      "type": "rod",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "rod-of-alertness": {
+      "type": "rod",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "rod-of-lordly-might": {
+      "type": "rod",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "rod-of-rulership": {
+      "type": "rod",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "rod-of-security": {
+      "type": "rod",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "rope-of-climbing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "rope-of-entanglement": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "scarab-of-protection": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "scimitar-of-speed": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "shield-of-missile-attraction": {
+      "type": "armor",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "slippers-of-spider-climbing": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "sovereign-glue": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "spell-scroll": {
+      "type": "scroll",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "spell-scroll-1st": {
+      "type": "scroll",
+      "rarity": "Common",
+      "req_attune": false
+    },
+    "spell-scroll-2nd": {
+      "type": "scroll",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "spell-scroll-3rd": {
+      "type": "scroll",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "spell-scroll-4th": {
+      "type": "scroll",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "spell-scroll-5th": {
+      "type": "scroll",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "spell-scroll-6th": {
+      "type": "scroll",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "spell-scroll-7th": {
+      "type": "scroll",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "spell-scroll-8th": {
+      "type": "scroll",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "spell-scroll-9th": {
+      "type": "scroll",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "spell-scroll-cantrip": {
+      "type": "scroll",
+      "rarity": "Common",
+      "req_attune": false
+    },
+    "spellguard-shield": {
+      "type": "armor",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "sphere-of-annihilation": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "staff-of-charming": {
+      "type": "staff",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "staff-of-fire": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "staff-of-frost": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "staff-of-healing": {
+      "type": "staff",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "staff-of-power": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "staff-of-striking": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "staff-of-swarming-insects": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "staff-of-the-magi": {
+      "type": "staff",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "staff-of-the-python": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "staff-of-the-woodlands": {
+      "type": "staff",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "staff-of-thunder-and-lightning": {
+      "type": "staff",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "staff-of-withering": {
+      "type": "staff",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "stone-of-controlling-earth-elementals": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "stone-of-good-luck-luckstone": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "sun-blade": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "sword-of-life-stealing": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "sword-of-sharpness": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": true
+    },
+    "sword-of-wounding": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "talisman-of-pure-good": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "talisman-of-the-sphere": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "talisman-of-ultimate-evil": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "tome-of-clear-thought": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "tome-of-leadership-and-influence": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "tome-of-understanding": {
+      "type": "wondrous-items",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "trident-of-fish-command": {
+      "type": "weapon",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "universal-solvent": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "vicious-weapon": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "vorpal-sword": {
+      "type": "weapon",
+      "rarity": "Legendary",
+      "req_attune": true
+    },
+    "wand-of-binding": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "wand-of-enemy-detection": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "wand-of-fear": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": true
+    },
+    "wand-of-fireballs": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "wand-of-lightning-bolts": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "wand-of-magic-detection": {
+      "type": "wand",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "wand-of-magic-missiles": {
+      "type": "wand",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "wand-of-paralysis": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "wand-of-polymorph": {
+      "type": "wand",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "wand-of-secrets": {
+      "type": "wand",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "wand-of-the-war-mage": {
+      "type": "wand",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "wand-of-the-war-mage-1": {
+      "type": "wand",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "wand-of-the-war-mage-2": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "wand-of-the-war-mage-3": {
+      "type": "wand",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "wand-of-web": {
+      "type": "wand",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "wand-of-wonder": {
+      "type": "wand",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "weapon": {
+      "type": "weapon",
+      "rarity": "Varies",
+      "req_attune": false
+    },
+    "weapon-1": {
+      "type": "weapon",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "weapon-2": {
+      "type": "weapon",
+      "rarity": "Rare",
+      "req_attune": false
+    },
+    "weapon-3": {
+      "type": "weapon",
+      "rarity": "Very Rare",
+      "req_attune": false
+    },
+    "well-of-many-worlds": {
+      "type": "wondrous-items",
+      "rarity": "Legendary",
+      "req_attune": false
+    },
+    "wind-fan": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": false
+    },
+    "winged-boots": {
+      "type": "wondrous-items",
+      "rarity": "Uncommon",
+      "req_attune": true
+    },
+    "wings-of-flying": {
+      "type": "wondrous-items",
+      "rarity": "Rare",
+      "req_attune": true
     }
+  }
 }
