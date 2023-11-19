@@ -332,8 +332,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
                 } else if (currentPage === 'magic-items') {
-                    //TODO Turn this back on!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    //magicItemDetailsWindow(content);
+                    magicItemDetailsWindow(content);
                 } else {
                     createDetailsWindowNEW(apiData);
                 }
@@ -351,7 +350,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindowNEW(content);
                 }
             }
-        } else if (itemType === 'monsters' || itemType === 'spells' || itemType === 'equipment'|| itemType === 'magic-items') {
+        } else if (itemType === 'monsters' || itemType === 'spells' || itemType === 'equipment') {
             // Get spells, monsters & equipment main items list
             //console.log('main list items')
             dataCache[itemType] = dataCache[itemType] || {};
@@ -362,6 +361,24 @@ async function prepLoad(itemType, dataType='data', itemName) {
             if (verifyLoadNeed(itemType, 'main')) {
                 console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
+                cacheData(apiData, itemType);
+                return;
+            } else {
+                console.log('MAIN - API Load NOT needed!');
+                return;
+            }
+        } else if (itemType === 'magic-items') {
+            // Get spells, monsters & equipment main items list
+            //console.log('main list items')
+            dataCache[itemType] = dataCache[itemType] || {};
+            //console.log(itemType)
+            const content = dataCache[itemType];
+            curLocation = "./localCache/" + itemType + "/filterInfo.json";
+
+            if (verifyLoadNeed(itemType, 'main')) {
+                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
+                await fetchData(curLocation);
+                //FIXME CURRENT FLOW
                 cacheData(apiData, itemType);
                 return;
             } else {
@@ -587,21 +604,30 @@ function cacheData(data, itemType, itemName) {
         if (checkAsset > 0) {
             console.log('ERROR: The data cache holds the wrong data or the wrong data is trying to be stored in the<br>' + 
             `wrong place. ${data} is trying to go to dataCache[${itemType}]<br>` +
-            `which already contains ${dataCache[itemType]}`);
+            `which already contains:`);
+            console.log(dataCache[itemType])
             return;
         }
 
         dataCache[itemType] = dataCache[itemType] || {};
-        data.results.forEach(item => {
-            dataCache[itemType][item.index] = item;
-        });
+        //FIXME CURRENT FLOW
+        if (currentPage === 'magic-items') {
+            data.filterData.forEach(item => {
+                dataCache[itemType][item.index] = item;
+            });
+        } else {
+            data.results.forEach(item => {
+                dataCache[itemType][item.index] = item;
+            });
+        }
         //FIXME Make sure this is correct for all pages
 /*         if (currentPage === 'equipment') { */
         dataCache['count'] = dataCache['count'] || {};
         dataCache['count'][itemType] = data.count;
-        data.results.forEach(item => {
+        //FIXME CURRENT FLOW - NOT NEEDED UNLESS FIND A REASON
+/*         data.results.forEach(item => {
             dataCache[itemType][item.index] = item;
-        });
+        }); */
 
         const count = Object.keys(dataCache[itemType]).length;
         //console.log(`Caching data: ${itemType} object now has ${count} items`);
@@ -691,18 +717,36 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'details') {
-        //const checkAsset = asset[currentPage].hasOwnProperty(prop);
-        const asset = dataCache[currentPage][prop]
-        //console.log('Checking details...........');
-        if (
-            asset &&
-            Object.keys(asset).length > 3
-            ) {
-            //console.log('Returning No')
-            return false;
+        if (currentPage === 'magic-items') {
+            //const checkAsset = asset[currentPage].hasOwnProperty(prop);
+            const asset = dataCache[currentPage][prop]
+            //FIXME CURRENT FLOW
+            console.log('Checking details...........');
+            if (
+                asset &&
+                Object.keys(asset).length > 6
+                ) {
+                console.log('Returning No')
+                return false;
+            } else {
+                console.log('Returning Yes')
+                return true;
+            }
         } else {
-            //console.log('Returning Yes')
-            return true;
+            //const checkAsset = asset[currentPage].hasOwnProperty(prop);
+            const asset = dataCache[currentPage][prop]
+            //FIXME CURRENT FLOW
+            //console.log('Checking details...........');
+            if (
+                asset &&
+                Object.keys(asset).length > 3
+                ) {
+                //console.log('Returning No')
+                return false;
+            } else {
+                //console.log('Returning Yes')
+                return true;
+            }
         }
     } else if (dataType === 'pageData') {
         //const checkAsset = asset['images'].hasOwnProperty(prop);
@@ -824,12 +868,17 @@ async function addList(data, count) {
 
     //Load page's secondary data
     await prepLoad(currentPage, 'images');
-    await prepLoad(currentPage, 'filterData');
+    //FIXME CURRENT FLOW
+    if (currentPage === 'magic-items') {
+    } else {
+        await prepLoad(currentPage, 'filterData');
+    }
+
     // Add list to the page:
 
     for (const key in data) {
         createListItem(data[key]);
-        prepLoad(currentPage, 'data', key)
+        //prepLoad(currentPage, 'data', key)
     };
 
     const mainContent = document.getElementById("mainContent");
@@ -850,7 +899,13 @@ async function addList(data, count) {
 
     resetFilter();
     readyFilter();
-    placeImages(ALL_IMG, 'list');
+    //placeImages(ALL_IMG, 'list');
+    if (currentPage === 'magic-items') {
+        placeImages(ALL_IMG, currentPage);
+    } else {
+        placeImages(ALL_IMG, 'list');
+    }
+
 };
 
 function createCard(data) {
@@ -892,8 +947,9 @@ function createCard(data) {
 };
 
 function createListItem(data) {
-    let itemNameRaw = data.index
-    let itemNameData = data.name
+    let itemNameRaw = data.index;
+    let itemNameData = data.name;
+    let curFilterData = '';
 
     if (itemNameRaw === 'flask-or-tankard') {
         itemNameRaw = 'flask';
@@ -929,7 +985,12 @@ function createListItem(data) {
 
     //Add filter data to each list item
     //TODO P1-1 - FILTER - figure out how to deal with "non attributes" with values of "unknown"
-    const curFilterData = dataCache.filterData[currentPage][data.index];
+    // CUURENT FLOW
+    if (currentPage === "magic-items") {
+
+    } else {
+        curFilterData = dataCache.filterData[currentPage][data.index];
+    }
 
     /* // Range Count Counter
     function RangeCount() {
@@ -2476,10 +2537,10 @@ function equipDetailsWindow(data) {
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
 };
-
 function magicItemDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const magicItemIndex = data.index
+
     const magicItemData = dataCache['magic-items'][magicItemIndex];
     const magicItemType = magicItemData.equipment_category.name;
     const magicItemName = magicItemData.name;
@@ -2517,7 +2578,7 @@ function magicItemDetailsWindow(data) {
         }
     };
     const itemAtts = getItemAtts(magicItemDescRaw[0]);
-
+/* 
     let armorDescCount = 0;
     let potionDescCount = 0;
     let ringDescCount = 0;
@@ -2593,7 +2654,7 @@ function magicItemDetailsWindow(data) {
     const totalCountedDescItems = armorDescCount + potionDescCount + ringDescCount + rodDescCount + scrollDescCount + staffDescCount + wandDescCount + weaponDescCount + wonderDescCount;
     const netTotalDescItems = totalCountedDescItems + uncountedDescItems;
     console.log(`Total counted items: ${totalCountedDescItems}, Total uncounted items: ${uncountedDescItems} - Net total items: ${netTotalDescItems}`);
-
+ */
     //Create Modal Window
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
@@ -2884,7 +2945,6 @@ function setNavListen() {
                 //FIXME This is temp until new localCache loading system in place
                 hideFilters();
                 currentPage = eachItem.id;
-                console.log(currentPage)
                 await prepLoad(eachItem.id);
                 if (localCacheAssets['additional-data'].assets.includes(currentPage)) {
                     prepLoadAddition(currentPage);
@@ -3399,7 +3459,21 @@ function placeImages(articles, type) {
         }
 
     } else if (type === 'magic-items') {
-        // TODO P1T1 CONTINUE HERE - First set up to load new filterData for magic-items and then use type to set images!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for (article of articles) {
+            const CUR_NAME = article.id
+            //FIXME CURRENT FLOW FIX
+            const CUR_TYPE = dataCache['magic-items'][CUR_NAME].type;
+            const CUR_IMG = document.getElementById(`${CUR_NAME}Img`);
+            if (CUR_TYPE === 'armor' || CUR_TYPE === 'potion' || CUR_TYPE === 'ring' || CUR_TYPE === 'rod' || CUR_TYPE === 'scroll' || CUR_TYPE === 'staff' || CUR_TYPE === 'wand' || CUR_TYPE === 'weapon' || CUR_TYPE === 'wondrous-items') {
+                CUR_IMG.src = `./images/page-elements/${CUR_TYPE}-placeholder.jpg`;                 
+            } else if (CUR_TYPE === 'arrow-of-slaying' || CUR_TYPE === 'ammunition' || CUR_TYPE === 'ammunition-1' || CUR_TYPE === 'ammunition-2' || CUR_TYPE === 'ammunition-3') {
+                CUR_IMG.src = `./images/page-elements/weapon-placeholder.jpg`;                 
+            } else {
+                // Set placeholder when no match is found
+                console.log(`@PlaceImages - ${CUR_NAME} has the type of ${CUR_NAME} and is therefore not getting a match!!!!!!!!!!!!1`)
+                CUR_IMG.src = './images/page-elements/image_placeholder.gif';
+            }
+        }
     } else {
         const CUR_FILES = dataCache['images'][currentPage]
         let fileType = '';
