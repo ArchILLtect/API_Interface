@@ -1,7 +1,6 @@
 # This file should not be moved from the update_scripts folder.
-# Use this file to update the spellFilter,json file with current filtering details.
+# Use this file to update the filterInfo.json file with current filtering details.
 # Run by using the syntax: $ Python3 <filename>.py <type of data>  - Example: Python3 localize_all_api_details.py spells
-# This is only set up for spells ATM
 
 
 import os
@@ -28,7 +27,8 @@ response = requests.get(main_api_url)
 
 if response.status_code == 200:
     data = response.json()
-    details_data = {}
+    details_data_list = []
+    count = data.get("count", 0)
 
     # Step 3: Extract "index" and "url" values for each object in the "results" array
     results = data.get("results", [])
@@ -64,7 +64,7 @@ if response.status_code == 200:
                     heal_spell = False  # Set to False if the key doesn't exist
                 
                 # Update class_info with a new structure
-                class_info[index] = {
+                class_info = {
                     "school": school_index,
                     "classes": classes,
                     "damage": damage_type,
@@ -80,7 +80,10 @@ if response.status_code == 200:
                 }
                 print(f'Data for {index} has been added to the file')
             elif api_last_part == 'magic-items':
-                type_index = detail_data.get("equipment_category", {}).get("index", "unknown")
+                index = detail_data.get("index", [])
+                name = detail_data.get("name", [])
+                url = detail_data.get("url", [])
+                type = detail_data.get("equipment_category", {}).get("index", "unknown")
                 rarity = detail_data.get("rarity", {}).get("name", "unknown")
                 description = detail_data.get("desc", [])
                 if len(description) > 0:
@@ -91,19 +94,26 @@ if response.status_code == 200:
                         req_attune = False
                 
                 # Update class_info with a new structure
-                class_info[index] = {
-                    "type": type_index,
+                details_data_list.append({
+                    "index": index,
+                    "name": name,
+                    "url": url,
+                    "type": type,
                     "rarity": rarity,
                     "req_attune": req_attune,
                     # Add other information as needed
-                }
+    })
                 print(f'Data for {index} has been added to the file')
             # Add more conditions for other data types
         else:
             print(f'Failed to retrieve data for {index} (Status Code: {detail_response.status_code})')
 
     # Step 6: Create a new file "filterInfo.json" and save filtered data with "filterData" object
-    data_to_save = {"filterData": class_info}
+    data_to_save = {
+        "count": count,
+        "filterData": details_data_list
+        }
+
     # Define the directory path where you want to save the file
     save_dir = os.path.join('..', api_last_part)
 
