@@ -47,16 +47,19 @@ if response.status_code == 200:
 
             # Conditionally extract key-value pairs based on the value of sys.argv[1]
             if api_last_part == 'spells':
-                school_index = detail_data.get("school", {}).get("index", "unknown")
-                classes = [cls.get("index") for cls in detail_data.get("classes", [])]
-                damage_type = detail_data.get("damage", {}).get("damage_type", {}).get("index", "unknown")
-                dc_type = detail_data.get("dc", {}).get("dc_type", {}).get("index", "unknown")
-                aoe_type = detail_data.get("area_of_effect", {}).get("type", "unknown")
-                level = detail_data.get("level", "unknown")
-                distance = detail_data.get("range", "unknown")
-                attack_type = detail_data.get("attack_type", "unknown")
-                concentration = detail_data.get("concentration", "unknown")
-                ritual = detail_data.get("ritual", "unknown")
+                index = detail_data.get("index", ""),
+                name = detail_data.get("name", ""),
+                url = detail_data.get("url", ""),
+                school_index = detail_data.get("school", {}).get("index", "")
+                classes = [cls.get("index") for cls in detail_data.get("classes", "")]
+                damage_type = detail_data.get("damage", {}).get("damage_type", {}).get("index", "")
+                dc_type = detail_data.get("dc", {}).get("dc_type", {}).get("index", [])
+                aoe_type = detail_data.get("area_of_effect", {}).get("type", [])
+                level = detail_data.get("level", [])
+                distance = detail_data.get("range", "")
+                attack_type = detail_data.get("attack_type", "")
+                concentration = detail_data.get("concentration", [])
+                ritual = detail_data.get("ritual", [])
 
                 if "heal_at_slot_level" in detail_data:
                     heal_spell = True  # Set to True if the key exists
@@ -64,7 +67,10 @@ if response.status_code == 200:
                     heal_spell = False  # Set to False if the key doesn't exist
                 
                 # Update class_info with a new structure
-                class_info = {
+                details_data_list.append({
+                    "index": index[0],
+                    "name": name[0],
+                    "url": url[0],
                     "school": school_index,
                     "classes": classes,
                     "damage": damage_type,
@@ -77,12 +83,12 @@ if response.status_code == 200:
                     "ritual": ritual,
                     "healing_spell": heal_spell
                     # Add other information as needed
-                }
+                })
                 print(f'Data for {index} has been added to the file')
             elif api_last_part == 'magic-items':
-                index = detail_data.get("index", [])
-                name = detail_data.get("name", [])
-                url = detail_data.get("url", [])
+                index = detail_data.get("index", "")
+                name = detail_data.get("name", "")
+                url = detail_data.get("url", "")
                 type = detail_data.get("equipment_category", {}).get("index", "unknown")
                 rarity = detail_data.get("rarity", {}).get("name", "unknown")
                 description = detail_data.get("desc", [])
@@ -92,7 +98,7 @@ if response.status_code == 200:
                         req_attune = True
                     else:
                         req_attune = False
-                
+
                 # Update class_info with a new structure
                 details_data_list.append({
                     "index": index,
@@ -100,9 +106,24 @@ if response.status_code == 200:
                     "url": url,
                     "type": type,
                     "rarity": rarity,
-                    "req_attune": req_attune,
+                    "req_attune": req_attune
                     # Add other information as needed
-    })
+                })
+                print(f'Data for {index} has been added to the file')
+            elif api_last_part == 'skills':
+                index = detail_data.get("index", "")
+                name = detail_data.get("name", "")
+                url = detail_data.get("url", "")
+                ability_score = detail_data.get("ability_score", {}).get("index", "unknown")
+
+                # Update class_info with a new structure
+                details_data_list.append({
+                    "index": index,
+                    "name": name,
+                    "url": url,
+                    "ability_score": ability_score,
+                    # Add other information as needed
+                })
                 print(f'Data for {index} has been added to the file')
             # Add more conditions for other data types
         else:
