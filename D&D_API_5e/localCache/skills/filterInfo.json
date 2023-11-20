@@ -1,0 +1,113 @@
+{
+  "count": 18,
+  "filterData": [
+    {
+      "index": "acrobatics",
+      "name": "Acrobatics",
+      "url": "/api/skills/acrobatics",
+      "ability_score": "dex"
+    },
+    {
+      "index": "animal-handling",
+      "name": "Animal Handling",
+      "url": "/api/skills/animal-handling",
+      "ability_score": "wis"
+    },
+    {
+      "index": "arcana",
+      "name": "Arcana",
+      "url": "/api/skills/arcana",
+      "ability_score": "int"
+    },
+    {
+      "index": "athletics",
+      "name": "Athletics",
+      "url": "/api/skills/athletics",
+      "ability_score": "str"
+    },
+    {
+      "index": "deception",
+      "name": "Deception",
+      "url": "/api/skills/deception",
+      "ability_score": "cha"
+    },
+    {
+      "index": "history",
+      "name": "History",
+      "url": "/api/skills/history",
+      "ability_score": "int"
+    },
+    {
+      "index": "insight",
+      "name": "Insight",
+      "url": "/api/skills/insight",
+      "ability_score": "wis"
+    },
+    {
+      "index": "intimidation",
+      "name": "Intimidation",
+      "url": "/api/skills/intimidation",
+      "ability_score": "cha"
+    },
+    {
+      "index": "investigation",
+      "name": "Investigation",
+      "url": "/api/skills/investigation",
+      "ability_score": "int"
+    },
+    {
+      "index": "medicine",
+      "name": "Medicine",
+      "url": "/api/skills/medicine",
+      "ability_score": "wis"
+    },
+    {
+      "index": "nature",
+      "name": "Nature",
+      "url": "/api/skills/nature",
+      "ability_score": "int"
+    },
+    {
+      "index": "perception",
+      "name": "Perception",
+      "url": "/api/skills/perception",
+      "ability_score": "wis"
+    },
+    {
+      "index": "performance",
+      "name": "Performance",
+      "url": "/api/skills/performance",
+      "ability_score": "cha"
+    },
+    {
+      "index": "persuasion",
+      "name": "Persuasion",
+      "url": "/api/skills/persuasion",
+      "ability_score": "cha"
+    },
+    {
+      "index": "religion",
+      "name": "Religion",
+      "url": "/api/skills/religion",
+      "ability_score": "int"
+    },
+    {
+      "index": "sleight-of-hand",
+      "name": "Sleight of Hand",
+      "url": "/api/skills/sleight-of-hand",
+      "ability_score": "dex"
+    },
+    {
+      "index": "stealth",
+      "name": "Stealth",
+      "url": "/api/skills/stealth",
+      "ability_score": "dex"
+    },
+    {
+      "index": "survival",
+      "name": "Survival",
+      "url": "/api/skills/survival",
+      "ability_score": "wis"
+    }
+  ]
+}
