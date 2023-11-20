@@ -1,14 +1,17 @@
 {
-  "filterData":
-  {
-    "acid-arrow": {
+  "count": 319,
+  "filterData": [
+    {
+      "index": "acid-arrow",
+      "name": "Acid Arrow",
+      "url": "/api/spells/acid-arrow",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
       "damage": "acid",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "90 feet",
       "attack_type": "ranged",
@@ -16,7 +19,10 @@
       "ritual": false,
       "healing_spell": false
     },
-    "acid-splash": {
+    {
+      "index": "acid-splash",
+      "name": "Acid Splash",
+      "url": "/api/spells/acid-splash",
       "school": "conjuration",
       "classes": [
         "sorcerer",
@@ -24,247 +30,291 @@
       ],
       "damage": "acid",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 0,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "aid": {
+    {
+      "index": "aid",
+      "name": "Aid",
+      "url": "/api/spells/aid",
       "school": "abjuration",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "alarm": {
+    {
+      "index": "alarm",
+      "name": "Alarm",
+      "url": "/api/spells/alarm",
       "school": "abjuration",
       "classes": [
         "ranger",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "alter-self": {
+    {
+      "index": "alter-self",
+      "name": "Alter Self",
+      "url": "/api/spells/alter-self",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "animal-friendship": {
+    {
+      "index": "animal-friendship",
+      "name": "Animal Friendship",
+      "url": "/api/spells/animal-friendship",
       "school": "enchantment",
       "classes": [
         "bard",
-        "cleric",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "animal-messenger": {
+    {
+      "index": "animal-messenger",
+      "name": "Animal Messenger",
+      "url": "/api/spells/animal-messenger",
       "school": "enchantment",
       "classes": [
         "bard",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "animal-shapes": {
+    {
+      "index": "animal-shapes",
+      "name": "Animal Shapes",
+      "url": "/api/spells/animal-shapes",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "animate-dead": {
+    {
+      "index": "animate-dead",
+      "name": "Animate Dead",
+      "url": "/api/spells/animate-dead",
       "school": "necromancy",
       "classes": [
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "animate-objects": {
+    {
+      "index": "animate-objects",
+      "name": "Animate Objects",
+      "url": "/api/spells/animate-objects",
       "school": "transmutation",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "antilife-shell": {
+    {
+      "index": "antilife-shell",
+      "name": "Antilife Shell",
+      "url": "/api/spells/antilife-shell",
       "school": "abjuration",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "antimagic-field": {
+    {
+      "index": "antimagic-field",
+      "name": "Antimagic Field",
+      "url": "/api/spells/antimagic-field",
       "school": "abjuration",
       "classes": [
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 8,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "antipathy-sympathy": {
+    {
+      "index": "antipathy-sympathy",
+      "name": "Antipathy/Sympathy",
+      "url": "/api/spells/antipathy-sympathy",
       "school": "enchantment",
       "classes": [
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 8,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "arcane-eye": {
+    {
+      "index": "arcane-eye",
+      "name": "Arcane Eye",
+      "url": "/api/spells/arcane-eye",
       "school": "divination",
       "classes": [
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "arcane-hand": {
+    {
+      "index": "arcane-hand",
+      "name": "Arcane Hand",
+      "url": "/api/spells/arcane-hand",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "arcane-lock": {
+    {
+      "index": "arcane-lock",
+      "name": "Arcane Lock",
+      "url": "/api/spells/arcane-lock",
       "school": "abjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "arcane-sword": {
+    {
+      "index": "arcane-sword",
+      "name": "Arcane Sword",
+      "url": "/api/spells/arcane-sword",
       "school": "evocation",
       "classes": [
         "bard",
         "wizard"
       ],
       "damage": "force",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "60 feet",
       "attack_type": "melee",
@@ -272,86 +322,104 @@
       "ritual": false,
       "healing_spell": false
     },
-    "arcanists-magic-aura": {
+    {
+      "index": "arcanists-magic-aura",
+      "name": "Arcanist's Magic Aura",
+      "url": "/api/spells/arcanists-magic-aura",
       "school": "illusion",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "astral-projection": {
+    {
+      "index": "astral-projection",
+      "name": "Astral Projection",
+      "url": "/api/spells/astral-projection",
       "school": "necromancy",
       "classes": [
         "cleric",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "augury": {
+    {
+      "index": "augury",
+      "name": "Augury",
+      "url": "/api/spells/augury",
       "school": "divination",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "awaken": {
+    {
+      "index": "awaken",
+      "name": "Awaken",
+      "url": "/api/spells/awaken",
       "school": "transmutation",
       "classes": [
         "bard",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "bane": {
+    {
+      "index": "bane",
+      "name": "Bane",
+      "url": "/api/spells/bane",
       "school": "enchantment",
       "classes": [
         "bard",
         "cleric"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "banishment": {
+    {
+      "index": "banishment",
+      "name": "Banishment",
+      "url": "/api/spells/banishment",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -360,65 +428,77 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "barkskin": {
+    {
+      "index": "barkskin",
+      "name": "Barkskin",
+      "url": "/api/spells/barkskin",
       "school": "transmutation",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "beacon-of-hope": {
+    {
+      "index": "beacon-of-hope",
+      "name": "Beacon of Hope",
+      "url": "/api/spells/beacon-of-hope",
       "school": "abjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "bestow-curse": {
+    {
+      "index": "bestow-curse",
+      "name": "Bestow Curse",
+      "url": "/api/spells/bestow-curse",
       "school": "necromancy",
       "classes": [
         "bard",
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "black-tentacles": {
+    {
+      "index": "black-tentacles",
+      "name": "Black Tentacles",
+      "url": "/api/spells/black-tentacles",
       "school": "conjuration",
       "classes": [
         "wizard"
@@ -428,12 +508,15 @@
       "aoe": "cube",
       "level": 4,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "blade-barrier": {
+    {
+      "index": "blade-barrier",
+      "name": "Blade Barrier",
+      "url": "/api/spells/blade-barrier",
       "school": "evocation",
       "classes": [
         "cleric"
@@ -443,28 +526,34 @@
       "aoe": "line",
       "level": 6,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "bless": {
+    {
+      "index": "bless",
+      "name": "Bless",
+      "url": "/api/spells/bless",
       "school": "enchantment",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "blight": {
+    {
+      "index": "blight",
+      "name": "Blight",
+      "url": "/api/spells/blight",
       "school": "necromancy",
       "classes": [
         "druid",
@@ -474,15 +563,18 @@
       ],
       "damage": "necrotic",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "blindness-deafness": {
+    {
+      "index": "blindness-deafness",
+      "name": "Blindness/Deafness",
+      "url": "/api/spells/blindness-deafness",
       "school": "necromancy",
       "classes": [
         "bard",
@@ -490,64 +582,76 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "blink": {
+    {
+      "index": "blink",
+      "name": "Blink",
+      "url": "/api/spells/blink",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "blur": {
+    {
+      "index": "blur",
+      "name": "Blur",
+      "url": "/api/spells/blur",
       "school": "illusion",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "branding-smite": {
+    {
+      "index": "branding-smite",
+      "name": "Branding Smite",
+      "url": "/api/spells/branding-smite",
       "school": "evocation",
       "classes": [
         "paladin"
       ],
       "damage": "radiant",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "burning-hands": {
+    {
+      "index": "burning-hands",
+      "name": "Burning Hands",
+      "url": "/api/spells/burning-hands",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -558,43 +662,52 @@
       "aoe": "cone",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "call-lightning": {
+    {
+      "index": "call-lightning",
+      "name": "Call Lightning",
+      "url": "/api/spells/call-lightning",
       "school": "conjuration",
       "classes": [
         "druid"
       ],
       "damage": "lightning",
-      "dc": "unknown",
+      "dc": [],
       "aoe": "sphere",
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "calm-emotions": {
+    {
+      "index": "calm-emotions",
+      "name": "Calm Emotions",
+      "url": "/api/spells/calm-emotions",
       "school": "enchantment",
       "classes": [
         "bard",
         "cleric"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
       "aoe": "sphere",
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "chain-lightning": {
+    {
+      "index": "chain-lightning",
+      "name": "Chain Lightning",
+      "url": "/api/spells/chain-lightning",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -602,15 +715,18 @@
       ],
       "damage": "lightning",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "charm-person": {
+    {
+      "index": "charm-person",
+      "name": "Charm Person",
+      "url": "/api/spells/charm-person",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -619,17 +735,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "chill-touch": {
+    {
+      "index": "chill-touch",
+      "name": "Chill Touch",
+      "url": "/api/spells/chill-touch",
       "school": "necromancy",
       "classes": [
         "sorcerer",
@@ -637,8 +756,8 @@
         "wizard"
       ],
       "damage": "necrotic",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "120 feet",
       "attack_type": "ranged",
@@ -646,7 +765,10 @@
       "ritual": false,
       "healing_spell": false
     },
-    "circle-of-death": {
+    {
+      "index": "circle-of-death",
+      "name": "Circle of Death",
+      "url": "/api/spells/circle-of-death",
       "school": "necromancy",
       "classes": [
         "sorcerer",
@@ -658,12 +780,15 @@
       "aoe": "sphere",
       "level": 6,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "clairvoyance": {
+    {
+      "index": "clairvoyance",
+      "name": "Clairvoyance",
+      "url": "/api/spells/clairvoyance",
       "school": "divination",
       "classes": [
         "bard",
@@ -671,32 +796,38 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "1 mile",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "clone": {
+    {
+      "index": "clone",
+      "name": "Clone",
+      "url": "/api/spells/clone",
       "school": "necromancy",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "cloudkill": {
+    {
+      "index": "cloudkill",
+      "name": "Cloudkill",
+      "url": "/api/spells/cloudkill",
       "school": "conjuration",
       "classes": [
         "sorcerer",
@@ -707,75 +838,90 @@
       "aoe": "sphere",
       "level": 5,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "color-spray": {
+    {
+      "index": "color-spray",
+      "name": "Color Spray",
+      "url": "/api/spells/color-spray",
       "school": "illusion",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cone",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "command": {
+    {
+      "index": "command",
+      "name": "Command",
+      "url": "/api/spells/command",
       "school": "enchantment",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "commune": {
+    {
+      "index": "commune",
+      "name": "Commune",
+      "url": "/api/spells/commune",
       "school": "divination",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "commune-with-nature": {
+    {
+      "index": "commune-with-nature",
+      "name": "Commune With Nature",
+      "url": "/api/spells/commune-with-nature",
       "school": "divination",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "comprehend-languages": {
+    {
+      "index": "comprehend-languages",
+      "name": "Comprehend Languages",
+      "url": "/api/spells/comprehend-languages",
       "school": "divination",
       "classes": [
         "bard",
@@ -783,32 +929,38 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "compulsion": {
+    {
+      "index": "compulsion",
+      "name": "Compulsion",
+      "url": "/api/spells/compulsion",
       "school": "enchantment",
       "classes": [
         "bard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "cone-of-cold": {
+    {
+      "index": "cone-of-cold",
+      "name": "Cone of Cold",
+      "url": "/api/spells/cone-of-cold",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -819,12 +971,15 @@
       "aoe": "cone",
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "confusion": {
+    {
+      "index": "confusion",
+      "name": "Confusion",
+      "url": "/api/spells/confusion",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -832,136 +987,160 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
       "aoe": "sphere",
       "level": 4,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-animals": {
+    {
+      "index": "conjure-animals",
+      "name": "Conjure Animals",
+      "url": "/api/spells/conjure-animals",
       "school": "conjuration",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-celestial": {
+    {
+      "index": "conjure-celestial",
+      "name": "Conjure Celestial",
+      "url": "/api/spells/conjure-celestial",
       "school": "conjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-elemental": {
+    {
+      "index": "conjure-elemental",
+      "name": "Conjure Elemental",
+      "url": "/api/spells/conjure-elemental",
       "school": "conjuration",
       "classes": [
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 5,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-fey": {
+    {
+      "index": "conjure-fey",
+      "name": "Conjure Fey",
+      "url": "/api/spells/conjure-fey",
       "school": "conjuration",
       "classes": [
         "druid",
         "warlock"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-minor-elementals": {
+    {
+      "index": "conjure-minor-elementals",
+      "name": "Conjure Minor Elementals",
+      "url": "/api/spells/conjure-minor-elementals",
       "school": "conjuration",
       "classes": [
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "conjure-woodland-beings": {
+    {
+      "index": "conjure-woodland-beings",
+      "name": "Conjure Woodland Beings",
+      "url": "/api/spells/conjure-woodland-beings",
       "school": "conjuration",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "contact-other-plane": {
+    {
+      "index": "contact-other-plane",
+      "name": "Contact Other Plane",
+      "url": "/api/spells/contact-other-plane",
       "school": "divination",
       "classes": [
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "int",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "contagion": {
+    {
+      "index": "contagion",
+      "name": "Contagion",
+      "url": "/api/spells/contagion",
       "school": "necromancy",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "Touch",
       "attack_type": "melee",
@@ -969,38 +1148,47 @@
       "ritual": false,
       "healing_spell": false
     },
-    "contingency": {
+    {
+      "index": "contingency",
+      "name": "Contingency",
+      "url": "/api/spells/contingency",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "continual-flame": {
+    {
+      "index": "continual-flame",
+      "name": "Continual Flame",
+      "url": "/api/spells/continual-flame",
       "school": "evocation",
       "classes": [
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "control-water": {
+    {
+      "index": "control-water",
+      "name": "Control Water",
+      "url": "/api/spells/control-water",
       "school": "transmutation",
       "classes": [
         "cleric",
@@ -1012,112 +1200,133 @@
       "aoe": "cube",
       "level": 4,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "control-weather": {
+    {
+      "index": "control-weather",
+      "name": "Control Weather",
+      "url": "/api/spells/control-weather",
       "school": "transmutation",
       "classes": [
         "cleric",
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "counterspell": {
+    {
+      "index": "counterspell",
+      "name": "Counterspell",
+      "url": "/api/spells/counterspell",
       "school": "abjuration",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "create-food-and-water": {
+    {
+      "index": "create-food-and-water",
+      "name": "Create Food and Water",
+      "url": "/api/spells/create-food-and-water",
       "school": "conjuration",
       "classes": [
         "cleric",
         "druid",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "create-or-destroy-water": {
+    {
+      "index": "create-or-destroy-water",
+      "name": "Create or Destroy Water",
+      "url": "/api/spells/create-or-destroy-water",
       "school": "transmutation",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "create-undead": {
+    {
+      "index": "create-undead",
+      "name": "Create Undead",
+      "url": "/api/spells/create-undead",
       "school": "necromancy",
       "classes": [
         "cleric",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "creation": {
+    {
+      "index": "creation",
+      "name": "Creation",
+      "url": "/api/spells/creation",
       "school": "illusion",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 5,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "cure-wounds": {
+    {
+      "index": "cure-wounds",
+      "name": "Cure Wounds",
+      "url": "/api/spells/cure-wounds",
       "school": "evocation",
       "classes": [
         "bard",
@@ -1126,51 +1335,60 @@
         "paladin",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "dancing-lights": {
+    {
+      "index": "dancing-lights",
+      "name": "Dancing Lights",
+      "url": "/api/spells/dancing-lights",
       "school": "evocation",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "darkness": {
+    {
+      "index": "darkness",
+      "name": "Darkness",
+      "url": "/api/spells/darkness",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "darkvision": {
+    {
+      "index": "darkvision",
+      "name": "Darkvision",
+      "url": "/api/spells/darkvision",
       "school": "transmutation",
       "classes": [
         "druid",
@@ -1178,17 +1396,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "daylight": {
+    {
+      "index": "daylight",
+      "name": "Daylight",
+      "url": "/api/spells/daylight",
       "school": "evocation",
       "classes": [
         "cleric",
@@ -1197,33 +1418,39 @@
         "ranger",
         "sorcerer"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 3,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "death-ward": {
+    {
+      "index": "death-ward",
+      "name": "Death Ward",
+      "url": "/api/spells/death-ward",
       "school": "abjuration",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "delayed-blast-fireball": {
+    {
+      "index": "delayed-blast-fireball",
+      "name": "Delayed Blast Fireball",
+      "url": "/api/spells/delayed-blast-fireball",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -1234,44 +1461,53 @@
       "aoe": "sphere",
       "level": 7,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "demiplane": {
+    {
+      "index": "demiplane",
+      "name": "Demiplane",
+      "url": "/api/spells/demiplane",
       "school": "conjuration",
       "classes": [
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "detect-evil-and-good": {
+    {
+      "index": "detect-evil-and-good",
+      "name": "Detect Evil and Good",
+      "url": "/api/spells/detect-evil-and-good",
       "school": "divination",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "detect-magic": {
+    {
+      "index": "detect-magic",
+      "name": "Detect Magic",
+      "url": "/api/spells/detect-magic",
       "school": "divination",
       "classes": [
         "bard",
@@ -1282,17 +1518,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": true,
       "healing_spell": false
     },
-    "detect-poison-and-disease": {
+    {
+      "index": "detect-poison-and-disease",
+      "name": "Detect Poison and Disease",
+      "url": "/api/spells/detect-poison-and-disease",
       "school": "divination",
       "classes": [
         "cleric",
@@ -1300,34 +1539,40 @@
         "paladin",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": true,
       "healing_spell": false
     },
-    "detect-thoughts": {
+    {
+      "index": "detect-thoughts",
+      "name": "Detect Thoughts",
+      "url": "/api/spells/detect-thoughts",
       "school": "divination",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "dimension-door": {
+    {
+      "index": "dimension-door",
+      "name": "Dimension Door",
+      "url": "/api/spells/dimension-door",
       "school": "conjuration",
       "classes": [
         "bard",
@@ -1336,33 +1581,39 @@
         "wizard"
       ],
       "damage": "force",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "500 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "disguise-self": {
+    {
+      "index": "disguise-self",
+      "name": "Disguise Self",
+      "url": "/api/spells/disguise-self",
       "school": "illusion",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "disintegrate": {
+    {
+      "index": "disintegrate",
+      "name": "Disintegrate",
+      "url": "/api/spells/disintegrate",
       "school": "transmutation",
       "classes": [
         "sorcerer",
@@ -1373,28 +1624,34 @@
       "aoe": "cube",
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "dispel-evil-and-good": {
+    {
+      "index": "dispel-evil-and-good",
+      "name": "Dispel Evil and Good",
+      "url": "/api/spells/dispel-evil-and-good",
       "school": "abjuration",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "dispel-magic": {
+    {
+      "index": "dispel-magic",
+      "name": "Dispel Magic",
+      "url": "/api/spells/dispel-magic",
       "school": "abjuration",
       "classes": [
         "bard",
@@ -1405,78 +1662,93 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "divination": {
+    {
+      "index": "divination",
+      "name": "Divination",
+      "url": "/api/spells/divination",
       "school": "divination",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "divine-favor": {
+    {
+      "index": "divine-favor",
+      "name": "Divine Favor",
+      "url": "/api/spells/divine-favor",
       "school": "evocation",
       "classes": [
         "paladin"
       ],
       "damage": "radiant",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "divine-word": {
+    {
+      "index": "divine-word",
+      "name": "Divine Word",
+      "url": "/api/spells/divine-word",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 7,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "dominate-beast": {
+    {
+      "index": "dominate-beast",
+      "name": "Dominate Beast",
+      "url": "/api/spells/dominate-beast",
       "school": "enchantment",
       "classes": [
         "druid",
         "sorcerer"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "dominate-monster": {
+    {
+      "index": "dominate-monster",
+      "name": "Dominate Monster",
+      "url": "/api/spells/dominate-monster",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -1484,34 +1756,40 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 8,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "dominate-person": {
+    {
+      "index": "dominate-person",
+      "name": "Dominate Person",
+      "url": "/api/spells/dominate-person",
       "school": "enchantment",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "dream": {
+    {
+      "index": "dream",
+      "name": "Dream",
+      "url": "/api/spells/dream",
       "school": "illusion",
       "classes": [
         "bard",
@@ -1520,54 +1798,63 @@
       ],
       "damage": "psychic",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "Special",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "druidcraft": {
+    {
+      "index": "druidcraft",
+      "name": "Druidcraft",
+      "url": "/api/spells/druidcraft",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "earthquake": {
+    {
+      "index": "earthquake",
+      "name": "Earthquake",
+      "url": "/api/spells/earthquake",
       "school": "evocation",
       "classes": [
         "cleric",
         "druid",
         "sorcerer"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 8,
       "range": "500 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "eldritch-blast": {
+    {
+      "index": "eldritch-blast",
+      "name": "Eldritch Blast",
+      "url": "/api/spells/eldritch-blast",
       "school": "evocation",
       "classes": [
         "warlock"
       ],
       "damage": "force",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "120 feet",
       "attack_type": "ranged",
@@ -1575,7 +1862,10 @@
       "ritual": false,
       "healing_spell": false
     },
-    "enhance-ability": {
+    {
+      "index": "enhance-ability",
+      "name": "Enhance Ability",
+      "url": "/api/spells/enhance-ability",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -1583,64 +1873,76 @@
         "druid",
         "sorcerer"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "enlarge-reduce": {
+    {
+      "index": "enlarge-reduce",
+      "name": "Enlarge/Reduce",
+      "url": "/api/spells/enlarge-reduce",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "entangle": {
+    {
+      "index": "entangle",
+      "name": "Entangle",
+      "url": "/api/spells/entangle",
       "school": "conjuration",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "str",
       "aoe": "cube",
       "level": 1,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "enthrall": {
+    {
+      "index": "enthrall",
+      "name": "Enthrall",
+      "url": "/api/spells/enthrall",
       "school": "enchantment",
       "classes": [
         "bard",
         "warlock"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "etherealness": {
+    {
+      "index": "etherealness",
+      "name": "Etherealness",
+      "url": "/api/spells/etherealness",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -1649,34 +1951,40 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "expeditious-retreat": {
+    {
+      "index": "expeditious-retreat",
+      "name": "Expeditious Retreat",
+      "url": "/api/spells/expeditious-retreat",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "eyebite": {
+    {
+      "index": "eyebite",
+      "name": "Eyebite",
+      "url": "/api/spells/eyebite",
       "school": "necromancy",
       "classes": [
         "bard",
@@ -1684,54 +1992,63 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "fabricate": {
+    {
+      "index": "fabricate",
+      "name": "Fabricate",
+      "url": "/api/spells/fabricate",
       "school": "transmutation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "faerie-fire": {
+    {
+      "index": "faerie-fire",
+      "name": "Faerie Fire",
+      "url": "/api/spells/faerie-fire",
       "school": "evocation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
       "aoe": "cube",
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "faithful-hound": {
+    {
+      "index": "faithful-hound",
+      "name": "Faithful Hound",
+      "url": "/api/spells/faithful-hound",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
       "damage": "piercing",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "30 feet",
       "attack_type": "melee",
@@ -1739,23 +2056,29 @@
       "ritual": false,
       "healing_spell": false
     },
-    "false-life": {
+    {
+      "index": "false-life",
+      "name": "False Life",
+      "url": "/api/spells/false-life",
       "school": "necromancy",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "fear": {
+    {
+      "index": "fear",
+      "name": "Fear",
+      "url": "/api/spells/fear",
       "school": "illusion",
       "classes": [
         "bard",
@@ -1763,34 +2086,40 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
       "aoe": "cone",
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "feather-fall": {
+    {
+      "index": "feather-fall",
+      "name": "Feather Fall",
+      "url": "/api/spells/feather-fall",
       "school": "transmutation",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "feeblemind": {
+    {
+      "index": "feeblemind",
+      "name": "Feeblemind",
+      "url": "/api/spells/feeblemind",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -1800,78 +2129,94 @@
       ],
       "damage": "psychic",
       "dc": "int",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 8,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "find-familiar": {
+    {
+      "index": "find-familiar",
+      "name": "Find Familiar",
+      "url": "/api/spells/find-familiar",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "find-steed": {
+    {
+      "index": "find-steed",
+      "name": "Find Steed",
+      "url": "/api/spells/find-steed",
       "school": "conjuration",
       "classes": [
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "find-the-path": {
+    {
+      "index": "find-the-path",
+      "name": "Find the Path",
+      "url": "/api/spells/find-the-path",
       "school": "divination",
       "classes": [
         "bard",
-        "cleric"
+        "cleric",
+        "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "find-traps": {
+    {
+      "index": "find-traps",
+      "name": "Find Traps",
+      "url": "/api/spells/find-traps",
       "school": "divination",
       "classes": [
         "cleric",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "finger-of-death": {
+    {
+      "index": "finger-of-death",
+      "name": "Finger of Death",
+      "url": "/api/spells/finger-of-death",
       "school": "necromancy",
       "classes": [
         "sorcerer",
@@ -1880,23 +2225,26 @@
       ],
       "damage": "necrotic",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 7,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "fire-bolt": {
+    {
+      "index": "fire-bolt",
+      "name": "Fire Bolt",
+      "url": "/api/spells/fire-bolt",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
       "damage": "fire",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "120 feet",
       "attack_type": "ranged",
@@ -1904,22 +2252,28 @@
       "ritual": false,
       "healing_spell": false
     },
-    "fire-shield": {
+    {
+      "index": "fire-shield",
+      "name": "Fire Shield",
+      "url": "/api/spells/fire-shield",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
       "damage": "fire",
-      "dc": "unknown",
+      "dc": [],
       "aoe": "sphere",
       "level": 4,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "fire-storm": {
+    {
+      "index": "fire-storm",
+      "name": "Fire Storm",
+      "url": "/api/spells/fire-storm",
       "school": "evocation",
       "classes": [
         "cleric",
@@ -1931,12 +2285,15 @@
       "aoe": "cube",
       "level": 7,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "fireball": {
+    {
+      "index": "fireball",
+      "name": "Fireball",
+      "url": "/api/spells/fireball",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -1947,27 +2304,33 @@
       "aoe": "sphere",
       "level": 3,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "flame-blade": {
+    {
+      "index": "flame-blade",
+      "name": "Flame Blade",
+      "url": "/api/spells/flame-blade",
       "school": "evocation",
       "classes": [
         "druid"
       ],
       "damage": "fire",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "flame-strike": {
+    {
+      "index": "flame-strike",
+      "name": "Flame Strike",
+      "url": "/api/spells/flame-strike",
       "school": "evocation",
       "classes": [
         "cleric"
@@ -1977,76 +2340,91 @@
       "aoe": "cylinder",
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "flaming-sphere": {
+    {
+      "index": "flaming-sphere",
+      "name": "Flaming Sphere",
+      "url": "/api/spells/flaming-sphere",
       "school": "conjuration",
       "classes": [
         "druid",
         "wizard"
       ],
       "damage": "fire",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "flesh-to-stone": {
+    {
+      "index": "flesh-to-stone",
+      "name": "Flesh to Stone",
+      "url": "/api/spells/flesh-to-stone",
       "school": "transmutation",
       "classes": [
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "floating-disk": {
+    {
+      "index": "floating-disk",
+      "name": "Floating Disk",
+      "url": "/api/spells/floating-disk",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "fly": {
+    {
+      "index": "fly",
+      "name": "Fly",
+      "url": "/api/spells/fly",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "fog-cloud": {
+    {
+      "index": "fog-cloud",
+      "name": "Fog Cloud",
+      "url": "/api/spells/fog-cloud",
       "school": "conjuration",
       "classes": [
         "druid",
@@ -2054,49 +2432,58 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 1,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "forbiddance": {
+    {
+      "index": "forbiddance",
+      "name": "Forbiddance",
+      "url": "/api/spells/forbiddance",
       "school": "abjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 6,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "forcecage": {
+    {
+      "index": "forcecage",
+      "name": "Forcecage",
+      "url": "/api/spells/forcecage",
       "school": "evocation",
       "classes": [
         "bard",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 7,
       "range": "100 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "foresight": {
+    {
+      "index": "foresight",
+      "name": "Foresight",
+      "url": "/api/spells/foresight",
       "school": "divination",
       "classes": [
         "bard",
@@ -2104,17 +2491,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "freedom-of-movement": {
+    {
+      "index": "freedom-of-movement",
+      "name": "Freedom of Movement",
+      "url": "/api/spells/freedom-of-movement",
       "school": "abjuration",
       "classes": [
         "bard",
@@ -2122,17 +2512,20 @@
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "freezing-sphere": {
+    {
+      "index": "freezing-sphere",
+      "name": "Freezing Sphere",
+      "url": "/api/spells/freezing-sphere",
       "school": "evocation",
       "classes": [
         "wizard"
@@ -2142,46 +2535,55 @@
       "aoe": "sphere",
       "level": 6,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "gaseous-form": {
+    {
+      "index": "gaseous-form",
+      "name": "Gaseous Form",
+      "url": "/api/spells/gaseous-form",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "gate": {
+    {
+      "index": "gate",
+      "name": "Gate",
+      "url": "/api/spells/gate",
       "school": "conjuration",
       "classes": [
         "cleric",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "geas": {
+    {
+      "index": "geas",
+      "name": "Geas",
+      "url": "/api/spells/geas",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -2190,217 +2592,255 @@
         "paladin",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "gentle-repose": {
+    {
+      "index": "gentle-repose",
+      "name": "Gentle Repose",
+      "url": "/api/spells/gentle-repose",
       "school": "necromancy",
       "classes": [
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "giant-insect": {
+    {
+      "index": "giant-insect",
+      "name": "Giant Insect",
+      "url": "/api/spells/giant-insect",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "glibness": {
+    {
+      "index": "glibness",
+      "name": "Glibness",
+      "url": "/api/spells/glibness",
       "school": "transmutation",
       "classes": [
         "bard",
         "warlock"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "globe-of-invulnerability": {
+    {
+      "index": "globe-of-invulnerability",
+      "name": "Globe of Invulnerability",
+      "url": "/api/spells/globe-of-invulnerability",
       "school": "abjuration",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "glyph-of-warding": {
+    {
+      "index": "glyph-of-warding",
+      "name": "Glyph of Warding",
+      "url": "/api/spells/glyph-of-warding",
       "school": "abjuration",
       "classes": [
         "bard",
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "goodberry": {
+    {
+      "index": "goodberry",
+      "name": "Goodberry",
+      "url": "/api/spells/goodberry",
       "school": "transmutation",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "grease": {
+    {
+      "index": "grease",
+      "name": "Grease",
+      "url": "/api/spells/grease",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
       "aoe": "cube",
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "greater-invisibility": {
+    {
+      "index": "greater-invisibility",
+      "name": "Greater Invisibility",
+      "url": "/api/spells/greater-invisibility",
       "school": "illusion",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "greater-restoration": {
+    {
+      "index": "greater-restoration",
+      "name": "Greater Restoration",
+      "url": "/api/spells/greater-restoration",
       "school": "abjuration",
       "classes": [
         "bard",
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "guardian-of-faith": {
+    {
+      "index": "guardian-of-faith",
+      "name": "Guardian of Faith",
+      "url": "/api/spells/guardian-of-faith",
       "school": "conjuration",
       "classes": [
-        "cleric",
-        "paladin"
+        "cleric"
       ],
       "damage": "radiant",
       "dc": "dex",
       "aoe": "cylinder",
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "guards-and-wards": {
+    {
+      "index": "guards-and-wards",
+      "name": "Guards and Wards",
+      "url": "/api/spells/guards-and-wards",
       "school": "abjuration",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 6,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "guidance": {
+    {
+      "index": "guidance",
+      "name": "Guidance",
+      "url": "/api/spells/guidance",
       "school": "divination",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "guiding-bolt": {
+    {
+      "index": "guiding-bolt",
+      "name": "Guiding Bolt",
+      "url": "/api/spells/guiding-bolt",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
       "damage": "radiant",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "120 feet",
       "attack_type": "ranged",
@@ -2408,39 +2848,48 @@
       "ritual": false,
       "healing_spell": false
     },
-    "gust-of-wind": {
+    {
+      "index": "gust-of-wind",
+      "name": "Gust of Wind",
+      "url": "/api/spells/gust-of-wind",
       "school": "evocation",
       "classes": [
         "druid",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "str",
       "aoe": "line",
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hallow": {
+    {
+      "index": "hallow",
+      "name": "Hallow",
+      "url": "/api/spells/hallow",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
       "aoe": "sphere",
       "level": 5,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "hallucinatory-terrain": {
+    {
+      "index": "hallucinatory-terrain",
+      "name": "Hallucinatory Terrain",
+      "url": "/api/spells/hallucinatory-terrain",
       "school": "illusion",
       "classes": [
         "bard",
@@ -2448,81 +2897,96 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 4,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "harm": {
+    {
+      "index": "harm",
+      "name": "Harm",
+      "url": "/api/spells/harm",
       "school": "necromancy",
       "classes": [
         "cleric"
       ],
       "damage": "necrotic",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "haste": {
+    {
+      "index": "haste",
+      "name": "Haste",
+      "url": "/api/spells/haste",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "heal": {
+    {
+      "index": "heal",
+      "name": "Heal",
+      "url": "/api/spells/heal",
       "school": "evocation",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "healing-word": {
+    {
+      "index": "healing-word",
+      "name": "Healing Word",
+      "url": "/api/spells/healing-word",
       "school": "evocation",
       "classes": [
         "bard",
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "heat-metal": {
+    {
+      "index": "heat-metal",
+      "name": "Heat Metal",
+      "url": "/api/spells/heat-metal",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -2530,78 +2994,93 @@
       ],
       "damage": "fire",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hellish-rebuke": {
+    {
+      "index": "hellish-rebuke",
+      "name": "Hellish Rebuke",
+      "url": "/api/spells/hellish-rebuke",
       "school": "evocation",
       "classes": [
         "warlock"
       ],
       "damage": "fire",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "heroes-feast": {
+    {
+      "index": "heroes-feast",
+      "name": "Heroes' Feast",
+      "url": "/api/spells/heroes-feast",
       "school": "conjuration",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "heroism": {
+    {
+      "index": "heroism",
+      "name": "Heroism",
+      "url": "/api/spells/heroism",
       "school": "enchantment",
       "classes": [
         "bard",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hideous-laughter": {
+    {
+      "index": "hideous-laughter",
+      "name": "Hideous Laughter",
+      "url": "/api/spells/hideous-laughter",
       "school": "enchantment",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hold-monster": {
+    {
+      "index": "hold-monster",
+      "name": "Hold Monster",
+      "url": "/api/spells/hold-monster",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -2609,17 +3088,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hold-person": {
+    {
+      "index": "hold-person",
+      "name": "Hold Person",
+      "url": "/api/spells/hold-person",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -2629,48 +3111,56 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "holy-aura": {
+    {
+      "index": "holy-aura",
+      "name": "Holy Aura",
+      "url": "/api/spells/holy-aura",
       "school": "abjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 8,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hunters-mark": {
+    {
+      "index": "hunters-mark",
+      "name": "Hunter's Mark",
+      "url": "/api/spells/hunters-mark",
       "school": "divination",
       "classes": [
-        "paladin",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "hypnotic-pattern": {
+    {
+      "index": "hypnotic-pattern",
+      "name": "Hypnotic Pattern",
+      "url": "/api/spells/hypnotic-pattern",
       "school": "illusion",
       "classes": [
         "bard",
@@ -2678,17 +3168,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "ice-storm": {
+    {
+      "index": "ice-storm",
+      "name": "Ice Storm",
+      "url": "/api/spells/ice-storm",
       "school": "evocation",
       "classes": [
         "druid",
@@ -2700,61 +3193,73 @@
       "aoe": "cylinder",
       "level": 4,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "identify": {
+    {
+      "index": "identify",
+      "name": "Identify",
+      "url": "/api/spells/identify",
       "school": "divination",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "illusory-script": {
+    {
+      "index": "illusory-script",
+      "name": "Illusory Script",
+      "url": "/api/spells/illusory-script",
       "school": "illusion",
       "classes": [
         "bard",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "imprisonment": {
+    {
+      "index": "imprisonment",
+      "name": "Imprisonment",
+      "url": "/api/spells/imprisonment",
       "school": "abjuration",
       "classes": [
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 9,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "incendiary-cloud": {
+    {
+      "index": "incendiary-cloud",
+      "name": "Incendiary Cloud",
+      "url": "/api/spells/incendiary-cloud",
       "school": "conjuration",
       "classes": [
         "sorcerer",
@@ -2765,19 +3270,22 @@
       "aoe": "sphere",
       "level": 8,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "inflict-wounds": {
+    {
+      "index": "inflict-wounds",
+      "name": "Inflict Wounds",
+      "url": "/api/spells/inflict-wounds",
       "school": "necromancy",
       "classes": [
         "cleric"
       ],
       "damage": "necrotic",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
       "attack_type": "melee",
@@ -2785,7 +3293,10 @@
       "ritual": false,
       "healing_spell": false
     },
-    "insect-plague": {
+    {
+      "index": "insect-plague",
+      "name": "Insect Plague",
+      "url": "/api/spells/insect-plague",
       "school": "conjuration",
       "classes": [
         "cleric",
@@ -2797,27 +3308,33 @@
       "aoe": "sphere",
       "level": 5,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "instant-summons": {
+    {
+      "index": "instant-summons",
+      "name": "Instant Summons",
+      "url": "/api/spells/instant-summons",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "invisibility": {
+    {
+      "index": "invisibility",
+      "name": "Invisibility",
+      "url": "/api/spells/invisibility",
       "school": "illusion",
       "classes": [
         "bard",
@@ -2825,33 +3342,39 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "irresistible-dance": {
+    {
+      "index": "irresistible-dance",
+      "name": "Irresistible Dance",
+      "url": "/api/spells/irresistible-dance",
       "school": "enchantment",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "jump": {
+    {
+      "index": "jump",
+      "name": "Jump",
+      "url": "/api/spells/jump",
       "school": "transmutation",
       "classes": [
         "druid",
@@ -2859,51 +3382,60 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "knock": {
+    {
+      "index": "knock",
+      "name": "Knock",
+      "url": "/api/spells/knock",
       "school": "transmutation",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "legend-lore": {
+    {
+      "index": "legend-lore",
+      "name": "Legend Lore",
+      "url": "/api/spells/legend-lore",
       "school": "divination",
       "classes": [
         "bard",
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "lesser-restoration": {
+    {
+      "index": "lesser-restoration",
+      "name": "Lesser Restoration",
+      "url": "/api/spells/lesser-restoration",
       "school": "abjuration",
       "classes": [
         "bard",
@@ -2912,33 +3444,39 @@
         "paladin",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "levitate": {
+    {
+      "index": "levitate",
+      "name": "Levitate",
+      "url": "/api/spells/levitate",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "light": {
+    {
+      "index": "light",
+      "name": "Light",
+      "url": "/api/spells/light",
       "school": "evocation",
       "classes": [
         "bard",
@@ -2946,17 +3484,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "lightning-bolt": {
+    {
+      "index": "lightning-bolt",
+      "name": "Lightning Bolt",
+      "url": "/api/spells/lightning-bolt",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -2967,29 +3508,35 @@
       "aoe": "line",
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "locate-animals-or-plants": {
+    {
+      "index": "locate-animals-or-plants",
+      "name": "Locate Animals or Plants",
+      "url": "/api/spells/locate-animals-or-plants",
       "school": "divination",
       "classes": [
         "bard",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "locate-creature": {
+    {
+      "index": "locate-creature",
+      "name": "Locate Creature",
+      "url": "/api/spells/locate-creature",
       "school": "divination",
       "classes": [
         "bard",
@@ -2999,17 +3546,20 @@
         "ranger",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "locate-object": {
+    {
+      "index": "locate-object",
+      "name": "Locate Object",
+      "url": "/api/spells/locate-object",
       "school": "divination",
       "classes": [
         "bard",
@@ -3019,17 +3569,20 @@
         "ranger",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "longstrider": {
+    {
+      "index": "longstrider",
+      "name": "Longstrider",
+      "url": "/api/spells/longstrider",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -3037,33 +3590,39 @@
         "ranger",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mage-armor": {
+    {
+      "index": "mage-armor",
+      "name": "Mage Armor",
+      "url": "/api/spells/mage-armor",
       "school": "abjuration",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mage-hand": {
+    {
+      "index": "mage-hand",
+      "name": "Mage Hand",
+      "url": "/api/spells/mage-hand",
       "school": "conjuration",
       "classes": [
         "bard",
@@ -3071,17 +3630,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "magic-circle": {
+    {
+      "index": "magic-circle",
+      "name": "Magic Circle",
+      "url": "/api/spells/magic-circle",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -3089,96 +3651,114 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
       "aoe": "cylinder",
       "level": 3,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "magic-jar": {
+    {
+      "index": "magic-jar",
+      "name": "Magic Jar",
+      "url": "/api/spells/magic-jar",
       "school": "necromancy",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "magic-missile": {
+    {
+      "index": "magic-missile",
+      "name": "Magic Missile",
+      "url": "/api/spells/magic-missile",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
       "damage": "force",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "magic-mouth": {
+    {
+      "index": "magic-mouth",
+      "name": "Magic Mouth",
+      "url": "/api/spells/magic-mouth",
       "school": "illusion",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "magic-weapon": {
+    {
+      "index": "magic-weapon",
+      "name": "Magic Weapon",
+      "url": "/api/spells/magic-weapon",
       "school": "transmutation",
       "classes": [
         "paladin",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "magnificent-mansion": {
+    {
+      "index": "magnificent-mansion",
+      "name": "Magnificent Mansion",
+      "url": "/api/spells/magnificent-mansion",
       "school": "conjuration",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 7,
       "range": "300 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "major-image": {
+    {
+      "index": "major-image",
+      "name": "Major Image",
+      "url": "/api/spells/major-image",
       "school": "illusion",
       "classes": [
         "bard",
@@ -3186,64 +3766,76 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "mass-cure-wounds": {
+    {
+      "index": "mass-cure-wounds",
+      "name": "Mass Cure Wounds",
+      "url": "/api/spells/mass-cure-wounds",
       "school": "conjuration",
       "classes": [
         "bard",
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "mass-heal": {
+    {
+      "index": "mass-heal",
+      "name": "Mass Heal",
+      "url": "/api/spells/mass-heal",
       "school": "conjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "mass-healing-word": {
+    {
+      "index": "mass-healing-word",
+      "name": "Mass Healing Word",
+      "url": "/api/spells/mass-healing-word",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "mass-suggestion": {
+    {
+      "index": "mass-suggestion",
+      "name": "Mass Suggestion",
+      "url": "/api/spells/mass-suggestion",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -3251,47 +3843,56 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "maze": {
+    {
+      "index": "maze",
+      "name": "Maze",
+      "url": "/api/spells/maze",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "meld-into-stone": {
+    {
+      "index": "meld-into-stone",
+      "name": "Meld Into Stone",
+      "url": "/api/spells/meld-into-stone",
       "school": "transmutation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "mending": {
+    {
+      "index": "mending",
+      "name": "Mending",
+      "url": "/api/spells/mending",
       "school": "transmutation",
       "classes": [
         "cleric",
@@ -3300,34 +3901,40 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "message": {
+    {
+      "index": "message",
+      "name": "Message",
+      "url": "/api/spells/message",
       "school": "transmutation",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "meteor-swarm": {
+    {
+      "index": "meteor-swarm",
+      "name": "Meteor Swarm",
+      "url": "/api/spells/meteor-swarm",
       "school": "evocation",
       "classes": [
         "sorcerer",
@@ -3338,28 +3945,34 @@
       "aoe": "sphere",
       "level": 9,
       "range": "1 mile",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mind-blank": {
+    {
+      "index": "mind-blank",
+      "name": "Mind Blank",
+      "url": "/api/spells/mind-blank",
       "school": "abjuration",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "minor-illusion": {
+    {
+      "index": "minor-illusion",
+      "name": "Minor Illusion",
+      "url": "/api/spells/minor-illusion",
       "school": "illusion",
       "classes": [
         "bard",
@@ -3367,100 +3980,118 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mirage-arcane": {
+    {
+      "index": "mirage-arcane",
+      "name": "Mirage Arcane",
+      "url": "/api/spells/mirage-arcane",
       "school": "illusion",
       "classes": [
         "bard",
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 7,
       "range": "Sight",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mirror-image": {
+    {
+      "index": "mirror-image",
+      "name": "Mirror Image",
+      "url": "/api/spells/mirror-image",
       "school": "illusion",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "mislead": {
+    {
+      "index": "mislead",
+      "name": "Mislead",
+      "url": "/api/spells/mislead",
       "school": "illusion",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "misty-step": {
+    {
+      "index": "misty-step",
+      "name": "Misty Step",
+      "url": "/api/spells/misty-step",
       "school": "conjuration",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "modify-memory": {
+    {
+      "index": "modify-memory",
+      "name": "Modify Memory",
+      "url": "/api/spells/modify-memory",
       "school": "enchantment",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "moonbeam": {
+    {
+      "index": "moonbeam",
+      "name": "Moonbeam",
+      "url": "/api/spells/moonbeam",
       "school": "evocation",
       "classes": [
         "druid"
@@ -3470,122 +4101,146 @@
       "aoe": "cylinder",
       "level": 2,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "move-earth": {
+    {
+      "index": "move-earth",
+      "name": "Move Earth",
+      "url": "/api/spells/move-earth",
       "school": "transmutation",
       "classes": [
         "druid",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cone",
       "level": 6,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "nondetection": {
+    {
+      "index": "nondetection",
+      "name": "Nondetection",
+      "url": "/api/spells/nondetection",
       "school": "abjuration",
       "classes": [
         "bard",
         "ranger",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "pass-without-trace": {
+    {
+      "index": "pass-without-trace",
+      "name": "Pass Without Trace",
+      "url": "/api/spells/pass-without-trace",
       "school": "abjuration",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "passwall": {
+    {
+      "index": "passwall",
+      "name": "Passwall",
+      "url": "/api/spells/passwall",
       "school": "transmutation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "phantasmal-killer": {
+    {
+      "index": "phantasmal-killer",
+      "name": "Phantasmal Killer",
+      "url": "/api/spells/phantasmal-killer",
       "school": "illusion",
       "classes": [
         "wizard"
       ],
       "damage": "psychic",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "phantom-steed": {
+    {
+      "index": "phantom-steed",
+      "name": "Phantom Steed",
+      "url": "/api/spells/phantom-steed",
       "school": "illusion",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "planar-ally": {
+    {
+      "index": "planar-ally",
+      "name": "Planar Ally",
+      "url": "/api/spells/planar-ally",
       "school": "conjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "planar-binding": {
+    {
+      "index": "planar-binding",
+      "name": "Planar Binding",
+      "url": "/api/spells/planar-binding",
       "school": "abjuration",
       "classes": [
         "bard",
@@ -3593,17 +4248,20 @@
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "plane-shift": {
+    {
+      "index": "plane-shift",
+      "name": "Plane Shift",
+      "url": "/api/spells/plane-shift",
       "school": "conjuration",
       "classes": [
         "cleric",
@@ -3612,9 +4270,9 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "cha",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 7,
       "range": "Touch",
       "attack_type": "melee",
@@ -3622,41 +4280,51 @@
       "ritual": false,
       "healing_spell": false
     },
-    "plant-growth": {
+    {
+      "index": "plant-growth",
+      "name": "Plant Growth",
+      "url": "/api/spells/plant-growth",
       "school": "transmutation",
       "classes": [
         "bard",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "poison-spray": {
+    {
+      "index": "poison-spray",
+      "name": "Poison Spray",
+      "url": "/api/spells/poison-spray",
       "school": "conjuration",
       "classes": [
         "sorcerer",
         "warlock",
-        "wizard"
+        "wizard",
+        "druid"
       ],
       "damage": "poison",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 0,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "polymorph": {
+    {
+      "index": "polymorph",
+      "name": "Polymorph",
+      "url": "/api/spells/polymorph",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -3664,17 +4332,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "power-word-kill": {
+    {
+      "index": "power-word-kill",
+      "name": "Power Word Kill",
+      "url": "/api/spells/power-word-kill",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -3682,17 +4353,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "power-word-stun": {
+    {
+      "index": "power-word-stun",
+      "name": "Power Word Stun",
+      "url": "/api/spells/power-word-stun",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -3700,32 +4374,38 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 8,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "prayer-of-healing": {
+    {
+      "index": "prayer-of-healing",
+      "name": "Prayer of Healing",
+      "url": "/api/spells/prayer-of-healing",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "prestidigitation": {
+    {
+      "index": "prestidigitation",
+      "name": "Prestidigitation",
+      "url": "/api/spells/prestidigitation",
       "school": "transmutation",
       "classes": [
         "bard",
@@ -3733,70 +4413,82 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "prismatic-spray": {
+    {
+      "index": "prismatic-spray",
+      "name": "Prismatic Spray",
+      "url": "/api/spells/prismatic-spray",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
       "aoe": "cone",
       "level": 7,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "prismatic-wall": {
+    {
+      "index": "prismatic-wall",
+      "name": "Prismatic Wall",
+      "url": "/api/spells/prismatic-wall",
       "school": "abjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "line",
       "level": 9,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "private-sanctum": {
+    {
+      "index": "private-sanctum",
+      "name": "Private Sanctum",
+      "url": "/api/spells/private-sanctum",
       "school": "abjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 4,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "produce-flame": {
+    {
+      "index": "produce-flame",
+      "name": "Produce Flame",
+      "url": "/api/spells/produce-flame",
       "school": "conjuration",
       "classes": [
         "druid"
       ],
       "damage": "fire",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Self",
       "attack_type": "ranged",
@@ -3804,39 +4496,48 @@
       "ritual": false,
       "healing_spell": false
     },
-    "programmed-illusion": {
+    {
+      "index": "programmed-illusion",
+      "name": "Programmed Illusion",
+      "url": "/api/spells/programmed-illusion",
       "school": "illusion",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 6,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "project-image": {
+    {
+      "index": "project-image",
+      "name": "Project Image",
+      "url": "/api/spells/project-image",
       "school": "illusion",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "500 miles",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "protection-from-energy": {
+    {
+      "index": "protection-from-energy",
+      "name": "Protection From Energy",
+      "url": "/api/spells/protection-from-energy",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -3845,17 +4546,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "protection-from-evil-and-good": {
+    {
+      "index": "protection-from-evil-and-good",
+      "name": "Protection from Evil and Good",
+      "url": "/api/spells/protection-from-evil-and-good",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -3863,17 +4567,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "protection-from-poison": {
+    {
+      "index": "protection-from-poison",
+      "name": "Protection from Poison",
+      "url": "/api/spells/protection-from-poison",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -3881,59 +4588,68 @@
         "paladin",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "purify-food-and-drink": {
+    {
+      "index": "purify-food-and-drink",
+      "name": "Purify Food and Drink",
+      "url": "/api/spells/purify-food-and-drink",
       "school": "transmutation",
       "classes": [
         "cleric",
         "druid",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "raise-dead": {
+    {
+      "index": "raise-dead",
+      "name": "Raise Dead",
+      "url": "/api/spells/raise-dead",
       "school": "necromancy",
       "classes": [
         "bard",
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "ray-of-enfeeblement": {
+    {
+      "index": "ray-of-enfeeblement",
+      "name": "Ray of Enfeeblement",
+      "url": "/api/spells/ray-of-enfeeblement",
       "school": "necromancy",
       "classes": [
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
       "attack_type": "ranged",
@@ -3941,15 +4657,18 @@
       "ritual": false,
       "healing_spell": false
     },
-    "ray-of-frost": {
+    {
+      "index": "ray-of-frost",
+      "name": "Ray of Frost",
+      "url": "/api/spells/ray-of-frost",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
       "damage": "cold",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "60 feet",
       "attack_type": "ranged",
@@ -3957,39 +4676,48 @@
       "ritual": false,
       "healing_spell": false
     },
-    "regenerate": {
+    {
+      "index": "regenerate",
+      "name": "Regenerate",
+      "url": "/api/spells/regenerate",
       "school": "transmutation",
       "classes": [
         "bard",
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": true
     },
-    "reincarnate": {
+    {
+      "index": "reincarnate",
+      "name": "Reincarnate",
+      "url": "/api/spells/reincarnate",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "remove-curse": {
+    {
+      "index": "remove-curse",
+      "name": "Remove Curse",
+      "url": "/api/spells/remove-curse",
       "school": "abjuration",
       "classes": [
         "cleric",
@@ -3997,158 +4725,188 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "resilient-sphere": {
+    {
+      "index": "resilient-sphere",
+      "name": "Resilient Sphere",
+      "url": "/api/spells/resilient-sphere",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 4,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "resistance": {
+    {
+      "index": "resistance",
+      "name": "Resistance",
+      "url": "/api/spells/resistance",
       "school": "abjuration",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "resurrection": {
+    {
+      "index": "resurrection",
+      "name": "Resurrection",
+      "url": "/api/spells/resurrection",
       "school": "necromancy",
       "classes": [
         "bard",
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "reverse-gravity": {
+    {
+      "index": "reverse-gravity",
+      "name": "Reverse Gravity",
+      "url": "/api/spells/reverse-gravity",
       "school": "transmutation",
       "classes": [
         "druid",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "dex",
       "aoe": "cylinder",
       "level": 7,
       "range": "100 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "revivify": {
+    {
+      "index": "revivify",
+      "name": "Revivify",
+      "url": "/api/spells/revivify",
       "school": "conjuration",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "rope-trick": {
+    {
+      "index": "rope-trick",
+      "name": "Rope Trick",
+      "url": "/api/spells/rope-trick",
       "school": "transmutation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sacred-flame": {
+    {
+      "index": "sacred-flame",
+      "name": "Sacred Flame",
+      "url": "/api/spells/sacred-flame",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
       "damage": "radiant",
       "dc": "dex",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 0,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sanctuary": {
+    {
+      "index": "sanctuary",
+      "name": "Sanctuary",
+      "url": "/api/spells/sanctuary",
       "school": "abjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "scorching-ray": {
+    {
+      "index": "scorching-ray",
+      "name": "Scorching Ray",
+      "url": "/api/spells/scorching-ray",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
       "damage": "fire",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "scrying": {
+    {
+      "index": "scrying",
+      "name": "Scrying",
+      "url": "/api/spells/scrying",
       "school": "divination",
       "classes": [
         "bard",
@@ -4157,114 +4915,135 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "secret-chest": {
+    {
+      "index": "secret-chest",
+      "name": "Secret Chest",
+      "url": "/api/spells/secret-chest",
       "school": "conjuration",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "see-invisibility": {
+    {
+      "index": "see-invisibility",
+      "name": "See Invisibility",
+      "url": "/api/spells/see-invisibility",
       "school": "divination",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "seeming": {
+    {
+      "index": "seeming",
+      "name": "Seeming",
+      "url": "/api/spells/seeming",
       "school": "illusion",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sending": {
+    {
+      "index": "sending",
+      "name": "Sending",
+      "url": "/api/spells/sending",
       "school": "evocation",
       "classes": [
         "bard",
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Unlimited",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sequester": {
+    {
+      "index": "sequester",
+      "name": "Sequester",
+      "url": "/api/spells/sequester",
       "school": "transmutation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "shapechange": {
+    {
+      "index": "shapechange",
+      "name": "Shapechange",
+      "url": "/api/spells/shapechange",
       "school": "transmutation",
       "classes": [
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "shatter": {
+    {
+      "index": "shatter",
+      "name": "Shatter",
+      "url": "/api/spells/shatter",
       "school": "evocation",
       "classes": [
         "bard",
@@ -4277,67 +5056,79 @@
       "aoe": "sphere",
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "shield": {
+    {
+      "index": "shield",
+      "name": "Shield",
+      "url": "/api/spells/shield",
       "school": "abjuration",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "shield-of-faith": {
+    {
+      "index": "shield-of-faith",
+      "name": "Shield of Faith",
+      "url": "/api/spells/shield-of-faith",
       "school": "abjuration",
       "classes": [
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "shillelagh": {
+    {
+      "index": "shillelagh",
+      "name": "Shillelagh",
+      "url": "/api/spells/shillelagh",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "shocking-grasp": {
+    {
+      "index": "shocking-grasp",
+      "name": "Shocking Grasp",
+      "url": "/api/spells/shocking-grasp",
       "school": "evocation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
       "damage": "lightning",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
       "attack_type": "melee",
@@ -4345,226 +5136,268 @@
       "ritual": false,
       "healing_spell": false
     },
-    "silence": {
+    {
+      "index": "silence",
+      "name": "Silence",
+      "url": "/api/spells/silence",
       "school": "illusion",
       "classes": [
         "bard",
         "cleric",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 2,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": true,
       "healing_spell": false
     },
-    "silent-image": {
+    {
+      "index": "silent-image",
+      "name": "Silent Image",
+      "url": "/api/spells/silent-image",
       "school": "illusion",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "simulacrum": {
+    {
+      "index": "simulacrum",
+      "name": "Simulacrum",
+      "url": "/api/spells/simulacrum",
       "school": "illusion",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 7,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sleep": {
+    {
+      "index": "sleep",
+      "name": "Sleep",
+      "url": "/api/spells/sleep",
       "school": "enchantment",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 1,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "sleet-storm": {
+    {
+      "index": "sleet-storm",
+      "name": "Sleet Storm",
+      "url": "/api/spells/sleet-storm",
       "school": "conjuration",
       "classes": [
         "druid",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cylinder",
       "level": 3,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "slow": {
+    {
+      "index": "slow",
+      "name": "Slow",
+      "url": "/api/spells/slow",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
       "aoe": "cube",
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "spare-the-dying": {
+    {
+      "index": "spare-the-dying",
+      "name": "Spare the Dying",
+      "url": "/api/spells/spare-the-dying",
       "school": "necromancy",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "speak-with-animals": {
+    {
+      "index": "speak-with-animals",
+      "name": "Speak with Animals",
+      "url": "/api/spells/speak-with-animals",
       "school": "divination",
       "classes": [
         "bard",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "speak-with-dead": {
+    {
+      "index": "speak-with-dead",
+      "name": "Speak with Dead",
+      "url": "/api/spells/speak-with-dead",
       "school": "necromancy",
       "classes": [
         "bard",
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "speak-with-plants": {
+    {
+      "index": "speak-with-plants",
+      "name": "Speak with Plants",
+      "url": "/api/spells/speak-with-plants",
       "school": "transmutation",
       "classes": [
         "bard",
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "spider-climb": {
+    {
+      "index": "spider-climb",
+      "name": "Spider Climb",
+      "url": "/api/spells/spider-climb",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "spike-growth": {
+    {
+      "index": "spike-growth",
+      "name": "Spike Growth",
+      "url": "/api/spells/spike-growth",
       "school": "transmutation",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cylinder",
       "level": 2,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "spirit-guardians": {
+    {
+      "index": "spirit-guardians",
+      "name": "Spirit Guardians",
+      "url": "/api/spells/spirit-guardians",
       "school": "conjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "spiritual-weapon": {
+    {
+      "index": "spiritual-weapon",
+      "name": "Spiritual Weapon",
+      "url": "/api/spells/spiritual-weapon",
       "school": "evocation",
       "classes": [
         "cleric"
       ],
       "damage": "force",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "60 feet",
       "attack_type": "melee",
@@ -4572,41 +5405,50 @@
       "ritual": false,
       "healing_spell": false
     },
-    "stinking-cloud": {
+    {
+      "index": "stinking-cloud",
+      "name": "Stinking Cloud",
+      "url": "/api/spells/stinking-cloud",
       "school": "conjuration",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "con",
       "aoe": "sphere",
       "level": 3,
       "range": "90 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "stone-shape": {
+    {
+      "index": "stone-shape",
+      "name": "Stone Shape",
+      "url": "/api/spells/stone-shape",
       "school": "transmutation",
       "classes": [
         "cleric",
         "druid",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "stoneskin": {
+    {
+      "index": "stoneskin",
+      "name": "Stoneskin",
+      "url": "/api/spells/stoneskin",
       "school": "abjuration",
       "classes": [
         "druid",
@@ -4614,17 +5456,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 4,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "storm-of-vengeance": {
+    {
+      "index": "storm-of-vengeance",
+      "name": "Storm of Vengeance",
+      "url": "/api/spells/storm-of-vengeance",
       "school": "conjuration",
       "classes": [
         "druid"
@@ -4634,12 +5479,15 @@
       "aoe": "sphere",
       "level": 9,
       "range": "Sight",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "suggestion": {
+    {
+      "index": "suggestion",
+      "name": "Suggestion",
+      "url": "/api/spells/suggestion",
       "school": "enchantment",
       "classes": [
         "bard",
@@ -4647,17 +5495,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 2,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "sunbeam": {
+    {
+      "index": "sunbeam",
+      "name": "Sunbeam",
+      "url": "/api/spells/sunbeam",
       "school": "evocation",
       "classes": [
         "druid",
@@ -4669,12 +5520,15 @@
       "aoe": "line",
       "level": 6,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "sunburst": {
+    {
+      "index": "sunburst",
+      "name": "Sunburst",
+      "url": "/api/spells/sunburst",
       "school": "evocation",
       "classes": [
         "druid",
@@ -4686,109 +5540,130 @@
       "aoe": "cylinder",
       "level": 8,
       "range": "150 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "symbol": {
+    {
+      "index": "symbol",
+      "name": "Symbol",
+      "url": "/api/spells/symbol",
       "school": "abjuration",
       "classes": [
         "bard",
         "cleric",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 7,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "telekinesis": {
+    {
+      "index": "telekinesis",
+      "name": "Telekinesis",
+      "url": "/api/spells/telekinesis",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 5,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "telepathic-bond": {
+    {
+      "index": "telepathic-bond",
+      "name": "Telepathic Bond",
+      "url": "/api/spells/telepathic-bond",
       "school": "divination",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "teleport": {
+    {
+      "index": "teleport",
+      "name": "Teleport",
+      "url": "/api/spells/teleport",
       "school": "conjuration",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 7,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "teleportation-circle": {
+    {
+      "index": "teleportation-circle",
+      "name": "Teleportation Circle",
+      "url": "/api/spells/teleportation-circle",
       "school": "conjuration",
       "classes": [
         "bard",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 5,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "thaumaturgy": {
+    {
+      "index": "thaumaturgy",
+      "name": "Thaumaturgy",
+      "url": "/api/spells/thaumaturgy",
       "school": "transmutation",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "thunderwave": {
+    {
+      "index": "thunderwave",
+      "name": "Thunderwave",
+      "url": "/api/spells/thunderwave",
       "school": "evocation",
       "classes": [
         "bard",
@@ -4801,44 +5676,53 @@
       "aoe": "cube",
       "level": 1,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "time-stop": {
+    {
+      "index": "time-stop",
+      "name": "Time Stop",
+      "url": "/api/spells/time-stop",
       "school": "transmutation",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "tiny-hut": {
+    {
+      "index": "tiny-hut",
+      "name": "Tiny Hut",
+      "url": "/api/spells/tiny-hut",
       "school": "evocation",
       "classes": [
         "bard",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 3,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "tongues": {
+    {
+      "index": "tongues",
+      "name": "Tongues",
+      "url": "/api/spells/tongues",
       "school": "divination",
       "classes": [
         "bard",
@@ -4847,81 +5731,96 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "transport-via-plants": {
+    {
+      "index": "transport-via-plants",
+      "name": "Transport via Plants",
+      "url": "/api/spells/transport-via-plants",
       "school": "conjuration",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "10 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "tree-stride": {
+    {
+      "index": "tree-stride",
+      "name": "Tree Stride",
+      "url": "/api/spells/tree-stride",
       "school": "conjuration",
       "classes": [
         "druid",
         "ranger"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "true-polymorph": {
+    {
+      "index": "true-polymorph",
+      "name": "True Polymorph",
+      "url": "/api/spells/true-polymorph",
       "school": "transmutation",
       "classes": [
         "bard",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "true-resurrection": {
+    {
+      "index": "true-resurrection",
+      "name": "True Resurrection",
+      "url": "/api/spells/true-resurrection",
       "school": "necromancy",
       "classes": [
         "cleric",
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "true-seeing": {
+    {
+      "index": "true-seeing",
+      "name": "True Seeing",
+      "url": "/api/spells/true-seeing",
       "school": "divination",
       "classes": [
         "bard",
@@ -4930,17 +5829,20 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "true-strike": {
+    {
+      "index": "true-strike",
+      "name": "True Strike",
+      "url": "/api/spells/true-strike",
       "school": "divination",
       "classes": [
         "bard",
@@ -4948,42 +5850,48 @@
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 0,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "unseen-servant": {
+    {
+      "index": "unseen-servant",
+      "name": "Unseen Servant",
+      "url": "/api/spells/unseen-servant",
       "school": "conjuration",
       "classes": [
         "bard",
         "warlock",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 1,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "vampiric-touch": {
+    {
+      "index": "vampiric-touch",
+      "name": "Vampiric Touch",
+      "url": "/api/spells/vampiric-touch",
       "school": "necromancy",
       "classes": [
         "warlock",
         "wizard"
       ],
       "damage": "necrotic",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "Self",
       "attack_type": "melee",
@@ -4991,22 +5899,28 @@
       "ritual": false,
       "healing_spell": false
     },
-    "vicious-mockery": {
+    {
+      "index": "vicious-mockery",
+      "name": "Vicious Mockery",
+      "url": "/api/spells/vicious-mockery",
       "school": "enchantment",
       "classes": [
         "bard"
       ],
       "damage": "psychic",
       "dc": "wis",
-      "aoe": "unknown",
+      "aoe": [],
       "level": 0,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "wall-of-fire": {
+    {
+      "index": "wall-of-fire",
+      "name": "Wall of Fire",
+      "url": "/api/spells/wall-of-fire",
       "school": "evocation",
       "classes": [
         "druid",
@@ -5018,27 +5932,33 @@
       "aoe": "line",
       "level": 4,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wall-of-force": {
+    {
+      "index": "wall-of-force",
+      "name": "Wall of Force",
+      "url": "/api/spells/wall-of-force",
       "school": "evocation",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wall-of-ice": {
+    {
+      "index": "wall-of-ice",
+      "name": "Wall of Ice",
+      "url": "/api/spells/wall-of-ice",
       "school": "evocation",
       "classes": [
         "wizard"
@@ -5048,29 +5968,35 @@
       "aoe": "sphere",
       "level": 6,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wall-of-stone": {
+    {
+      "index": "wall-of-stone",
+      "name": "Wall of Stone",
+      "url": "/api/spells/wall-of-stone",
       "school": "evocation",
       "classes": [
         "druid",
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 5,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wall-of-thorns": {
+    {
+      "index": "wall-of-thorns",
+      "name": "Wall of Thorns",
+      "url": "/api/spells/wall-of-thorns",
       "school": "conjuration",
       "classes": [
         "druid"
@@ -5080,27 +6006,33 @@
       "aoe": "line",
       "level": 6,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "warding-bond": {
+    {
+      "index": "warding-bond",
+      "name": "Warding Bond",
+      "url": "/api/spells/warding-bond",
       "school": "abjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 2,
       "range": "Touch",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "water-breathing": {
+    {
+      "index": "water-breathing",
+      "name": "Water Breathing",
+      "url": "/api/spells/water-breathing",
       "school": "transmutation",
       "classes": [
         "druid",
@@ -5108,17 +6040,20 @@
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "water-walk": {
+    {
+      "index": "water-walk",
+      "name": "Water Walk",
+      "url": "/api/spells/water-walk",
       "school": "transmutation",
       "classes": [
         "cleric",
@@ -5126,63 +6061,75 @@
         "ranger",
         "sorcerer"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 3,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": true,
       "healing_spell": false
     },
-    "web": {
+    {
+      "index": "web",
+      "name": "Web",
+      "url": "/api/spells/web",
       "school": "conjuration",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "cube",
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "weird": {
+    {
+      "index": "weird",
+      "name": "Weird",
+      "url": "/api/spells/weird",
       "school": "illusion",
       "classes": [
         "wizard"
       ],
-      "damage": "unknown",
+      "damage": "",
       "dc": "wis",
       "aoe": "sphere",
       "level": 9,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wind-walk": {
+    {
+      "index": "wind-walk",
+      "name": "Wind Walk",
+      "url": "/api/spells/wind-walk",
       "school": "transmutation",
       "classes": [
         "druid"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 6,
       "range": "30 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "wind-wall": {
+    {
+      "index": "wind-wall",
+      "name": "Wind Wall",
+      "url": "/api/spells/wind-wall",
       "school": "evocation",
       "classes": [
         "druid",
@@ -5193,58 +6140,67 @@
       "aoe": "line",
       "level": 3,
       "range": "120 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": true,
       "ritual": false,
       "healing_spell": false
     },
-    "wish": {
+    {
+      "index": "wish",
+      "name": "Wish",
+      "url": "/api/spells/wish",
       "school": "conjuration",
       "classes": [
         "sorcerer",
         "wizard"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
-      "aoe": "unknown",
+      "damage": "",
+      "dc": [],
+      "aoe": [],
       "level": 9,
       "range": "Self",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "word-of-recall": {
+    {
+      "index": "word-of-recall",
+      "name": "Word of Recall",
+      "url": "/api/spells/word-of-recall",
       "school": "conjuration",
       "classes": [
         "cleric"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 6,
       "range": "5 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     },
-    "zone-of-truth": {
+    {
+      "index": "zone-of-truth",
+      "name": "Zone of Truth",
+      "url": "/api/spells/zone-of-truth",
       "school": "enchantment",
       "classes": [
         "bard",
         "cleric",
         "paladin"
       ],
-      "damage": "unknown",
-      "dc": "unknown",
+      "damage": "",
+      "dc": [],
       "aoe": "sphere",
       "level": 2,
       "range": "60 feet",
-      "attack_type": "unknown",
+      "attack_type": "",
       "concentration": false,
       "ritual": false,
       "healing_spell": false
     }
-  }
+  ]
 }
