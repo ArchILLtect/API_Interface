@@ -34,37 +34,41 @@
 10/31/23 - Filter by DC saving throw and healing spells are both now fully functional<br>
 10/31/23 - Fixed buggy CSS and updated it to accomodate changes<br>
 10/31/23 - Upgraded localCache and site content to include MONSTERS! Minimal functionality currently though<br>
-10/01/23 - Upgraded localCache and site content to include equipment-categories. Minimal functionality currently though<br>
-10/01/23 - Upgraded localCache and site content to include EQUIPMENT! functionality currently though<br>
-10/01/23 - Upgraded localCache and site content to include MAGIC ITEMS! Minimal functionality currently though<br>
-10/01/23 - Upgraded localCache and site content to include weapon properties. Minimal functionality currently though<br>
-10/01/23 - Upgraded localize_all_api_details to UPDATE AND add new non-existing detail data! Renamed to update_all_api_details<br>
-10/04/23 - Upgraded cacheData to handle object item counts which makes getCount and setCount obselete<br>
-10/04/23 - Updates to details<br>
-10/05/23 - Added new fonts<br>
-10/05/23 - Added resources<br>
-10/06/23 - Added new fonts<br>
-10/06/23 - Upgraded details modals and monsters details display<br>
-10/08/23 - Updated details modals for races details display<br>
-10/08/23 - Updated to add watermarks to details display<br>
-10/09/23 - Updated Python scripts to run from the updateScripts folder<br>
-10/09/23 - Upgraded localCache to include multiple new categories<br>
-10/09/23 - Updated CSS, integrate traits and homepage info json files<br>
-10/10/23 - Updated CSS, charaters homepage info json file and characters hompepage content<br>
-10/10/23 - Upgraded races details to contain traits info<br>
-10/10/23 - Added filter data<br>
-10/12/23 - Added additional data source integration functionality<br>
-10/12/23 - Added missing API basic subraces and traits<br>
-10/12/23 - Upgraded main to integrate additonal-data for traits and subraces in localCache<br>
-10/14/23 - Upgraded magic items list and detail display<br>
-10/15/23 - Upgraded magic items list and detail display<br>
-10/16/23 - Upgraded magic items list and detail display<br>
+11/01/23 - Upgraded localCache and site content to include equipment-categories. Minimal functionality currently though<br>
+11/01/23 - Upgraded localCache and site content to include EQUIPMENT! functionality currently though<br>
+11/01/23 - Upgraded localCache and site content to include MAGIC ITEMS! Minimal functionality currently though<br>
+11/01/23 - Upgraded localCache and site content to include weapon properties. Minimal functionality currently though<br>
+11/01/23 - Upgraded localize_all_api_details to UPDATE AND add new non-existing detail data! Renamed to update_all_api_details<br>
+11/04/23 - Upgraded cacheData to handle object item counts which makes getCount and setCount obselete<br>
+11/04/23 - Updates to details<br>
+11/05/23 - Added new fonts<br>
+11/05/23 - Added resources<br>
+11/06/23 - Added new fonts<br>
+11/06/23 - Upgraded details modals and monsters details display<br>
+11/08/23 - Updated details modals for races details display<br>
+11/08/23 - Updated to add watermarks to details display<br>
+11/09/23 - Updated Python scripts to run from the updateScripts folder<br>
+11/09/23 - Upgraded localCache to include multiple new categories<br>
+11/09/23 - Updated CSS, integrate traits and homepage info json files<br>
+11/10/23 - Updated CSS, charaters homepage info json file and characters hompepage content<br>
+11/10/23 - Upgraded races details to contain traits info<br>
+11/10/23 - Added filter data<br>
+11/12/23 - Added additional data source integration functionality<br>
+11/12/23 - Added missing API basic subraces and traits<br>
+11/12/23 - Upgraded main to integrate additonal-data for traits and subraces in localCache<br>
+11/14/23 - Upgraded magic items list and detail display<br>
+11/15/23 - Upgraded magic items list and detail display<br>
+11/16/23 - Upgraded magic items list and detail display<br>
+11/20/23 - Got rid of filterData object in dataCache and made filterData the base data for content<br>
+11/20/23 - Clean up functions and updated Python scripts<br>
+11/20/23 - Added localCache data for skills<br>
 <br>
 <br>
 <br>
 <br>
 TTD:<br>
 <br>
+*1* Remove equipment-category as an item for items sub-menu<br>
 *1*Get rid of the really bad MAIN selector and switch to class selectors<br>
 *1*Upgrade Python scripts to check files and update with changes - IF changed<br>
 Add page setup functions to prepare pages CSS and other info before loading. Add JS/CSS rule mixture to accomodate<br>
