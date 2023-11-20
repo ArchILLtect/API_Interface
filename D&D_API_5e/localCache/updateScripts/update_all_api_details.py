@@ -1,5 +1,5 @@
 # This file should not be moved from the update_scripts folder.
-# Use a parameter that is a source folder and a data type the creates multiple files and their respective directories that each contain the details for that item.
+# Use a parameter that is a source folder and a data type. Creates multiple files and their respective directories that each contain the details for that item.
 # Run by using the syntax: $ Python3 <filename>.py <type of data>  - Example: Python3 update_all_api_details.py races
 
 # Import the necessary modules
