@@ -319,7 +319,6 @@ async function prepLoad(itemType, dataType='data', itemName) {
             const content = dataCache[itemType][itemName];
             curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
 
-            //(verifyLoadNeed(itemName, 'details')) {
             if (verifyLoadNeed(itemName, 'details')) {
                 console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
@@ -349,25 +348,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 } else {
                     createDetailsWindowNEW(content);
                 }
-            }
-        } else if (itemType === 'monsters' || itemType === 'spells' || itemType === 'equipment') {
-            // Get spells, monsters & equipment main items list
-            //console.log('main list items')
-            dataCache[itemType] = dataCache[itemType] || {};
-            //console.log(itemType)
-            const content = dataCache[itemType];
-            curLocation = "./localCache/" + itemType + "/localCache.json";
-
-            if (verifyLoadNeed(itemType, 'main')) {
-                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
-                await fetchData(curLocation);
-                cacheData(apiData, itemType);
-                return;
-            } else {
-                console.log('MAIN - API Load NOT needed!');
-                return;
-            }
-        } else if (itemType === 'magic-items') {
+            } 
+        } else {
             // Get spells, monsters & equipment main items list
             //console.log('main list items')
             dataCache[itemType] = dataCache[itemType] || {};
@@ -378,31 +360,13 @@ async function prepLoad(itemType, dataType='data', itemName) {
             if (verifyLoadNeed(itemType, 'main')) {
                 console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
-                //FIXME CURRENT FLOW
                 cacheData(apiData, itemType);
                 return;
             } else {
                 console.log('MAIN - API Load NOT needed!');
                 return;
             }
-        } else {
-            // Get main items list
-            //console.log('main but else')
-            dataCache[itemType] = dataCache[itemType] || {};
-            //console.log(itemType)
-            const content = dataCache[itemType];
-            curLocation = "./localCache/" + itemType + "/localCache.json";
-            additionalLocation = "./localCache/" + itemType + "/localCacheAdditional.json";
-            if (verifyLoadNeed(itemType, 'main')) {
-                console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
-                await fetchData(curLocation);
-                cacheData(apiData, itemType);
-                return;
-            } else {
-                console.log('MAIN - API Load NOT needed!');
-                return;
-            }
-        }
+        } 
     } else if (dataType === 'pageData') {
         dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
@@ -437,22 +401,6 @@ async function prepLoad(itemType, dataType='data', itemName) {
             } else {
                 console.log('MAIN - API Load NOT needed!');
             }
-    } else if (dataType === 'filterData') {
-        dataCache['filterData'] = dataCache['filterData'] || {};
-        dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
-
-        curLocation = "./localCache/" + itemType + "/filterInfo.json";
-
-        if (verifyLoadNeed(itemType, 'filterData')) {
-            //console.log(`@ prepLoad: itemType: ${itemType}`);
-            //console.log('@ prepLoad: apiIndex on next log line:');
-            //console.log(apiIndex);
-            console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
-            await fetchSecondaryData(curLocation, 'filterData');
-            cacheData(jsonData, itemType);
-        } else {
-            console.log('MAIN - API Load NOT needed!');
-        }
     } else if (dataType === 'traits' || dataType === 'subraces') {
         //console.log('traits prepping');
         dataCache['characters'] = dataCache['characters'] || {};
@@ -610,25 +558,13 @@ function cacheData(data, itemType, itemName) {
         }
 
         dataCache[itemType] = dataCache[itemType] || {};
-        //FIXME CURRENT FLOW
-        if (currentPage === 'magic-items') {
-            data.filterData.forEach(item => {
-                dataCache[itemType][item.index] = item;
-            });
-        } else {
-            data.results.forEach(item => {
-                dataCache[itemType][item.index] = item;
-            });
-        }
-        //FIXME Make sure this is correct for all pages
-/*         if (currentPage === 'equipment') { */
+
+        data.filterData.forEach(item => {
+            dataCache[itemType][item.index] = item;
+        });
+
         dataCache['count'] = dataCache['count'] || {};
         dataCache['count'][itemType] = data.count;
-        //FIXME CURRENT FLOW - NOT NEEDED UNLESS FIND A REASON
-/*         data.results.forEach(item => {
-            dataCache[itemType][item.index] = item;
-        }); */
-
         const count = Object.keys(dataCache[itemType]).length;
         //console.log(`Caching data: ${itemType} object now has ${count} items`);
         return;
@@ -660,21 +596,6 @@ function cacheData(data, itemType, itemName) {
         } else {
             dataCache['images'][itemType] = dataCache['images'][itemType] || {};
             dataCache['images'][itemType] = data.filenames;
-            //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
-            return;
-        }
-    } else if (data.filterData) {
-        // This condition caches filterData
-        if (
-            dataCache['filterData'] &&
-            dataCache['filterData'][itemType] === data
-            ) {
-            console.log('Data already exists');
-            return;
-
-        } else {
-            dataCache['filterData'][itemType] = dataCache['filterData'][itemType] || {};
-            dataCache['filterData'][itemType] = data.filterData;
             //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
             return;
         }
@@ -717,25 +638,38 @@ function verifyLoadNeed(prop, dataType) {
             return true;
         }
     } else if (dataType === 'details') {
-        if (currentPage === 'magic-items') {
+        if (currentPage === 'skills' || currentPage === 'monsters' || currentPage === 'spells' || currentPage === 'equipment' || currentPage === 'magic-items') {
             //const checkAsset = asset[currentPage].hasOwnProperty(prop);
+            //ADD NEW DETAILS
             const asset = dataCache[currentPage][prop]
-            //FIXME CURRENT FLOW
-            console.log('Checking details...........');
+            let filterFacetCount = 0;
+            if (currentPage === 'skills') {
+                filterFacetCount = 4
+            } else if (currentPage === 'monsters') {
+                filterFacetCount = 3
+            } else if (currentPage === 'spells') {
+                filterFacetCount = 14
+            } else if (currentPage === 'equipment') {
+                filterFacetCount = 3
+            } else if (currentPage === 'magic-items') {
+                filterFacetCount = 6
+            } else {
+                filterFacetCount = 3
+            }
+            //console.log('Checking details...........');
             if (
                 asset &&
-                Object.keys(asset).length > 6
+                Object.keys(asset).length > filterFacetCount
                 ) {
-                console.log('Returning No')
+                //console.log('Returning No')
                 return false;
             } else {
-                console.log('Returning Yes')
+                //console.log('Returning Yes')
                 return true;
             }
         } else {
             //const checkAsset = asset[currentPage].hasOwnProperty(prop);
             const asset = dataCache[currentPage][prop]
-            //FIXME CURRENT FLOW
             //console.log('Checking details...........');
             if (
                 asset &&
@@ -766,19 +700,6 @@ function verifyLoadNeed(prop, dataType) {
         //const checkAsset = asset['images'].hasOwnProperty(prop);
         const asset = dataCache['images'][prop]
         //console.log('Checking images...........');
-        if (
-            asset &&
-            Object.keys(asset).length
-            ) {
-            //console.log('Returning No')
-            return false;
-        } else {
-            //console.log('Returning Yes')
-            return true;
-        }
-    } else if (dataType === 'filterData') {
-        //FIXME P1-1 NOT WORKING but maybe only for items that have empty "filterData.json"
-        const asset = dataCache['filterData'][prop]
         if (
             asset &&
             Object.keys(asset).length
@@ -838,7 +759,6 @@ async function addCards(data, count) {
     SetHeader(currentPage, count);
 
     await prepLoad(currentPage, 'images');
-    await prepLoad(currentPage, 'filterData');
     await prepLoad(currentPage, 'traits');
     await prepLoad(currentPage, 'subraces');
 
@@ -868,11 +788,6 @@ async function addList(data, count) {
 
     //Load page's secondary data
     await prepLoad(currentPage, 'images');
-    //FIXME CURRENT FLOW
-    if (currentPage === 'magic-items') {
-    } else {
-        await prepLoad(currentPage, 'filterData');
-    }
 
     // Add list to the page:
 
@@ -900,12 +815,12 @@ async function addList(data, count) {
     resetFilter();
     readyFilter();
     //placeImages(ALL_IMG, 'list');
+    //TODO Needs separation?
     if (currentPage === 'magic-items') {
         placeImages(ALL_IMG, currentPage);
     } else {
         placeImages(ALL_IMG, 'list');
     }
-
 };
 
 function createCard(data) {
@@ -989,7 +904,7 @@ function createListItem(data) {
     if (currentPage === "magic-items") {
 
     } else {
-        curFilterData = dataCache.filterData[currentPage][data.index];
+        curFilterData = dataCache[currentPage][data.index];
     }
 
     /* // Range Count Counter
@@ -1081,8 +996,8 @@ function createListItem(data) {
 
 function createDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
-    //console.log(data)
-    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    console.log(data)
+    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     const detailModal = document.createElement('dialog');
     mainElement.appendChild(detailModal);
@@ -3283,12 +3198,6 @@ async function fetchSecondaryData(curFile, dataType) {
 
         jsonData = jsonIndex;
         jsonCount = jsonIndex.count;
-
-    } else if (dataType === 'filterData') {
-        const jsonPromise = await fetch(curFile);
-        jsonIndex = await jsonPromise.json();
-
-        jsonData = jsonIndex;
     } else if (dataType === 'traits' || dataType === 'subraces') {
         //console.log('loading traits')
         const jsonPromise = await fetch(curFile);
@@ -3461,7 +3370,6 @@ function placeImages(articles, type) {
     } else if (type === 'magic-items') {
         for (article of articles) {
             const CUR_NAME = article.id
-            //FIXME CURRENT FLOW FIX
             const CUR_TYPE = dataCache['magic-items'][CUR_NAME].type;
             const CUR_IMG = document.getElementById(`${CUR_NAME}Img`);
             if (CUR_TYPE === 'armor' || CUR_TYPE === 'potion' || CUR_TYPE === 'ring' || CUR_TYPE === 'rod' || CUR_TYPE === 'scroll' || CUR_TYPE === 'staff' || CUR_TYPE === 'wand' || CUR_TYPE === 'weapon' || CUR_TYPE === 'wondrous-items') {
