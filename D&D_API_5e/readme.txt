@@ -69,6 +69,7 @@
 <br>
 TTD:<br>
 <br>
+*3* Images for magic items getting error when clicked for details and then reload magic item list<br>
 *1* Remove equipment-category as an item for items sub-menu<br>
 *1*Get rid of the really bad MAIN selector and switch to class selectors<br>
 *1*Upgrade Python scripts to check files and update with changes - IF changed<br>
