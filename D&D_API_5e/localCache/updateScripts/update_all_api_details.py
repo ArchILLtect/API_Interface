@@ -24,7 +24,7 @@ if not api_last_part.endswith("/"):
 target_directory = os.path.join('..', api_last_part)
 
 # Check if the provided parameters are "traits" or "subraces"
-if sys.argv[1] in ["traits", "subraces", "subclasses"]:
+if sys.argv[1] in ["ability-scores", "traits", "subraces", "subclasses"]:
     # Adjust target_directory for "traits" or "subraces"
     target_directory = os.path.join('..', 'Characters', api_last_part)
 

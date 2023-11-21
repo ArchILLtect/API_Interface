@@ -30,7 +30,7 @@ file_name = os.path.basename(source_file_location)
 target_directory = os.path.join('..', source_folder)
 
 # Check if the provided parameters are "traits" or "subraces"
-if sys.argv[1] in ["ability-scores","traits", "subraces"]:
+if sys.argv[1] in ["ability-scores","traits", "subraces", "subclasses"]:
     # Adjust target_directory for "traits" or "subraces"
     target_directory = os.path.join('..', 'Characters', source_folder)
 
