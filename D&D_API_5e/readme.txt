@@ -62,6 +62,7 @@
 11/20/23 - Got rid of filterData object in dataCache and made filterData the base data for content<br>
 11/20/23 - Clean up functions and updated Python scripts<br>
 11/20/23 - Added localCache data for skills<br>
+11/20/23 - Added localCache data for races<br>
 <br>
 <br>
 <br>

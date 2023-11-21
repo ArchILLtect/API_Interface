@@ -328,6 +328,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindow(apiData);
                 } else if (currentPage === 'races') {
                     raceDetailsWindow(apiData);
+                } else if (currentPage === 'classes') {
+                    classDetailsWindow(apiData);
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
                 } else if (currentPage === 'magic-items') {
@@ -1890,9 +1892,11 @@ function createDetailsWindowNEW(data) {
 function raceDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const raceType = data.index;
+    const raceAdded = localCacheAssets['additional-data'].races.results
     const subraceData = dataCache['characters']['subraces'];
-    const traitsData = dataCache['characters']['traits'];
-    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    //TODO P5-T3 ADD ? Starting Proficiencies.
+    //TODO P5-T3 ADD ? Starting Proficiency Options.
+    //TODO P5-T3 ADD ? Language Options.
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -1934,45 +1938,403 @@ function raceDetailsWindow(data) {
     mainDetailsDiv.appendChild(detailTextContent);
     detailTextContent.appendChild(detailItemsDiv);
 
-    //Set race Specific data not included with API
-    //TODO P3 Move this to additional Data for races
-    let raceDescTxt = '';
-    let traitsIntroTxt = '';
-    let subracesIntroTxt = '';
-    if (raceType === 'dragonborn') {
-        raceDescTxt = "Born of dragons, as their name proclaims, the dragonborn walk proudly through a world that greets them with fearful incomprehension. Shaped by draconic gods or the dragons themselves, dragonborn originally hatched from dragon eggs as a unique race, combining the best attributes of dragons and humanoids. Some dragonborn are faithful servants to true dragons, others form the ranks of soldiers in great wars, and still others find themselves adrift, with no clear calling in life."
-        traitsIntroTxt = "Your draconic heritage manifests in a variety of traits you share with other dragonborn."
-    } else if (raceType === 'dwarf') {
-        raceDescTxt = "Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs—these common threads unite all dwarves."
-        traitsIntroTxt = "Your dwarf character has an assortment of inborn abilities, part and parcel of dwarven nature."
-        subracesIntroTxt = "Two main subraces of dwarves populate the worlds of D&D: hill dwarves and mountain dwarves. Choose one of these subraces or one from another source."
-    } else if (raceType === 'elf') {
-        raceDescTxt = "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it. They live in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze. Elves love nature and magic, art and artistry, music and poetry, and the good things of the world."
-        traitsIntroTxt = "Your elf character has a variety of natural abilities, the result of thousands of years of elven refinement."
-        subracesIntroTxt = "Ancient divides among the elven people resulted in three main subraces: high elves, wood elves, and dark elves, who are commonly called drow. Choose one of the two subraces presented below or one from another source. In some worlds, these subraces are divided still further (such as the sun elves and moon elves of the Forgotten Realms), so if you wish, you can choose a narrower subrace."
-    } else if (raceType === 'gnome') {
-        raceDescTxt = "A constant hum of busy activity pervades the warrens and neighborhoods where gnomes form their close-knit communities. Louder sounds punctuate the hum: a crunch of grinding gears here, a minor explosion there, a yelp of surprise or triumph, and especially bursts of laughter. Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation, and play."
-        traitsIntroTxt = "Your gnome character has certain characteristics in common with all other gnomes."
-        subracesIntroTxt = "Choose one of the subraces below or one from another source."
-    } else if (raceType === 'half-elf') {
-        raceDescTxt = "Walking in two worlds but truly belonging to neither, half-elves combine what some say are the best qualities of their elf and human parents: human curiosity, inventiveness, and ambition tempered by the refined senses, love of nature, and artistic tastes of the elves. Some half-elves live among humans, set apart by their emotional and physical differences, watching friends and loved ones age while time barely touches them. Others live with the elves, growing restless as they reach adulthood in the timeless elven realms, while their peers continue to live as children. Many half-elves, unable to fit into either society, choose lives of solitary wandering or join with other misfits and outcasts in the adventuring life."
-        traitsIntroTxt = "Your half-elf character has some qualities in common with elves and some that are unique to half-elves."
-    } else if (raceType === 'half-orc') {
-        raceDescTxt = "Whether united under the leadership of a mighty warlock or having fought to a standstill after years of conflict, orc and human tribes sometimes form alliances, joining forces into a larger horde to the terror of civilized lands nearby. When these alliances are sealed by marriages, half-orcs are born. Some half-orcs rise to become proud chiefs of orc tribes, their human blood giving them an edge over their full-blooded orc rivals. Some venture into the world to prove their worth among humans and other more civilized races. Many of these become adventurers, achieving greatness for their mighty deeds and notoriety for their barbaric customs and savage fury."
-        traitsIntroTxt = "Your half-orc character has certain traits deriving from your orc ancestry."
-    } else if (raceType === 'halfling') {
-        raceDescTxt = "The comforts of home are the goals of most halflings’ lives: a place to settle in peace and quiet, far from marauding monsters and clashing armies; a blazing fire and a generous meal; fine drink and fine conversation. Though some halflings live out their days in remote agricultural communities, others form nomadic bands that travel constantly, lured by the open road and the wide horizon to discover the wonders of new lands and peoples. But even these wanderers love peace, food, hearth, and home, though home might be a wagon jostling along an dirt road or a raft floating downriver."
-        traitsIntroTxt = "Your halfling character has a number of traits in common with all other halflings."
-        subracesIntroTxt = "The two main kinds of halfling, lightfoot and stout, are more like closely related families than true subraces. Choose one of these subraces or one from another source."
-    } else if (raceType === 'human') {
-        raceDescTxt = "In the reckonings of most worlds, humans are the youngest of the common races, late to arrive on the world scene and short-lived in comparison to dwarves, elves, and dragons. Perhaps it is because of their shorter lives that they strive to achieve as much as they can in the years they are given. Or maybe they feel they have something to prove to the elder races, and that’s why they build their mighty empires on the foundation of conquest and trade. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds."
-        traitsIntroTxt = "It’s hard to make generalizations about humans, but your human character has these traits."
-    } else if (raceType === 'tiefling') {
-        raceDescTxt = "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling. And to twist the knife, tieflings know that this is because a pact struck generations ago infused the essence of Asmodeus—overlord of the Nine Hells—into their bloodline. Their appearance and their nature are not their fault but the result of an ancient sin, for which they and their children and their children’s children will always be held accountable."
-        traitsIntroTxt = "Tieflings share certain racial traits as a result of their infernal descent."
-    } else {
-        console.log('Race not found! Needs to be added?')
+    // For objects:
+    let subrace = false;
+    let abilBonValues = [];
+    let raceAgeValue = '';
+    let raceAlignDesc = '';
+    let raceLangValue = '';
+    let raceSizeValue = '';
+    let raceSizeDesc = '';
+    let raceSpeedValue = '';
+    let traitDivs = [];
+    let draconicAncestryData = [];
+    const draconicAncestryTable = document.createElement('table');
+    let subracesInfo = [];
+    for (const key in data) {
+        //Actions Section
+        if (data.hasOwnProperty(key)) {
+            const eachItem = data[key];
+            //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Profs[options](?)
+            //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!! GET RID OF THIS WHOLE ENTIRE FOR?????
+            if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
+
+            } else if (key === 'ability_bonuses') {
+                for (eachKey in eachItem) {
+                    const abilBonItem = eachItem[eachKey];
+                    const curAbilBonTitle = abilBonItem.ability_score.name;
+                    const curAbilBonDesc = abilBonItem.bonus;
+
+                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`) 
+                }
+            } else if (key === 'age') {
+                raceAgeValue = eachItem;
+            } else if (key === 'alignment') {
+                raceAlignDesc = eachItem;
+            } else if (key === 'language_desc') {
+                raceLangValue = eachItem;
+            } else if (key === 'size') {
+                raceSizeValue = eachItem;
+            } else if (key === 'size_description') {
+                raceSizeDesc = eachItem;
+            } else if (key === 'speed') {
+                raceSpeedValue = eachItem;
+            } else if (key === 'traits') {
+                for (eachKey in eachItem) {
+                    const traitItem = eachItem[eachKey];
+                    const traitDiv = document.createElement('div');
+                    const traitContent = document.createElement('p');
+                    const curTraitTitle = traitItem.name;
+                    const curTraitIndex = traitItem.index;
+                    traitDiv.className = 'detailTxtDiv';
+                    traitContent.className = 'detailTxtContent';
+                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
+                    traitDiv.appendChild(traitContent);
+                    traitDivs.push(traitDiv);
+                    if (curTraitIndex === 'draconic-ancestry') {
+                        const traitItem = dataCache.characters.traits;
+                        const draconicAncestryDiv = document.createElement('div');
+                        draconicAncestryDiv.className = 'class-summary-div';
+                        draconicAncestryTable.className = 'class-summary-table';
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
+                        for (traitKey in traitItem) {
+                            if (traitKey.startsWith('draconic-ancestry-')) {
+                                const index = traitItem[traitKey].index;
+                                const AOE_SIZE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.size;
+                                const AOE_TYPE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.type;
+                                const DC_SAVE = traitItem[traitKey].trait_specific.breath_weapon.dc.dc_type.index;
+                                const dragonType = capitalizeWords(extractPortion(index, 2, "-"));
+                                const damage_type = traitItem[traitKey].trait_specific.damage_type.name;
+                                let breathWeapon = '';
+                                if (AOE_SIZE === 30) {
+                                    breathWeapon = `5 by ${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`;
+                                } else {
+                                    breathWeapon = `${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`
+                                }
+                                const draconicAncestry = { "name": dragonType, "damage_type": damage_type, "breath_weapon": breathWeapon };
+                                draconicAncestryData.push(draconicAncestry);
+                            }
+                        }
+                        draconicAncestryDiv.appendChild(draconicAncestryTable);
+                        traitDivs.push(draconicAncestryDiv);
+                    }
+                
+                }
+            } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'subraces' || key === 'url') {
+
+            } else {
+                console.log(key);
+            }
+        }
     }
+
+    for (const key in subraceData) {
+        //Actions Section
+        const subraceItemData = subraceData[key];
+        const parentRace = subraceItemData.race.index;
+        if (parentRace === raceType) {
+            subrace = true;
+            const subraceItem = document.createElement('div');
+            const subraceItemHeader = document.createElement('div');
+            const subraceDiv = document.createElement('div');
+            const subraceItemIntro = document.createElement('p');
+            const subraceContent = document.createElement('p');
+            subraceItem.className = 'detailTxtMain';
+            subraceDiv.className = 'detailTxtDiv';
+            subraceContent.className = 'detailTxtContent';
+            subraceItemHeader.className = 'detailTxtHeader';
+            subraceItemIntro.className = 'detailTxtContent';
+            subraceItemHeader.textContent = subraceItemData.name;
+            subraceItemIntro.textContent = subraceItemData.desc;
+            subraceItem.appendChild(subraceItemHeader);
+            subraceItem.appendChild(subraceItemIntro);
+            for (const detailKey in subraceItemData) {
+                const detailItem = subraceItemData[detailKey];
+                if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const abilBonItem = detailItem;
+                    const abilBonMain = document.createElement('div');
+                    const abilityBonus = document.createElement('p');
+                    abilBonMain.className = 'detailTxtDiv';
+                    abilityBonus.className = 'detailTxtContent';
+                    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
+                    abilBonItem.forEach((value, index) => {
+                        const abilBonTitle = value.ability_score.name;
+                        const abilBonDesc = value.bonus;
+                        abilityBonus.innerHTML += `${abilBonTitle} + ${abilBonDesc}`;
+                        if (index < abilityBonus.length - 1) {
+                            abilityBonus.innerHTML += ", ";
+                        }
+                    });
+                    abilBonMain.appendChild(abilityBonus);
+                    subraceItem.appendChild(abilBonMain);
+                }
+                if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
+                    const traitsItem = detailItem;
+                    traitsItem.forEach((value, index) => {
+                        const traitsMain = document.createElement('div');
+                        const traitsContent = document.createElement('p');
+                        const traitsTitle = value.name;
+                        const traitsIndex = value.index;
+                        const traitDesc = dataCache.characters.traits[traitsIndex]['desc']
+                        traitsContent.className = 'detailTxtContent';
+                        traitsContent.innerHTML = `<span>${traitsTitle}.</span> `;
+                        traitCounter = 0;
+                        traitsMain.appendChild(traitsContent);
+                        traitDesc.forEach( item => {
+                            if (traitDesc.length > 1 && traitCounter === 0) {
+                                traitsContent.innerHTML += item;
+                                traitCounter++
+                                traitsMain.className = 'detailTxtDivLarge';
+                            } else if (traitDesc.length > 1 && traitCounter === 1) {
+                                const traitsContentMore = document.createElement('p');
+                                traitsContentMore.innerHTML += item;
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else if (traitDesc.length > 1 && traitCounter > 1) {
+                                const traitsContentMore = document.createElement('p');
+                                const splitCurTrait = item.split(':');
+                                const traitItemTitle = splitCurTrait[0];
+                                const traitItemContent = splitCurTrait[1];
+                                traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
+                                traitsContentMore.className = 'subraceTraitDetail';
+                                traitsMain.appendChild(traitsContentMore);
+                                traitCounter++
+                            } else {
+                                traitsContent.innerHTML += item;
+                            }
+                        });
+                        if (index < traitsContent.length - 1) {
+                            traitsContent.innerHTML += ", ";
+                        }
+                        subraceItem.appendChild(traitsMain);
+                    });
+                }
+            }
+            subracesInfo.push(subraceItem);
+        }
+    }
+
+    //Race Description
+    const raceDescDiv = document.createElement('div');
+    const raceDescPara = document.createElement('p');
+    const raceDescTxt = localCacheAssets['additional-data'].races.results
+    detailTextContent.appendChild(raceDescDiv);
+    raceDescDiv.appendChild(raceDescPara);
+    raceAdded.forEach( text => {
+        if (text.index === raceType)
+        raceDescPara.textContent = text.raceIntro;
+    });
+    raceDescPara.className = 'detailDesc'
+
+    //SubRace
+    if (subrace) {
+        const subraceIntroMain = document.createElement('div');
+        const subraceIntroHeader = document.createElement('div');
+        const subraceIntroTxt = document.createElement('p');
+        subraceIntroMain.className = 'detailTxtMain';
+        subraceIntroHeader.className = 'detailTxtHeader';
+        subraceIntroTxt.className = 'detailTxtContent';
+        subraceIntroHeader.textContent = 'Subrace';
+        raceAdded.forEach( text => {
+            if (text.index === raceType)
+            subraceIntroTxt.textContent = text.subraceIntro;
+        });
+        subraceIntroMain.appendChild(subraceIntroHeader);
+        subraceIntroMain.appendChild(subraceIntroTxt);
+        detailTextContent.appendChild(subraceIntroMain);
+    }
+
+    //Traits
+    const statsMain = document.createElement('div');
+    const statsHeader = document.createElement('div');
+    statsMain.className = 'detailTxtMain';
+    statsHeader.className = 'detailTxtHeader';
+    statsHeader.textContent = 'Traits';
+    statsMain.appendChild(statsHeader);
+    detailTextContent.appendChild(statsMain);
+
+    //Ability Bonuses
+    const abilBonMain = document.createElement('div');
+    const abilityBonus = document.createElement('p');
+    abilBonMain.className = 'detailTxtDiv';
+    abilityBonus.className = 'detailTxtContent';
+    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
+    aBV = abilBonValues;
+    aBV.forEach((value, index) => {
+        abilityBonus.innerHTML += value;
+        if (index < aBV.length - 1) {
+            abilityBonus.innerHTML += ", ";
+        }
+    });
+    abilBonMain.appendChild(abilityBonus);
+    detailTextContent.appendChild(abilBonMain);
+
+    //Age
+    const ageMain = document.createElement('div');
+    const raceAge = document.createElement('p');
+    ageMain.className = 'detailTxtDiv';
+    raceAge.className = 'detailTxtContent';
+    raceAge.innerHTML = `<span>Age</span> ${raceAgeValue}`;
+    ageMain.appendChild(raceAge);
+    detailTextContent.appendChild(ageMain);
+
+    //Alignment
+    const alignMain = document.createElement('div');
+    const raceAlign = document.createElement('p');
+    alignMain.className = 'detailTxtDiv';
+    raceAlign.className = 'detailTxtContent';
+    raceAlign.innerHTML = `<span>Alignment</span> ${raceAlignDesc}`;
+    alignMain.appendChild(raceAlign);
+    detailTextContent.appendChild(alignMain);
+
+    //Languages
+    const langMain = document.createElement('div');
+    const raceLang = document.createElement('p');
+    langMain.className = 'detailTxtDiv';
+    raceLang.className = 'detailTxtContent';
+    raceLang.innerHTML = `<span>Languages</span> ${raceLangValue}`;
+    langMain.appendChild(raceLang);
+    detailTextContent.appendChild(langMain);
+
+    //Size
+    const sizeMain = document.createElement('div');
+    const raceSize = document.createElement('p');
+    sizeMain.className = 'detailTxtDiv';
+    raceSize.className = 'detailTxtContent';
+    raceSize.innerHTML = `<span>Size</span> ${raceSizeValue}. ${raceSizeDesc}`;
+    sizeMain.appendChild(raceSize);
+    detailTextContent.appendChild(sizeMain);
+
+    //Speed
+    const speedMain = document.createElement('div');
+    const raceSpeed = document.createElement('p');
+    speedMain.className = 'detailTxtDiv';
+    raceSpeed.className = 'detailTxtContent';
+    if (data.index === 'dwarf') {
+        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.Your speed is not reduced by wearing heavy armor.`;
+    } else {
+        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.`;
+    }
+    speedMain.appendChild(raceSpeed);
+    detailTextContent.appendChild(speedMain);
+
+    //Special Traits
+    const specialMain = document.createElement('div');
+    const specialHeader = document.createElement('div');
+    const specialIntro = document.createElement('p');
+    specialMain.className = 'detailTxtMain';
+    specialHeader.className = 'detailTxtHeader';
+    specialIntro.className = 'detailTxtContent';
+    specialHeader.textContent = 'Special Traits';
+    raceAdded.forEach( text => {
+        if (text.index === raceType)
+        specialIntro.textContent = text.traitsIntro;
+    });
+    specialMain.appendChild(specialHeader);
+    specialMain.appendChild(specialIntro);
+    detailTextContent.appendChild(specialMain);
+    const traitsMain = document.createElement('div');
+    traitsMain.className = 'detailTxtMain';
+    traitDivs.forEach((curDiv) => {
+        traitsMain.appendChild(curDiv);
+    });
+    detailTextContent.appendChild(traitsMain);
+    if (raceType === 'dragonborn') {
+        const draconicAncestryKeys = Object.keys(draconicAncestryData[0]);
+        generateTable(draconicAncestryTable, draconicAncestryData);
+        generateTableHead(draconicAncestryTable, draconicAncestryKeys);
+    }
+
+    //Subrace Traits
+    const subraceMain = document.createElement('div');
+    subracesInfo.forEach( div => {
+        subraceMain.appendChild(div);
+    });
+    detailTextContent.appendChild(subraceMain);
+
+    //TODO DO I EVEN WANT THESE HERE??
+    const statBarDivOne = document.createElement('div');
+    const statsBarOne = document.createElement('img');
+
+    //Footer
+    const detailsFooter = document.createElement('div');
+    const statFooterBar = document.createElement('img');
+    detailsFooter.id = 'detailsFooter';
+    statFooterBar.src = './images/page-elements/stat-bar-book.png';
+    statFooterBar.classList.add('statHeadFootBar');
+    mainDetailsDiv.appendChild(statFooterBar);
+    detailModal.appendChild(detailsFooter)
+
+    //Modal Close Button
+    const closeButtonDiv = document.createElement('div');
+    const closeButton = document.createElement('button');
+    const closeButtonTxt = document.createTextNode("Click to close");
+    closeButton.id = 'closeButton'
+    detailsFooter.appendChild(closeButtonDiv);
+    closeButton.appendChild(closeButtonTxt);
+
+    //Modal Watermark Button
+    const watermarkToggleDiv = document.createElement('div');
+    const watermarkToggleBtn = document.createElement('button');
+    const watermarkToggleTxt = document.createTextNode("Toggle Watermark");
+    watermarkToggleBtn.id = 'watermarkToggle'
+    detailsFooter.appendChild(watermarkToggleDiv);
+    watermarkToggleBtn.appendChild(watermarkToggleTxt);
+
+    detailModal.showModal();
+    //Set watermark height to account for amount of content
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    closeButtonDiv.appendChild(closeButton);
+    watermarkToggleDiv.appendChild(watermarkToggleBtn);
+    modalListeners()
+};
+
+function classDetailsWindow(data) {
+    const NUM_OF_ITEMS = Object.keys(data).length;
+    const classType = data.index;
+
+    console.log(data)
+    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+
+    //Create Modal Window
+    const detailModal = document.createElement('dialog');
+    mainElement.appendChild(detailModal);
+    detailModal.id = 'detailModal';
+    detailModal.classList.add('modalWindow');
+
+    //Watermark image
+    const watermarkDiv = document.createElement('div');
+    watermarkDiv.id = 'watermark';
+    watermarkDiv.className = 'watermark';
+    detailModal.appendChild(watermarkDiv);
+    watermarkDiv.style.backgroundImage = `url(./images/${currentPage}/${data.index}.jpg)`;
+
+    //Header
+    const detailsHeader = document.createElement('div');
+    const detailName = document.createElement('h3');
+    detailsHeader.appendChild(detailName);
+    detailModal.appendChild(detailsHeader);
+    detailsHeader.id = 'detailsHeader';
+    detailName.className = 'detailHeader'
+    detailName.textContent = data.name;
+
+
+    //Details Content
+    const mainDetailsDiv = document.createElement('div');
+    mainDetailsDiv.classList.add('mainDetailContent');
+    detailModal.appendChild(mainDetailsDiv);
+
+    //Details Container
+    const statHeaderBar = document.createElement('img');
+    const detailTextContent = document.createElement('div');
+    const detailItemsDiv = document.createElement('div');
+    statHeaderBar.src = './images/page-elements/stat-bar-book.png';
+    statHeaderBar.classList.add('statHeadFootBar');
+    detailTextContent.classList.add('detailTextContent');
+    detailItemsDiv.classList.add('detailItemsDiv');
+    mainDetailsDiv.appendChild(statHeaderBar);
+    mainDetailsDiv.appendChild(detailTextContent);
+    detailTextContent.appendChild(detailItemsDiv);
 
     // For objects:
     let subrace = false;
@@ -2064,7 +2426,7 @@ function raceDetailsWindow(data) {
             }
         }
     }
-
+/* 
     for (const key in subraceData) {
         //Actions Section
         const subraceItemData = subraceData[key];
@@ -2153,7 +2515,7 @@ function raceDetailsWindow(data) {
             subracesInfo.push(subraceItem);
         }
 
-    }
+    } */
 
     //Race Description
     const raceDescDiv = document.createElement('div');
@@ -2274,12 +2636,7 @@ function raceDetailsWindow(data) {
         traitsMain.appendChild(curDiv);
     });
     detailTextContent.appendChild(traitsMain);
-    if (raceType === 'dragonborn') {
-        const draconicAncestryKeys = Object.keys(draconicAncestryData[0]);
-        generateTable(draconicAncestryTable, draconicAncestryData);
-        generateTableHead(draconicAncestryTable, draconicAncestryKeys);
-    }
-
+    
     //Subrace Traits
     const subraceMain = document.createElement('div');
     subracesInfo.forEach( div => {
@@ -2452,6 +2809,7 @@ function equipDetailsWindow(data) {
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
 };
+
 function magicItemDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const magicItemIndex = data.index
@@ -2851,10 +3209,9 @@ function setNavListen() {
                 hideFilters();
                 currentPage = eachItem.id;
                 await prepLoad(eachItem.id);
-                //TODO NEED TO BE FIGURED OUT - TOO TIRED RIGHT NOW!
-                /* if (eachItem.id === 'races') {
-                    await prepLoad('traits') 
-                } */
+                if (localCacheAssets['additional-data'].assets.includes(currentPage)) {
+                    prepLoadAddition(currentPage);
+                }
                 addContent(dataCache[eachItem.id], 'main');
             } else if (eachItem.id === 'equipment' || eachItem.id === 'magic-items') {
                 //FIXME This is temp until new localCache loading system in place
