@@ -13,6 +13,7 @@ let itemCounter = 1;
 
 let apiData;
 let jsonData;
+let jsonIndex;
 let addedData;
 
 /*   //Filter Count Variable Declartions
@@ -339,6 +340,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 }
             } else {
                 console.log('MAIN - API Load NOT needed!');
+                console.log(`${itemType}, ${dataType}, ${itemName}`);
                 if (itemType === 'spells') {
                     createDetailsWindow(content);
                 } else if (currentPage === 'races') {
@@ -426,6 +428,27 @@ async function prepLoad(itemType, dataType='data', itemName) {
     }
 };
 
+async function prepLoadSecondary(itemType, dataType='data', itemName) {
+
+    let dataLocation;
+    if (dataType === 'levels') {
+        dataLocation = `./localCache/classes/${itemName}/levels/${itemName}-levels.json`;
+    }
+
+    dataCache['characters'][dataType] = dataCache['characters'][dataType] || {}
+
+    if (verifyLoadNeed(itemName, dataType)) {
+        //console.log(`@ prepLoad: itemType: ${itemType}`);
+        //console.log('@ prepLoad: apiIndex on next log line:');
+        //console.log(apiIndex);
+        console.log('ADDED - API LOAD NEEDED! LOAD NEEDED!');
+        await fetchSecondaryData(dataLocation, 'levels')
+        dataCache['characters'][dataType][itemName] = jsonIndex;
+    } else {
+        console.log('ADDED - API Load NOT needed!');
+    }
+};
+
 async function prepLoadAddition(itemType) {
 
     let dataLocation;
@@ -466,7 +489,7 @@ async function prepLoadAddition(itemType) {
     } else {
         console.log('ADDED - API Load NOT needed!');
     }
-}
+};
 
 function cacheData(data, itemType, itemName) {
     //console.log('@ cacheData: current dataCache on next log line:');
@@ -740,6 +763,19 @@ function verifyLoadNeed(prop, dataType) {
             //console.log('Returning Yes')
             return true;
         }
+    } else if (dataType === 'levels') {
+        const asset = dataCache['characters'][dataType][prop]
+        //console.log('Checking additional Data...........');
+        if (
+            asset &&
+            Object.keys(asset).length
+            ) {
+            //console.log('Returning No')
+            return false;
+        } else {
+            //console.log('Returning Yes')
+            return true;
+        }
     }
        
 };
@@ -763,9 +799,14 @@ async function addCards(data, count) {
     SetHeader(currentPage, count);
 
     await prepLoad(currentPage, 'images');
-    await prepLoad(currentPage, 'traits');
-    await prepLoad(currentPage, 'subraces');
-    await prepLoad(currentPage, 'subclasses');
+    if (currentPage === 'races') {
+        //FIXME Use prepLoadSecondary for these instead of prepLoad
+        await prepLoad(currentPage, 'traits');
+        await prepLoad(currentPage, 'subraces');
+    }
+    if (currentPage === 'classes') {
+        await prepLoad(currentPage, 'subclasses');
+    }
 
     await prepLoadAddition('traits');
     await prepLoadAddition('subraces');
@@ -834,6 +875,10 @@ function createCard(data) {
     //console.log(`At createCard() currentPage = ${currentPage}`)
     const card = document.createElement('article');
     card.id = cardNameRaw;
+
+    if (currentPage === 'classes') {
+        prepLoadSecondary(currentPage, 'levels', data.index)
+    }
 
     const cardName = document.createElement('h3');
     const cardNameTxt = document.createTextNode(data.name);
@@ -3510,6 +3555,11 @@ async function fetchSecondaryData(curFile, dataType) {
 
         //FIXME P5 - Why even have jsonData = jsonIndex?
         jsonData = jsonIndex;
+    } else if (dataType === 'levels') {
+        //console.log('loading traits')
+        const jsonPromise = await fetch(curFile);
+        jsonIndex = await jsonPromise.json();
+
     } else {
         console.log('fetchSecondaryData failed due to bad dataType.')
     }
