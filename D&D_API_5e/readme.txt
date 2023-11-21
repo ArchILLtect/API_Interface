@@ -63,6 +63,10 @@
 11/20/23 - Clean up functions and updated Python scripts<br>
 11/20/23 - Added localCache data for skills<br>
 11/20/23 - Added localCache data for races<br>
+11/21/23 - Upgraded update_all_api_details.py script to accept second parameter and to include class levels capability<br>
+11/21/23 - Added localCache data for languages<br>
+11/21/23 - Added localCache data for backgrounds<br>
+11/21/23 - Added localCache data for class levels<br>
 <br>
 <br>
 <br>
@@ -88,12 +92,13 @@ Fix details for races and classes.<br>
 Think about how to create Python scripts that update local data.<br>
 *2*Heavy cleaning<br>
 ---Clean up unused/obselete code within the functions.<br>
-*5*Pics need to be cropped:
+*5*Pics need to be cropped:<br>
 ---Equipment = the four "packs"<br>
 ---Conditions = all<br>
-*5*Fix the main variables/ids that have dashes in them i.e. "magic-items", "weapon-proficiencies", etc.
+*5*Fix the main variables/ids that have dashes in them i.e. "magic-items", "weapon-proficiencies", etc.<br>
 Functions needing work:<br>
 ---createDetailsWindow<br>
+*7*Upgrade example usage comments for Python scripts<br>
 <br>
 <br>
 <br>
