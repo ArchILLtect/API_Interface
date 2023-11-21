@@ -42,7 +42,7 @@ with open(file_name, "r") as json_file:
     data = json.load(json_file)
 
 # Step 3: Create a variable file_name
-file_name = source_folder + "DetailData"
+file_name = source_folder + "DetailsData"
 
 # Step 4: Create a new JSON file using the new var as its filename
 output_file = file_name + ".json"
