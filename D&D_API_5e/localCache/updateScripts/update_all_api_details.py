@@ -9,7 +9,7 @@ import json
 import subprocess
 import sys  # Import the sys module
 
-if len(sys.argv) != 2:
+if len(sys.argv) < 2:
     print("Usage: python3 localize_all_api_details.py <api_last_part>")
     sys.exit(1)
 
@@ -19,6 +19,9 @@ api_last_part = sys.argv[1]
 # Check if api_last_part ends with a forward slash, and add one if missing
 if not api_last_part.endswith("/"):
     api_last_part += "/"
+
+# Define the optional subfolder (if provided)
+optional_subfolder = sys.argv[2] if len(sys.argv) > 2 else None
 
 # Define the target directory
 target_directory = os.path.join('..', api_last_part)
@@ -45,14 +48,20 @@ if response.status_code == 200:
 
     # Step 4: Create new directories and save data in its compressed form
     for index_value in index_values:
-        new_url = f'{main_api_url}{index_value}'
+        # Construct the URL based on the presence of the optional subfolder
+        new_url = f'{main_api_url}{index_value}/{optional_subfolder}' if optional_subfolder else f'{main_api_url}{index_value}'
 
         # Check if the directory for this API endpoint exists
         directory_name = index_value
+        if optional_subfolder:
+            directory_name = os.path.join(directory_name, optional_subfolder)
+
         os.makedirs(directory_name, exist_ok=True)
 
         # Check if a file with the same name as the item index exists
         file_path = os.path.join(directory_name, f'{index_value}.json')
+        if optional_subfolder:
+            file_path = os.path.join(directory_name, f'{index_value}-{optional_subfolder}.json')
         
         # Fetch and save data using the same script
         response = requests.get(new_url)
