@@ -67,6 +67,8 @@
 11/21/23 - Added localCache data for languages<br>
 11/21/23 - Added localCache data for backgrounds<br>
 11/21/23 - Added localCache data for class levels<br>
+11/21/23 - Add additional data for class descriptions<br>
+11/21/23 - Update localCacheAssets for class descriptions<br>
 <br>
 <br>
 <br>
