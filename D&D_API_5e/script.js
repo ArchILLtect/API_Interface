@@ -343,6 +343,8 @@ async function prepLoad(itemType, dataType='data', itemName) {
                     createDetailsWindow(content);
                 } else if (currentPage === 'races') {
                     raceDetailsWindow(content);
+                } else if (currentPage === 'classes') {
+                    classDetailsWindow(content);
                 } else if (currentPage === 'equipment') {
                     equipDetailsWindow(content);
                 } else if (currentPage === 'magic-items') {
@@ -403,7 +405,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             } else {
                 console.log('MAIN - API Load NOT needed!');
             }
-    } else if (dataType === 'traits' || dataType === 'subraces') {
+    } else if (dataType === 'traits' || dataType === 'subraces'|| dataType === 'subclasses') {
         //console.log('traits prepping');
         dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
@@ -601,9 +603,9 @@ function cacheData(data, itemType, itemName) {
             //console.log(`Caching data: images.${itemType} object now has ${numberOfItems} items`);
             return;
         }
-    } else if (data.traitsData || data.subracesData) {
+    } else if (data.traitsData || data.subracesData  || data.subclassesData) {
         const curData = `${itemType}Data`;
-        // This condition caches traitsData and sybracesData
+        // This condition caches traitsData and subracesData
         if (
             dataCache['characters'] &&
             dataCache['characters'][itemType] === data
@@ -622,7 +624,7 @@ function cacheData(data, itemType, itemName) {
     }
 };
 
-//TODO P3-1 I think I can reduce the conditions by reusing for some
+//TODO P3-1 I think I can reduce the conditional statements by reusing for some
 function verifyLoadNeed(prop, dataType) {
     //console.log('verifyLoadNeed running...')
     //console.log(prop)
@@ -712,7 +714,7 @@ function verifyLoadNeed(prop, dataType) {
             //console.log('Returning Yes')
             return true;
         }
-    } else if (dataType === 'traits' || dataType === 'subraces') {
+    } else if (dataType === 'traits' || dataType === 'subraces' || dataType === 'subclasses') {
         const asset = localCacheAssets['additional-data'][dataType]
         //console.log(`Checking ${dataType}...........`);
         if (
@@ -763,6 +765,7 @@ async function addCards(data, count) {
     await prepLoad(currentPage, 'images');
     await prepLoad(currentPage, 'traits');
     await prepLoad(currentPage, 'subraces');
+    await prepLoad(currentPage, 'subclasses');
 
     await prepLoadAddition('traits');
     await prepLoadAddition('subraces');
@@ -2292,6 +2295,7 @@ function raceDetailsWindow(data) {
 function classDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const classType = data.index;
+    const subclassData = dataCache['characters']['subclasses'];
 
     console.log(data)
     console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
@@ -2337,18 +2341,18 @@ function classDetailsWindow(data) {
     detailTextContent.appendChild(detailItemsDiv);
 
     // For objects:
-    let subrace = false;
+    let subclass = false;
     let abilBonValues = [];
-    let raceAgeValue = '';
-    let raceAlignDesc = '';
-    let raceLangValue = '';
-    let raceSizeValue = '';
-    let raceSizeDesc = '';
-    let raceSpeedValue = '';
+    let classAgeValue = '';
+    let classAlignDesc = '';
+    let classLangValue = '';
+    let classSizeValue = '';
+    let classSizeDesc = '';
+    let classSpeedValue = '';
     let traitDivs = [];
     let draconicAncestryData = [];
     const draconicAncestryTable = document.createElement('table');
-    let subracesInfo = [];
+    let subclassesInfo = [];
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
@@ -2356,7 +2360,7 @@ function classDetailsWindow(data) {
             const currentDetail = key.replace(/_/g, " ");
             //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Profs[options](?)
             //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!! GET RID OF THIS WHOLE ENTIRE FOR?????
-            if (key === 'subraces' && Array.isArray(eachItem) && eachItem.length > 0) {
+            if (key === 'subclasses' && Array.isArray(eachItem) && eachItem.length > 0) {
 
             } else if (key === 'ability_bonuses') {
                 for (eachKey in eachItem) {
@@ -2426,31 +2430,31 @@ function classDetailsWindow(data) {
             }
         }
     }
-/* 
-    for (const key in subraceData) {
+ 
+    for (const key in subclassData) {
         //Actions Section
-        const subraceItemData = subraceData[key];
-        const parentRace = subraceItemData.race.index;
+        const subclassItemData = subclassData[key];
+        const parentclass = subclassItemData.class.index;
         const currentDetail = key.replace(/_/g, " ");
-        if (parentRace === raceType) {
-            console.log(subraceItemData);
-            subrace = true;
-            const subraceItem = document.createElement('div');
-            const subraceItemHeader = document.createElement('div');
-            const subraceDiv = document.createElement('div');
-            const subraceItemIntro = document.createElement('p');
-            const subraceContent = document.createElement('p');
-            subraceItem.className = 'detailTxtMain';
-            subraceDiv.className = 'detailTxtDiv';
-            subraceContent.className = 'detailTxtContent';
-            subraceItemHeader.className = 'detailTxtHeader';
-            subraceItemIntro.className = 'detailTxtContent';
-            subraceItemHeader.textContent = subraceItemData.name;
-            subraceItemIntro.textContent = subraceItemData.desc;
-            subraceItem.appendChild(subraceItemHeader);
-            subraceItem.appendChild(subraceItemIntro);
-            for (const detailKey in subraceItemData) {
-                const detailItem = subraceItemData[detailKey];
+        if (parentclass === classType) {
+            console.log(subclassItemData);
+            subclass = true;
+            const subclassItem = document.createElement('div');
+            const subclassItemHeader = document.createElement('div');
+            const subclassDiv = document.createElement('div');
+            const subclassItemIntro = document.createElement('p');
+            const subclassContent = document.createElement('p');
+            subclassItem.className = 'detailTxtMain';
+            subclassDiv.className = 'detailTxtDiv';
+            subclassContent.className = 'detailTxtContent';
+            subclassItemHeader.className = 'detailTxtHeader';
+            subclassItemIntro.className = 'detailTxtContent';
+            subclassItemHeader.textContent = subclassItemData.name;
+            subclassItemIntro.textContent = subclassItemData.desc;
+            subclassItem.appendChild(subclassItemHeader);
+            subclassItem.appendChild(subclassItemIntro);
+            for (const detailKey in subclassItemData) {
+                const detailItem = subclassItemData[detailKey];
                 if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
                     const abilBonItem = detailItem;
                     const abilBonMain = document.createElement('div');
@@ -2467,7 +2471,7 @@ function classDetailsWindow(data) {
                         }
                     });
                     abilBonMain.appendChild(abilityBonus);
-                    subraceItem.appendChild(abilBonMain);
+                    subclassItem.appendChild(abilBonMain);
                 }
                 if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
                     const traitsItem = detailItem;
@@ -2498,7 +2502,7 @@ function classDetailsWindow(data) {
                                 const traitItemTitle = splitCurTrait[0];
                                 const traitItemContent = splitCurTrait[1];
                                 traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
-                                traitsContentMore.className = 'subraceTraitDetail';
+                                traitsContentMore.className = 'subclassTraitDetail';
                                 traitsMain.appendChild(traitsContentMore);
                                 traitCounter++
                             } else {
@@ -2508,36 +2512,45 @@ function classDetailsWindow(data) {
                         if (index < traitsContent.length - 1) {
                             traitsContent.innerHTML += ", ";
                         }
-                        subraceItem.appendChild(traitsMain);
+                        subclassItem.appendChild(traitsMain);
                     });
                 }
             }
-            subracesInfo.push(subraceItem);
+            subclassesInfo.push(subclassItem);
         }
 
-    } */
+    }
 
-    //Race Description
-    const raceDescDiv = document.createElement('div');
-    const raceDescPara = document.createElement('p');
-    detailTextContent.appendChild(raceDescDiv);
-    raceDescDiv.appendChild(raceDescPara);
-    raceDescPara.textContent = raceDescTxt;
-    raceDescPara.className = 'detailDesc'
+    //TODO P1-T2 CONTINUE HERE - Put together classes data display!
+    //classes Description
+    const classDescDiv = document.createElement('div');
+    const classDescPara = document.createElement('p');
+    //const classesDescTxt = localCacheAssets['additional-data'].classes.results
+    detailTextContent.appendChild(classDescDiv);
+    classDescDiv.appendChild(classDescPara);
+/*     classAdded.forEach( text => {
+        if (text.index === classType)
+        classDescPara.textContent = text.classIntro;
+    }); */
+    classDescPara.className = 'detailDesc'
+    //FIXME P2T1 This is temporary until class intro descriptions are in place
+    classDescPara.textContent = "Class descriptions coming soon";
 
-    //SubRace
-    if (subrace) {
-        const subraceIntroMain = document.createElement('div');
-        const subraceIntroHeader = document.createElement('div');
-        const subraceIntroTxt = document.createElement('p');
-        subraceIntroMain.className = 'detailTxtMain';
-        subraceIntroHeader.className = 'detailTxtHeader';
-        subraceIntroTxt.className = 'detailTxtContent';
-        subraceIntroHeader.textContent = 'Subrace';
-        subraceIntroTxt.textContent = subracesIntroTxt;
-        subraceIntroMain.appendChild(subraceIntroHeader);
-        subraceIntroMain.appendChild(subraceIntroTxt);
-        detailTextContent.appendChild(subraceIntroMain);
+    //Subclass
+    if (subclass) {
+        const subclassIntroMain = document.createElement('div');
+        const subclassIntroHeader = document.createElement('div');
+        const subclassIntroTxt = document.createElement('p');
+        subclassIntroMain.className = 'detailTxtMain';
+        subclassIntroHeader.className = 'detailTxtHeader';
+        subclassIntroTxt.className = 'detailTxtContent';
+        subclassIntroHeader.textContent = 'Subclass';
+        //subclassIntroTxt.textContent = subclasssIntroTxt;
+        //FIXME P2T1 This is temporary until class intro descriptions are in place
+        classDescPara.textContent = "Subclass descriptions coming soon";
+        subclassIntroMain.appendChild(subclassIntroHeader);
+        subclassIntroMain.appendChild(subclassIntroTxt);
+        detailTextContent.appendChild(subclassIntroMain);
     }
 
     //Traits
@@ -2553,71 +2566,6 @@ function classDetailsWindow(data) {
     //traitsMain.appendChild(traitsIntro);
     detailTextContent.appendChild(statsMain);
 
-    //Ability Bonuses
-    const abilBonMain = document.createElement('div');
-    const abilityBonus = document.createElement('p');
-    abilBonMain.className = 'detailTxtDiv';
-    abilityBonus.className = 'detailTxtContent';
-    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
-    aBV = abilBonValues;
-    aBV.forEach((value, index) => {
-        abilityBonus.innerHTML += value;
-        if (index < aBV.length - 1) {
-            abilityBonus.innerHTML += ", ";
-        }
-    });
-    abilBonMain.appendChild(abilityBonus);
-    detailTextContent.appendChild(abilBonMain);
-
-    //Age
-    const ageMain = document.createElement('div');
-    const raceAge = document.createElement('p');
-    ageMain.className = 'detailTxtDiv';
-    raceAge.className = 'detailTxtContent';
-    raceAge.innerHTML = `<span>Age</span> ${raceAgeValue}`;
-    ageMain.appendChild(raceAge);
-    detailTextContent.appendChild(ageMain);
-
-    //Alignment
-    const alignMain = document.createElement('div');
-    const raceAlign = document.createElement('p');
-    alignMain.className = 'detailTxtDiv';
-    raceAlign.className = 'detailTxtContent';
-    raceAlign.innerHTML = `<span>Alignment</span> ${raceAlignDesc}`;
-    alignMain.appendChild(raceAlign);
-    detailTextContent.appendChild(alignMain);
-
-    //Languages
-    const langMain = document.createElement('div');
-    const raceLang = document.createElement('p');
-    langMain.className = 'detailTxtDiv';
-    raceLang.className = 'detailTxtContent';
-    raceLang.innerHTML = `<span>Languages</span> ${raceLangValue}`;
-    langMain.appendChild(raceLang);
-    detailTextContent.appendChild(langMain);
-
-    //Size
-    const sizeMain = document.createElement('div');
-    const raceSize = document.createElement('p');
-    sizeMain.className = 'detailTxtDiv';
-    raceSize.className = 'detailTxtContent';
-    raceSize.innerHTML = `<span>Size</span> ${raceSizeValue}. ${raceSizeDesc}`;
-    sizeMain.appendChild(raceSize);
-    detailTextContent.appendChild(sizeMain);
-
-    //Speed
-    const speedMain = document.createElement('div');
-    const raceSpeed = document.createElement('p');
-    speedMain.className = 'detailTxtDiv';
-    raceSpeed.className = 'detailTxtContent';
-    if (data.index === 'dwarf') {
-        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.Your speed is not reduced by wearing heavy armor.`;
-    } else {
-        raceSpeed.innerHTML = `<span>Speed</span> Your base walking speed is ${raceSpeedValue}ft.`;
-    }
-    speedMain.appendChild(raceSpeed);
-    detailTextContent.appendChild(speedMain);
-
     //Special Traits
     const specialMain = document.createElement('div');
     const specialHeader = document.createElement('div');
@@ -2626,23 +2574,23 @@ function classDetailsWindow(data) {
     specialHeader.className = 'detailTxtHeader';
     specialIntro.className = 'detailTxtContent';
     specialHeader.textContent = 'Special Traits';
-    specialIntro.textContent = traitsIntroTxt;
+    //specialIntro.textContent = traitsIntroTxt;
     specialMain.appendChild(specialHeader);
     specialMain.appendChild(specialIntro);
     detailTextContent.appendChild(specialMain);
     const traitsMain = document.createElement('div');
     traitsMain.className = 'detailTxtMain';
-    traitDivs.forEach((curDiv) => {
+/*     traitDivs.forEach((curDiv) => {
         traitsMain.appendChild(curDiv);
-    });
+    }); */
     detailTextContent.appendChild(traitsMain);
     
     //Subrace Traits
-    const subraceMain = document.createElement('div');
-    subracesInfo.forEach( div => {
-        subraceMain.appendChild(div);
+    const subclassMain = document.createElement('div');
+    subclassesInfo.forEach( div => {
+        subclassMain.appendChild(div);
     });
-    detailTextContent.appendChild(subraceMain);
+    detailTextContent.appendChild(subclassMain);
 
     //TODO DO I EVEN WANT THESE HERE??
     const statBarDivOne = document.createElement('div');
@@ -3555,7 +3503,7 @@ async function fetchSecondaryData(curFile, dataType) {
 
         jsonData = jsonIndex;
         jsonCount = jsonIndex.count;
-    } else if (dataType === 'traits' || dataType === 'subraces') {
+    } else if (dataType === 'traits' || dataType === 'subraces' || dataType === 'subclasses') {
         //console.log('loading traits')
         const jsonPromise = await fetch(curFile);
         jsonIndex = await jsonPromise.json();
