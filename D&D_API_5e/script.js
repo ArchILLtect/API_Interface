@@ -1977,14 +1977,11 @@ function raceDetailsWindow(data) {
     //Details Container
     const statHeaderBar = document.createElement('img');
     const detailTextContent = document.createElement('div');
-    const detailItemsDiv = document.createElement('div');
     statHeaderBar.src = './images/page-elements/stat-bar-book.png';
     statHeaderBar.classList.add('statHeadFootBar');
     detailTextContent.classList.add('detailTextContent');
-    detailItemsDiv.classList.add('detailItemsDiv');
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
-    detailTextContent.appendChild(detailItemsDiv);
 
     // For objects:
     let subrace = false;
@@ -2165,8 +2162,8 @@ function raceDetailsWindow(data) {
     //Race Description
     const raceDescDiv = document.createElement('div');
     const raceDescPara = document.createElement('p');
-    detailTextContent.appendChild(raceDescDiv);
-    raceDescDiv.appendChild(raceDescPara);
+    //detailTextContent.appendChild(raceDescDiv);
+    detailTextContent.appendChild(raceDescPara);
     raceAdded.forEach( text => {
         if (text.index === raceType)
         raceDescPara.textContent = text.raceIntro;
@@ -2376,14 +2373,11 @@ function classDetailsWindow(data) {
     //Details Container
     const statHeaderBar = document.createElement('img');
     const detailTextContent = document.createElement('div');
-    const detailItemsDiv = document.createElement('div');
     statHeaderBar.src = './images/page-elements/stat-bar-book.png';
     statHeaderBar.classList.add('statHeadFootBar');
     detailTextContent.classList.add('detailTextContent');
-    detailItemsDiv.classList.add('detailItemsDiv');
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
-    detailTextContent.appendChild(detailItemsDiv);
 
     // For objects:
     let subclass = false;
@@ -2395,8 +2389,6 @@ function classDetailsWindow(data) {
     let classSizeDesc = '';
     let classSpeedValue = '';
     let traitDivs = [];
-    let draconicAncestryData = [];
-    const draconicAncestryTable = document.createElement('table');
     let subclassesInfo = [];
     for (const key in data) {
         //Actions Section
@@ -2566,11 +2558,10 @@ function classDetailsWindow(data) {
 
     }
 
-    //TODO P1-T2 CONTINUE HERE - Put together classes data display!
     //classes Description
     const classDescDiv = document.createElement('div');
     const classDescPara = document.createElement('p');
-    detailItemsDiv.appendChild(classDescDiv);
+    detailTextContent.appendChild(classDescDiv);
     classDescDiv.appendChild(classDescPara);
     classAdded.forEach( text => {
         if (text.index === classType) {
@@ -2578,7 +2569,6 @@ function classDetailsWindow(data) {
         }
     });
     classDescPara.className = 'detailDesc'
-    //FIXME P2T1 This is temporary until class intro descriptions are in place
 
     //classes Attribute One
     const classAttrOneDiv = document.createElement('div');
@@ -2587,7 +2577,7 @@ function classDetailsWindow(data) {
     classAttrOnePara.className = 'detailDesc'
     classAttrOneHeader.className = 'detailTxtHeader';
     classAttrOneDiv.appendChild(classAttrOneHeader);
-    detailItemsDiv.appendChild(classAttrOneDiv);
+    detailTextContent.appendChild(classAttrOneDiv);
     classAttrOneDiv.appendChild(classAttrOnePara);
     classAdded.forEach( text => {
         if (text.index === classType) {
@@ -2606,7 +2596,7 @@ function classDetailsWindow(data) {
     classAttrTwoPara.className = 'detailDesc'
     classAttrTwoHeader.className = 'detailTxtHeader';
     classAttrTwoDiv.appendChild(classAttrTwoHeader);
-    detailItemsDiv.appendChild(classAttrTwoDiv);
+    detailTextContent.appendChild(classAttrTwoDiv);
     classAttrTwoDiv.appendChild(classAttrTwoPara);
     classAdded.forEach( text => {
         if (text.index === classType) {
@@ -2617,6 +2607,41 @@ function classDetailsWindow(data) {
             classAttrTwoPara.textContent = classAttrDesc;
         }
     });
+
+    //TODO P1-T2 CONTINUE HERE - Create a table and populate with dataCache=>characters=>levels!
+    // Class leveling table
+
+    const levelsTable = document.createElement('table');
+    const levelsData = dataCache.characters.levels[classType]
+    let classLevelsData = [];
+
+    //Figure out how to sort data for each class type
+        //Full Casters (9th level spells) = Bard, Cleric, Druid, Sorcerer and Wizard.
+            //Spells known = Bard and Sorcerer.
+            //All spells = Cleric, Druid and Wizard.
+        //Half Casters (5th level spells) = Paladin and Ranger.
+            //Spells known = Ranger.
+            //All spells = Paladin.
+        //Other Caster = Warlock.
+            //{ "Level": level, "Proficiency Bonus": profBonus, "Features": features, "Cantrips Known": cantrips, "Spells Known": spells,
+            //  "Spell Slots": slots, "Slot Level": slotLevel, "Invocations Known": invocations }
+        //Non Casters = Barbarian, Fighter, Monk and Rogue.
+            // Barb = { "Level": level, "Proficiency Bonus": profBonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage }
+            // Fighter = { "Level": level, "Proficiency Bonus": profBonus, "Features": features }
+            // Monk = { "Level": level, "Proficiency Bonus": profBonus, "Martial Arts": martial, "Ki Points": kiPoints, "Unarmored Movement": UnarmoredMove, "Features": features }
+            // Rogue = { "Level": level, "Proficiency Bonus": profBonus, "Sneak Attack": sneak, "Features": features }
+    //Do a forEach on levels
+    levelsData.forEach( level => {
+
+        const classLevels = { "Level": level, "Proficiency Bonus": prof_bonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
+
+    });
+
+    classLevelsData.push(classLevels);
+
+    const draconicAncestryKeys = Object.keys(classLevelsData[0]);
+    generateTable(levelsTable, classLevelsData);
+    generateTableHead(levelsTable, draconicAncestryKeys);
 
     //Subclass
     if (subclass) {
