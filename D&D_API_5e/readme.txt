@@ -69,6 +69,8 @@
 11/21/23 - Added localCache data for class levels<br>
 11/21/23 - Add additional data for class descriptions<br>
 11/21/23 - Update localCacheAssets for class descriptions<br>
+11/21/23 - Added makeTitle function to be used to change raw strings into correctly formatted titles<br>
+11/21/23 - Upgraded class detail window with "intros"<br>
 <br>
 <br>
 <br>
