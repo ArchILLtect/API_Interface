@@ -2165,7 +2165,6 @@ function raceDetailsWindow(data) {
     //Race Description
     const raceDescDiv = document.createElement('div');
     const raceDescPara = document.createElement('p');
-    const raceDescTxt = localCacheAssets['additional-data'].races.results
     detailTextContent.appendChild(raceDescDiv);
     raceDescDiv.appendChild(raceDescPara);
     raceAdded.forEach( text => {
@@ -2340,6 +2339,7 @@ function raceDetailsWindow(data) {
 function classDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const classType = data.index;
+    const classAdded = localCacheAssets['additional-data'].classes.results
     const subclassData = dataCache['characters']['subclasses'];
 
     console.log(data)
@@ -2570,16 +2570,53 @@ function classDetailsWindow(data) {
     //classes Description
     const classDescDiv = document.createElement('div');
     const classDescPara = document.createElement('p');
-    //const classesDescTxt = localCacheAssets['additional-data'].classes.results
-    detailTextContent.appendChild(classDescDiv);
+    detailItemsDiv.appendChild(classDescDiv);
     classDescDiv.appendChild(classDescPara);
-/*     classAdded.forEach( text => {
-        if (text.index === classType)
+    classAdded.forEach( text => {
+        if (text.index === classType) {
         classDescPara.textContent = text.classIntro;
-    }); */
+        }
+    });
     classDescPara.className = 'detailDesc'
     //FIXME P2T1 This is temporary until class intro descriptions are in place
-    classDescPara.textContent = "Class descriptions coming soon";
+
+    //classes Attribute One
+    const classAttrOneDiv = document.createElement('div');
+    const classAttrOneHeader = document.createElement('div');
+    const classAttrOnePara = document.createElement('p');
+    classAttrOnePara.className = 'detailDesc'
+    classAttrOneHeader.className = 'detailTxtHeader';
+    classAttrOneDiv.appendChild(classAttrOneHeader);
+    detailItemsDiv.appendChild(classAttrOneDiv);
+    classAttrOneDiv.appendChild(classAttrOnePara);
+    classAdded.forEach( text => {
+        if (text.index === classType) {
+            const classAttrOneData = text.classAttrOne;
+            const classAttrIndex = classAttrOneData.index.replace(/-/g, " ");
+            const classAttrDesc = classAttrOneData.desc
+            classAttrOneHeader.textContent = makeTitle(classAttrIndex);
+            classAttrOnePara.textContent = classAttrDesc;
+        }
+    });
+
+    //classes Attribute Two
+    const classAttrTwoDiv = document.createElement('div');
+    const classAttrTwoHeader = document.createElement('div');
+    const classAttrTwoPara = document.createElement('p');
+    classAttrTwoPara.className = 'detailDesc'
+    classAttrTwoHeader.className = 'detailTxtHeader';
+    classAttrTwoDiv.appendChild(classAttrTwoHeader);
+    detailItemsDiv.appendChild(classAttrTwoDiv);
+    classAttrTwoDiv.appendChild(classAttrTwoPara);
+    classAdded.forEach( text => {
+        if (text.index === classType) {
+            const classAttrTwoData = text.classAttrTwo;
+            const classAttrIndex = classAttrTwoData.index.replace(/-/g, " ");
+            const classAttrDesc = classAttrTwoData.desc
+            classAttrTwoHeader.textContent = makeTitle(classAttrIndex);
+            classAttrTwoPara.textContent = classAttrDesc;
+        }
+    });
 
     //Subclass
     if (subclass) {
@@ -2592,7 +2629,7 @@ function classDetailsWindow(data) {
         subclassIntroHeader.textContent = 'Subclass';
         //subclassIntroTxt.textContent = subclasssIntroTxt;
         //FIXME P2T1 This is temporary until class intro descriptions are in place
-        classDescPara.textContent = "Subclass descriptions coming soon";
+        subclassIntroTxt.textContent = "Subclass descriptions coming soon";
         subclassIntroMain.appendChild(subclassIntroHeader);
         subclassIntroMain.appendChild(subclassIntroTxt);
         detailTextContent.appendChild(subclassIntroMain);
@@ -3813,7 +3850,7 @@ function extractPortion(string, portionIndex, separator="/") {
     }
 
     return portions[portionIndex];
-}
+};
 
 function extractParenth(inputString) {
   // Define a regular expression to match content within parentheses
@@ -3829,14 +3866,40 @@ function extractParenth(inputString) {
     // Return an empty string if no match is found
     return '';
   }
-}
+};
 
 function capitalizeWords(inputString) {
     return inputString
         .split(' ') // Split the string into words
         .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
         .join(' '); // Join the words back together
-}
+};
+
+// TODO P3T2 Replace capitalizeWords function with this function where applicable - maybe every time..?
+function makeTitle(inputString) {
+    const splitString = inputString.split(' ');
+    const newString = [];
+    let curWord = 0;
+    splitString.forEach( word => {
+        if (curWord > 0) {
+            if (word == 'a' || word == 'an' || word == 'at' || word == 'to' || word == 'the' || word == 'and' || word == 'but' || word == 'by' || word == 'of' || word == 'in' || word == 'for' || word == 'nor' || word == 'or' || word == 'so' || word == 'yet') {
+                newString.push(word); // Leave this word alone
+            } else {
+                const firstCap = word.charAt(0).toUpperCase(); // Capitalize first letter
+                const wordLast = word.slice(1); // Remove first lower-case letter
+                const newWord = firstCap + wordLast; // Join first uppercase letter with rest of word
+                newString.push(newWord); // Add capitalized word back to the array
+            }
+        } else {
+            const firstCap = word.charAt(0).toUpperCase(); // Capitalize each word
+            const wordLast = word.slice(1); // Remove first lower-case letter
+            const newWord = firstCap + wordLast; // Join first uppercase letter with rest of word
+            newString.push(newWord); // Add capitalized word back to the array
+        }
+        curWord++
+    });
+    return newString.join(' '); // Join the words back together and return it
+};
 
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
