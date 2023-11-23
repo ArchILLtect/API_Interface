@@ -2338,9 +2338,9 @@ function classDetailsWindow(data) {
     const classType = data.index;
     const classAdded = localCacheAssets['additional-data'].classes.results
     const subclassData = dataCache['characters']['subclasses'];
-
     console.log(data)
-    console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
+    //TODO P5T3 Uncomment these to check data points - Same @ 2468
+    //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
     //Create Modal Window
     const detailModal = document.createElement('dialog');
@@ -2463,7 +2463,8 @@ function classDetailsWindow(data) {
             } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
 
             } else {
-                console.log(key);
+                //TODO P5T3 Uncomment these to check data points - Same @ 2443/2444
+                //console.log(key);
             }
         }
     }
@@ -2474,7 +2475,7 @@ function classDetailsWindow(data) {
         const parentclass = subclassItemData.class.index;
         const currentDetail = key.replace(/_/g, " ");
         if (parentclass === classType) {
-            console.log(subclassItemData);
+            //console.log(subclassItemData);
             subclass = true;
             const subclassItem = document.createElement('div');
             const subclassItemHeader = document.createElement('div');
@@ -2679,18 +2680,19 @@ function classDetailsWindow(data) {
         const hitPointsTextOne = document.createElement('p');
         const hitPointsTextTwo = document.createElement('p');
         const hitPointsTextThree = document.createElement('p');
-        const hitPointsValue = dataCache.classes[classType].hit_die
+        const hitPointsDie = dataCache.classes[classType].hit_die
         //TODO P*3* Figure out how to set this value dynamically and replace hardwired string.
         const hitPointsMod = 'Constitution'
+        const HPAvg = (hitPointsDie / 2) + 1;
         hitPointsDiv.className = 'detailFeaturesDiv';
         hitPointsTitle.className = 'detailFeaturesTitle';
         hitPointsTextOne.className = 'detailFeaturesContent';
         hitPointsTextTwo.className = 'detailFeaturesContent';
         hitPointsTextThree.className = 'detailFeaturesContent';
         hitPointsTitle.textContent = 'Hit Points'
-        hitPointsTextOne.innerHTML = `<span>Hit Dice:</span> 1d${hitPointsValue} per ${classType} level`;
-        hitPointsTextTwo.innerHTML = `<span>Hit Points at 1st Level:</span> ${hitPointsValue} + your ${hitPointsMod} modifier`;
-        hitPointsTextThree.innerHTML = `<span>Hit Points at Higher Levels:</span> 1d${hitPointsValue} (or 7) + your ${hitPointsMod} modifier per ${classType} level`;
+        hitPointsTextOne.innerHTML = `<span>Hit Dice:</span> 1d${hitPointsDie} per ${classType} level`;
+        hitPointsTextTwo.innerHTML = `<span>Hit Points at 1st Level:</span> ${hitPointsDie} + your ${hitPointsMod} modifier`;
+        hitPointsTextThree.innerHTML = `<span>Hit Points at Higher Levels:</span> 1d${hitPointsDie} (${HPAvg}) + your ${hitPointsMod} modifier per ${classType} level`;
         hitPointsDiv.appendChild(hitPointsTitle);
         hitPointsDiv.appendChild(hitPointsTextOne);
         hitPointsDiv.appendChild(hitPointsTextTwo);
@@ -2705,26 +2707,73 @@ function classDetailsWindow(data) {
         const classProfTextThree = document.createElement('p');
         const classProfTextFour = document.createElement('p');
         const classProfTextFive = document.createElement('p');
-        //TODO P*3* Figure out how to set proficiency values better and replace simplified versions.
         const classProfData = dataCache.classes[classType].proficiencies
         const classProfSaveThrowData = dataCache.classes[classType].saving_throws
-        const classProfSaveThrowOne = dataCache.classes[classType].saving_throws[0].index
-        const classProfSaveThrowTwo = dataCache.classes[classType].saving_throws[1].index
-        const classProfSaveThrowBoth = `${classProfSaveThrowOne}, ${classProfSaveThrowTwo}`
         const classProfChoice = dataCache.classes[classType].proficiency_choices
-        const classProfChoiceTemp = dataCache.classes[classType].proficiency_choices[0].desc
-        let classProficiencies = [];
-        let classProfSaveThrow = [];
+        let classProfArmorRaw = [];
+        let classProfWeaponsRaw = [];
+        let classProfToolsRaw = [];
+        let classProfToolsChoice = [];
+        let classProfSaveThrowRaw = [];
         let classProfChoices = [];
         classProfData.forEach( prof => {
+            if (prof.index == 'light-armor' || prof.index == 'medium-armor' || prof.index == 'heavy-armor' || prof.index == 'all-armor') {
+                classProfArmorRaw.push(prof.index);
+            } else if (prof.index == 'shields') {
+                classProfArmorRaw.push(prof.index);
+                if(classType === 'druid') {
+                    classProfArmorRaw.push('(druids will not wear armor or use shields made of metal)');
+                }
+            } else if (prof.index == 'simple-weapons' || prof.index == 'martial-weapons') {
+                classProfWeaponsRaw.push(prof.index);
+            } else if (prof.index == 'hand-crossbows' || prof.index == 'crossbows-light' || prof.index == 'clubs' || prof.index == 'daggers' || prof.index == 'javelins') {
+                if (prof.index == 'crossbows-light') {
+                    classProfWeaponsRaw.push('light crossbows');
+                } else {
+                    classProfWeaponsRaw.push(prof.index);
+                }
+            } else if (prof.index == 'longswords' || prof.index == 'rapiers' || prof.index == 'shortswords' || prof.index == 'quarterstaffs' || prof.index == 'sickles') {
+                classProfWeaponsRaw.push(prof.index);
+            } else if (prof.index == 'spears' || prof.index == 'darts' || prof.index == 'slings' || prof.index == 'scimitars' || prof.index == 'maces') {
+                classProfWeaponsRaw.push(prof.index);
+            } else if (prof.index == 'thieves-tools' || prof.index == 'herbalism-kit' || prof.index == 'EXAMPLE') {
+                classProfToolsRaw.push(prof.index);
+            } else if (prof.index == 'saving-throw-cha' || prof.index == 'saving-throw-con' || prof.index == 'saving-throw-dex' || prof.index == 'saving-throw-int' || prof.index == 'saving-throw-str' || prof.index == 'saving-throw-wis') {
+            } else { console.log(`Armor/Weapon prof not registerd or misspelled: ${prof.index}`); }
 
         });
         classProfSaveThrowData.forEach( save => {
-
+            if (save.index == 'cha') {
+                classProfSaveThrowRaw.push('Charisma');
+            } else if (save.index == 'con') {
+                classProfSaveThrowRaw.push('Constitution');
+            } else if (save.index == 'dex') {
+                classProfSaveThrowRaw.push('Dexterity');
+            } else if (save.index == 'int') {
+                classProfSaveThrowRaw.push('Intelligence');
+            } else if (save.index == 'str') {
+                classProfSaveThrowRaw.push('Strength');
+            } else if (save.index == 'wis') {
+                classProfSaveThrowRaw.push('Wisdom');
+            } else { console.log(`Saving throw stat not registerd or misspelled: ${save.index}`); }
         });
         classProfChoice.forEach( choice => {
-
+            if (choice === classProfChoice[0]) {
+                classProfChoices.push(classProfChoice[0].desc);
+            } else if (choice === classProfChoice[1]) {
+                classProfToolsChoice.push(classProfChoice[1].desc)
+            } else {
+                console.log('More proficiency choices than expected!!');
+                console.log(choice);
+            }
+            if (classProfChoice.length == 1 && classProfToolsRaw.length === 0) {
+                classProfToolsChoice.push('None')
+            }
         });
+        const classProfArmor = cleanArray(classProfArmorRaw, 'None');
+        const classProfWeapons = cleanArray(classProfWeaponsRaw, 'None');
+        const classProfSaveThrow = cleanArray(classProfSaveThrowRaw, 'None');
+        const classProfTools = cleanArray(classProfToolsRaw) + classProfToolsChoice;
         classProfDiv.className = 'detailFeaturesDiv';
         classProfTitle.className = 'detailFeaturesTitle';
         classProfTextOne.className = 'detailFeaturesContent';
@@ -2733,11 +2782,11 @@ function classDetailsWindow(data) {
         classProfTextFour.className = 'detailFeaturesContent';
         classProfTextFive.className = 'detailFeaturesContent';
         classProfTitle.textContent = 'Proficiencies'
-        classProfTextOne.innerHTML = `<span>Armor:</span> Coming Soon`;
-        classProfTextTwo.innerHTML = `<span>Weapons:</span> Coming Soon`;
-        classProfTextThree.innerHTML = `<span>Tools:</span> Coming Soon`;
-        classProfTextFour.innerHTML = `<span>Saving Throws:</span> ${classProfSaveThrowBoth}`;
-        classProfTextFive.innerHTML = `<span>Skills:</span> ${classProfChoiceTemp}`;
+        classProfTextOne.innerHTML = `<span>Armor:</span> ${classProfArmor}`;
+        classProfTextTwo.innerHTML = `<span>Weapons:</span> ${classProfWeapons}`;
+        classProfTextThree.innerHTML = `<span>Tools:</span> ${classProfTools}`;
+        classProfTextFour.innerHTML = `<span>Saving Throws:</span> ${classProfSaveThrow}`;
+        classProfTextFive.innerHTML = `<span>Skills:</span> ${classProfChoices}`;
         classProfDiv.appendChild(classProfTitle);
         classProfDiv.appendChild(classProfTextOne);
         classProfDiv.appendChild(classProfTextTwo);
@@ -3999,6 +4048,32 @@ function makeTitle(inputString) {
     return newString.join(' '); // Join the words back together and return it
 };
 
+function cleanArray(array, noneValue) {
+    let itemCount = 0;
+    let newString = "";
+    if (array.length > 0) {
+        array.forEach( item => {
+            if (itemCount === 0) {
+                const capItem = capitalizeWords(item);
+                const cleanItem = capItem.replace('-', ' ');
+                newString = cleanItem;
+            } else {
+                const cleanItem = item.replace('-', ' ');
+                newString += ", ";
+                newString += cleanItem;
+            }
+            itemCount++
+        });
+        return newString;
+    } else {
+        if (noneValue) {
+            return noneValue;
+        } else {
+            return "";
+        }
+    }
+};
+
 // TEMP/EXPERIMENTAL FUNCTIONS:
 // NOT USED
 function countItems(obj) {
@@ -4040,7 +4115,6 @@ function findItems(objItem) {
             totalItems++;
         }
     }
-
     return totalItems;
 };
 
