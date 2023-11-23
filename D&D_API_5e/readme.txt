@@ -74,6 +74,7 @@
 11/22/23 - Add all proficiencies data to local cache<br>
 11/22/23 - Add class proficiencies to class details window<br>
 11/23/23 - Completed class proficiencies<br>
+11/23/23 - More upgrades to class details window and corresponding CSS<br>
 <br>
 <br>
 <br>
