@@ -71,6 +71,8 @@
 11/21/23 - Update localCacheAssets for class descriptions<br>
 11/21/23 - Added makeTitle function to be used to change raw strings into correctly formatted titles<br>
 11/21/23 - Upgraded class detail window with "intros"<br>
+11/22/23 - Add all proficiencies data to local cache<br>
+11/22/23 - Add class proficiencies to class details window<br>
 <br>
 <br>
 <br>
