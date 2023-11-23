@@ -606,6 +606,34 @@ article {
     margin-top: 20px;
 }
 
+.detailFeaturesDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.detailFeaturesTitle {
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+
+.detailFeaturesContent {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 0;
+}
+
+.detailFeaturesContent span {
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+
 #closeButton {
     margin-top: 10px;
     margin-bottom: 10px;
