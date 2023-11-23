@@ -2633,15 +2633,15 @@ function classDetailsWindow(data) {
     //Do a forEach on levels
     levelsData.forEach( level => {
 
-        const classLevels = { "Level": level, "Proficiency Bonus": prof_bonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
+        //const classLevels = { "Level": level, "Proficiency Bonus": prof_bonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
 
     });
 
-    classLevelsData.push(classLevels);
+    //classLevelsData.push(classLevels);
 
-    const draconicAncestryKeys = Object.keys(classLevelsData[0]);
-    generateTable(levelsTable, classLevelsData);
-    generateTableHead(levelsTable, draconicAncestryKeys);
+    //const draconicAncestryKeys = Object.keys(classLevelsData[0]);
+    //generateTable(levelsTable, classLevelsData);
+    //generateTableHead(levelsTable, draconicAncestryKeys);
 
     //Subclass
     if (subclass) {
@@ -2660,21 +2660,94 @@ function classDetailsWindow(data) {
         detailTextContent.appendChild(subclassIntroMain);
     }
 
-    //Traits
-    const statsMain = document.createElement('div');
-    const statsHeader = document.createElement('div');
-    //const traitsIntro = document.createElement('p');
-    statsMain.className = 'detailTxtMain';
-    statsHeader.className = 'detailTxtHeader';
-    //traitsIntro.className = 'detailTxtContent';
-    statsHeader.textContent = 'Traits';
-    //traitsIntro.textContent = traitsIntroTxt;
-    statsMain.appendChild(statsHeader);
-    //traitsMain.appendChild(traitsIntro);
-    detailTextContent.appendChild(statsMain);
+    //Class Features
+    const featuresMain = document.createElement('div');
+    const featuresHeader = document.createElement('div');
+    const featuresIntro = document.createElement('p');
+    featuresMain.className = 'detailTxtMain';
+    featuresHeader.className = 'detailTxtHeader';
+    featuresIntro.className = 'detailTxtContent';
+    featuresHeader.textContent = 'Class Features';
+    featuresIntro.textContent = `As a ${classType}, you gain the following class features.`;
+    featuresMain.appendChild(featuresHeader);
+    featuresMain.appendChild(featuresIntro);
+    detailTextContent.appendChild(featuresMain);
+    
+        //Hit Points
+        const hitPointsDiv = document.createElement('div');
+        const hitPointsTitle = document.createElement('p');
+        const hitPointsTextOne = document.createElement('p');
+        const hitPointsTextTwo = document.createElement('p');
+        const hitPointsTextThree = document.createElement('p');
+        const hitPointsValue = dataCache.classes[classType].hit_die
+        //TODO P*3* Figure out how to set this value dynamically and replace hardwired string.
+        const hitPointsMod = 'Constitution'
+        hitPointsDiv.className = 'detailFeaturesDiv';
+        hitPointsTitle.className = 'detailFeaturesTitle';
+        hitPointsTextOne.className = 'detailFeaturesContent';
+        hitPointsTextTwo.className = 'detailFeaturesContent';
+        hitPointsTextThree.className = 'detailFeaturesContent';
+        hitPointsTitle.textContent = 'Hit Points'
+        hitPointsTextOne.innerHTML = `<span>Hit Dice:</span> 1d${hitPointsValue} per ${classType} level`;
+        hitPointsTextTwo.innerHTML = `<span>Hit Points at 1st Level:</span> ${hitPointsValue} + your ${hitPointsMod} modifier`;
+        hitPointsTextThree.innerHTML = `<span>Hit Points at Higher Levels:</span> 1d${hitPointsValue} (or 7) + your ${hitPointsMod} modifier per ${classType} level`;
+        hitPointsDiv.appendChild(hitPointsTitle);
+        hitPointsDiv.appendChild(hitPointsTextOne);
+        hitPointsDiv.appendChild(hitPointsTextTwo);
+        hitPointsDiv.appendChild(hitPointsTextThree);
+        detailTextContent.appendChild(hitPointsDiv);
+
+        //Proficiencies
+        const classProfDiv = document.createElement('div');
+        const classProfTitle = document.createElement('p');
+        const classProfTextOne = document.createElement('p');
+        const classProfTextTwo = document.createElement('p');
+        const classProfTextThree = document.createElement('p');
+        const classProfTextFour = document.createElement('p');
+        const classProfTextFive = document.createElement('p');
+        //TODO P*3* Figure out how to set proficiency values better and replace simplified versions.
+        const classProfData = dataCache.classes[classType].proficiencies
+        const classProfSaveThrowData = dataCache.classes[classType].saving_throws
+        const classProfSaveThrowOne = dataCache.classes[classType].saving_throws[0].index
+        const classProfSaveThrowTwo = dataCache.classes[classType].saving_throws[1].index
+        const classProfSaveThrowBoth = `${classProfSaveThrowOne}, ${classProfSaveThrowTwo}`
+        const classProfChoice = dataCache.classes[classType].proficiency_choices
+        const classProfChoiceTemp = dataCache.classes[classType].proficiency_choices[0].desc
+        let classProficiencies = [];
+        let classProfSaveThrow = [];
+        let classProfChoices = [];
+        classProfData.forEach( prof => {
+
+        });
+        classProfSaveThrowData.forEach( save => {
+
+        });
+        classProfChoice.forEach( choice => {
+
+        });
+        classProfDiv.className = 'detailFeaturesDiv';
+        classProfTitle.className = 'detailFeaturesTitle';
+        classProfTextOne.className = 'detailFeaturesContent';
+        classProfTextTwo.className = 'detailFeaturesContent';
+        classProfTextThree.className = 'detailFeaturesContent';
+        classProfTextFour.className = 'detailFeaturesContent';
+        classProfTextFive.className = 'detailFeaturesContent';
+        classProfTitle.textContent = 'Proficiencies'
+        classProfTextOne.innerHTML = `<span>Armor:</span> Coming Soon`;
+        classProfTextTwo.innerHTML = `<span>Weapons:</span> Coming Soon`;
+        classProfTextThree.innerHTML = `<span>Tools:</span> Coming Soon`;
+        classProfTextFour.innerHTML = `<span>Saving Throws:</span> ${classProfSaveThrowBoth}`;
+        classProfTextFive.innerHTML = `<span>Skills:</span> ${classProfChoiceTemp}`;
+        classProfDiv.appendChild(classProfTitle);
+        classProfDiv.appendChild(classProfTextOne);
+        classProfDiv.appendChild(classProfTextTwo);
+        classProfDiv.appendChild(classProfTextThree);
+        classProfDiv.appendChild(classProfTextFour);
+        classProfDiv.appendChild(classProfTextFive);
+        detailTextContent.appendChild(classProfDiv);
 
     //Special Traits
-    const specialMain = document.createElement('div');
+ /*    const specialMain = document.createElement('div');
     const specialHeader = document.createElement('div');
     const specialIntro = document.createElement('p');
     specialMain.className = 'detailTxtMain';
@@ -2687,10 +2760,10 @@ function classDetailsWindow(data) {
     detailTextContent.appendChild(specialMain);
     const traitsMain = document.createElement('div');
     traitsMain.className = 'detailTxtMain';
-/*     traitDivs.forEach((curDiv) => {
+    traitDivs.forEach((curDiv) => {
         traitsMain.appendChild(curDiv);
-    }); */
-    detailTextContent.appendChild(traitsMain);
+    });
+    detailTextContent.appendChild(traitsMain); */
     
     //Subrace Traits
     const subclassMain = document.createElement('div');
