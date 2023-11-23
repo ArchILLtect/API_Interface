@@ -1931,7 +1931,7 @@ function createDetailsWindowNEW(data) {
 
     detailModal.showModal();
     //Set watermark height to account for amout of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight - 50) + 'px';
     closeButtonDiv.appendChild(closeButton);
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
@@ -2327,7 +2327,7 @@ function raceDetailsWindow(data) {
 
     detailModal.showModal();
     //Set watermark height to account for amount of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight - 50) + 'px';
     closeButtonDiv.appendChild(closeButton);
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
@@ -2681,7 +2681,6 @@ function classDetailsWindow(data) {
         const hitPointsTextTwo = document.createElement('p');
         const hitPointsTextThree = document.createElement('p');
         const hitPointsDie = dataCache.classes[classType].hit_die
-        //TODO P*3* Figure out how to set this value dynamically and replace hardwired string.
         const hitPointsMod = 'Constitution'
         const HPAvg = (hitPointsDie / 2) + 1;
         hitPointsDiv.className = 'detailFeaturesDiv';
@@ -2770,10 +2769,10 @@ function classDetailsWindow(data) {
                 classProfToolsChoice.push('None')
             }
         });
-        const classProfArmor = cleanArray(classProfArmorRaw, 'None');
-        const classProfWeapons = cleanArray(classProfWeaponsRaw, 'None');
-        const classProfSaveThrow = cleanArray(classProfSaveThrowRaw, 'None');
-        const classProfTools = cleanArray(classProfToolsRaw) + classProfToolsChoice;
+        const classProfArmor = arrayToSentence(classProfArmorRaw, 'None');
+        const classProfWeapons = arrayToSentence(classProfWeaponsRaw, 'None');
+        const classProfSaveThrow = arrayToSentence(classProfSaveThrowRaw, 'None');
+        const classProfTools = arrayToSentence(classProfToolsRaw) + classProfToolsChoice;
         classProfDiv.className = 'detailFeaturesDiv';
         classProfTitle.className = 'detailFeaturesTitle';
         classProfTextOne.className = 'detailFeaturesContent';
@@ -2794,6 +2793,76 @@ function classDetailsWindow(data) {
         classProfDiv.appendChild(classProfTextFour);
         classProfDiv.appendChild(classProfTextFive);
         detailTextContent.appendChild(classProfDiv);
+
+        //Class Equipment
+        const equipmentDiv = document.createElement('div');
+        const equipmentTitle = document.createElement('p');
+        const equipmentDesc = document.createElement('p');
+        const equipmentList = document.createElement('ul');
+        const equipmentOptions = dataCache.classes[classType].starting_equipment_options
+        const equipmentStarting = dataCache.classes[classType].starting_equipment
+        let optionCount = 1;
+        let startItems = "";
+        equipmentOptions.forEach( equipmentOption => {
+            const equipmentOptionItem = document.createElement('li');
+            if (classType == 'cleric') {
+                if (optionCount === 5) {
+                    
+                } else {
+                    equipmentOptionItem.id = `equipListItem${optionCount}`;
+                    equipmentOptionItem.className = 'bullet-list-item';
+                    equipmentOptionItem.textContent = equipmentOption.desc;
+                    equipmentList.appendChild(equipmentOptionItem);
+                    optionCount++;
+                }
+            } else {
+                equipmentOptionItem.id = `equipListItem${optionCount}`;
+                equipmentOptionItem.className = 'bullet-list-item';
+                equipmentOptionItem.textContent = equipmentOption.desc;
+                equipmentList.appendChild(equipmentOptionItem);
+                optionCount++;
+            }
+        });
+        const equipmentListItem = document.createElement('li');
+        if (classType == 'barbarian') {
+            startItems = "An explorer's pack and four javelins";
+        } else if (classType == 'bard') {
+            startItems = "Leather armor and a dagger";
+        } else if (classType == 'cleric') {
+            startItems = "A shield and a holy symbol";
+        } else if (classType == 'druid') {
+            startItems = "Leather armor, an explorer’s pack, and a druidic focus";
+        } else if (classType === 'fighter') {
+            startItems = equipmentStarting.equipment;
+        } else if (classType === 'monk') {
+            startItems = "10 darts";
+        } else if (classType === 'paladin') {
+            startItems = "Chain mail and a holy symbol";
+        } else if (classType === 'ranger') {
+            startItems = "A longbow and a quiver of 20 arrows";
+        } else if (classType === 'rogue') {
+            startItems = "Leather armor, two daggers, and thieves’ tools";
+        } else if (classType === 'sorcerer') {
+            startItems = "Two daggers";
+        } else if (classType === 'warlock') {
+            startItems = "Leather armor, any simple weapon, and two daggers";
+        } else if (classType === 'wizard') {
+            startItems = "A spellbook";
+        } else {
+            
+        }
+        equipmentDiv.className = 'detailFeaturesDiv';
+        equipmentTitle.className = 'detailFeaturesTitle';
+        equipmentDesc.className = 'detailFeaturesContent';
+        equipmentListItem.className = 'bullet-list-item';
+        equipmentTitle.textContent = 'Equipment'
+        equipmentDesc.textContent = 'You start with the following equipment, in addition to the equipment granted by your background:'
+        equipmentListItem.textContent = startItems;
+        equipmentDiv.appendChild(equipmentTitle);
+        equipmentDiv.appendChild(equipmentDesc);
+        equipmentDiv.appendChild(equipmentList);
+        equipmentList.appendChild(equipmentListItem);
+        detailTextContent.appendChild(equipmentDiv);
 
     //Special Traits
  /*    const specialMain = document.createElement('div');
@@ -2852,7 +2921,7 @@ function classDetailsWindow(data) {
 
     detailModal.showModal();
     //Set watermark height to account for amout of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 70) + 'px';
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight - 50) + 'px';
     closeButtonDiv.appendChild(closeButton);
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
@@ -2885,6 +2954,7 @@ function equipDetailsWindow(data) {
     detailModal.id = 'detailModal';
     detailModal.classList.add('modalWindow');
 
+    //FIXME P3T2 Remove watermark coding from this function (equipment) as it is not being used here.
     //Watermark image
     const watermarkDiv = document.createElement('div');
     watermarkDiv.id = 'watermark';
@@ -2981,7 +3051,7 @@ function equipDetailsWindow(data) {
 
     detailModal.showModal();
     //Set watermark height to account for amout of content
-    watermarkDiv.style.height = (mainDetailsDiv.clientHeight + 120) + 'px';
+    watermarkDiv.style.height = (mainDetailsDiv.clientHeight - 50) + 'px';
     closeButtonDiv.appendChild(closeButton);
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
@@ -4022,6 +4092,10 @@ function capitalizeWords(inputString) {
         .join(' '); // Join the words back together
 };
 
+function capitalizeFirstWord(inputString) {
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+};
+
 // TODO P3T2 Replace capitalizeWords function with this function where applicable - maybe every time..?
 function makeTitle(inputString) {
     const splitString = inputString.split(' ');
@@ -4048,7 +4122,7 @@ function makeTitle(inputString) {
     return newString.join(' '); // Join the words back together and return it
 };
 
-function cleanArray(array, noneValue) {
+function arrayToSentence(array, noneValue) {
     let itemCount = 0;
     let newString = "";
     if (array.length > 0) {
@@ -4071,6 +4145,52 @@ function cleanArray(array, noneValue) {
         } else {
             return "";
         }
+    }
+};
+
+function ArrayToListItem(array, noneValue) {
+    let itemCount = 0;
+    let newString = "";
+    if (array.length > 0) {
+        array.forEach( item => {
+            const firstChar = item.charAt(0);
+            if (itemCount === 0) {
+                if (firstChar.typeof == number) {
+                    const splitItem = item.split
+                    const cleanItem = item.replace('-', ' ');
+                    const finishedItem = `An ${cleanItem}`;
+                    newString = finishedItem;
+                } else if (firstChar == 'a' || firstChar == 'e' || firstChar == 'i' || firstChar == 'o' || firstChar == 'u') {
+                    const cleanItem = item.replace('-', ' ');
+                    const finishedItem = `An ${cleanItem}`;
+                    newString = finishedItem;
+                } else if (firstChar == '(') {
+                    return array;
+                } else {
+                    const cleanItem = item.replace('-', ' ');
+                    const finishedItem = `A ${cleanItem}`;
+                    newString = finishedItem;
+                }
+            } else {
+                const cleanItem = item.replace('-', ' ');
+                newString += ", ";
+                newString += cleanItem;
+            }
+            itemCount++
+        });
+        return newString;
+    } else {
+        if (noneValue) {
+            return noneValue;
+        } else {
+            return "";
+        }
+    }
+    function cleanListItem() {
+        const splitItem = item.split
+        const cleanItem = item.replace('-', ' ');
+        const finishedItem = `An ${cleanItem}`;
+        newString = finishedItem;
     }
 };
 
