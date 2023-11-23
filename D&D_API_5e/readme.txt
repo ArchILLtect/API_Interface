@@ -73,6 +73,7 @@
 11/21/23 - Upgraded class detail window with "intros"<br>
 11/22/23 - Add all proficiencies data to local cache<br>
 11/22/23 - Add class proficiencies to class details window<br>
+11/23/23 - Completed class proficiencies<br>
 <br>
 <br>
 <br>
