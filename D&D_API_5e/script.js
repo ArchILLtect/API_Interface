@@ -1940,6 +1940,7 @@ function createDetailsWindowNEW(data) {
 function raceDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
     const raceType = data.index;
+    console.log(data)
     const raceAdded = localCacheAssets['additional-data'].races.results
     const subraceData = dataCache['characters']['subraces'];
     //TODO P5-T3 ADD ? Starting Proficiencies.
@@ -2375,7 +2376,7 @@ function classDetailsWindow(data) {
     const detailTextContent = document.createElement('div');
     statHeaderBar.src = './images/page-elements/stat-bar-book.png';
     statHeaderBar.classList.add('statHeadFootBar');
-    detailTextContent.classList.add('detailTextContent');
+    detailTextContent.classList.add('classTextContent');
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
 
@@ -2611,15 +2612,24 @@ function classDetailsWindow(data) {
 
     //TODO P1-T2 CONTINUE HERE - Create a table and populate with dataCache=>characters=>levels!
     // Class leveling table
-
-    const levelsTable = document.createElement('table');
+    const tableHeader = document.createElement('div');
+    //const levelsTable = document.createElement('table');
     const levelsData = dataCache.characters.levels[classType]
+    tableHeader.className = 'detailTxtHeader';
+    tableHeader.textContent = `The ${makeTitle(classType)} Table`;
+    detailTextContent.appendChild(tableHeader);
+    let levelCount = 1;
     let classLevelsData = [];
+
+    const tempDesc = document.createElement('p');
+    tempDesc.className = 'detailTxtContent';
+    tempDesc.textContent = "Tables coming very soon";
+    detailTextContent.appendChild(tempDesc);
 
     //Figure out how to sort data for each class type
         //Full Casters (9th level spells) = Bard, Cleric, Druid, Sorcerer and Wizard.
             //Spells known = Bard and Sorcerer.
-            //All spells = Cleric, Druid and Wizard.
+
         //Half Casters (5th level spells) = Paladin and Ranger.
             //Spells known = Ranger.
             //All spells = Paladin.
@@ -2632,17 +2642,82 @@ function classDetailsWindow(data) {
             // Monk = { "Level": level, "Proficiency Bonus": profBonus, "Martial Arts": martial, "Ki Points": kiPoints, "Unarmored Movement": UnarmoredMove, "Features": features }
             // Rogue = { "Level": level, "Proficiency Bonus": profBonus, "Sneak Attack": sneak, "Features": features }
     //Do a forEach on levels
-    levelsData.forEach( level => {
+    levelsData.forEach( levelItem => {
 
-        //const classLevels = { "Level": level, "Proficiency Bonus": prof_bonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
+        if (classType === 'cleric' || classType === 'druid' || classType === 'wizard') {
+            const curLevel = levelItem.level;
+            const profBonus = levelItem.prof_bonus;
+            const spellcasting = levelItem.spellcasting;
+            let features = "";
+            let featureCount = 1;
+            let cantrips = 0;
+            let slots = [];
+            let slotCount = 1;
+            levelItem.features.forEach( feat => {
+                if (featureCount === 1) {
+                    features = feat.name;
+                    featureCount++
+                } else {
+                    features += ", " + feat.name;
+                    featureCount++
+                }
+            });
+            for (const slot in spellcasting) {
+                const slotQuantity = spellcasting[slot];
+                if (slot === 'cantrips_known') {
+                    cantrips = slotQuantity;
+                } else {
+                    if (slotCount === 1) {
+                        slots.push(slotQuantity);
+                        slotCount++;
+                    } else if (slotCount === 2) {
+                        slots.push(slotQuantity);
+                        slotCount++;
+                    } else if (slotCount === 3) {
+                        slots.push(slotQuantity);
+                        slotCount++;
+                    } else if (slotCount > 3) {
+                        slots.push(slotQuantity);
+                        slotCount++;
+                    } else {
+                        console.log('MORE THAN 10?????');
+                    }
+                }
+            };
+            classLevelsData.push({
+                "Level": curLevel,
+                "Proficiency Bonus": profBonus,
+                "Features": features,
+                "Cantrips Known": cantrips,
+                "Spell-Slots-per-Spell-Level": {
+                    "1st": slots[0],
+                    "2nd": slots[1],
+                    "3rd": slots[2],
+                    "4th": slots[3],
+                    "5th": slots[4],
+                    "6th": slots[5],
+                    "7th": slots[6],
+                    "8th": slots[7],
+                    "9th": slots[8]
+                }
+            });
+        } else {
+            
+        }
+        //const classLevels = { "Level": curLevel, "Proficiency Bonus": profBonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
 
     });
+    //console.log(classLevelsData)
 
+    //createTable(classLevelsData, detailTextContent)
     //classLevelsData.push(classLevels);
 
-    //const draconicAncestryKeys = Object.keys(classLevelsData[0]);
+/*     const classLevelsKeys = classLevelsData[0];
     //generateTable(levelsTable, classLevelsData);
-    //generateTableHead(levelsTable, draconicAncestryKeys);
+    generateTableHeadNew(levelsTable, classLevelsKeys);
+
+    detailTextContent.appendChild(levelsTable); */
+
 
     //Subclass
     if (subclass) {
@@ -2653,9 +2728,9 @@ function classDetailsWindow(data) {
         subclassIntroHeader.className = 'detailTxtHeader';
         subclassIntroTxt.className = 'detailTxtContent';
         subclassIntroHeader.textContent = 'Subclass';
-        //subclassIntroTxt.textContent = subclasssIntroTxt;
+        //subclassIntroTxt.textContent = subclassIntroTxt;
         //FIXME P2T1 This is temporary until class intro descriptions are in place
-        subclassIntroTxt.textContent = "Subclass descriptions coming soon";
+        subclassIntroTxt.textContent = "Subclass descriptions coming very soon";
         subclassIntroMain.appendChild(subclassIntroHeader);
         subclassIntroMain.appendChild(subclassIntroTxt);
         detailTextContent.appendChild(subclassIntroMain);
@@ -4024,6 +4099,117 @@ function placeImages(articles, type) {
 
 };
 
+/* function generateTableHeadNew(table, data) {
+    const headers = Object.keys(data);
+    const thead = table.createTHead();
+    const row = thead.insertRow();
+    console.log(data)
+    for (const key of headers) {
+        const eachItem = data[key]
+        // Check if the key is an array of objects (indicating sub-headings)
+        if (Array.isArray(eachItem) && eachItem.length > 0) {
+            const arrayth = document.createElement("th");
+            const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+            const text = document.createTextNode(capitalizeWords(fixedKey));
+            arrayth.appendChild(text);
+            row.appendChild(arrayth);
+
+            // Create a new row for subheaders
+            const subRow = thead.insertRow();
+            // Iterate through the properties of the first object
+            eachItem.forEach( item => {
+                const subHeadKey = Object.keys(item)[0];
+                const subHeadTh = document.createElement("th");
+                const subHeadText = document.createTextNode(capitalizeWords(subHeadKey));
+                subHeadTh.appendChild(subHeadText);
+                subRow.appendChild(subHeadTh);
+            });
+        } else {
+            // Create a regular cell for the main heading
+            const th = document.createElement("th");
+            const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+            const text = document.createTextNode(capitalizeWords(fixedKey));
+            th.appendChild(text);
+            row.appendChild(th);
+        }
+    }
+} */
+/* 
+function createTable(data, parentDiv) {
+    // Create a table element
+    var table = document.createElement('table');
+
+    // Create a header row
+    var headerRow = table.insertRow(0);
+
+    // Iterate over the keys of the first item in the data array to create the header cells
+    Object.keys(data[0]).forEach(function (key) {
+        var cell = headerRow.insertCell();
+        cell.textContent = key;
+
+        // If the value is an object, create subheaders
+        if (typeof data[0][key] === 'object') {
+            Object.keys(data[0][key]).forEach(function (subKey) {
+                var subCell = headerRow.insertCell();
+                subCell.textContent = subKey;
+            });
+        }
+    });
+
+    // Iterate over the data array to create rows and cells
+    data.forEach(function (item) {
+        var row = table.insertRow();
+
+        // Iterate over the keys of the current item to create cells
+        Object.keys(item).forEach(function (key) {
+            var cell = row.insertCell();
+            var value = item[key];
+
+            // If the value is an object, iterate over its keys and concatenate them
+            if (typeof value === 'object') {
+                Object.keys(value).forEach(function (subKey) {
+                    cell.textContent += subKey + ': ' + value[subKey] + '\n';
+                });
+            } else {
+                cell.textContent = value;
+            }
+        });
+    });
+
+    // Append the table to the body or any other container
+    parentDiv.appendChild(table);
+}
+
+function generateTableHeadNew(table, data) {
+    const headers = Object.keys(data);
+    const thead = table.createTHead();
+    const row = thead.insertRow();
+
+    for (const key of headers) {
+        const eachItem = data[key];
+
+        // Create a regular cell for the main heading
+        const th = document.createElement("th");
+        const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+        const text = document.createTextNode(capitalizeWords(fixedKey));
+        th.appendChild(text);
+        row.appendChild(th);
+
+        if (typeof eachItem === 'object') {
+            // Check if the value associated with the key is an object
+            const subHeadKeys = Object.keys(eachItem);
+
+            // Iterate through the properties of the object
+            subHeadKeys.forEach((subHeadKey) => {
+                const th = document.createElement("th");
+                const text = document.createTextNode(subHeadKey);
+                th.appendChild(text);
+                row.appendChild(th);
+            });
+        }
+    }
+}
+ */
 function generateTableHead(table, data) {
     const thead = table.createTHead();
     const row = thead.insertRow();
