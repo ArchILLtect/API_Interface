@@ -76,6 +76,7 @@
 11/23/23 - Completed class proficiencies<br>
 11/23/23 - More upgrades to class details window and corresponding CSS<br>
 11/23/23 - More upgrades to class details window and corresponding CSS<br>
+11/25/23 - Upgraded generateTable to handle sub headers<br>
 <br>
 <br>
 <br>
