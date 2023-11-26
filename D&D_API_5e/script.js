@@ -2613,9 +2613,10 @@ function classDetailsWindow(data) {
     //TODO P1-T2 CONTINUE HERE - Create a table and populate with dataCache=>characters=>levels!
     // Class leveling table
     const tableHeader = document.createElement('div');
-    //const levelsTable = document.createElement('table');
+    const levelsTable = document.createElement('table');
     const levelsData = dataCache.characters.levels[classType]
     tableHeader.className = 'detailTxtHeader';
+    levelsTable.className = 'class-summary-table';
     tableHeader.textContent = `The ${makeTitle(classType)} Table`;
     detailTextContent.appendChild(tableHeader);
     let levelCount = 1;
@@ -2686,20 +2687,20 @@ function classDetailsWindow(data) {
             };
             classLevelsData.push({
                 "Level": curLevel,
-                "Proficiency Bonus": profBonus,
+                "Proficiency Bonus": `+${profBonus}`,
                 "Features": features,
                 "Cantrips Known": cantrips,
-                "Spell-Slots-per-Spell-Level": {
-                    "1st": slots[0],
-                    "2nd": slots[1],
-                    "3rd": slots[2],
-                    "4th": slots[3],
-                    "5th": slots[4],
-                    "6th": slots[5],
-                    "7th": slots[6],
-                    "8th": slots[7],
-                    "9th": slots[8]
-                }
+                "Spell-Slots-per-Spell-Level": [
+                    {"1st": slots[0]},
+                    {"2nd": slots[1]},
+                    {"3rd": slots[2]},
+                    {"4th": slots[3]},
+                    {"5th": slots[4]},
+                    {"6th": slots[5]},
+                    {"7th": slots[6]},
+                    {"8th": slots[7]},
+                    {"9th": slots[8]}
+                ]
             });
         } else {
             
@@ -2707,17 +2708,13 @@ function classDetailsWindow(data) {
         //const classLevels = { "Level": curLevel, "Proficiency Bonus": profBonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
 
     });
-    //console.log(classLevelsData)
 
-    //createTable(classLevelsData, detailTextContent)
-    //classLevelsData.push(classLevels);
+    const classLevelsKeys = classLevelsData[0];
+    generateTable(levelsTable, classLevelsData);
+    generateTableHead(levelsTable, classLevelsKeys);
 
-/*     const classLevelsKeys = classLevelsData[0];
-    //generateTable(levelsTable, classLevelsData);
-    generateTableHeadNew(levelsTable, classLevelsKeys);
-
-    detailTextContent.appendChild(levelsTable); */
-
+    detailTextContent.appendChild(levelsTable);
+    const firstCol = document.getElementById('firstCol');
 
     //Subclass
     if (subclass) {
@@ -4099,137 +4096,106 @@ function placeImages(articles, type) {
 
 };
 
-/* function generateTableHeadNew(table, data) {
+function generateTableHead(table, data) {
     const headers = Object.keys(data);
     const thead = table.createTHead();
     const row = thead.insertRow();
-    console.log(data)
+    let subHeadings = false;
     for (const key of headers) {
         const eachItem = data[key]
-        // Check if the key is an array of objects (indicating sub-headings)
         if (Array.isArray(eachItem) && eachItem.length > 0) {
-            const arrayth = document.createElement("th");
-            const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-            const text = document.createTextNode(capitalizeWords(fixedKey));
-            arrayth.appendChild(text);
-            row.appendChild(arrayth);
-
-            // Create a new row for subheaders
-            const subRow = thead.insertRow();
-            // Iterate through the properties of the first object
-            eachItem.forEach( item => {
-                const subHeadKey = Object.keys(item)[0];
-                const subHeadTh = document.createElement("th");
-                const subHeadText = document.createTextNode(capitalizeWords(subHeadKey));
-                subHeadTh.appendChild(subHeadText);
-                subRow.appendChild(subHeadTh);
-            });
-        } else {
+            subHeadings = true;
+        }
+    }
+    if (subHeadings === true) {
+        const subRow = thead.insertRow();
+        for (const key of headers) {
+            const eachItem = data[key]
+            // Check if the key is an array of objects (indicating sub-headings)
+            if (Array.isArray(eachItem) && eachItem.length > 0) {
+                const subHeadCount = eachItem.length
+                const mainHead = document.createElement("th");
+                const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+                const text = document.createTextNode(capitalizeWords(fixedKey));
+                mainHead.colSpan = subHeadCount;
+                mainHead.appendChild(text);
+                row.appendChild(mainHead);
+    
+                eachItem.forEach( subHead => {
+                    const subHeadKey = Object.keys(subHead);
+                    const subHeadth = document.createElement("th");
+                    const text = document.createTextNode(subHeadKey);
+                    subHeadth.appendChild(text);
+                    subRow.appendChild(subHeadth);
+                });
+            } else {
+                // Create a regular cell for the main heading
+                const th = document.createElement("th");
+                const subth = document.createElement("th");
+                const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
+                const text = document.createTextNode(capitalizeWords(fixedKey));
+                th.appendChild(text);
+                row.appendChild(th);
+                subRow.appendChild(subth);
+            }
+        }
+    } else {
+        for (const key of headers) {
+            const eachItem = data[key]
             // Create a regular cell for the main heading
             const th = document.createElement("th");
             const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
             const text = document.createTextNode(capitalizeWords(fixedKey));
             th.appendChild(text);
             row.appendChild(th);
-        }
     }
-} */
-/* 
-function createTable(data, parentDiv) {
-    // Create a table element
-    var table = document.createElement('table');
-
-    // Create a header row
-    var headerRow = table.insertRow(0);
-
-    // Iterate over the keys of the first item in the data array to create the header cells
-    Object.keys(data[0]).forEach(function (key) {
-        var cell = headerRow.insertCell();
-        cell.textContent = key;
-
-        // If the value is an object, create subheaders
-        if (typeof data[0][key] === 'object') {
-            Object.keys(data[0][key]).forEach(function (subKey) {
-                var subCell = headerRow.insertCell();
-                subCell.textContent = subKey;
-            });
-        }
-    });
-
-    // Iterate over the data array to create rows and cells
-    data.forEach(function (item) {
-        var row = table.insertRow();
-
-        // Iterate over the keys of the current item to create cells
-        Object.keys(item).forEach(function (key) {
-            var cell = row.insertCell();
-            var value = item[key];
-
-            // If the value is an object, iterate over its keys and concatenate them
-            if (typeof value === 'object') {
-                Object.keys(value).forEach(function (subKey) {
-                    cell.textContent += subKey + ': ' + value[subKey] + '\n';
-                });
-            } else {
-                cell.textContent = value;
-            }
-        });
-    });
-
-    // Append the table to the body or any other container
-    parentDiv.appendChild(table);
+    }
 }
 
-function generateTableHeadNew(table, data) {
-    const headers = Object.keys(data);
+/* function generateTableHead(table, data) {
     const thead = table.createTHead();
     const row = thead.insertRow();
-
-    for (const key of headers) {
+    for (const key of data) {
         const eachItem = data[key];
-
-        // Create a regular cell for the main heading
+        console.log(eachItem)
+        if (Array.isArray(eachItem) && eachItem.length > 0) {
+            eachItem.forEach( secondData => {
+                const curObjectKey = Object.keys(secondData);
+                console.log(curObjectKey)
+                const objectth = document.createElement("th");
+                const objectText = document.createTextNode(curObjectKey);
+                objectth.appendChild(objectText);
+                row.appendChild(objectth);
+            });
+        } else {
         const th = document.createElement("th");
         const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
         const text = document.createTextNode(capitalizeWords(fixedKey));
         th.appendChild(text);
         row.appendChild(th);
-
-        if (typeof eachItem === 'object') {
-            // Check if the value associated with the key is an object
-            const subHeadKeys = Object.keys(eachItem);
-
-            // Iterate through the properties of the object
-            subHeadKeys.forEach((subHeadKey) => {
-                const th = document.createElement("th");
-                const text = document.createTextNode(subHeadKey);
-                th.appendChild(text);
-                row.appendChild(th);
-            });
         }
     }
-}
- */
-function generateTableHead(table, data) {
-    const thead = table.createTHead();
-    const row = thead.insertRow();
-    for (const key of data) {
-      const th = document.createElement("th");
-      const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-      const text = document.createTextNode(capitalizeWords(fixedKey));
-      th.appendChild(text);
-      row.appendChild(th);
-    }
 };
-
+ */
 function generateTable(table, data) {
     for (const element of data) {
         const row = table.insertRow();
         for (key in element) {
-            const cell = row.insertCell();
-            const text = document.createTextNode(element[key]);
-            cell.appendChild(text);
+            const eachItem = element[key];
+            if (Array.isArray(eachItem) && eachItem.length > 0) {
+                eachItem.forEach( curItem => {
+                    const curKey = Object.keys(curItem)
+                    const cell = row.insertCell();
+                    const text = document.createTextNode(curKey);
+                    cell.appendChild(text);
+                });
+
+            } else {
+                const cell = row.insertCell();
+                const text = document.createTextNode(element[key]);
+                cell.appendChild(text);
             }
+        }
     }
 };
 
