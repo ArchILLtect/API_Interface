@@ -2383,14 +2383,8 @@ function classDetailsWindow(data) {
     // For objects:
     let subclass = false;
     let abilBonValues = [];
-    let classAgeValue = '';
-    let classAlignDesc = '';
-    let classLangValue = '';
-    let classSizeValue = '';
-    let classSizeDesc = '';
-    let classSpeedValue = '';
-    let traitDivs = [];
     let subclassesInfo = [];
+    let tableSize = '';
     for (const key in data) {
         //Actions Section
         if (data.hasOwnProperty(key)) {
@@ -2612,11 +2606,13 @@ function classDetailsWindow(data) {
 
     //TODO P1-T2 CONTINUE HERE - Create a table and populate with dataCache=>characters=>levels!
     // Class leveling table
+    const levelsTableDiv = document.createElement('div');
     const tableHeader = document.createElement('div');
     const levelsTable = document.createElement('table');
     const levelsData = dataCache.characters.levels[classType]
+    levelsTableDiv.className = 'class-levels-div';
+    levelsTable.className = 'class-levels-table ';
     tableHeader.className = 'detailTxtHeader';
-    levelsTable.className = 'class-summary-table';
     tableHeader.textContent = `The ${makeTitle(classType)} Table`;
     detailTextContent.appendChild(tableHeader);
     let levelCount = 1;
@@ -2654,6 +2650,7 @@ function classDetailsWindow(data) {
             let cantrips = 0;
             let slots = [];
             let slotCount = 1;
+            tableSize = 'large';
             levelItem.features.forEach( feat => {
                 if (featureCount === 1) {
                     features = feat.name;
@@ -2709,12 +2706,30 @@ function classDetailsWindow(data) {
 
     });
 
+    if (tableSize === 'large') {
+        levelsTableDiv.classList.add('table-large');
+    } else {
+        
+    }
     const classLevelsKeys = classLevelsData[0];
     generateTable(levelsTable, classLevelsData);
     generateTableHead(levelsTable, classLevelsKeys);
-
-    detailTextContent.appendChild(levelsTable);
-    const firstCol = document.getElementById('firstCol');
+    levelsTableDiv.appendChild(levelsTable);
+    detailTextContent.appendChild(levelsTableDiv);
+    const allCells = levelsTable.querySelectorAll('td');
+    allCells.forEach(cell => {
+        cell.style.textAlign = 'center';
+    });
+    const firstColumn = levelsTable.querySelectorAll('td:first-child');
+    // Center the cells in the first column
+    firstColumn.forEach(cell => {
+        cell.style.textAlign = 'left';
+    });
+    const thirdColumn = levelsTable.querySelectorAll('td:nth-child(3)');
+    // Center the cells in the first column
+    thirdColumn.forEach(cell => {
+        cell.style.textAlign = 'left';
+    });
 
     //Subclass
     if (subclass) {
@@ -4100,6 +4115,7 @@ function generateTableHead(table, data) {
     const headers = Object.keys(data);
     const thead = table.createTHead();
     const row = thead.insertRow();
+    row.className = 'mainHeaders'
     let subHeadings = false;
     for (const key of headers) {
         const eachItem = data[key]
@@ -4115,8 +4131,9 @@ function generateTableHead(table, data) {
             if (Array.isArray(eachItem) && eachItem.length > 0) {
                 const subHeadCount = eachItem.length
                 const mainHead = document.createElement("th");
-                const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-                const text = document.createTextNode(capitalizeWords(fixedKey));
+                const fixedKey = makeTitle(key.replace(/-/g, ' '));
+                const text = document.createTextNode(fixedKey);
+                mainHead.className = 'table-cell';
                 mainHead.colSpan = subHeadCount;
                 mainHead.appendChild(text);
                 row.appendChild(mainHead);
@@ -4125,18 +4142,22 @@ function generateTableHead(table, data) {
                     const subHeadKey = Object.keys(subHead);
                     const subHeadth = document.createElement("th");
                     const text = document.createTextNode(subHeadKey);
+                    subHeadth.className = 'spell-slot-cell'
                     subHeadth.appendChild(text);
                     subRow.appendChild(subHeadth);
                 });
             } else {
                 // Create a regular cell for the main heading
                 const th = document.createElement("th");
-                const subth = document.createElement("th");
-                const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-                const text = document.createTextNode(capitalizeWords(fixedKey));
+                //const subth = document.createElement("th");
+                const fixedKey = makeTitle(key.replace(/-/g, ' '));
+                const text = document.createTextNode(fixedKey);
+                th.className = 'table-cell';
+                th.rowSpan = 2
+                //subth.className = 'table-cell';
                 th.appendChild(text);
                 row.appendChild(th);
-                subRow.appendChild(subth);
+                //subRow.appendChild(subth);
             }
         }
     } else {
@@ -4144,39 +4165,15 @@ function generateTableHead(table, data) {
             const eachItem = data[key]
             // Create a regular cell for the main heading
             const th = document.createElement("th");
-            const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-            const text = document.createTextNode(capitalizeWords(fixedKey));
+            const fixedKey = makeTitle(eachItem.replace(/_/g, ' '));
+            const text = document.createTextNode(fixedKey);
+            th.className = 'table-cell';
             th.appendChild(text);
             row.appendChild(th);
-    }
+        }
     }
 }
 
-/* function generateTableHead(table, data) {
-    const thead = table.createTHead();
-    const row = thead.insertRow();
-    for (const key of data) {
-        const eachItem = data[key];
-        console.log(eachItem)
-        if (Array.isArray(eachItem) && eachItem.length > 0) {
-            eachItem.forEach( secondData => {
-                const curObjectKey = Object.keys(secondData);
-                console.log(curObjectKey)
-                const objectth = document.createElement("th");
-                const objectText = document.createTextNode(curObjectKey);
-                objectth.appendChild(objectText);
-                row.appendChild(objectth);
-            });
-        } else {
-        const th = document.createElement("th");
-        const fixedKey = capitalizeWords(key.replace(/-/g, ' '));
-        const text = document.createTextNode(capitalizeWords(fixedKey));
-        th.appendChild(text);
-        row.appendChild(th);
-        }
-    }
-};
- */
 function generateTable(table, data) {
     for (const element of data) {
         const row = table.insertRow();
@@ -4184,9 +4181,10 @@ function generateTable(table, data) {
             const eachItem = element[key];
             if (Array.isArray(eachItem) && eachItem.length > 0) {
                 eachItem.forEach( curItem => {
-                    const curKey = Object.keys(curItem)
+                    const cellValue = Object.values(curItem);
+                    console.log(cellValue)
                     const cell = row.insertCell();
-                    const text = document.createTextNode(curKey);
+                    const text = document.createTextNode(cellValue);
                     cell.appendChild(text);
                 });
 
