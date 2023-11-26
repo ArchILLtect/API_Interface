@@ -137,12 +137,6 @@ main {
     padding-right: 20px;
 }
 
-.charMain table {
-    font-family: Scala_Sans;
-    font-size: 16px;
-    font-weight: 100;
-}
-
 article img {
     max-width: 80%;
     height: 300px;
@@ -203,34 +197,56 @@ article {
     font-weight: 100;
     line-height: 30px;
 }
-
-.class-summary-div {
+/* TODO Change class names */
+.class-summary-div,
+.class-levels-div {
     display: flex;
     overflow-x: auto;
+    font-family: Scala_Sans;
+    font-weight: 100;
 }
 
-.class-summary-table {
+.class-summary-div {
+    font-size: 16px;
+    width: 100%;
+}
+.class-levels-div {
+    font-size: 14px;
+    justify-items: center;
+    width: 95%;
+}
+.class-summary-table,
+.class-levels-table {
     border-collapse: collapse;
     background-color: #FFFFFF;
     margin-top: 30px;
     margin-bottom: 50px;
-    max-width: 100%;
 }
 
-.class-summary-table thead {
+.class-summary-table thead,
+.class-levels-table thead {
     border-bottom: 3px solid #aeaeae;
     padding: 12px 20px;
 }
+
+.mainHeaders {
+    min-width: 300px;
+}
   
-.class-summary-table th,
-.class-summary-table td {
+.table-cell {
     padding-left: 12px;
     padding-right: 20px;
     border: 1px solid #aeaeae;
 }
 
-.class-summary-table tbody tr:nth-child(odd){
+.class-summary-table tbody tr:nth-child(odd),
+.class-levels-table tbody tr:nth-child(odd) {
     background-color: #EAEAEA;
+}
+
+.spell-slot-cell {
+    padding: 8px 3px;
+    border: 1px solid #aeaeae;
 }
 
 .modalWindow {
@@ -977,20 +993,30 @@ button {
         width: 200px;
     }
 
+    .class-summary-div,
+    .class-levels-div {
+        width: 100%;
+        justify-content: center;
+    }
+
     .class-summary-table {
         width: 850px;
     }
 
-    .class-summary-div {
-        justify-content: center;
+    .class-levels-table {
+        width: 95%;
     }
 
-    .class-summary-table th,
-    .class-summary-table td {
+    .table-cell {
         padding: 8px 20px;
         border: 1px solid #aeaeae;
-}
+    }
 
+    .class-summary-table td,
+    .class-levels-table td {
+        padding: 8px 5px;
+        border: 1px solid #aeaeae;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
