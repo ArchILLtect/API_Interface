@@ -2380,180 +2380,6 @@ function classDetailsWindow(data) {
     mainDetailsDiv.appendChild(statHeaderBar);
     mainDetailsDiv.appendChild(detailTextContent);
 
-    // For objects:
-    let subclass = false;
-    let abilBonValues = [];
-    let subclassesInfo = [];
-    let tableSize = '';
-    for (const key in data) {
-        //Actions Section
-        if (data.hasOwnProperty(key)) {
-            const eachItem = data[key];
-            const currentDetail = key.replace(/_/g, " ");
-            //TODO P1-3 - Need to add Half-Elf = Ability Bonus Options AND Half-Elf+Human = Lang Option AND All = Subraces & Starting Profs[options](?)
-            //TODO CONTINUE HERE!!!!!!!!!!!!!!!!!!!!!!! GET RID OF THIS WHOLE ENTIRE FOR?????
-            if (key === 'subclasses' && Array.isArray(eachItem) && eachItem.length > 0) {
-
-            } else if (key === 'ability_bonuses') {
-                for (eachKey in eachItem) {
-                    const abilBonItem = eachItem[eachKey];
-                    const curAbilBonTitle = abilBonItem.ability_score.name;
-                    const curAbilBonDesc = abilBonItem.bonus;
-
-                    abilBonValues.push(`${curAbilBonTitle} +${curAbilBonDesc}`) 
-                }
-            } else if (key === 'age') {
-                raceAgeValue = eachItem;
-            } else if (key === 'alignment') {
-                raceAlignDesc = eachItem;
-            } else if (key === 'language_desc') {
-                raceLangValue = eachItem;
-            } else if (key === 'size') {
-                raceSizeValue = eachItem;
-            } else if (key === 'size_description') {
-                raceSizeDesc = eachItem;
-            } else if (key === 'speed') {
-                raceSpeedValue = eachItem;
-            } else if (key === 'traits') {
-                for (eachKey in eachItem) {
-                    const traitItem = eachItem[eachKey];
-                    const traitDiv = document.createElement('div');
-                    const traitContent = document.createElement('p');
-                    const curTraitTitle = traitItem.name;
-                    const curTraitIndex = traitItem.index;
-                    traitDiv.className = 'detailTxtDiv';
-                    traitContent.className = 'detailTxtContent';
-                    traitContent.innerHTML = `<span>${curTraitTitle}</span>. ${dataCache['characters']['traits'][curTraitIndex].desc}.`;
-                    traitDiv.appendChild(traitContent);
-                    traitDivs.push(traitDiv);
-                    if (curTraitIndex === 'draconic-ancestry') {
-                        const traitItem = dataCache.characters.traits;
-                        const draconicAncestryDiv = document.createElement('div');
-                        draconicAncestryDiv.className = 'class-summary-div';
-                        draconicAncestryTable.className = 'class-summary-table';
-                        draconicAncestryDiv.appendChild(draconicAncestryTable);
-                        for (traitKey in traitItem) {
-                            if (traitKey.startsWith('draconic-ancestry-')) {
-                                const index = traitItem[traitKey].index;
-                                const AOE_SIZE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.size;
-                                const AOE_TYPE = traitItem[traitKey].trait_specific.breath_weapon.area_of_effect.type;
-                                const DC_SAVE = traitItem[traitKey].trait_specific.breath_weapon.dc.dc_type.index;
-                                const dragonType = capitalizeWords(extractPortion(index, 2, "-"));
-                                const damage_type = traitItem[traitKey].trait_specific.damage_type.name;
-                                let breathWeapon = '';
-                                if (AOE_SIZE === 30) {
-                                    breathWeapon = `5 by ${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`;
-                                } else {
-                                    breathWeapon = `${AOE_SIZE} ft. ${AOE_TYPE} (${capitalizeWords(DC_SAVE)}. save)`
-                                }
-                                const draconicAncestry = { "name": dragonType, "damage_type": damage_type, "breath_weapon": breathWeapon };
-                                draconicAncestryData.push(draconicAncestry);
-                            }
-                        }
-                        draconicAncestryDiv.appendChild(draconicAncestryTable);
-                        traitDivs.push(draconicAncestryDiv);
-                    }
-                
-                }
-            } else if (key === 'index' || key === 'name' || key === 'languages' || key === 'url') {
-
-            } else {
-                //TODO P5T3 Uncomment these to check data points - Same @ 2443/2444
-                //console.log(key);
-            }
-        }
-    }
- 
-    for (const key in subclassData) {
-        //Actions Section
-        const subclassItemData = subclassData[key];
-        const parentclass = subclassItemData.class.index;
-        const currentDetail = key.replace(/_/g, " ");
-        if (parentclass === classType) {
-            //console.log(subclassItemData);
-            subclass = true;
-            const subclassItem = document.createElement('div');
-            const subclassItemHeader = document.createElement('div');
-            const subclassDiv = document.createElement('div');
-            const subclassItemIntro = document.createElement('p');
-            const subclassContent = document.createElement('p');
-            subclassItem.className = 'detailTxtMain';
-            subclassDiv.className = 'detailTxtDiv';
-            subclassContent.className = 'detailTxtContent';
-            subclassItemHeader.className = 'detailTxtHeader';
-            subclassItemIntro.className = 'detailTxtContent';
-            subclassItemHeader.textContent = subclassItemData.name;
-            subclassItemIntro.textContent = subclassItemData.desc;
-            subclassItem.appendChild(subclassItemHeader);
-            subclassItem.appendChild(subclassItemIntro);
-            for (const detailKey in subclassItemData) {
-                const detailItem = subclassItemData[detailKey];
-                if (detailKey === 'ability_bonuses' && Array.isArray(detailItem) && detailItem.length > 0) {
-                    const abilBonItem = detailItem;
-                    const abilBonMain = document.createElement('div');
-                    const abilityBonus = document.createElement('p');
-                    abilBonMain.className = 'detailTxtDiv';
-                    abilityBonus.className = 'detailTxtContent';
-                    abilityBonus.innerHTML = `<span>Ability Score Bonus.</span> `;
-                    abilBonItem.forEach((value, index) => {
-                        const abilBonTitle = value.ability_score.name;
-                        const abilBonDesc = value.bonus;
-                        abilityBonus.innerHTML += `${abilBonTitle} + ${abilBonDesc}`;
-                        if (index < abilityBonus.length - 1) {
-                            abilityBonus.innerHTML += ", ";
-                        }
-                    });
-                    abilBonMain.appendChild(abilityBonus);
-                    subclassItem.appendChild(abilBonMain);
-                }
-                if (detailKey === 'racial_traits' && Array.isArray(detailItem) && detailItem.length > 0) {
-                    const traitsItem = detailItem;
-                    console.log(traitsItem)
-                    traitsItem.forEach((value, index) => {
-                        const traitsMain = document.createElement('div');
-                        const traitsContent = document.createElement('p');
-                        const traitsTitle = value.name;
-                        const traitsIndex = value.index;
-                        const traitDesc = dataCache.characters.traits[traitsIndex]['desc']
-                        traitsContent.className = 'detailTxtContent';
-                        traitsContent.innerHTML = `<span>${traitsTitle}.</span> `;
-                        traitCounter = 0;
-                        traitsMain.appendChild(traitsContent);
-                        traitDesc.forEach( item => {
-                            if (traitDesc.length > 1 && traitCounter === 0) {
-                                traitsContent.innerHTML += item;
-                                traitCounter++
-                                traitsMain.className = 'detailTxtDivLarge';
-                            } else if (traitDesc.length > 1 && traitCounter === 1) {
-                                const traitsContentMore = document.createElement('p');
-                                traitsContentMore.innerHTML += item;
-                                traitsMain.appendChild(traitsContentMore);
-                                traitCounter++
-                            } else if (traitDesc.length > 1 && traitCounter > 1) {
-                                const traitsContentMore = document.createElement('p');
-                                const splitCurTrait = item.split(':');
-                                const traitItemTitle = splitCurTrait[0];
-                                const traitItemContent = splitCurTrait[1];
-                                traitsContentMore.innerHTML = `<span>${traitItemTitle}:</span> ${traitItemContent}`;
-                                traitsContentMore.className = 'subclassTraitDetail';
-                                traitsMain.appendChild(traitsContentMore);
-                                traitCounter++
-                            } else {
-                                traitsContent.innerHTML += item;
-                            }
-                        });
-                        if (index < traitsContent.length - 1) {
-                            traitsContent.innerHTML += ", ";
-                        }
-                        subclassItem.appendChild(traitsMain);
-                    });
-                }
-            }
-            subclassesInfo.push(subclassItem);
-        }
-
-    }
-
     //classes Description
     const classDescDiv = document.createElement('div');
     const classDescPara = document.createElement('p');
@@ -2604,7 +2430,6 @@ function classDetailsWindow(data) {
         }
     });
 
-    //TODO P1-T2 CONTINUE HERE - Create a table and populate with dataCache=>characters=>levels!
     // Class leveling table
     const levelsTableDiv = document.createElement('div');
     const tableHeader = document.createElement('div');
@@ -2615,7 +2440,6 @@ function classDetailsWindow(data) {
     tableHeader.className = 'detailTxtHeader';
     tableHeader.textContent = `The ${makeTitle(classType)} Table`;
     detailTextContent.appendChild(tableHeader);
-    let levelCount = 1;
     let classLevelsData = [];
 
     const tempDesc = document.createElement('p');
@@ -2623,116 +2447,39 @@ function classDetailsWindow(data) {
     tempDesc.textContent = "Tables coming very soon";
     detailTextContent.appendChild(tempDesc);
 
-    //Figure out how to sort data for each class type
-        //Full Casters (9th level spells) = Bard, Cleric, Druid, Sorcerer and Wizard.
-            //Spells known = Bard and Sorcerer.
-
-        //Half Casters (5th level spells) = Paladin and Ranger.
-            //Spells known = Ranger.
-            //All spells = Paladin.
-        //Other Caster = Warlock.
-            //{ "Level": level, "Proficiency Bonus": profBonus, "Features": features, "Cantrips Known": cantrips, "Spells Known": spells,
-            //  "Spell Slots": slots, "Slot Level": slotLevel, "Invocations Known": invocations }
-        //Non Casters = Barbarian, Fighter, Monk and Rogue.
-            // Barb = { "Level": level, "Proficiency Bonus": profBonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage }
-            // Fighter = { "Level": level, "Proficiency Bonus": profBonus, "Features": features }
-            // Monk = { "Level": level, "Proficiency Bonus": profBonus, "Martial Arts": martial, "Ki Points": kiPoints, "Unarmored Movement": UnarmoredMove, "Features": features }
-            // Rogue = { "Level": level, "Proficiency Bonus": profBonus, "Sneak Attack": sneak, "Features": features }
-    //Do a forEach on levels
+    //Set up data for Class Levels Tables
     levelsData.forEach( levelItem => {
-
-        if (classType === 'cleric' || classType === 'druid' || classType === 'wizard') {
-            const curLevel = levelItem.level;
-            const profBonus = levelItem.prof_bonus;
-            const spellcasting = levelItem.spellcasting;
-            let features = "";
-            let featureCount = 1;
-            let cantrips = 0;
-            let slots = [];
-            let slotCount = 1;
-            tableSize = 'large';
-            levelItem.features.forEach( feat => {
-                if (featureCount === 1) {
-                    features = feat.name;
-                    featureCount++
-                } else {
-                    features += ", " + feat.name;
-                    featureCount++
-                }
-            });
-            for (const slot in spellcasting) {
-                const slotQuantity = spellcasting[slot];
-                if (slot === 'cantrips_known') {
-                    cantrips = slotQuantity;
-                } else {
-                    if (slotCount === 1) {
-                        slots.push(slotQuantity);
-                        slotCount++;
-                    } else if (slotCount === 2) {
-                        slots.push(slotQuantity);
-                        slotCount++;
-                    } else if (slotCount === 3) {
-                        slots.push(slotQuantity);
-                        slotCount++;
-                    } else if (slotCount > 3) {
-                        slots.push(slotQuantity);
-                        slotCount++;
-                    } else {
-                        console.log('MORE THAN 10?????');
-                    }
-                }
-            };
-            classLevelsData.push({
-                "Level": curLevel,
-                "Proficiency Bonus": `+${profBonus}`,
-                "Features": features,
-                "Cantrips Known": cantrips,
-                "Spell-Slots-per-Spell-Level": [
-                    {"1st": slots[0]},
-                    {"2nd": slots[1]},
-                    {"3rd": slots[2]},
-                    {"4th": slots[3]},
-                    {"5th": slots[4]},
-                    {"6th": slots[5]},
-                    {"7th": slots[6]},
-                    {"8th": slots[7]},
-                    {"9th": slots[8]}
-                ]
-            });
-        } else {
-            
-        }
-        //const classLevels = { "Level": curLevel, "Proficiency Bonus": profBonus, "Features": features, "Rages": rages, "Rage Damage": rageDamage };
-
+        tableSetup(classType, levelItem, classLevelsData);
     });
 
-    if (tableSize === 'large') {
-        levelsTableDiv.classList.add('table-large');
-    } else {
-        
-    }
+    //Generate Class Levels Tables
     const classLevelsKeys = classLevelsData[0];
     generateTable(levelsTable, classLevelsData);
     generateTableHead(levelsTable, classLevelsKeys);
     levelsTableDiv.appendChild(levelsTable);
     detailTextContent.appendChild(levelsTableDiv);
+
+    //Set justification for table cells
     const allCells = levelsTable.querySelectorAll('td');
+    const levelIndex = columnByHeader(levelsTable, "Level");
+    const featuresIndex = columnByHeader(levelsTable, "Features");
     allCells.forEach(cell => {
         cell.style.textAlign = 'center';
     });
-    const firstColumn = levelsTable.querySelectorAll('td:first-child');
-    // Center the cells in the first column
-    firstColumn.forEach(cell => {
+    // Left justify the cells in the "Levels" column
+    const levelsColumn = levelsTable.querySelectorAll(`td:nth-child(${levelIndex})`);
+    levelsColumn.forEach(cell => {
         cell.style.textAlign = 'left';
     });
-    const thirdColumn = levelsTable.querySelectorAll('td:nth-child(3)');
-    // Center the cells in the first column
-    thirdColumn.forEach(cell => {
+    // Left justify the cells in the "Features" column
+    const featuresColumn = levelsTable.querySelectorAll(`td:nth-child(${featuresIndex})`);
+    featuresColumn.forEach(cell => {
         cell.style.textAlign = 'left';
     });
 
+    // FIXME Is this needed???
     //Subclass
-    if (subclass) {
+/*     if (subclass) {
         const subclassIntroMain = document.createElement('div');
         const subclassIntroHeader = document.createElement('div');
         const subclassIntroTxt = document.createElement('p');
@@ -2746,7 +2493,7 @@ function classDetailsWindow(data) {
         subclassIntroMain.appendChild(subclassIntroHeader);
         subclassIntroMain.appendChild(subclassIntroTxt);
         detailTextContent.appendChild(subclassIntroMain);
-    }
+    } */
 
     //Class Features
     const featuresMain = document.createElement('div');
@@ -2951,35 +2698,185 @@ function classDetailsWindow(data) {
         equipmentList.appendChild(equipmentListItem);
         detailTextContent.appendChild(equipmentDiv);
 
-    //Special Traits
- /*    const specialMain = document.createElement('div');
-    const specialHeader = document.createElement('div');
-    const specialIntro = document.createElement('p');
-    specialMain.className = 'detailTxtMain';
-    specialHeader.className = 'detailTxtHeader';
-    specialIntro.className = 'detailTxtContent';
-    specialHeader.textContent = 'Special Traits';
-    //specialIntro.textContent = traitsIntroTxt;
-    specialMain.appendChild(specialHeader);
-    specialMain.appendChild(specialIntro);
-    detailTextContent.appendChild(specialMain);
-    const traitsMain = document.createElement('div');
-    traitsMain.className = 'detailTxtMain';
-    traitDivs.forEach((curDiv) => {
-        traitsMain.appendChild(curDiv);
-    });
-    detailTextContent.appendChild(traitsMain); */
-    
-    //Subrace Traits
-    const subclassMain = document.createElement('div');
-    subclassesInfo.forEach( div => {
-        subclassMain.appendChild(div);
-    });
-    detailTextContent.appendChild(subclassMain);
+    if (classType === 'barbarian') {
+        //Primal Paths
+        const primalMain = document.createElement('div');
+        const primalHeader = document.createElement('div');
+        const primalIntro = document.createElement('p');
+        primalMain.className = 'detailTxtMain';
+        primalHeader.className = 'detailTxtHeader';
+        primalIntro.className = 'detailTxtContent';
+        primalHeader.textContent = 'Primal Paths';
+        primalIntro.textContent = "Rage burns in every barbarian’s heart, a furnace that drives him or her toward greatness. Different barbarians attribute their rage to different sources however. For some, it is an internal reservoir where pain, grief, and anger are forged into a fury hard as steel. Others see it as a spiritual blessing, a gift of a totem animal.";
+        primalMain.appendChild(primalHeader);
+        primalMain.appendChild(primalIntro);
+        detailTextContent.appendChild(primalMain);
+    } else if (classType === 'bard') {
+        //Bard Colleges
+        const collegeMain = document.createElement('div');
+        const collegeHeader = document.createElement('div');
+        const collegeIntro = document.createElement('p');
+        collegeMain.className = 'detailTxtMain';
+        collegeHeader.className = 'detailTxtHeader';
+        collegeIntro.className = 'detailTxtContent';
+        collegeHeader.textContent = 'Bard Colleges';
+        collegeIntro.textContent = "The way of a bard is gregarious. Bards seek each other out to swap songs and stories, boast of their accomplishments, and share their knowledge. Bards form loose associations, which they call colleges, to facilitate their gatherings and preserve their traditions.";
+        collegeMain.appendChild(collegeHeader);
+        collegeMain.appendChild(collegeIntro);
+        detailTextContent.appendChild(collegeMain);
+    } else if (classType === 'cleric') {
+        //Divine Domains
+        const domainMain = document.createElement('div');
+        const domainHeader = document.createElement('div');
+        const domainIntroOne = document.createElement('p');
+        const domainIntroTwo = document.createElement('p');
+        const domainIntroThree = document.createElement('p');
+        domainMain.className = 'detailTxtMain';
+        domainHeader.className = 'detailTxtHeader';
+        domainIntroOne.className = 'detailTxtContent';
+        domainIntroTwo.className = 'detailTxtContent';
+        domainIntroThree.className = 'detailTxtContent';
+        domainHeader.textContent = 'Divine Domains';
+        domainIntroOne.textContent = "In a pantheon, every deity has influence over different aspects of mortal life and civilization, called a deity’s domain. All the domains over which a deity has influence are called the deity’s portfolio. For example, the portfolio of the Greek god Apollo includes the domains of Knowledge, Life, and Light. As a cleric, you choose one aspect of your deity’s portfolio to emphasize, and you are granted powers related to that domain.";
+        domainIntroTwo.textContent = "Your choice might correspond to a particular sect dedicated to your deity. Apollo, for example, could be worshiped in one region as Phoebus (“radiant”) Apollo, emphasizing his influence over the Light domain, and in a different place as Apollo Acesius (“healing”), emphasizing his association with the Life domain. Alternatively, your choice of domain could simply be a matter of personal preference, the aspect of the deity that appeals to you most.";
+        domainIntroThree.textContent = "Each domain’s description gives examples of deities who have influence over that domain. Gods are included from the worlds of the Forgotten Realms, Greyhawk, Dragonlance, and Eberron campaign settings, as well as from the Celtic, Greek, Norse, and Egyptian pantheons of antiquity.";
+        domainMain.appendChild(domainHeader);
+        domainMain.appendChild(domainIntroOne);
+        domainMain.appendChild(domainIntroTwo);
+        domainMain.appendChild(domainIntroThree);
+        detailTextContent.appendChild(domainMain);
+    } else if (classType === 'druid') {
+        //Druid Circles
+        const circleMain = document.createElement('div');
+        const circleHeader = document.createElement('div');
+        const circleIntroOne = document.createElement('p');
+        const circleIntroTwo = document.createElement('p');
+        circleMain.className = 'detailTxtMain';
+        circleHeader.className = 'detailTxtHeader';
+        circleIntroOne.className = 'detailTxtContent';
+        circleIntroTwo.className = 'detailTxtContent';
+        circleHeader.textContent = 'Druid Circles';
+        circleIntroOne.textContent = "Though their organization is invisible to most outsiders, druids are part of a society that spans the land, ignoring political borders. All druids are nominally members of this druidic society, though some individuals are so isolated that they have never seen any high-ranking members of the society or participated in druidic gatherings. Druids recognize each other as brothers and sisters. Like creatures of the wilderness, however, druids sometimes compete with or even prey on each other.";
+        circleIntroTwo.textContent = "At a local scale, druids are organized into circles that share certain perspectives on nature, balance, and the way of the druid.";
+        circleMain.appendChild(circleHeader);
+        circleMain.appendChild(circleIntroOne);
+        circleMain.appendChild(circleIntroTwo);
+        detailTextContent.appendChild(circleMain);
+    } else if (classType === 'fighter') {
+        //Fighter Archtypes
+        const archetypeMain = document.createElement('div');
+        const archetypeHeader = document.createElement('div');
+        const archetypeIntro = document.createElement('p');
+        archetypeMain.className = 'detailTxtMain';
+        archetypeHeader.className = 'detailTxtHeader';
+        archetypeIntro.className = 'detailTxtContent';
+        archetypeHeader.textContent = 'Fighter Archetypes';
+        archetypeIntro.textContent = 'Different fighters choose different approaches to perfecting their fighting prowess. The martial archetype you choose to emulate reflects your approach.';
+        archetypeMain.appendChild(archetypeHeader);
+        archetypeMain.appendChild(archetypeIntro);
+        detailTextContent.appendChild(archetypeMain);
+    } else if (classType === 'monk') {
+        //Monastic Traditions
+        const traditionMain = document.createElement('div');
+        const traditionHeader = document.createElement('div');
+        const traditionIntro = document.createElement('p');
+        traditionMain.className = 'detailTxtMain';
+        traditionHeader.className = 'detailTxtHeader';
+        traditionIntro.className = 'detailTxtContent';
+        traditionHeader.textContent = 'Monastic Traditions';
+        traditionIntro.textContent = 'Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.';
+        traditionMain.appendChild(traditionHeader);
+        traditionMain.appendChild(traditionIntro);
+        detailTextContent.appendChild(traditionMain);
+    } else if (classType === 'paladin') {
+        //Sacred Oaths
+        const oathMain = document.createElement('div');
+        const oathHeader = document.createElement('div');
+        const oathIntro = document.createElement('p');
+        oathMain.className = 'detailTxtMain';
+        oathHeader.className = 'detailTxtHeader';
+        oathIntro.className = 'detailTxtContent';
+        oathHeader.textContent = 'Sacred Oaths';
+        oathIntro.textContent = 'Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin’s training. Some characters with this class don’t consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin’s heart.';
+        oathMain.appendChild(oathHeader);
+        oathMain.appendChild(oathIntro);
+        detailTextContent.appendChild(oathMain);
+    } else if (classType === 'ranger') {
+        //Ranger Archtypes
+        const archetypeMain = document.createElement('div');
+        const archetypeHeader = document.createElement('div');
+        const archetypeIntro = document.createElement('p');
+        archetypeMain.className = 'detailTxtMain';
+        archetypeHeader.className = 'detailTxtHeader';
+        archetypeIntro.className = 'detailTxtContent';
+        archetypeHeader.textContent = 'Ranger Archetypes';
+        archetypeIntro.textContent = 'The ideal of the ranger has classic expressions. These are detailed below.';
+        archetypeMain.appendChild(archetypeHeader);
+        archetypeMain.appendChild(archetypeIntro);
+        detailTextContent.appendChild(archetypeMain);
+    } else if (classType === 'rogue') {
+        //Rougish Archtypes
+        const archetypeMain = document.createElement('div');
+        const archetypeHeader = document.createElement('div');
+        const archetypeIntro = document.createElement('p');
+        archetypeMain.className = 'detailTxtMain';
+        archetypeHeader.className = 'detailTxtHeader';
+        archetypeIntro.className = 'detailTxtContent';
+        archetypeHeader.textContent = 'Rougish Archtypes';
+        archetypeIntro.textContent = 'Rogues have many features in common, including their emphasis on perfecting their skills, their precise and deadly approach to combat, and their increasingly quick reflexes. But different rogues steer those talents in varying directions, embodied by the rogue archetypes. Your choice of archetype is a reflection of your focus—not necessarily an indication of your chosen profession, but a description of your preferred techniques.';
+        archetypeMain.appendChild(archetypeHeader);
+        archetypeMain.appendChild(archetypeIntro);
+        detailTextContent.appendChild(archetypeMain);
+    } else if (classType === 'sorcerer') {
+        //Sorcerous Origins
+        const originsMain = document.createElement('div');
+        const originsHeader = document.createElement('div');
+        const originsIntro = document.createElement('p');
+        originsMain.className = 'detailTxtMain';
+        originsHeader.className = 'detailTxtHeader';
+        originsIntro.className = 'detailTxtContent';
+        originsHeader.textContent = 'Sorcerous Origins';
+        originsIntro.textContent = 'Different sorcerers claim different origins for their innate magic. Although many variations exist, most of these origins fall into two categories: a draconic bloodline and wild magic. Choose the draconic bloodline below or one from another source.';
+        originsMain.appendChild(originsHeader);
+        originsMain.appendChild(originsIntro);
+        detailTextContent.appendChild(originsMain);
+    } else if (classType === 'warlock') {
+        //Otherworldly Patrons
+        const patronsMain = document.createElement('div');
+        const patronsHeader = document.createElement('div');
+        const patronsIntroOne = document.createElement('p');
+        const patronsIntroTwo = document.createElement('p');
+        patronsMain.className = 'detailTxtMain';
+        patronsHeader.className = 'detailTxtHeader';
+        patronsIntroOne.className = 'detailTxtContent';
+        patronsIntroTwo.className = 'detailTxtContent';
+        patronsHeader.textContent = 'Otherworldly Patrons';
+        patronsIntroOne.textContent = 'The beings that serve as patrons for warlocks are mighty inhabitants of other planes of existence—not gods, but almost godlike in their power. Various patrons give their warlocks access to different powers and invocations, and expect significant favors in return.';
+        patronsIntroTwo.textContent = 'Some patrons collect warlocks, doling out mystic knowledge relatively freely or boasting of their ability to bind mortals to their will. Other patrons bestow their power only grudgingly, and might make a pact with only one warlock. Warlocks who serve the same patron might view each other as allies, siblings, or rivals.';
+        patronsMain.appendChild(patronsHeader);
+        patronsMain.appendChild(patronsIntroOne);
+        patronsMain.appendChild(patronsIntroTwo);
+        detailTextContent.appendChild(patronsMain);
+    } else if (classType === 'wizard') {
+        //Arcane Traditions
+        const patronsMain = document.createElement('div');
+        const patronsHeader = document.createElement('div');
+        const patronsIntroOne = document.createElement('p');
+        const patronsIntroTwo = document.createElement('p');
+        patronsMain.className = 'detailTxtMain';
+        patronsHeader.className = 'detailTxtHeader';
+        patronsIntroOne.className = 'detailTxtContent';
+        patronsIntroTwo.className = 'detailTxtContent';
+        patronsHeader.textContent = 'Arcane Traditions';
+        patronsIntroOne.textContent = 'The study of wizardry is ancient, stretching back to the earliest mortal discoveries of magic. It is firmly established in the worlds of D&D, with various traditions dedicated to its complex study.';
+        patronsIntroTwo.textContent = 'The most common arcane traditions in the multiverse revolve around the schools of magic. Wizards through the ages have cataloged thousands of spells, grouping them into eight categories called schools, as described in chapter 10. In some places, these traditions are literally schools; a wizard might study at the School of Illusion while another studies across town at the School of Enchantment. In other institutions, the schools are more like academic departments, with rival faculties competing for students and funding. Even wizards who train apprentices in the solitude of their own towers use the division of magic into schools as a learning device, since the spells of each school require mastery of different techniques.';
+        patronsMain.appendChild(patronsHeader);
+        patronsMain.appendChild(patronsIntroOne);
+        patronsMain.appendChild(patronsIntroTwo);
+        detailTextContent.appendChild(patronsMain);
+    }
 
-    //TODO DO I EVEN WANT THESE HERE??
-    const statBarDivOne = document.createElement('div');
-    const statsBarOne = document.createElement('img');
+    //TODO P1-T2 CONTINUE HERE
 
     //Footer
     const detailsFooter = document.createElement('div');
@@ -3013,6 +2910,196 @@ function classDetailsWindow(data) {
     watermarkToggleDiv.appendChild(watermarkToggleBtn);
     modalListeners()
 };
+
+function tableSetup(classType, levelItem, classLevelsData) {
+    const curLevel = levelItem.level;
+    const profBonus = levelItem.prof_bonus;
+    const rageDamage = levelItem.class_specific.rage_damage_bonus;
+    const kiPoints = levelItem.class_specific.ki_points;
+    const movement = levelItem.class_specific.unarmored_movement;
+    const sorceryPoints = levelItem.class_specific.sorcery_points;
+    const spellcasting = levelItem.spellcasting;
+    const invocations = levelItem.class_specific.invocations_known;
+    let features = "";
+    let featureCount = 1;
+    let rages = levelItem.class_specific.rage_count;
+    let cantrips = 0;
+    let spellSlots = 0;
+    let slotLevel = '';
+    let slots = [];
+    if (rages === 9999) {
+        rages = 'Unlimited';
+    }
+    levelItem.features.forEach( feat => {
+        if (featureCount === 1) {
+            features = feat.name;
+            featureCount++
+        } else {
+            features += ", " + feat.name;
+            featureCount++
+        }
+    });
+    for (const slot in spellcasting) {
+        const slotQuantity = spellcasting[slot];
+        const spellSlotLevel = /spell_slots_level/i;
+        console.log(slot)
+        if (slot === 'cantrips_known') {
+            cantrips = slotQuantity;
+        } else if (slot === 'spells_known') {
+            spells = slotQuantity;
+        } else if (classType === 'warlock' && spellSlotLevel.test(slot)) {
+            if (slotQuantity > 0) {
+                const slotSplit = slot.split("_");
+                const spellLevel = slotSplit[3];
+                if (spellLevel == 1) {
+                    slotLevel = '1st';
+                } else if (spellLevel == 2) {
+                    slotLevel = '2nd';
+                } else if (spellLevel == 3) {
+                    slotLevel = '3rd';
+                } else if (spellLevel > 3) {
+                    slotLevel = spellLevel + 'th';
+                }
+                spellSlots = slotQuantity;
+            }
+            slots.push(slotQuantity);
+        } else if (spellSlotLevel.test(slot)) {
+            slots.push(slotQuantity);
+        }
+    };
+    if (classType === 'cleric' || classType === 'druid' || classType === 'wizard') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Cantrips Known": cantrips,
+            "Spell-Slots-per-Spell-Level": [
+                {"1st": slots[0]},
+                {"2nd": slots[1]},
+                {"3rd": slots[2]},
+                {"4th": slots[3]},
+                {"5th": slots[4]},
+                {"6th": slots[5]},
+                {"7th": slots[6]},
+                {"8th": slots[7]},
+                {"9th": slots[8]}
+            ]
+        });
+    } else if (classType === 'barbarian') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Rages": rages,
+            "Rage Damage": rageDamage
+        });
+    } else if (classType === 'bard') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Cantrips Known": cantrips,
+            "Spells Known": spells,
+            "Spell-Slots-per-Spell-Level": [
+                {"1st": slots[0]},
+                {"2nd": slots[1]},
+                {"3rd": slots[2]},
+                {"4th": slots[3]},
+                {"5th": slots[4]},
+                {"6th": slots[5]},
+                {"7th": slots[6]},
+                {"8th": slots[7]},
+                {"9th": slots[8]}
+            ]
+        });
+    } else if (classType === 'fighter') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+        });
+    } else if (classType === 'monk') {
+        const martialArtsDie = levelItem.class_specific.martial_arts.dice_count;
+        const martialArtsValue = levelItem.class_specific.martial_arts.dice_value;
+        const martialArts = `${martialArtsDie}d${martialArtsValue}`;
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Martial Arts": martialArts,
+            "Ki Points": kiPoints,
+            "Unarmored Movement": movement,
+            "Features": features
+        });
+    } else if (classType === 'paladin') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Spell-Slots-per-Spell-Level": [
+                {"1st": slots[0]},
+                {"2nd": slots[1]},
+                {"3rd": slots[2]},
+                {"4th": slots[3]},
+                {"5th": slots[4]}
+            ]
+        });
+    } else if (classType === 'ranger') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Spells Known": spells,
+            "Spell-Slots-per-Spell-Level": [
+                {"1st": slots[0]},
+                {"2nd": slots[1]},
+                {"3rd": slots[2]},
+                {"4th": slots[3]},
+                {"5th": slots[4]}
+            ]
+        });
+    } else if (classType === 'rogue') {
+        const sneakAttackDie = levelItem.class_specific.sneak_attack.dice_count;
+        const sneakAttackValue = levelItem.class_specific.sneak_attack.dice_value;
+        const sneakAttack = `${sneakAttackDie}d${sneakAttackValue}`;
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Sneak Attack": sneakAttack,
+            "Features": features
+        });
+    } else if (classType === 'sorcerer') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Sorcery Points": sorceryPoints,
+            "Features": features,
+            "Cantrips Known": cantrips,
+            "Spells Known": spells,
+            "Spell-Slots-per-Spell-Level": [
+                {"1st": slots[0]},
+                {"2nd": slots[1]},
+                {"3rd": slots[2]},
+                {"4th": slots[3]},
+                {"5th": slots[4]},
+                {"6th": slots[5]},
+                {"7th": slots[6]},
+                {"8th": slots[7]},
+                {"9th": slots[8]}
+            ]
+        });
+    } else if (classType === 'warlock') {
+        classLevelsData.push({
+            "Level": curLevel,
+            "Proficiency Bonus": `+${profBonus}`,
+            "Features": features,
+            "Cantrips Known": cantrips,
+            "Spells Known": spells,
+            "Spell Slots": spellSlots,
+            "Slot Level": slotLevel,
+            "Invocations Known": invocations,
+        });
+    }
+}
 
 function equipDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
@@ -4129,7 +4216,7 @@ function generateTableHead(table, data) {
             const eachItem = data[key]
             // Check if the key is an array of objects (indicating sub-headings)
             if (Array.isArray(eachItem) && eachItem.length > 0) {
-                const subHeadCount = eachItem.length
+                const subHeadCount = eachItem.length;
                 const mainHead = document.createElement("th");
                 const fixedKey = makeTitle(key.replace(/-/g, ' '));
                 const text = document.createTextNode(fixedKey);
@@ -4142,32 +4229,31 @@ function generateTableHead(table, data) {
                     const subHeadKey = Object.keys(subHead);
                     const subHeadth = document.createElement("th");
                     const text = document.createTextNode(subHeadKey);
-                    subHeadth.className = 'spell-slot-cell'
+                    subHeadth.className = 'spell-slot-cell';
+                    subHeadth.id = subHeadKey;
                     subHeadth.appendChild(text);
                     subRow.appendChild(subHeadth);
                 });
             } else {
                 // Create a regular cell for the main heading
                 const th = document.createElement("th");
-                //const subth = document.createElement("th");
                 const fixedKey = makeTitle(key.replace(/-/g, ' '));
                 const text = document.createTextNode(fixedKey);
                 th.className = 'table-cell';
-                th.rowSpan = 2
-                //subth.className = 'table-cell';
+                th.rowSpan = 2;
+                th.id = key.toLowerCase().replace(' ', '_');
                 th.appendChild(text);
                 row.appendChild(th);
-                //subRow.appendChild(subth);
             }
         }
     } else {
         for (const key of headers) {
-            const eachItem = data[key]
             // Create a regular cell for the main heading
             const th = document.createElement("th");
-            const fixedKey = makeTitle(eachItem.replace(/_/g, ' '));
+            const fixedKey = makeTitle(key.replace(/_/g, ' '));
             const text = document.createTextNode(fixedKey);
             th.className = 'table-cell';
+            th.id = key.toLowerCase().replace(' ', '_');
             th.appendChild(text);
             row.appendChild(th);
         }
@@ -4175,6 +4261,7 @@ function generateTableHead(table, data) {
 }
 
 function generateTable(table, data) {
+    console.log(data)
     for (const element of data) {
         const row = table.insertRow();
         for (key in element) {
@@ -4182,7 +4269,6 @@ function generateTable(table, data) {
             if (Array.isArray(eachItem) && eachItem.length > 0) {
                 eachItem.forEach( curItem => {
                     const cellValue = Object.values(curItem);
-                    console.log(cellValue)
                     const cell = row.insertCell();
                     const text = document.createTextNode(cellValue);
                     cell.appendChild(text);
@@ -4195,6 +4281,27 @@ function generateTable(table, data) {
             }
         }
     }
+};
+
+function columnByHeader(table, header) {
+    const allHeaders = table.querySelectorAll('th');
+    const headerId = header.toLowerCase().replace(' ', '_');
+    let childNumber = 0;
+
+    allHeaders.forEach( head => {
+        if ( head.id === headerId ) {
+            const parentElement = head.parentNode;
+            const children = parentElement.children;
+            for (var i = 0; i < children.length; i++) {
+                if (children[i] === head) {
+                    childNumber = i + 1;
+                    break;
+                }
+            }
+            console.log(childNumber)
+        }
+    });
+    return childNumber;
 };
 
 function extractPortion(string, portionIndex, separator="/") {
