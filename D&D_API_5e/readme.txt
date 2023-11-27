@@ -79,6 +79,7 @@
 11/25/23 - Upgraded generateTable to handle sub headers<br>
 11/25/23 - Level tables for cleric, druid and wizard finished<br>
 11/25/23 - CSS for level tables for cleric, druid and wizard finished<br>
+11/25/23 - Upgraded class detail window to include class "traits"<br>
 <br>
 <br>
 <br>
