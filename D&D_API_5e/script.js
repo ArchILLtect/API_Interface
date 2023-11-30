@@ -458,7 +458,7 @@ async function prepLoadAddition(itemType) {
         dataCache['characters'][itemType] = dataCache['characters'][itemType] || {};
         dataLocation = `./localCache/Characters/${itemType}/localCacheAdditonal.json`
     } else {
-        dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`
+        dataLocation = `./localCache/${itemType}/localCacheAdditonal.json`;
     }
     localCacheAssets['additional-data'][itemType] = localCacheAssets['additional-data'][itemType] || {};
 
@@ -466,7 +466,9 @@ async function prepLoadAddition(itemType) {
         //TODO THIS IS PROBABLY WHERE TRAITS ERROR IS!?!?
         //console.log(`@ prepLoad: itemType: ${itemType}`);
         //console.log('@ prepLoad: apiIndex on next log line:');
-        console.log(apiIndex);
+        console.log(dataLocation);
+        //console.log(dataCache.characters.subraces);
+        //console.log(dataCache.characters.traits);
         console.log('ADDED - API LOAD NEEDED! LOAD NEEDED!');
         await fetchAddedData(dataLocation);
         //TODO CHANGE THIS
@@ -480,6 +482,9 @@ async function prepLoadAddition(itemType) {
                 await fetchAddedData(curLocation);
                 cacheData(apiAdditionIndex, itemType, 'added');
             }
+            console.log(dataCache.characters.subraces);
+            console.log(dataCache.characters.traits);
+
         } else {
             for (const key in additionItems) {
                 const eachItem = additionItems[key];
@@ -2364,7 +2369,7 @@ function classDetailsWindow(data) {
     detailsHeader.appendChild(detailName);
     detailModal.appendChild(detailsHeader);
     detailsHeader.id = 'detailsHeader';
-    detailName.className = 'detailHeader'
+    detailName.className = 'detailHeader';
     detailName.textContent = data.name;
 
 
@@ -2389,7 +2394,7 @@ function classDetailsWindow(data) {
     classDescDiv.appendChild(classDescPara);
     classAdded.forEach( text => {
         if (text.index === classType) {
-        classDescPara.textContent = text.classIntro;
+            classDescPara.textContent = text.classIntro;
         }
     });
     classDescPara.className = 'detailDesc'
@@ -2489,7 +2494,6 @@ function classDetailsWindow(data) {
         }
     });
 
-
     // Class Leveling Table
     const levelsTableDiv = document.createElement('div');
     const tableHeader = document.createElement('div');
@@ -2532,7 +2536,35 @@ function classDetailsWindow(data) {
         cell.style.textAlign = 'left';
     });
 
-    //TODO P1T3 - Add a loop and if targetting Druids (2) and Paladin (1) to insert info post table but pre Class Features
+    
+    //TODO P1T3 - 
+    // Class Notes (for D&D basic this only applies to Druids and Paladins)
+
+    classAdded.forEach( item => {
+        const classNotes = item.classNotes;
+        if (item.index === classType && Array.isArray(classNotes)) {
+            classNotes.forEach ( note => {
+                const classNotesDiv = document.createElement('div');
+                const classNotesTitle = document.createElement('p');
+                const classNotesContent = note.notes;
+                classNotesTitle.textContent = note.title;
+                classNotesDiv.className = 'classNotesDiv'
+                classNotesTitle.className = 'detailDesc';
+                classNotesDiv.appendChild(classNotesTitle);
+                detailTextContent.appendChild(classNotesDiv);
+                classNotesContent.forEach( para => {
+                    const classNotesPara = document.createElement('p');
+                    classNotesPara.textContent = Object.values(para);
+                    classNotesPara.className = 'detailDesc';
+                    classNotesDiv.appendChild(classNotesPara);
+                })
+            });
+        }
+    });
+
+
+
+
     // FIXME Is this needed???
     //Subclass
 /*     if (subclass) {
@@ -3154,7 +3186,7 @@ function tableSetup(classType, levelItem, classLevelsData) {
             "Invocations Known": invocations,
         });
     }
-}
+};
 
 function equipDetailsWindow(data) {
     const NUM_OF_ITEMS = Object.keys(data).length;
