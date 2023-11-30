@@ -80,6 +80,8 @@
 11/25/23 - Level tables for cleric, druid and wizard finished<br>
 11/25/23 - CSS for level tables for cleric, druid and wizard finished<br>
 11/25/23 - Upgraded class detail window to include class "traits"<br>
+11/29/23 - Upgraded class local cache additonal data with class creation info<br>
+11/29/23 - Upgraded class detail window with class creation info<br>
 <br>
 <br>
 <br>
