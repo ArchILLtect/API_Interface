@@ -82,6 +82,8 @@
 11/25/23 - Upgraded class detail window to include class "traits"<br>
 11/29/23 - Upgraded class local cache additonal data with class creation info<br>
 11/29/23 - Upgraded class detail window with class creation info<br>
+11/30/23 - Upgraded class local cache additonal data with class notes info<br>
+11/30/23 - Upgraded class detail window with class notes info and add relevant CSS styles<br>
 <br>
 <br>
 <br>
