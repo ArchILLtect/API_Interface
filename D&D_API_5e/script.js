@@ -321,6 +321,7 @@ async function prepLoad(itemType, dataType='data', itemName) {
             curLocation = "./localCache/" + itemType + "/" + itemName + "/" + itemName + ".json";
 
             if (verifyLoadNeed(itemName, 'details')) {
+                console.log(curLocation)
                 console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
                 await fetchData(curLocation);
 
@@ -408,13 +409,13 @@ async function prepLoad(itemType, dataType='data', itemName) {
                 console.log('MAIN - API Load NOT needed!');
             }
     } else if (dataType === 'traits' || dataType === 'subraces'|| dataType === 'subclasses') {
-        //console.log('traits prepping');
+        console.log('traits prepping');
         dataCache['characters'] = dataCache['characters'] || {};
         dataCache['characters'][dataType] = dataCache['characters'][dataType] || {};
 
         curFile = `./localCache/Characters/${dataType}/${dataType}DetailsData.json`;
         if (verifyLoadNeed(itemType, dataType)) {
-            //console.log(`@ prepLoad: itemType: ${itemType}`);
+            console.log(`@ prepLoad: itemType: ${itemType}`);
             //console.log('@ prepLoad: apiIndex on next log line:');
             //console.log(apiIndex);
             console.log('MAIN - API LOAD NEEDED! LOAD NEEDED!');
@@ -450,7 +451,7 @@ async function prepLoadSecondary(itemType, dataType='data', itemName) {
 };
 
 async function prepLoadAddition(itemType) {
-
+    console.log('PREPLOADADD')
     let dataLocation;
     if (itemType === 'subraces' || itemType === 'traits') {
         dataCache['characters'] = dataCache['characters'] || {};
@@ -462,9 +463,10 @@ async function prepLoadAddition(itemType) {
     localCacheAssets['additional-data'][itemType] = localCacheAssets['additional-data'][itemType] || {};
 
     if (verifyLoadNeed(itemType, 'additional-data')) {
+        //TODO THIS IS PROBABLY WHERE TRAITS ERROR IS!?!?
         //console.log(`@ prepLoad: itemType: ${itemType}`);
         //console.log('@ prepLoad: apiIndex on next log line:');
-        //console.log(apiIndex);
+        console.log(apiIndex);
         console.log('ADDED - API LOAD NEEDED! LOAD NEEDED!');
         await fetchAddedData(dataLocation);
         //TODO CHANGE THIS
@@ -628,6 +630,7 @@ function cacheData(data, itemType, itemName) {
         }
     } else if (data.traitsData || data.subracesData  || data.subclassesData) {
         const curData = `${itemType}Data`;
+        console.log('Caching @ TRAITS')
         // This condition caches traitsData and subracesData
         if (
             dataCache['characters'] &&
@@ -2339,7 +2342,6 @@ function classDetailsWindow(data) {
     const classType = data.index;
     const classAdded = localCacheAssets['additional-data'].classes.results
     const subclassData = dataCache['characters']['subclasses'];
-    console.log(data)
     //TODO P5T3 Uncomment these to check data points - Same @ 2468
     //console.log(`${data.index} has ${NUM_OF_ITEMS} data points.`);
 
@@ -2430,7 +2432,65 @@ function classDetailsWindow(data) {
         }
     });
 
-    // Class leveling table
+    // Class Creation
+    const classCreateDiv = document.createElement('div');
+    const classCreateHeader = document.createElement('div');
+    const classCreatePara = document.createElement('p');
+    classCreatePara.className = 'detailDesc'
+    classCreateHeader.className = 'detailTxtHeader';
+    classCreateDiv.appendChild(classCreateHeader);
+    detailTextContent.appendChild(classCreateDiv);
+    classAdded.forEach( text => {
+        let createParaCount = 1;
+        if (text.index === classType) {
+            const classCreateData = text.creation;
+            if (Array.isArray(classCreateData) && classCreateData.length > 1) {
+                classCreateData.forEach( para => {
+                    if (createParaCount === 1){
+                        console.log('Where I wanna be');
+                        console.log(`createParaCount = ${createParaCount}`);
+                        classCreatePara.textContent = para[`para${createParaCount}`];
+                        classCreateDiv.appendChild(classCreatePara);
+                        createParaCount++;
+                    } else {
+                        const classCreateParaAdded = document.createElement('p');
+                        console.log('Second run');
+                        console.log(`createParaCount = ${createParaCount}`);
+                        classCreateParaAdded.className = 'detailDesc';
+                        classCreateParaAdded.textContent = para[`para${createParaCount}`];
+                        classCreateDiv.appendChild(classCreateParaAdded);
+                        createParaCount++;
+                    }
+                });
+            } else {
+                console.log('first ELSE')
+                classCreatePara.textContent = classCreateData;
+                classCreateDiv.appendChild(classCreatePara);
+            }
+            const classCreateHeaderText = `Creating a ${text.index.replace(/-/g, " ")}`;
+            classCreateHeader.textContent = makeTitle(classCreateHeaderText);
+        }
+    });
+
+    //TODO P3T3 - Change the styling of QUICK BUILD
+    // Quick Build
+    const classQuickBuildDiv = document.createElement('div');
+    const classQuickBuildHeader = document.createElement('div');
+    const classQuickBuildPara = document.createElement('p');
+    classQuickBuildHeader.textContent = 'Quick Build'
+    classQuickBuildPara.className = 'detailDesc'
+    classQuickBuildHeader.className = 'detailTxtHeader';
+    classQuickBuildDiv.appendChild(classQuickBuildHeader);
+    detailTextContent.appendChild(classQuickBuildDiv);
+    classQuickBuildDiv.appendChild(classQuickBuildPara);
+    classAdded.forEach( text => {
+        if (text.index === classType) {
+            classQuickBuildPara.textContent = text.quickBuild;
+        }
+    });
+
+
+    // Class Leveling Table
     const levelsTableDiv = document.createElement('div');
     const tableHeader = document.createElement('div');
     const levelsTable = document.createElement('table');
@@ -2441,11 +2501,6 @@ function classDetailsWindow(data) {
     tableHeader.textContent = `The ${makeTitle(classType)} Table`;
     detailTextContent.appendChild(tableHeader);
     let classLevelsData = [];
-
-    const tempDesc = document.createElement('p');
-    tempDesc.className = 'detailTxtContent';
-    tempDesc.textContent = "Tables coming very soon";
-    detailTextContent.appendChild(tempDesc);
 
     //Set up data for Class Levels Tables
     levelsData.forEach( levelItem => {
@@ -2477,6 +2532,7 @@ function classDetailsWindow(data) {
         cell.style.textAlign = 'left';
     });
 
+    //TODO P1T3 - Add a loop and if targetting Druids (2) and Paladin (1) to insert info post table but pre Class Features
     // FIXME Is this needed???
     //Subclass
 /*     if (subclass) {
@@ -2942,7 +2998,6 @@ function tableSetup(classType, levelItem, classLevelsData) {
     for (const slot in spellcasting) {
         const slotQuantity = spellcasting[slot];
         const spellSlotLevel = /spell_slots_level/i;
-        console.log(slot)
         if (slot === 'cantrips_known') {
             cantrips = slotQuantity;
         } else if (slot === 'spells_known') {
@@ -4261,7 +4316,6 @@ function generateTableHead(table, data) {
 }
 
 function generateTable(table, data) {
-    console.log(data)
     for (const element of data) {
         const row = table.insertRow();
         for (key in element) {
@@ -4298,7 +4352,6 @@ function columnByHeader(table, header) {
                     break;
                 }
             }
-            console.log(childNumber)
         }
     });
     return childNumber;
